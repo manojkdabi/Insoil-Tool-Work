@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Manager UI Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f3f4f6;
+            padding: 20px;
+        }
+        
+        .preview-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 24px;
+        }
+        
+        .preview-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .preview-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+        
+        .preview-subtitle {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+        
+        /* Header */
+        .inventory-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .inventory-title {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #111827;
+        }
+        
+        .inventory-save-status {
+            font-size: 0.875rem;
+            color: #10b981;
+            font-weight: 600;
+        }
+        
+        /* Toolbar */
+        .inventory-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .inventory-toolbar-left {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .inventory-search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .inventory-search-input {
+            width: 100%;
+            padding: 8px 12px 8px 36px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+        
+        .inventory-search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .inventory-toolbar-right {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: white;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .btn-blue {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        
+        /* Tabs */
+        .tab-nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0;
+        }
+        
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn.active {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+        
+        /* Dashboard */
+        .inventory-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .inventory-metric-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        
+        .inventory-metric-card.warning {
+            border-left: 4px solid #f59e0b;
+            background: #fffbeb;
+        }
+        
+        .inventory-metric-card.pending {
+            border-left: 4px solid #3b82f6;
+            background: #eff6ff;
+        }
+        
+        .inventory-metric-card.success {
+            border-left: 4px solid #10b981;
+            background: #f0fdf4;
+        }
+        
+        .metric-icon {
+            font-size: 2.5rem;
+        }
+        
+        .metric-content {
+            flex: 1;
+        }
+        
+        .metric-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+        
+        .metric-change {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+        
+        /* Quick Actions */
+        .inventory-quick-actions {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .inventory-quick-actions h3 {
+            margin-bottom: 16px;
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+        
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        
+        .quick-action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quick-action-btn:hover {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+        
+        .action-icon {
+            font-size: 1.5rem;
+        }
+        
+        .action-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        /* Activity Timeline */
+        .inventory-recent-activity {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .inventory-recent-activity h3 {
+            margin-bottom: 16px;
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+        
+        .activity-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .activity-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 8px;
+            border-left: 3px solid #d1d5db;
+        }
+        
+        .activity-item.update {
+            border-left-color: #3b82f6;
+            background: #eff6ff;
+        }
+        
+        .activity-icon {
+            font-size: 1.25rem;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 6px;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 2px;
+        }
+        
+        .activity-description {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+        
+        .activity-time {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <div class="preview-header">
+            <div class="preview-title">🎨 Inventory Manager - UI Enhancement Preview</div>
+            <div class="preview-subtitle">Enhanced dashboard, search, and export features</div>
+        </div>
+        
+        <!-- Header -->
+        <div class="inventory-header">
+            <div class="inventory-title">Inventory Manager</div>
+            <div class="inventory-save-status">All changes saved</div>
+        </div>
+        
+        <!-- Toolbar -->
+        <div class="inventory-toolbar">
+            <div class="inventory-toolbar-left">
+                <div class="inventory-search-box">
+                    <input type="text" placeholder="Search inventory..." class="inventory-search-input">
+                    <span class="inventory-search-icon">🔍</span>
+                </div>
+            </div>
+            <div class="inventory-toolbar-right">
+                <button class="btn">📥 Export CSV</button>
+                <button class="btn">📊 Export Excel</button>
+                <button class="btn btn-blue">🔄 Refresh</button>
+            </div>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="tab-nav">
+            <button class="tab-btn active">📊 Dashboard</button>
+            <button class="tab-btn">Stock</button>
+            <button class="tab-btn">Device Constitution</button>
+            <button class="tab-btn">Approvals</button>
+            <button class="tab-btn">Liquidation</button>
+            <button class="tab-btn">Prod Batch</button>
+            <button class="tab-btn">Refill Batch</button>
+        </div>
+        
+        <!-- Dashboard Metrics -->
+        <div class="inventory-metrics-grid">
+            <div class="inventory-metric-card">
+                <div class="metric-icon">📦</div>
+                <div class="metric-content">
+                    <div class="metric-label">Total Parts</div>
+                    <div class="metric-value">1,847</div>
+                    <div class="metric-change">Across 23 items</div>
+                </div>
+            </div>
+            
+            <div class="inventory-metric-card">
+                <div class="metric-icon">🏭</div>
+                <div class="metric-content">
+                    <div class="metric-label">Built Devices</div>
+                    <div class="metric-value">127</div>
+                    <div class="metric-change">45 in stock</div>
+                </div>
+            </div>
+            
+            <div class="inventory-metric-card">
+                <div class="metric-icon">💰</div>
+                <div class="metric-content">
+                    <div class="metric-label">Total Value</div>
+                    <div class="metric-value">₹45,890</div>
+                    <div class="metric-change">Cost per device: ₹1,250</div>
+                </div>
+            </div>
+            
+            <div class="inventory-metric-card warning">
+                <div class="metric-icon">⚠️</div>
+                <div class="metric-content">
+                    <div class="metric-label">Low Stock Alerts</div>
+                    <div class="metric-value">3</div>
+                    <div class="metric-change">Items below threshold</div>
+                </div>
+            </div>
+            
+            <div class="inventory-metric-card pending">
+                <div class="metric-icon">⏳</div>
+                <div class="metric-content">
+                    <div class="metric-label">Pending Approvals</div>
+                    <div class="metric-value">5</div>
+                    <div class="metric-change">Awaiting action</div>
+                </div>
+            </div>
+            
+            <div class="inventory-metric-card success">
+                <div class="metric-icon">✅</div>
+                <div class="metric-content">
+                    <div class="metric-label">Recent Activity</div>
+                    <div class="metric-value">12</div>
+                    <div class="metric-change">Last 7 days</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="inventory-quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="quick-actions-grid">
+                <button class="quick-action-btn">
+                    <span class="action-icon">➕</span>
+                    <span class="action-label">Add Parts</span>
+                </button>
+                <button class="quick-action-btn">
+                    <span class="action-icon">🏭</span>
+                    <span class="action-label">Register Device</span>
+                </button>
+                <button class="quick-action-btn">
+                    <span class="action-icon">✓</span>
+                    <span class="action-label">Review Approvals</span>
+                </button>
+                <button class="quick-action-btn">
+                    <span class="action-icon">📤</span>
+                    <span class="action-label">Issue/Sale</span>
+                </button>
+                <button class="quick-action-btn">
+                    <span class="action-icon">📥</span>
+                    <span class="action-label">Export Data</span>
+                </button>
+                <button class="quick-action-btn">
+                    <span class="action-icon">🔄</span>
+                    <span class="action-label">Refresh All</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        <div class="inventory-recent-activity">
+            <h3>Recent Activity</h3>
+            <div class="activity-timeline">
+                <div class="activity-item update">
+                    <div class="activity-icon">📤</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Issue - Soil Sensor Module</div>
+                        <div class="activity-description">50 units to Field Operations Team</div>
+                    </div>
+                    <div class="activity-time">2h ago</div>
+                </div>
+                
+                <div class="activity-item update">
+                    <div class="activity-icon">📤</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Issue - LCD Display</div>
+                        <div class="activity-description">25 units to Assembly Line A</div>
+                    </div>
+                    <div class="activity-time">5h ago</div>
+                </div>
+                
+                <div class="activity-item update">
+                    <div class="activity-icon">💰</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Sale - Microcontroller Board</div>
+                        <div class="activity-description">100 units to Client XYZ</div>
+                    </div>
+                    <div class="activity-time">1d ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
