@@ -11598,6 +11598,34 @@ function setInventoryDirty(isDirty) {
     status.textContent = isDirty ? 'Unsaved changes' : 'All changes saved';
 }
 
+function showInventoryLoading(message = 'Loading...') {
+    const status = document.getElementById('inventory-save-status');
+    if (status) {
+        status.textContent = message;
+        status.style.color = '#2563eb';
+    }
+}
+
+function hideInventoryLoading() {
+    const status = document.getElementById('inventory-save-status');
+    if (status) {
+        status.textContent = inventoryState.dirty ? 'Unsaved changes' : 'All changes saved';
+        status.style.color = '';
+    }
+}
+
+function showInventoryError(title, message, canRetry = false, retryAction = null) {
+    let fullMessage = `${title}\n\n${message}`;
+    if (canRetry) {
+        fullMessage += '\n\nWould you like to retry?';
+        if (confirm(fullMessage) && retryAction) {
+            retryAction();
+        }
+    } else {
+        alert(fullMessage);
+    }
+}
+
 const inventoryTextMeasureCanvas = document.createElement('canvas');
 const inventoryTextMeasureContext = inventoryTextMeasureCanvas.getContext('2d');
 
@@ -11809,9 +11837,14 @@ function addInventoryRow(type) {
 
 function deleteInventoryRows(type) {
     if (!isInventoryAdmin()) {
-        alert('Admin login required to delete rows.');
+        showInventoryError(
+            'Permission Denied',
+            'Admin login required to delete rows.',
+            false
+        );
         return;
     }
+    
     const rows = inventoryState[type] || [];
     let selectedIds = new Set(rows.filter(r => r._selected).map(r => r.id));
     if (!selectedIds.size) {
@@ -11820,12 +11853,29 @@ function deleteInventoryRows(type) {
         selectedIds = new Set(checks.map(c => c.dataset.rowId));
     }
     if (!selectedIds.size) {
-        alert('Select at least one row to delete.');
+        showInventoryError(
+            'No Selection',
+            'Select at least one row to delete.',
+            false
+        );
         return;
     }
+    
+    // Confirmation dialog with details
+    const count = selectedIds.size;
+    const typeLabel = type.charAt(0).toUpperCase() + type.slice(1);
+    const confirmMessage = `Are you sure you want to delete ${count} ${typeLabel} ${count === 1 ? 'row' : 'rows'}?\n\nThis action cannot be undone.`;
+    
+    if (!confirm(confirmMessage)) {
+        return;
+    }
+    
     inventoryState[type] = rows.filter(r => !selectedIds.has(r.id));
     setInventoryDirty(true);
     renderInventoryAll();
+    
+    // Show success message
+    alert(`Successfully deleted ${count} ${count === 1 ? 'row' : 'rows'}.`);
 }
 
 function toggleInventorySelectAll(type, source) {
@@ -11962,41 +12012,63 @@ function loadInventoryData() {
         renderInventoryAll();
         return;
     }
+    
+    showInventoryLoading('Loading inventory data...');
+    
     google.script.run
         .withSuccessHandler((res) => {
-            inventoryState.constitution = normalizeInventoryRows('constitution', res?.constitution || []);
-            inventoryState.parts = normalizeInventoryRows('parts', res?.parts || []);
-            inventoryState.built = normalizeInventoryRows('built', res?.built || []);
-            const liquidationRaw = res?.liquidation || [];
-            const liquidationMap = new Map();
-            const normalizedLiquidation = liquidationRaw.map(row => {
-                const createdAt = row.requestCreatedAt || row.date || combineDateWithCurrentIstTime(formatDateToIso(new Date()));
-                const newRequestId = formatInventoryRequestId(row.action, createdAt);
-                if (row.requestId && row.requestId !== newRequestId) {
-                    liquidationMap.set(row.requestId, newRequestId);
-                }
-                return normalizeInventoryRow('liquidation', {
-                    ...row,
-                    requestCreatedAt: createdAt,
-                    requestId: newRequestId
+            try {
+                inventoryState.constitution = normalizeInventoryRows('constitution', res?.constitution || []);
+                inventoryState.parts = normalizeInventoryRows('parts', res?.parts || []);
+                inventoryState.built = normalizeInventoryRows('built', res?.built || []);
+                const liquidationRaw = res?.liquidation || [];
+                const liquidationMap = new Map();
+                const normalizedLiquidation = liquidationRaw.map(row => {
+                    const createdAt = row.requestCreatedAt || row.date || combineDateWithCurrentIstTime(formatDateToIso(new Date()));
+                    const newRequestId = formatInventoryRequestId(row.action, createdAt);
+                    if (row.requestId && row.requestId !== newRequestId) {
+                        liquidationMap.set(row.requestId, newRequestId);
+                    }
+                    return normalizeInventoryRow('liquidation', {
+                        ...row,
+                        requestCreatedAt: createdAt,
+                        requestId: newRequestId
+                    });
                 });
-            });
-            inventoryState.liquidation = normalizedLiquidation;
-            inventoryState.clients = normalizeInventoryRows('clients', res?.clients || []);
-            inventoryState.approvals = normalizeInventoryRows('approvals', res?.approvals || []).map(row => {
-                const updated = { ...row };
-                if (liquidationMap.has(updated.requestId)) {
-                    updated.requestId = liquidationMap.get(updated.requestId);
-                }
-                return updated;
-            });
-            inventoryState.refill = normalizeInventoryRows('refill', res?.refill || []);
-            setInventoryDirty(false);
-            renderInventoryAll();
+                inventoryState.liquidation = normalizedLiquidation;
+                inventoryState.clients = normalizeInventoryRows('clients', res?.clients || []);
+                inventoryState.approvals = normalizeInventoryRows('approvals', res?.approvals || []).map(row => {
+                    const updated = { ...row };
+                    if (liquidationMap.has(updated.requestId)) {
+                        updated.requestId = liquidationMap.get(updated.requestId);
+                    }
+                    return updated;
+                });
+                inventoryState.refill = normalizeInventoryRows('refill', res?.refill || []);
+                setInventoryDirty(false);
+                renderInventoryAll();
+                hideInventoryLoading();
+            } catch (error) {
+                console.error('Error processing inventory data:', error);
+                showInventoryError(
+                    'Data Processing Error',
+                    'Failed to process inventory data. Some data may be corrupted.',
+                    false
+                );
+                hideInventoryLoading();
+                renderInventoryAll();
+            }
         })
         .withFailureHandler((err) => {
-            console.error(err);
-            alert('Failed to load inventory data: ' + (err?.message || err));
+            console.error('Failed to load inventory:', err);
+            const errorMessage = err?.message || String(err);
+            showInventoryError(
+                'Failed to Load Inventory',
+                `${errorMessage}\n\nPlease check your connection and try again.`,
+                true,
+                loadInventoryData
+            );
+            hideInventoryLoading();
             renderInventoryAll();
         })
         .getInventoryData();
@@ -12046,17 +12118,25 @@ function saveInventoryTable(type) {
 
 function saveInventoryData(type) {
     if (typeof google === 'undefined' || !google.script?.run) {
-        alert('Inventory save is only available in the Apps Script deployment.');
+        showInventoryError(
+            'Save Not Available',
+            'Inventory save is only available in the Apps Script deployment.',
+            false
+        );
         return;
     }
+    
+    // Validate all tables that need to be saved
     const tablesToValidate = type ? [type] : ['constitution', 'parts', 'built', 'liquidation', 'clients', 'approvals', 'refill'];
     for (const tableType of tablesToValidate) {
         const result = validateInventoryTable(tableType);
         if (!result.valid) {
-            alert(`${result.title}: ${result.message}`);
+            showInventoryError(result.title, result.message, false);
             return;
         }
     }
+    
+    // Prepare payload
     const constitutionPayload = inventoryState.constitution.map(row => {
         const costPerDevice = (Number(row.unitsPerDevice) || 0) * (Number(row.costPerUnit) || 0);
         return {
@@ -12077,14 +12157,25 @@ function saveInventoryData(type) {
         approvals: inventoryState.approvals,
         refill: inventoryState.refill
     };
+    
+    showInventoryLoading('Saving inventory data...');
+    
     google.script.run
         .withSuccessHandler((res) => {
             setInventoryDirty(false);
-            alert(res?.msg || 'Inventory saved.');
+            hideInventoryLoading();
+            alert(res?.msg || 'Inventory saved successfully.');
         })
         .withFailureHandler((err) => {
-            console.error(err);
-            alert('Failed to save inventory data: ' + (err?.message || err));
+            console.error('Failed to save inventory:', err);
+            const errorMessage = err?.message || String(err);
+            showInventoryError(
+                'Failed to Save Inventory',
+                `${errorMessage}\n\nYour changes are still stored locally. Please try again.`,
+                true,
+                () => saveInventoryData(type)
+            );
+            hideInventoryLoading();
         })
         .saveInventoryData(payload);
 }
