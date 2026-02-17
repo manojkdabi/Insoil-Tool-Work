@@ -18962,9 +18962,18 @@ function renderDeviceRegistry() {
   
   console.log(`📄 Rendering Devices page ${registryCurrentPage}/${totalPages} (${startIdx + 1}-${endIdx} of ${totalRecords})`);
 
-  pagedRegistry.forEach(function (r) {
+  pagedRegistry.forEach(function (r, pageIdx) {
     const tr = document.createElement('tr');
     tr.style.cursor = 'pointer'; // Show hand cursor to indicate clickability
+    
+    // Store the original index in the full deviceRegistry array for save operations
+    // Use a more robust approach: find by reference equality first, fallback to DID matching
+    let originalIndex = deviceRegistry.indexOf(r);
+    if (originalIndex === -1) {
+      // Fallback: try to find by DID if reference equality fails
+      originalIndex = deviceRegistry.findIndex(reg => reg.did && reg.did === r.did);
+    }
+    tr.setAttribute('data-registry-index', originalIndex);
 
     const safeDid = escapeHtml(String(r.did ?? ''));
     const prodBatchOptions = buildProdBatchOptions_(r.prodBatchId);
@@ -19918,12 +19927,18 @@ function saveDeviceRegistry() {
     if (!tbody) return;
 
     const rows = Array.from(tbody.querySelectorAll('tr'));
-    const newRegObjects = [];
     let hadErrors = false;
     const allErrorMessages = [];
     let anyData = false;
+    const updatedIndices = new Set(); // Track which rows were updated
 
     rows.forEach(function (row, rowIndex) {
+        // Get the original index in the deviceRegistry array
+        const originalIndex = parseInt(row.getAttribute('data-registry-index'), 10);
+        if (isNaN(originalIndex) || originalIndex < 0) {
+            // This is a new row being added
+            console.log('Row', rowIndex + 1, 'is a new row (no original index)');
+        }
         // Grab inputs by class (ignores Geoapify's extra visible input)
         const clientInput    = row.querySelector('.reg-client');
         const companyInput   = row.querySelector('.reg-company');
@@ -20031,14 +20046,14 @@ function saveDeviceRegistry() {
             return;
         }
 
-        // All validations for this row passed → include in save batch
+        // All validations for this row passed → update in deviceRegistry array
         const date = dateRaw || ''; // keep yyyy-mm-dd for <input type="date">
 
         if (client || company || pan || gstin || address || did || simRaw ||
             aadhaar || mobile || moName || date || place || gpsRaw || pin ||
             block || district || state || prodBatchId) {
 
-            newRegObjects.push({
+            const rowData = {
                 client,
                 company,
                 pan,
@@ -20057,7 +20072,19 @@ function saveDeviceRegistry() {
                 district,
                 state,
                 prodBatchId
-            });
+            };
+
+            // Update the deviceRegistry array at the correct index
+            if (!isNaN(originalIndex) && originalIndex >= 0 && originalIndex < deviceRegistry.length) {
+                // Existing row - update it
+                deviceRegistry[originalIndex] = rowData;
+                updatedIndices.add(originalIndex);
+                console.log('Updated existing row at index', originalIndex);
+            } else {
+                // New row - append it
+                deviceRegistry.push(rowData);
+                console.log('Added new row to deviceRegistry');
+            }
         }
     });
 
@@ -20076,10 +20103,8 @@ function saveDeviceRegistry() {
         return;
     }
 
-    // All good → update in-memory registry & sheet
-    deviceRegistry = newRegObjects;
-
-    const sheetRows = newRegObjects.map(function (r) {
+    // All good → save the entire deviceRegistry array to the sheet
+    const sheetRows = deviceRegistry.map(function (r) {
         return [
             r.client   || '',
             r.company  || '',
