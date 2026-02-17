@@ -7220,6 +7220,10 @@
           <button class="btn btn-outline" onclick="refreshSTVDirect()">Refresh</button>
           <button class="btn btn-indigo" onclick="exportSTVDirectBulkPdf()" id="stv-direct-bulk-pdf" disabled>Bulk PDF</button>
           <button class="btn btn-outline" onclick="exportSTVDirectBulkSvg()" id="stv-direct-bulk-svg" disabled>Bulk SVG</button>
+          <select id="stv-direct-language" style="padding:6px 10px; border:1px solid #d1d5db; border-radius:6px; font-size:0.875rem; background:#fff; cursor:pointer; margin-left:8px;">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+          </select>
           <input type="file" id="stvDirectModuleImport" accept=".csv" style="display:none;" onchange="client_ImportCSV_STVDirect(this)">
           <span id="stv-direct-status" style="font-size:0.85rem; color:#64748b;"></span>
         </div>
@@ -24979,6 +24983,160 @@ const STV_DIRECT_TABLE_HEADERS = [
 let stvDirectRows = [];
 let stvDirectSelected = new Set();
 
+// STV Direct Report Translations
+const stvDirectTranslations = {
+  en: {
+    reportTitle: 'Soil Test Report and Fertilizer Schedule',
+    reportId: 'Report ID',
+    crop: 'Crop',
+    testDateTime: 'Test Date & Time',
+    name: 'Name',
+    physChemHeader: 'Physico-chemical<br>properties',
+    resultValue: 'Result Value',
+    idealRange: 'Ideal Range',
+    whatItMeans: 'What It Means?',
+    function: 'Function',
+    macronutrients: 'Macronutrients',
+    micronutrients: 'Micronutrients',
+    testingMethodology: 'Testing Methodology',
+    sourceReferences: 'Source/References',
+    recommendedSchedule: 'Recommended Fertilizer Schedule',
+    
+    // Parameter names
+    soilReaction: 'Soil Reaction',
+    salinity: 'Salinity',
+    organicCarbon: 'Organic Carbon',
+    availableNitrogen: 'Available Nitrogen',
+    availablePhosphorus: 'Available Phosphorus',
+    availablePotassium: 'Available Potassium',
+    availableSulphur: 'Available Sulphur',
+    availableCopper: 'Available Copper',
+    availableIron: 'Available Iron',
+    availableZinc: 'Available Zinc',
+    availableManganese: 'Available Manganese',
+    availableBoron: 'Available Boron',
+    
+    // Ratings
+    acidic: 'Acidic',
+    neutral: 'Neutral',
+    alkaline: 'Alkaline',
+    low: 'Low',
+    medium: 'Medium',
+    high: 'High',
+    acuteDeficient: 'Acute Deficient',
+    deficient: 'Deficient',
+    latentDeficient: 'Latent Deficient',
+    marginalSufficient: 'Marginal Sufficient',
+    veryHigh: 'Very High',
+    
+    // Meanings
+    pHMeaning: 'pH affects nutrient absorption and promotes healthy root growth.',
+    ecMeaning: 'EC influences water and nutrient uptake, affecting growth and quality.',
+    ocMeaning: 'Organic carbon enriches soil, supports organisms, and improves fruit development.',
+    nMeaning: 'Nitrogen promotes growth, photosynthesis, fruit size and vigor.',
+    pMeaning: 'Phosphorus supports root and flower development, improving fruit quality.',
+    kMeaning: 'Potassium regulates water usage, enhances disease resistance, and improves fruit.',
+    sMeaning: 'Sulphur contributes to amino acid production, photosynthesis, and enhances oil synthesis.',
+    cuMeaning: 'Copper aids enzyme activity and influences pollen formation & fertilization.',
+    feMeaning: 'Iron ensures healthy green leaves and improves photosynthesis and growth.',
+    znMeaning: 'Zinc supports hormone production, growth, fruit development and yield.',
+    mnMeaning: 'Manganese aids photosynthesis, nutrient absorption, and in the movement of iron.',
+    bMeaning: 'Boron enhances pollen formation, pollen tube growth and flowering.',
+    
+    // Action plan labels
+    action: 'Action:',
+    when: 'When:',
+    benefit: 'Benefit:',
+    
+    // Methodology
+    methodology1: 'Soil Sample Preparation is conducted using Chemical Extraction Methods.',
+    methodology2: 'Macro and micro-nutrient parameters testing is conducted using Multiple-Photo spectrometry.',
+    sources: 'Fertilizer recommendations and their respective dosages are derived from Govt sources such as ICAR bodies/State Agriculture Universities/KVK and Agriculture departments.',
+    ecAdvice: 'For High Electrical Conductivity (EC) - Use low EC water for irrigation. Improve drainage by creating slope, channels, to redirect excess water away from field.'
+  },
+  hi: {
+    reportTitle: 'मृदा परीक्षण रिपोर्ट और उर्वरक अनुसूची',
+    reportId: 'रिपोर्ट आईडी',
+    crop: 'फसल',
+    testDateTime: 'परीक्षण दिनांक और समय',
+    name: 'नाम',
+    physChemHeader: 'भौतिक-रासायनिक<br>गुण',
+    resultValue: 'परिणाम मूल्य',
+    idealRange: 'आदर्श सीमा',
+    whatItMeans: 'इसका क्या मतलब है?',
+    function: 'कार्य',
+    macronutrients: 'मैक्रोन्यूट्रिएंट्स',
+    micronutrients: 'माइक्रोन्यूट्रिएंट्स',
+    testingMethodology: 'परीक्षण पद्धति',
+    sourceReferences: 'स्रोत/संदर्भ',
+    recommendedSchedule: 'अनुशंसित उर्वरक अनुसूची',
+    
+    // Parameter names
+    soilReaction: 'मृदा अभिक्रिया',
+    salinity: 'लवणता',
+    organicCarbon: 'जैविक कार्बन',
+    availableNitrogen: 'उपलब्ध नाइट्रोजन',
+    availablePhosphorus: 'उपलब्ध फास्फोरस',
+    availablePotassium: 'उपलब्ध पोटेशियम',
+    availableSulphur: 'उपलब्ध सल्फर',
+    availableCopper: 'उपलब्ध तांबा',
+    availableIron: 'उपलब्ध लोहा',
+    availableZinc: 'उपलब्ध जस्ता',
+    availableManganese: 'उपलब्ध मैंगनीज',
+    availableBoron: 'उपलब्ध बोरॉन',
+    
+    // Ratings
+    acidic: 'अम्लीय',
+    neutral: 'तटस्थ',
+    alkaline: 'क्षारीय',
+    low: 'कम',
+    medium: 'मध्यम',
+    high: 'उच्च',
+    acuteDeficient: 'तीव्र कमी',
+    deficient: 'कमी',
+    latentDeficient: 'गुप्त कमी',
+    marginalSufficient: 'सीमांत पर्याप्त',
+    veryHigh: 'बहुत उच्च',
+    
+    // Meanings
+    pHMeaning: 'pH पोषक तत्वों के अवशोषण को प्रभावित करता है और स्वस्थ जड़ विकास को बढ़ावा देता है।',
+    ecMeaning: 'EC पानी और पोषक तत्वों के सेवन को प्रभावित करता है, जो विकास और गुणवत्ता को प्रभावित करता है।',
+    ocMeaning: 'जैविक कार्बन मिट्टी को समृद्ध करता है, जीवों का समर्थन करता है और फल विकास में सुधार करता है।',
+    nMeaning: 'नाइट्रोजन वृद्धि, प्रकाश संश्लेषण, फल के आकार और शक्ति को बढ़ावा देता है।',
+    pMeaning: 'फास्फोरस जड़ और फूल के विकास का समर्थन करता है, फल की गुणवत्ता में सुधार करता है।',
+    kMeaning: 'पोटेशियम पानी के उपयोग को नियंत्रित करता है, रोग प्रतिरोध को बढ़ाता है और फल में सुधार करता है।',
+    sMeaning: 'सल्फर अमीनो एसिड उत्पादन, प्रकाश संश्लेषण में योगदान देता है और तेल संश्लेषण को बढ़ाता है।',
+    cuMeaning: 'तांबा एंजाइम गतिविधि में सहायता करता है और पराग निर्माण और निषेचन को प्रभावित करता है।',
+    feMeaning: 'लोहा स्वस्थ हरी पत्तियों को सुनिश्चित करता है और प्रकाश संश्लेषण और विकास में सुधार करता है।',
+    znMeaning: 'जस्ता हार्मोन उत्पादन, वृद्धि, फल विकास और उपज का समर्थन करता है।',
+    mnMeaning: 'मैंगनीज प्रकाश संश्लेषण, पोषक तत्व अवशोषण और लोहे की गति में सहायता करता है।',
+    bMeaning: 'बोरॉन पराग निर्माण, पराग नली वृद्धि और फूल को बढ़ाता है।',
+    
+    // Action plan labels
+    action: 'कार्य:',
+    when: 'कब:',
+    benefit: 'लाभ:',
+    
+    // Methodology
+    methodology1: 'मृदा नमूना तैयारी रासायनिक निष्कर्षण विधियों का उपयोग करके की जाती है।',
+    methodology2: 'मैक्रो और सूक्ष्म पोषक तत्व पैरामीटर परीक्षण मल्टी-फोटो स्पेक्ट्रोमेट्री का उपयोग करके किया जाता है।',
+    sources: 'उर्वरक अनुशंसाएं और उनकी संबंधित खुराक सरकारी स्रोतों जैसे ICAR निकायों/राज्य कृषि विश्वविद्यालयों/KVK और कृषि विभागों से ली गई हैं।',
+    ecAdvice: 'उच्च विद्युत चालकता (EC) के लिए - सिंचाई के लिए कम EC वाले पानी का उपयोग करें। ढलान, चैनल बनाकर जल निकासी में सुधार करें, ताकि अतिरिक्त पानी को खेत से दूर निर्देशित किया जा सके।'
+  }
+};
+
+// Helper function to get selected language for STV Direct
+function getSTVDirectLanguage() {
+  const langSelect = document.getElementById('stv-direct-language');
+  return langSelect ? langSelect.value : 'en';
+}
+
+// Helper function to get translation
+function getSTVTranslation(key) {
+  const lang = getSTVDirectLanguage();
+  return stvDirectTranslations[lang]?.[key] || stvDirectTranslations.en[key] || key;
+}
+
 function client_ImportCSV_STVDirect(input) {
   if (!input || !input.files || !input.files.length) return;
   const statusEl = document.getElementById('stv-direct-status');
@@ -25302,10 +25460,14 @@ async function exportSTVDirectPdfReport(index) {
 
   // ✅ DOWNLOAD timestamp used in filename
   const stamp = stvNowStamp();
+  
+  // ✅ Get selected language
+  const language = getSTVDirectLanguage();
 
   try {
     const dosePlan = await fetchStvDirectDosePlan(row);
     const reportData = mapSTVDirectReportRow(row, dosePlan);
+    reportData.language = language; // Add language to report data
     const blob = await generateStvDirectPdfBlob(reportData);
 
     const fileName = buildSTVReportFileName(row, stamp);
@@ -25361,6 +25523,9 @@ async function exportSTVDirectBulkPdf() {
 
   // ✅ One DOWNLOAD timestamp for the whole bulk run (consistent filenames)
   const stamp = stvNowStamp();
+  
+  // ✅ Get selected language
+  const language = getSTVDirectLanguage();
 
   try {
     const zip = new JSZip();
@@ -25370,6 +25535,7 @@ async function exportSTVDirectBulkPdf() {
 
       const dosePlan = await fetchStvDirectDosePlan(row);
       const reportData = mapSTVDirectReportRow(row, dosePlan);
+      reportData.language = language; // Add language to report data
       const blob = await generateStvDirectPdfBlob(reportData);
 
       const pdfName = buildSTVReportFileName(row, stamp);
@@ -26951,7 +27117,8 @@ function getActionPlanFor(defKey, ratingText){
 function applySoilRowToContainer(container, row) {
   nmLogDebug('STV Direct apply report row', {
     reportId: row?.reportId,
-    crop: row?.cropName || row?.crop
+    crop: row?.cropName || row?.crop,
+    language: row?.language
   });
 
   const safeText = (value, fallback = '—') => {
@@ -26965,6 +27132,10 @@ function applySoilRowToContainer(container, row) {
     if (!Number.isFinite(num)) return 'NA';
     return Number.isFinite(dp) ? num.toFixed(dp) : String(num);
   };
+  
+  // Get language from row data
+  const lang = row?.language || 'en';
+  const t = stvDirectTranslations[lang] || stvDirectTranslations.en;
 
   const reportId = safeText(row?.reportId);
   const generatedAt = safeText(row?.generatedAt || row?.reportDt);
@@ -26983,6 +27154,12 @@ function applySoilRowToContainer(container, row) {
   if (logoEl && appLogoEl && appLogoEl.getAttribute('src')) {
     logoEl.src = appLogoEl.getAttribute('src');
   }
+  
+  // ---------- UPDATE HERO TITLE ----------
+  const heroTitle = container.querySelector('.hero-title div:last-child');
+  if (heroTitle) {
+    heroTitle.textContent = t.reportTitle;
+  }
 
   // ---------- TOP STRIP ----------
   const topStrip = container.querySelector('#topStrip');
@@ -26994,10 +27171,10 @@ function applySoilRowToContainer(container, row) {
       </div>
     `;
     const cells = [
-      buildKv('Report ID', reportId),
-      buildKv('Crop', safeText(row?.cropName || row?.crop)),
-      buildKv('Test Date & Time', safeText(row?.testDt || row?.generatedAt || '')),
-      buildKv('Name', farmerName)
+      buildKv(t.reportId, reportId),
+      buildKv(t.crop, safeText(row?.cropName || row?.crop)),
+      buildKv(t.testDateTime, safeText(row?.testDt || row?.generatedAt || '')),
+      buildKv(t.name, farmerName)
     ];
     topStrip.style.gridTemplateColumns = 'repeat(4, 1fr)';
     topStrip.innerHTML = cells.join('');
@@ -27005,11 +27182,11 @@ function applySoilRowToContainer(container, row) {
 
   // ---------- MICRO LABELS ----------
   const microLabels = {
-    Cu: ['Acute Deficient', 'Deficient', 'Latent Deficient', 'Marginal Sufficient', 'High', 'Very High'],
-    Fe: ['Acute Deficient', 'Deficient', 'Latent Deficient', 'Marginal Sufficient', 'High', 'Very High'],
-    Zn: ['Acute Deficient', 'Deficient', 'Latent Deficient', 'Marginal Sufficient', 'High', 'Very High'],
-    Mn: ['Acute Deficient', 'Deficient', 'Latent Deficient', 'Marginal Sufficient', 'High', 'Very High'],
-    B:  ['Acute Deficient', 'Deficient', 'Latent Deficient', 'Marginal Sufficient', 'High', 'Very High']
+    Cu: [t.acuteDeficient, t.deficient, t.latentDeficient, t.marginalSufficient, t.high, t.veryHigh],
+    Fe: [t.acuteDeficient, t.deficient, t.latentDeficient, t.marginalSufficient, t.high, t.veryHigh],
+    Zn: [t.acuteDeficient, t.deficient, t.latentDeficient, t.marginalSufficient, t.high, t.veryHigh],
+    Mn: [t.acuteDeficient, t.deficient, t.latentDeficient, t.marginalSufficient, t.high, t.veryHigh],
+    B:  [t.acuteDeficient, t.deficient, t.latentDeficient, t.marginalSufficient, t.high, t.veryHigh]
   };
 
   const microTickLabels = {
@@ -27023,22 +27200,22 @@ function applySoilRowToContainer(container, row) {
   // ---------- PARAM DEFS ----------
   const paramDefs = {
     physchem: [
-      { key: 'pH', code: 'pH', unit: '',     name: 'Soil Reaction',   icon: '🧪', type: 'cuts',  min: 3,   max: 11,  cut1: 6.5,  cut2: 7.5,  dp: 2, meaning: 'pH affects nutrient absorption and promotes healthy root growth.' },
-      { key: 'EC', code: 'EC', unit: 'dS/m', name: 'Salinity',        icon: '💧', type: 'cuts',  min: 0,   max: 1.5, cut1: 0.5,  cut2: 1.0,  dp: 2, meaning: 'EC influences water and nutrient uptake, affecting growth and quality.' },
-      { key: 'OC', code: 'OC', unit: 'w%',   name: 'Organic Carbon',  icon: '🌱', type: 'cuts',  min: 0,   max: 1.2, cut1: 0.5,  cut2: 0.75, dp: 2, meaning: 'Organic carbon enriches soil, supports organisms, and improves fruit development.' }
+      { key: 'pH', code: 'pH', unit: '',     name: t.soilReaction,   icon: '🧪', type: 'cuts',  min: 3,   max: 11,  cut1: 6.5,  cut2: 7.5,  dp: 2, meaning: t.pHMeaning },
+      { key: 'EC', code: 'EC', unit: 'dS/m', name: t.salinity,        icon: '💧', type: 'cuts',  min: 0,   max: 1.5, cut1: 0.5,  cut2: 1.0,  dp: 2, meaning: t.ecMeaning },
+      { key: 'OC', code: 'OC', unit: 'w%',   name: t.organicCarbon,  icon: '🌱', type: 'cuts',  min: 0,   max: 1.2, cut1: 0.5,  cut2: 0.75, dp: 2, meaning: t.ocMeaning }
     ],
     macro: [
-      { key: 'N', code: 'N', unit: 'kg/ha',  name: 'Available Nitrogen',   icon: '🌿', type: 'cuts', min: 0, max: 800, cut1: 280, cut2: 560, dp: 0, meaning: 'Nitrogen promotes growth, photosynthesis, fruit size and vigor.' },
-      { key: 'P', code: 'P', unit: 'kg/ha',  name: 'Available Phosphorus', icon: '🌸', type: 'cuts', min: 0, max: 36,  cut1: 12,  cut2: 24,  dp: 0, meaning: 'Phosphorus supports root and flower development, improving fruit quality.' },
-      { key: 'K', code: 'K', unit: 'kg/ha',  name: 'Available Potassium',  icon: '🍃', type: 'cuts', min: 0, max: 350, cut1: 116, cut2: 234, dp: 0, meaning: 'Potassium regulates water usage, enhances disease resistance, and improves fruit.' },
-      { key: 'S', code: 'S', unit: 'mg/kg',  name: 'Available Sulphur',    icon: '⚡', type: 'cuts', min: 0, max: 30,  cut1: 10,  cut2: 20,  dp: 1, meaning: 'Sulphur contributes to amino acid production, photosynthesis, and enhances oil synthesis.' }
+      { key: 'N', code: 'N', unit: 'kg/ha',  name: t.availableNitrogen,   icon: '🌿', type: 'cuts', min: 0, max: 800, cut1: 280, cut2: 560, dp: 0, meaning: t.nMeaning },
+      { key: 'P', code: 'P', unit: 'kg/ha',  name: t.availablePhosphorus, icon: '🌸', type: 'cuts', min: 0, max: 36,  cut1: 12,  cut2: 24,  dp: 0, meaning: t.pMeaning },
+      { key: 'K', code: 'K', unit: 'kg/ha',  name: t.availablePotassium,  icon: '🍃', type: 'cuts', min: 0, max: 350, cut1: 116, cut2: 234, dp: 0, meaning: t.kMeaning },
+      { key: 'S', code: 'S', unit: 'mg/kg',  name: t.availableSulphur,    icon: '⚡', type: 'cuts', min: 0, max: 30,  cut1: 10,  cut2: 20,  dp: 1, meaning: t.sMeaning }
     ],
     micro: [
-      { key: 'Cu', code: 'Cu', unit: 'mg/kg', name: 'Available Copper',    icon: '🧲', type: 'bands', bands: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.01],    dp: 1, meaning: 'Copper aids enzyme activity and influences pollen formation & fertilization.' },
-      { key: 'Fe', code: 'Fe', unit: 'mg/kg', name: 'Available Iron',      icon: '🩸', type: 'bands', bands: [0, 2.5, 4.5, 6.5, 8.5, 10.5, 10.51],  dp: 1, meaning: 'Iron ensures healthy green leaves and improves photosynthesis and growth.' },
-      { key: 'Zn', code: 'Zn', unit: 'mg/kg', name: 'Available Zinc',      icon: '⚙️', type: 'bands', bands: [0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.51],    dp: 2, meaning: 'Zinc supports hormone production, growth, fruit development and yield.' },
-      { key: 'Mn', code: 'Mn', unit: 'mg/kg', name: 'Available Manganese', icon: '🧪', type: 'bands', bands: [0, 1.0, 3.0, 5.0, 7.0, 9.0, 9.01],    dp: 2, meaning: 'Manganese aids photosynthesis, nutrient absorption, and in the movement of iron.' },
-      { key: 'B',  code: 'B',  unit: 'mg/kg', name: 'Available Boron',     icon: '🌼', type: 'bands', bands: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.01],    dp: 2, meaning: 'Boron enhances pollen formation, pollen tube growth and flowering.' }
+      { key: 'Cu', code: 'Cu', unit: 'mg/kg', name: t.availableCopper,    icon: '🧲', type: 'bands', bands: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.01],    dp: 1, meaning: t.cuMeaning },
+      { key: 'Fe', code: 'Fe', unit: 'mg/kg', name: t.availableIron,      icon: '🩸', type: 'bands', bands: [0, 2.5, 4.5, 6.5, 8.5, 10.5, 10.51],  dp: 1, meaning: t.feMeaning },
+      { key: 'Zn', code: 'Zn', unit: 'mg/kg', name: t.availableZinc,      icon: '⚙️', type: 'bands', bands: [0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.51],    dp: 2, meaning: t.znMeaning },
+      { key: 'Mn', code: 'Mn', unit: 'mg/kg', name: t.availableManganese, icon: '🧪', type: 'bands', bands: [0, 1.0, 3.0, 5.0, 7.0, 9.0, 9.01],    dp: 2, meaning: t.mnMeaning },
+      { key: 'B',  code: 'B',  unit: 'mg/kg', name: t.availableBoron,     icon: '🌼', type: 'bands', bands: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.01],    dp: 2, meaning: t.bMeaning }
     ]
   };
 
@@ -27053,7 +27230,7 @@ function applySoilRowToContainer(container, row) {
           value,
           def.cut1,
           def.cut2,
-          (def.key === 'pH') ? ['Acidic', 'Neutral', 'Alkaline'] : ['Low', 'Medium', 'High']
+          (def.key === 'pH') ? [t.acidic, t.neutral, t.alkaline] : [t.low, t.medium, t.high]
         );
 
     const markerLeft = (def.type === 'bands')
@@ -27264,9 +27441,9 @@ function applySoilRowToContainer(container, row) {
       grid.appendChild(vv);
     };
 
-    addPlanRow('Action:', actionText);
-    addPlanRow('When:', whenText);
-    addPlanRow('Benefit:', benefitText);
+    addPlanRow(t.action, actionText);
+    addPlanRow(t.when, whenText);
+    addPlanRow(t.benefit, benefitText);
 
     explain.appendChild(grid);
 
@@ -27289,13 +27466,39 @@ function applySoilRowToContainer(container, row) {
   applySection('#physchem', paramDefs.physchem);
   applySection('#macro', paramDefs.macro);
   applySection('#micro', paramDefs.micro);
+  
+  // ---------- UPDATE SECTION HEADERS ----------
+  const physChemHeader = container.querySelector('.section-head .h-left');
+  if (physChemHeader) {
+    physChemHeader.innerHTML = t.physChemHeader;
+  }
+  
+  const macroHeader = container.querySelector('.subhead');
+  if (macroHeader && macroHeader.textContent.includes('Macronutrients')) {
+    macroHeader.textContent = t.macronutrients;
+  }
+  
+  const microSectionHeaders = container.querySelectorAll('.section-head .h-left');
+  if (microSectionHeaders.length > 1 && microSectionHeaders[1]) {
+    microSectionHeaders[1].textContent = t.micronutrients;
+  }
+  
+  const resultValueHeader = container.querySelector('.h-mid');
+  if (resultValueHeader) {
+    resultValueHeader.innerHTML = `${t.resultValue} (<span class="legend-ideal"></span> ${t.idealRange})`;
+  }
+  
+  const whatItMeansHeader = container.querySelector('.h-right');
+  if (whatItMeansHeader) {
+    whatItMeansHeader.innerHTML = `${t.whatItMeans} <span class="muted">|</span> ${t.function}`;
+  }
 
   // ---------- METHODOLOGY ----------
   const methodologyEl = container.querySelector('#methodology');
   if (methodologyEl) {
     const items = [
-      'Soil Sample Preparation is conducted using Chemical Extraction Methods.',
-      'Macro and micro-nutrient parameters testing is conducted using Multiple-Photo spectrometry.'
+      t.methodology1,
+      t.methodology2
     ];
     methodologyEl.innerHTML = '';
     items.forEach(item => {
@@ -27304,18 +27507,28 @@ function applySoilRowToContainer(container, row) {
       methodologyEl.appendChild(li);
     });
   }
+  
+  // Update methodology subhead
+  const subheads = container.querySelectorAll('.subhead');
+  if (subheads.length >= 1 && subheads[0]) {
+    subheads[0].textContent = t.testingMethodology;
+  }
+  if (subheads.length >= 2 && subheads[1]) {
+    subheads[1].textContent = t.sourceReferences;
+  }
+  if (subheads.length >= 3 && subheads[2]) {
+    subheads[2].textContent = t.recommendedSchedule;
+  }
 
   // ---------- SOURCES / EC ADVICE ----------
   const sourcesEl = container.querySelector('#sources');
   if (sourcesEl) {
-    sourcesEl.textContent =
-      'Fertilizer recommendations and their respective dosages are derived from Govt sources such as ICAR bodies/State Agriculture Universities/KVK and Agriculture departments.';
+    sourcesEl.textContent = t.sources;
   }
 
   const ecAdviceEl = container.querySelector('#ecAdvice');
   if (ecAdviceEl) {
-    ecAdviceEl.textContent =
-      'For High Electrical Conductivity (EC) - Use low EC water for irrigation. Improve drainage by creating slope, channels, to redirect excess water away from field.';
+    ecAdviceEl.textContent = t.ecAdvice;
   }
 
   // ---------- DOSE TABLE ----------
