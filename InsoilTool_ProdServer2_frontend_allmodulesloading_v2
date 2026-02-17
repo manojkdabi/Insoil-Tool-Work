@@ -3318,6 +3318,171 @@
       font-weight: 600;
     }
 
+    /* Analytics Enhancements - Statistical Summary */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+
+    .stat-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateY(-2px);
+    }
+
+    .stat-card h4 {
+      font-size: 12px;
+      color: #64748b;
+      margin: 0 0 8px 0;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value-main {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2563eb;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .stat-details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .stat-detail-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-detail-label {
+      font-size: 10px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .stat-detail-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .quality-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .quality-good {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .quality-fair {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .quality-poor {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Alert Panel */
+    .alert-panel {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-left: 4px solid #ef4444;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .alert-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #991b1b;
+    }
+
+    .alert-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .alert-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      background: white;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .alert-severity {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .severity-high {
+      background: #ef4444;
+    }
+
+    .severity-medium {
+      background: #f59e0b;
+    }
+
+    /* Export Button Styles */
+    .btn-export {
+      background: #14b8a6;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .btn-export:hover {
+      background: #0d9488;
+      transform: translateY(-1px);
+    }
+
     .param-pill input {
       margin: 0;
     }
@@ -8006,9 +8171,31 @@
           <button class="btn btn-outline" onclick="setDateRange(30)">Last 30 Days</button>
           <button class="btn btn-outline" onclick="setDateRange('month')">This Month</button>
           <button class="btn btn-blue" onclick="updateAnalyticsCharts()">Refresh Graphs</button>
+          <button class="btn-export" onclick="exportAnalyticsData('csv')">💾 Export CSV</button>
         </div>
       </div>
       <div class="panel-lower" style="flex: 1; overflow-y: auto; height: 100%; padding: 20px;">
+        
+        <!-- Alert Panel -->
+        <div id="alert-panel" style="display:none;" class="alert-panel">
+          <div class="alert-header">
+            <span>⚠️</span>
+            <span id="alert-title">Active Alerts</span>
+          </div>
+          <ul id="alert-list" class="alert-list"></ul>
+        </div>
+
+        <!-- Statistical Summary Panel -->
+        <div id="stats-summary-panel" style="margin-bottom: 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 style="margin:0; font-size:16px; font-weight:600;">📊 Statistical Summary</h3>
+            <button class="btn btn-sm btn-outline" onclick="toggleStatsPanel()" id="stats-toggle-btn">
+              <span id="stats-toggle-icon">▼</span> Toggle
+            </button>
+          </div>
+          <div id="stats-grid" class="stats-grid"></div>
+        </div>
+
         <div id="stats-box"
           style="display:none; background:#fff; padding:10px; margin-bottom:10px; border:1px solid #ddd;">
           <strong>Statistics:</strong> <span id="stats-content"></span>
@@ -20675,6 +20862,11 @@ function updateAnalyticsCharts() {
     renderS1Chart();     
     renderFacetCharts(); // NEW: Facet Logic
     renderQCComparisonChart();
+    
+    // NEW: Render statistical summary
+    renderStatisticsSummary();
+    // NEW: Check thresholds and update alert panel
+    checkThresholdsAndUpdateAlerts();
 }
 
 function syncAnalyticsDateRange() {
@@ -20694,6 +20886,384 @@ function normalizeAnalyticsRows(rows) {
     }
     return list;
 }
+
+// ============ NEW: Analytics Enhancement Functions ============
+
+// Parameter thresholds configuration
+const PARAMETER_THRESHOLDS = {
+    ammonium: { min: 0, max: 100, optimal: [10, 40], unit: ' mg/kg' },
+    phosphorus: { min: 0, max: 100, optimal: [20, 50], unit: ' mg/kg' },
+    oc: { min: 0.3, max: 2.0, optimal: [0.5, 1.5], unit: '%' },
+    potassium: { min: 50, max: 500, optimal: [150, 300], unit: ' mg/kg' },
+    iron: { min: 2, max: 50, optimal: [5, 20], unit: ' mg/kg' },
+    copper: { min: 0.1, max: 10, optimal: [0.5, 3], unit: ' mg/kg' },
+    calcium: { min: 200, max: 5000, optimal: [500, 2000], unit: ' mg/kg' }
+};
+
+// Calculate statistics for a parameter
+function calculateStatistics(data, paramKey) {
+    const values = data
+        .map(row => {
+            if (typeof calcMetric === 'function' && row.raw) {
+                return parseFloat(calcMetric(row.raw, paramKey));
+            }
+            return parseFloat(row[paramKey]);
+        })
+        .filter(v => !isNaN(v) && v !== null && v !== undefined);
+    
+    if (values.length === 0) {
+        return null;
+    }
+    
+    values.sort((a, b) => a - b);
+    
+    const sum = values.reduce((a, b) => a + b, 0);
+    const mean = sum / values.length;
+    
+    const median = values.length % 2 === 0
+        ? (values[values.length / 2 - 1] + values[values.length / 2]) / 2
+        : values[Math.floor(values.length / 2)];
+    
+    const variance = values.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / values.length;
+    const stdDev = Math.sqrt(variance);
+    
+    const q1 = values[Math.floor(values.length * 0.25)];
+    const q3 = values[Math.floor(values.length * 0.75)];
+    
+    return {
+        count: values.length,
+        min: values[0],
+        max: values[values.length - 1],
+        mean: mean,
+        median: median,
+        stdDev: stdDev,
+        q1: q1,
+        q3: q3
+    };
+}
+
+// Get data quality badge
+function getDataQualityBadge(completeness) {
+    if (completeness >= 90) return '<span class="quality-badge quality-good">Good</span>';
+    if (completeness >= 70) return '<span class="quality-badge quality-fair">Fair</span>';
+    return '<span class="quality-badge quality-poor">Poor</span>';
+}
+
+// Render statistical summary panel
+function renderStatisticsSummary() {
+    const statsGrid = document.getElementById('stats-grid');
+    if (!statsGrid) return;
+    
+    // Get filtered data
+    const device = document.getElementById('an-device')?.value || '';
+    const dateFrom = document.getElementById('an-date-from')?.value;
+    const dateTo = document.getElementById('an-date-to')?.value;
+    
+    const fromDate = dateFrom ? new Date(dateFrom) : new Date('1900-01-01');
+    const toDate = dateTo ? new Date(dateTo) : new Date('2100-01-01');
+    toDate.setHours(23, 59, 59);
+    
+    const filteredData = rgbData.filter(row => {
+        const deviceMatch = !device || row.did === device || row.device_id === device || row.deviceId === device;
+        const rowDate = parseDateObj(row.time) || new Date(row.timestamp || row.Timestamp);
+        return deviceMatch && rowDate >= fromDate && rowDate <= toDate;
+    });
+    
+    if (filteredData.length === 0) {
+        statsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:20px; color:#94a3b8;">No data available for the selected filters</div>';
+        return;
+    }
+    
+    // Get selected parameters
+    const checkedParams = Array.from(document.querySelectorAll('#an-param-strip input:checked'));
+    const selectedParams = checkedParams.map(cb => {
+        const key = cb.value;
+        const col = cols.find(c => c.k === key);
+        return { k: key, label: col ? col.n : key };
+    });
+    
+    if (selectedParams.length === 0) {
+        statsGrid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:20px; color:#94a3b8;">Select parameters to view statistics</div>';
+        return;
+    }
+    
+    statsGrid.innerHTML = '';
+    
+    selectedParams.forEach(param => {
+        const stats = calculateStatistics(filteredData, param.k);
+        
+        if (!stats) return;
+        
+        const totalPossible = filteredData.length;
+        const completeness = (stats.count / totalPossible * 100).toFixed(1);
+        
+        const card = document.createElement('div');
+        card.className = 'stat-card';
+        card.innerHTML = `
+            <h4>${param.label}</h4>
+            <div class="stat-value-main">${stats.mean.toFixed(2)}</div>
+            <div class="stat-label">Mean Value</div>
+            <div class="stat-details">
+                <div class="stat-detail-item">
+                    <div class="stat-detail-label">Min</div>
+                    <div class="stat-detail-value">${stats.min.toFixed(2)}</div>
+                </div>
+                <div class="stat-detail-item">
+                    <div class="stat-detail-label">Max</div>
+                    <div class="stat-detail-value">${stats.max.toFixed(2)}</div>
+                </div>
+                <div class="stat-detail-item">
+                    <div class="stat-detail-label">Median</div>
+                    <div class="stat-detail-value">${stats.median.toFixed(2)}</div>
+                </div>
+                <div class="stat-detail-item">
+                    <div class="stat-detail-label">Std Dev</div>
+                    <div class="stat-detail-value">${stats.stdDev.toFixed(2)}</div>
+                </div>
+                <div class="stat-detail-item">
+                    <div class="stat-detail-label">Samples</div>
+                    <div class="stat-detail-value">${stats.count}</div>
+                </div>
+                <div class="stat-detail-item">
+                    <div class="stat-detail-label">Quality</div>
+                    <div class="stat-detail-value">${getDataQualityBadge(completeness)}</div>
+                </div>
+            </div>
+        `;
+        
+        statsGrid.appendChild(card);
+    });
+}
+
+// Toggle statistics panel visibility
+function toggleStatsPanel() {
+    const grid = document.getElementById('stats-grid');
+    const icon = document.getElementById('stats-toggle-icon');
+    
+    if (!grid || !icon) return;
+    
+    if (grid.style.display === 'none') {
+        grid.style.display = 'grid';
+        icon.textContent = '▼';
+    } else {
+        grid.style.display = 'none';
+        icon.textContent = '▶';
+    }
+}
+
+// Check thresholds and update alert panel
+function checkThresholdsAndUpdateAlerts() {
+    const alertPanel = document.getElementById('alert-panel');
+    const alertList = document.getElementById('alert-list');
+    const alertTitle = document.getElementById('alert-title');
+    
+    if (!alertPanel || !alertList) return;
+    
+    // Get filtered data
+    const device = document.getElementById('an-device')?.value || '';
+    const dateFrom = document.getElementById('an-date-from')?.value;
+    const dateTo = document.getElementById('an-date-to')?.value;
+    
+    const fromDate = dateFrom ? new Date(dateFrom) : new Date('1900-01-01');
+    const toDate = dateTo ? new Date(dateTo) : new Date('2100-01-01');
+    toDate.setHours(23, 59, 59);
+    
+    const filteredData = rgbData.filter(row => {
+        const deviceMatch = !device || row.did === device || row.device_id === device || row.deviceId === device;
+        const rowDate = parseDateObj(row.time) || new Date(row.timestamp || row.Timestamp);
+        return deviceMatch && rowDate >= fromDate && rowDate <= toDate;
+    });
+    
+    if (filteredData.length === 0) {
+        alertPanel.style.display = 'none';
+        return;
+    }
+    
+    // Get recent data (last reading for each parameter)
+    const recentData = filteredData[filteredData.length - 1];
+    
+    const alerts = [];
+    
+    // Check each parameter against thresholds
+    Object.keys(PARAMETER_THRESHOLDS).forEach(paramKey => {
+        const threshold = PARAMETER_THRESHOLDS[paramKey];
+        const value = typeof calcMetric === 'function' && recentData.raw 
+            ? parseFloat(calcMetric(recentData.raw, paramKey))
+            : parseFloat(recentData[paramKey]);
+        
+        if (isNaN(value) || value === null || value === undefined) return;
+        
+        const col = cols.find(c => c.k === paramKey);
+        const paramLabel = col ? col.n : paramKey;
+        
+        if (value < threshold.min) {
+            alerts.push({
+                severity: 'high',
+                message: `<strong>${paramLabel}:</strong> ${value.toFixed(2)}${threshold.unit} below minimum threshold (${threshold.min}${threshold.unit})`
+            });
+        } else if (value > threshold.max) {
+            alerts.push({
+                severity: 'high',
+                message: `<strong>${paramLabel}:</strong> ${value.toFixed(2)}${threshold.unit} exceeds maximum threshold (${threshold.max}${threshold.unit})`
+            });
+        } else if (value < threshold.optimal[0] || value > threshold.optimal[1]) {
+            alerts.push({
+                severity: 'medium',
+                message: `<strong>${paramLabel}:</strong> ${value.toFixed(2)}${threshold.unit} outside optimal range (${threshold.optimal[0]}-${threshold.optimal[1]}${threshold.unit})`
+            });
+        }
+    });
+    
+    if (alerts.length === 0) {
+        alertPanel.style.display = 'none';
+        return;
+    }
+    
+    // Display alerts
+    alertPanel.style.display = 'block';
+    alertTitle.textContent = `Active Alerts (${alerts.length})`;
+    
+    alertList.innerHTML = alerts.map(alert => `
+        <li class="alert-item">
+            <span class="alert-severity severity-${alert.severity}"></span>
+            <span>${alert.message}</span>
+        </li>
+    `).join('');
+}
+
+// Export analytics data to CSV
+function exportAnalyticsData(format) {
+    const device = document.getElementById('an-device')?.value || 'all';
+    const dateFrom = document.getElementById('an-date-from')?.value || 'all';
+    const dateTo = document.getElementById('an-date-to')?.value || 'all';
+    
+    if (!rgbData || rgbData.length === 0) {
+        alert('No data available to export');
+        return;
+    }
+    
+    // Get filtered data
+    const fromDate = dateFrom && dateFrom !== 'all' ? new Date(dateFrom) : new Date('1900-01-01');
+    const toDate = dateTo && dateTo !== 'all' ? new Date(dateTo) : new Date('2100-01-01');
+    toDate.setHours(23, 59, 59);
+    
+    const filteredData = rgbData.filter(row => {
+        const deviceMatch = !device || device === 'all' || 
+                           row.did === device || 
+                           row.device_id === device || 
+                           row.deviceId === device;
+        
+        const rowDate = parseDateObj(row.time) || new Date(row.timestamp || row.Timestamp);
+        return deviceMatch && rowDate >= fromDate && rowDate <= toDate;
+    });
+    
+    if (filteredData.length === 0) {
+        alert('No data matches the current filters');
+        return;
+    }
+    
+    // Get selected parameters
+    const checkedParams = Array.from(document.querySelectorAll('#an-param-strip input:checked'));
+    const selectedParams = checkedParams.map(cb => {
+        const key = cb.value;
+        const col = cols.find(c => c.k === key);
+        return { k: key, label: col ? col.n : key };
+    });
+    
+    if (selectedParams.length === 0) {
+        alert('Please select at least one parameter to export');
+        return;
+    }
+    
+    if (format === 'csv') {
+        exportToCSV(filteredData, selectedParams, device, dateFrom, dateTo);
+    } else if (format === 'json') {
+        exportToJSON(filteredData, selectedParams, device, dateFrom, dateTo);
+    }
+}
+
+// Export to CSV format
+function exportToCSV(data, params, device, dateFrom, dateTo) {
+    // Build CSV header
+    const headers = ['Timestamp', 'Device ID', ...params.map(p => p.label)];
+    let csv = headers.join(',') + '\n';
+    
+    // Build CSV rows
+    data.forEach(row => {
+        const timestamp = row.time || row.timestamp || row.Timestamp || '';
+        const deviceId = row.did || row.device_id || row.deviceId || row['Device ID'] || '';
+        
+        const values = [
+            timestamp,
+            deviceId,
+            ...params.map(p => {
+                let val;
+                if (typeof calcMetric === 'function' && row.raw) {
+                    val = calcMetric(row.raw, p.k);
+                } else {
+                    val = row[p.k] || row[p.label] || '';
+                }
+                return typeof val === 'number' ? val.toFixed(2) : val;
+            })
+        ];
+        csv += values.join(',') + '\n';
+    });
+    
+    // Download
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    const filename = `insoil_analytics_${device}_${dateFrom}_${dateTo}.csv`;
+    link.download = filename;
+    link.click();
+    window.URL.revokeObjectURL(url);
+    
+    console.log(`Exported ${data.length} records to ${filename}`);
+}
+
+// Export to JSON format
+function exportToJSON(data, params, device, dateFrom, dateTo) {
+    const exportData = {
+        metadata: {
+            device: device,
+            dateRange: { from: dateFrom, to: dateTo },
+            exportDate: new Date().toISOString(),
+            recordCount: data.length,
+            parameters: params.map(p => p.label)
+        },
+        data: data.map(row => {
+            const record = {
+                timestamp: row.time || row.timestamp || row.Timestamp,
+                deviceId: row.did || row.device_id || row.deviceId || row['Device ID']
+            };
+            
+            params.forEach(p => {
+                if (typeof calcMetric === 'function' && row.raw) {
+                    record[p.label] = calcMetric(row.raw, p.k);
+                } else {
+                    record[p.label] = row[p.k] || row[p.label];
+                }
+            });
+            
+            return record;
+        })
+    };
+    
+    const json = JSON.stringify(exportData, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    const filename = `insoil_analytics_${device}_${dateFrom}_${dateTo}.json`;
+    link.download = filename;
+    link.click();
+    window.URL.revokeObjectURL(url);
+    
+    console.log(`Exported ${data.length} records to ${filename}`);
+}
+
+// ============ END: Analytics Enhancement Functions ============
 
 // 1. New: Updated renderTrendChart to integrate the Chart.js Zoom Plugin
 function renderTrendChart() {
