@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insoil Tool - UI Mockups Index</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #14b8a6;
+      --gray-900: #111827;
+      --gray-700: #374151;
+      --gray-600: #4b5563;
+      --gray-100: #f3f4f6;
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --radius-lg: 12px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-body);
+      padding: 48px 24px;
+      color: var(--gray-900);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 12px;
+    }
+    
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--primary);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    
+    .intro {
+      background: var(--bg-surface);
+      padding: 32px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      margin-bottom: 48px;
+    }
+    
+    .intro h2 {
+      color: var(--gray-900);
+      margin-bottom: 16px;
+    }
+    
+    .intro p {
+      color: var(--gray-700);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    
+    .card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+    
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+    
+    .card-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      padding: 24px;
+      color: white;
+    }
+    
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .card-description {
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+    
+    .card-body {
+      padding: 24px;
+    }
+    
+    .card-features {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+    
+    .card-features li {
+      padding: 8px 0;
+      color: var(--gray-700);
+      font-size: 0.875rem;
+    }
+    
+    .card-features li::before {
+      content: "✓";
+      color: var(--secondary);
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    
+    .btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+    
+    .docs-section {
+      background: var(--bg-surface);
+      padding: 32px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+    
+    .docs-section h2 {
+      color: var(--gray-900);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--primary);
+    }
+    
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+    }
+    
+    .doc-link {
+      padding: 16px;
+      background: var(--gray-100);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--gray-900);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .doc-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateX(4px);
+    }
+    
+    .icon {
+      font-size: 1.5rem;
+    }
+    
+    footer {
+      margin-top: 48px;
+      text-align: center;
+      color: var(--gray-600);
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎨 Insoil Tool UI Mockups</h1>
+      <p class="subtitle">Professional Theme Standardization Proposal</p>
+      <span class="badge">February 2026</span>
+    </header>
+    
+    <div class="intro">
+      <h2>About These Mockups</h2>
+      <p>
+        This collection presents a comprehensive UI theme standardization for the Insoil Tool. 
+        Each mockup demonstrates how a unified design system creates a professional, cohesive, 
+        and engaging user experience across all modules.
+      </p>
+      <p>
+        All mockups are interactive HTML files that showcase the proposed color palette, 
+        component designs, spacing system, and visual hierarchy. They can be viewed in any 
+        modern web browser without requiring a build process.
+      </p>
+    </div>
+    
+    <h2 style="margin-bottom: 24px; color: var(--gray-900);">Interactive Mockups</h2>
+    
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Design System</div>
+          <div class="card-description">Complete reference guide</div>
+        </div>
+        <div class="card-body">
+          <ul class="card-features">
+            <li>Unified color palette</li>
+            <li>Button styles & variations</li>
+            <li>Card components</li>
+            <li>Badge designs</li>
+            <li>Table styling</li>
+            <li>8px spacing system</li>
+          </ul>
+          <a href="design-system.html" class="btn">View Design System</a>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Dashboard</div>
+          <div class="card-description">Main module with stats</div>
+        </div>
+        <div class="card-body">
+          <ul class="card-features">
+            <li>Standardized stat cards</li>
+            <li>Color-coded borders</li>
+            <li>Professional info cards</li>
+            <li>Unified sidebar navigation</li>
+            <li>Better visual hierarchy</li>
+            <li>Consistent spacing</li>
+          </ul>
+          <a href="dashboard-mockup.html" class="btn">View Dashboard</a>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Data Tables</div>
+          <div class="card-description">RGB/Abs & Device modules</div>
+        </div>
+        <div class="card-body">
+          <ul class="card-features">
+            <li>Clean, modern table design</li>
+            <li>Unified action buttons</li>
+            <li>Professional toolbar</li>
+            <li>Tab navigation</li>
+            <li>Pagination controls</li>
+            <li>Hover states</li>
+          </ul>
+          <a href="data-table-mockup.html" class="btn">View Data Tables</a>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Soil Test Results</div>
+          <div class="card-description">Test results with FAIL treatment</div>
+        </div>
+        <div class="card-body">
+          <ul class="card-features">
+            <li>Subtle FAIL row highlighting</li>
+            <li>Consistent status badges</li>
+            <li>Professional buttons</li>
+            <li>Better readability</li>
+            <li>Toggle components</li>
+            <li>Improved contrast</li>
+          </ul>
+          <a href="soil-test-results-mockup.html" class="btn">View Test Results</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="docs-section">
+      <h2>📚 Documentation</h2>
+      <div class="docs-grid">
+        <a href="README.md" class="doc-link" target="_blank">
+          <span class="icon">📖</span>
+          <div>
+            <strong>README</strong><br>
+            <small>Quick reference guide</small>
+          </div>
+        </a>
+        <a href="PROPOSAL.md" class="doc-link" target="_blank">
+          <span class="icon">📋</span>
+          <div>
+            <strong>PROPOSAL</strong><br>
+            <small>Complete 10-page proposal</small>
+          </div>
+        </a>
+      </div>
+    </div>
+    
+    <footer>
+      <p>
+        <strong>Insoil Tool UI Theme Standardization</strong><br>
+        Created with attention to modern design principles, accessibility, and user experience.<br>
+        All mockups use consistent colors, spacing, and components for a cohesive professional appearance.
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
