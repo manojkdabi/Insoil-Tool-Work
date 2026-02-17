@@ -12159,37 +12159,37 @@ function renderInventoryConstitution() {
         const unitOptions = getInventoryPartsOptions('unit', row.unit);
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="constitution" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('constitution','${row.id}','_selected',this.checked)"></td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="constitution" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('constitution','${escapeHtml(row.id)}','_selected',this.checked)"></td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${row.id}','category',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','category',this.value)">
               ${categoryOptions}
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${row.id}','itemClass',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','itemClass',this.value)">
               ${itemClassOptions}
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${row.id}','item',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','item',this.value)">
               ${itemOptions}
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${row.id}','unit',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','unit',this.value)">
               ${unitOptions}
             </select>
           </td>
-          <td><input type="number" class="db-input" value="${row.unitsPerDevice ?? ''}" oninput="updateInventoryFieldInline('constitution','${row.id}','unitsPerDevice',this.value)"></td>
-          <td><input type="number" class="db-input" value="${row.costPerUnit ?? ''}" oninput="updateInventoryFieldInline('constitution','${row.id}','costPerUnit',this.value)"></td>
-          <td><input class="db-input" value="${row.version || ''}" oninput="updateInventoryFieldInline('constitution','${row.id}','version',this.value)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.unitsPerDevice ?? '')}" oninput="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','unitsPerDevice',this.value)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.costPerUnit ?? '')}" oninput="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','costPerUnit',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.version || '')}" oninput="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','version',this.value)"></td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.effectiveDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'constitution', '${row.id}', 'effectiveDate')"
-              onchange="inventoryDateTimeChange(this, 'constitution', '${row.id}', 'effectiveDate')"
-              onblur="inventoryDateTimeBlur(this, 'constitution', '${row.id}', 'effectiveDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.effectiveDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'constitution', '${escapeHtml(row.id)}', 'effectiveDate')"
+              onchange="inventoryDateTimeChange(this, 'constitution', '${escapeHtml(row.id)}', 'effectiveDate')"
+              onblur="inventoryDateTimeBlur(this, 'constitution', '${escapeHtml(row.id)}', 'effectiveDate')">
           </td>
-          <td data-constitution-cost="${row.id}">₹${costPerDevice.toFixed(2)}</td>
+          <td data-constitution-cost="${escapeHtml(row.id)}">₹${costPerDevice.toFixed(2)}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -12205,36 +12205,36 @@ function renderInventoryParts() {
     inventoryState.parts.forEach(row => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="parts" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('parts','${row.id}','_selected',this.checked)"></td>
-          <td><input class="db-input" value="${row.category || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','category',this.value)"></td>
-          <td><input class="db-input" value="${row.itemClass || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','itemClass',this.value)"></td>
-          <td><input class="db-input" value="${row.item || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','item',this.value)"></td>
-          <td><input class="db-input" value="${row.unit || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','unit',this.value)"></td>
-          <td><input type="number" class="db-input" value="${row.qty ?? ''}" oninput="updateInventoryFieldInline('parts','${row.id}','qty',this.value)"></td>
-          <td><input type="number" class="db-input" value="${row.costPerUnit ?? ''}" oninput="updateInventoryFieldInline('parts','${row.id}','costPerUnit',this.value)"></td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="parts" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('parts','${escapeHtml(row.id)}','_selected',this.checked)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.category || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','category',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.itemClass || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','itemClass',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.item || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','item',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.unit || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','unit',this.value)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.qty ?? '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','qty',this.value)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.costPerUnit ?? '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','costPerUnit',this.value)"></td>
           <td>
-            <select class="db-input" onchange="updateInventoryField('parts','${row.id}','movement',this.value)">
+            <select class="db-input" onchange="updateInventoryField('parts','${escapeHtml(row.id)}','movement',this.value)">
               <option value="Inbound" ${row.movement === 'Inbound' ? 'selected' : ''}>Inbound</option>
               <option value="Issue" ${row.movement === 'Issue' ? 'selected' : ''}>Issue</option>
               <option value="Sale" ${row.movement === 'Sale' ? 'selected' : ''}>Sale</option>
             </select>
           </td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.date) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'parts', '${row.id}', 'date')"
-              onchange="inventoryDateTimeChange(this, 'parts', '${row.id}', 'date')"
-              onblur="inventoryDateTimeBlur(this, 'parts', '${row.id}', 'date')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.date) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'parts', '${escapeHtml(row.id)}', 'date')"
+              onchange="inventoryDateTimeChange(this, 'parts', '${escapeHtml(row.id)}', 'date')"
+              onblur="inventoryDateTimeBlur(this, 'parts', '${escapeHtml(row.id)}', 'date')">
           </td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.deliveryDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'parts', '${row.id}', 'deliveryDate')"
-              onchange="inventoryDateTimeChange(this, 'parts', '${row.id}', 'deliveryDate')"
-              onblur="inventoryDateTimeBlur(this, 'parts', '${row.id}', 'deliveryDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.deliveryDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'parts', '${escapeHtml(row.id)}', 'deliveryDate')"
+              onchange="inventoryDateTimeChange(this, 'parts', '${escapeHtml(row.id)}', 'deliveryDate')"
+              onblur="inventoryDateTimeBlur(this, 'parts', '${escapeHtml(row.id)}', 'deliveryDate')">
           </td>
-          <td><input class="db-input" value="${row.poNumber || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','poNumber',this.value)"></td>
-          <td><input class="db-input" value="${row.confirmedBy || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','confirmedBy',this.value)"></td>
-          <td><input class="db-input" value="${row.issuedTo || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','issuedTo',this.value)"></td>
-          <td>${row.requestId || '-'}</td>
+          <td><input class="db-input" value="${escapeHtml(row.poNumber || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','poNumber',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.confirmedBy || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','confirmedBy',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.issuedTo || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','issuedTo',this.value)"></td>
+          <td>${escapeHtml(row.requestId || '-')}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -12251,36 +12251,36 @@ function renderInventoryBuilt() {
         const invalidDeviceId = row.deviceId && !isValidDeviceId15(row.deviceId);
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="built" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('built','${row.id}','_selected',this.checked)"></td>
-          <td><input class="db-input" value="${row.serial || ''}" oninput="updateInventoryFieldInline('built','${row.id}','serial',this.value)"></td>
-          <td><input class="db-input ${invalidDeviceId ? 'inv-input-invalid' : ''}" maxlength="15" inputmode="numeric" data-built-device-id value="${row.deviceId || ''}" oninput="updateInventoryFieldInline('built','${row.id}','deviceId',this.value); validateInventoryBuiltInput(this)"></td>
-          <td><input type="number" class="db-input" value="${row.count ?? ''}" oninput="updateInventoryFieldInline('built','${row.id}','count',this.value)"></td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="built" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('built','${escapeHtml(row.id)}','_selected',this.checked)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.serial || '')}" oninput="updateInventoryFieldInline('built','${escapeHtml(row.id)}','serial',this.value)"></td>
+          <td><input class="db-input ${invalidDeviceId ? 'inv-input-invalid' : ''}" maxlength="15" inputmode="numeric" data-built-device-id value="${escapeHtml(row.deviceId || '')}" oninput="updateInventoryFieldInline('built','${escapeHtml(row.id)}','deviceId',this.value); validateInventoryBuiltInput(this)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.count ?? '')}" oninput="updateInventoryFieldInline('built','${escapeHtml(row.id)}','count',this.value)"></td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.mfgDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'built', '${row.id}', 'mfgDate')"
-              onchange="inventoryDateTimeChange(this, 'built', '${row.id}', 'mfgDate')"
-              onblur="inventoryDateTimeBlur(this, 'built', '${row.id}', 'mfgDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.mfgDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'built', '${escapeHtml(row.id)}', 'mfgDate')"
+              onchange="inventoryDateTimeChange(this, 'built', '${escapeHtml(row.id)}', 'mfgDate')"
+              onblur="inventoryDateTimeBlur(this, 'built', '${escapeHtml(row.id)}', 'mfgDate')">
           </td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.saleDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'built', '${row.id}', 'saleDate')"
-              onchange="inventoryDateTimeChange(this, 'built', '${row.id}', 'saleDate')"
-              onblur="inventoryDateTimeBlur(this, 'built', '${row.id}', 'saleDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.saleDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'built', '${escapeHtml(row.id)}', 'saleDate')"
+              onchange="inventoryDateTimeChange(this, 'built', '${escapeHtml(row.id)}', 'saleDate')"
+              onblur="inventoryDateTimeBlur(this, 'built', '${escapeHtml(row.id)}', 'saleDate')">
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('built','${row.id}','soldTo',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('built','${escapeHtml(row.id)}','soldTo',this.value)">
               ${clientOptions}
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryField('built','${row.id}','movement',this.value)">
+            <select class="db-input" onchange="updateInventoryField('built','${escapeHtml(row.id)}','movement',this.value)">
               <option value="Inbound" ${row.movement === 'Inbound' ? 'selected' : ''}>Inbound</option>
               <option value="Issue" ${row.movement === 'Issue' ? 'selected' : ''}>Issue</option>
               <option value="Sale" ${row.movement === 'Sale' ? 'selected' : ''}>Sale</option>
             </select>
           </td>
-          <td><input type="checkbox" ${row.confirmed ? 'checked' : ''} onchange="updateInventoryCheckbox('built','${row.id}','confirmed',this.checked)"></td>
-          <td>${row.requestId || '-'}</td>
+          <td><input type="checkbox" ${row.confirmed ? 'checked' : ''} onchange="updateInventoryCheckbox('built','${escapeHtml(row.id)}','confirmed',this.checked)"></td>
+          <td>${escapeHtml(row.requestId || '-')}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -12341,37 +12341,37 @@ function renderInventoryLiquidation() {
         const clientOptions = getInventoryClientOptions(row.issuedTo);
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="liquidation" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('liquidation','${row.id}','_selected',this.checked)"></td>
-          <td>${row.requestId || '-'}</td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="liquidation" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('liquidation','${escapeHtml(row.id)}','_selected',this.checked)"></td>
+          <td>${escapeHtml(row.requestId || '-')}</td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('liquidation','${row.id}','item',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('liquidation','${escapeHtml(row.id)}','item',this.value)">
               ${itemOptions}
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryField('liquidation','${row.id}','action',this.value)">
+            <select class="db-input" onchange="updateInventoryField('liquidation','${escapeHtml(row.id)}','action',this.value)">
               <option value="Issue" ${row.action === 'Issue' ? 'selected' : ''}>Issue</option>
               <option value="Sale" ${row.action === 'Sale' ? 'selected' : ''}>Sale</option>
               <option value="Transfer" ${row.action === 'Transfer' ? 'selected' : ''}>Transfer</option>
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('liquidation','${row.id}','issuedTo',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('liquidation','${escapeHtml(row.id)}','issuedTo',this.value)">
               ${clientOptions}
             </select>
           </td>
           <td>${Number(row.unitsBefore || 0)}</td>
-          <td data-liquidation-after="${row.id}">${Number(row.unitsAfter || 0)}</td>
-          <td><input type="number" class="db-input" value="${row.unitsIssued ?? ''}" oninput="updateInventoryFieldInline('liquidation','${row.id}','unitsIssued',this.value)"></td>
+          <td data-liquidation-after="${escapeHtml(row.id)}">${Number(row.unitsAfter || 0)}</td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.unitsIssued ?? '')}" oninput="updateInventoryFieldInline('liquidation','${escapeHtml(row.id)}','unitsIssued',this.value)"></td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.date) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'liquidation', '${row.id}', 'date')"
-              onchange="inventoryDateTimeChange(this, 'liquidation', '${row.id}', 'date')"
-              onblur="inventoryDateTimeBlur(this, 'liquidation', '${row.id}', 'date')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.date) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'liquidation', '${escapeHtml(row.id)}', 'date')"
+              onchange="inventoryDateTimeChange(this, 'liquidation', '${escapeHtml(row.id)}', 'date')"
+              onblur="inventoryDateTimeBlur(this, 'liquidation', '${escapeHtml(row.id)}', 'date')">
           </td>
-          <td><input type="checkbox" ${row.acknowledged ? 'checked' : ''} onchange="toggleInventoryAcknowledged('${row.id}', this.checked)"></td>
+          <td><input type="checkbox" ${row.acknowledged ? 'checked' : ''} onchange="toggleInventoryAcknowledged('${escapeHtml(row.id)}', this.checked)"></td>
           <td><input type="file" class="db-input" accept="application/pdf"></td>
-          <td><span class="inventory-status ${statusClass}">${row.status || 'Pending'}</span></td>
+          <td><span class="inventory-status ${statusClass}">${escapeHtml(row.status || 'Pending')}</span></td>
         `;
         tbody.appendChild(tr);
     });
@@ -12390,24 +12390,24 @@ function renderInventoryClients() {
         const gstinDisabled = row.clientType === 'In-house deptt' ? 'disabled' : '';
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="clients" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('clients','${row.id}','_selected',this.checked)"></td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="clients" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('clients','${escapeHtml(row.id)}','_selected',this.checked)"></td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('clients','${row.id}','clientType',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','clientType',this.value)">
               <option value="Manufacturer" ${row.clientType === 'Manufacturer' ? 'selected' : ''}>Manufacturer</option>
               <option value="Customer" ${row.clientType === 'Customer' ? 'selected' : ''}>Customer</option>
               <option value="In-house deptt" ${row.clientType === 'In-house deptt' ? 'selected' : ''}>In-house deptt</option>
             </select>
           </td>
-          <td><input class="db-input" value="${row.clientName || ''}" oninput="updateInventoryFieldInline('clients','${row.id}','clientName',this.value)"></td>
-          <td><input class="db-input" value="${row.clientAddress || ''}" oninput="updateInventoryFieldInline('clients','${row.id}','clientAddress',this.value)"></td>
-          <td><input class="db-input" value="${row.clientContact || ''}" oninput="clientContactInput(this, '${row.id}')"></td>
-          <td><input class="db-input" value="${row.clientEmail || ''}" oninput="updateInventoryFieldInline('clients','${row.id}','clientEmail',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.clientName || '')}" oninput="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','clientName',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.clientAddress || '')}" oninput="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','clientAddress',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.clientContact || '')}" oninput="clientContactInput(this, '${escapeHtml(row.id)}')"></td>
+          <td><input class="db-input" value="${escapeHtml(row.clientEmail || '')}" oninput="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','clientEmail',this.value)"></td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('clients','${row.id}','item',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','item',this.value)">
               ${itemOptions}
             </select>
           </td>
-          <td><input class="db-input" value="${gstinValue}" ${gstinReadonly} ${gstinDisabled} oninput="updateInventoryFieldInline('clients','${row.id}','gstin',this.value.toUpperCase())"></td>
+          <td><input class="db-input" value="${escapeHtml(gstinValue)}" ${gstinReadonly} ${gstinDisabled} oninput="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','gstin',this.value.toUpperCase())"></td>
         `;
         tbody.appendChild(tr);
     });
@@ -12422,31 +12422,31 @@ function renderInventoryRefillBatch() {
     inventoryState.refill.forEach(row => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="refill" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('refill','${row.id}','_selected',this.checked)"></td>
-          <td><input class="db-input" value="${row.refillId || ''}" oninput="updateInventoryFieldInline('refill','${row.id}','refillId',this.value)"></td>
-          <td><input type="number" class="db-input" value="${row.lotSize ?? ''}" oninput="updateInventoryFieldInline('refill','${row.id}','lotSize',this.value)"></td>
-          <td><input class="db-input" value="${row.refillLotId || ''}" readonly></td>
-          <td><input class="db-input" value="${row.manufacturerName || ''}" oninput="updateInventoryFieldInline('refill','${row.id}','manufacturerName',this.value)"></td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="refill" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('refill','${escapeHtml(row.id)}','_selected',this.checked)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.refillId || '')}" oninput="updateInventoryFieldInline('refill','${escapeHtml(row.id)}','refillId',this.value)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.lotSize ?? '')}" oninput="updateInventoryFieldInline('refill','${escapeHtml(row.id)}','lotSize',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.refillLotId || '')}" readonly></td>
+          <td><input class="db-input" value="${escapeHtml(row.manufacturerName || '')}" oninput="updateInventoryFieldInline('refill','${escapeHtml(row.id)}','manufacturerName',this.value)"></td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.manufactureDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'refill', '${row.id}', 'manufactureDate')"
-              onchange="inventoryDateTimeChange(this, 'refill', '${row.id}', 'manufactureDate')"
-              onblur="inventoryDateTimeBlur(this, 'refill', '${row.id}', 'manufactureDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.manufactureDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'refill', '${escapeHtml(row.id)}', 'manufactureDate')"
+              onchange="inventoryDateTimeChange(this, 'refill', '${escapeHtml(row.id)}', 'manufactureDate')"
+              onblur="inventoryDateTimeBlur(this, 'refill', '${escapeHtml(row.id)}', 'manufactureDate')">
           </td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.expiryDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'refill', '${row.id}', 'expiryDate')"
-              onchange="inventoryDateTimeChange(this, 'refill', '${row.id}', 'expiryDate')"
-              onblur="inventoryDateTimeBlur(this, 'refill', '${row.id}', 'expiryDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.expiryDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'refill', '${escapeHtml(row.id)}', 'expiryDate')"
+              onchange="inventoryDateTimeChange(this, 'refill', '${escapeHtml(row.id)}', 'expiryDate')"
+              onblur="inventoryDateTimeBlur(this, 'refill', '${escapeHtml(row.id)}', 'expiryDate')">
           </td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.deliveryDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'refill', '${row.id}', 'deliveryDate')"
-              onchange="inventoryDateTimeChange(this, 'refill', '${row.id}', 'deliveryDate')"
-              onblur="inventoryDateTimeBlur(this, 'refill', '${row.id}', 'deliveryDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.deliveryDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'refill', '${escapeHtml(row.id)}', 'deliveryDate')"
+              onchange="inventoryDateTimeChange(this, 'refill', '${escapeHtml(row.id)}', 'deliveryDate')"
+              onblur="inventoryDateTimeBlur(this, 'refill', '${escapeHtml(row.id)}', 'deliveryDate')">
           </td>
-          <td><input class="db-input" value="${row.poNumber || ''}" oninput="updateInventoryFieldInline('refill','${row.id}','poNumber',this.value)"></td>
-          <td><input class="db-input" value="${row.notes || ''}" oninput="updateInventoryFieldInline('refill','${row.id}','notes',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.poNumber || '')}" oninput="updateInventoryFieldInline('refill','${escapeHtml(row.id)}','poNumber',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.notes || '')}" oninput="updateInventoryFieldInline('refill','${escapeHtml(row.id)}','notes',this.value)"></td>
         `;
         tbody.appendChild(tr);
     });
