@@ -23,6 +23,31 @@
 const APP_VERSION = 'v6.00';
 const BUILD_TIMESTAMP = new Date().toISOString().slice(0, 16).replace('T', ' ');
 
+// =============================
+// CONFIGURATION CONSTANTS
+// =============================
+const CONFIG = {
+  // Cache settings
+  CACHE_TTL_SEC: 60,              // Cache expiration (1 minute for config data)
+  CACHE_SIZE_LIMIT_KB: 500,       // Max cache size (500KB for config)
+  
+  // Payload size limits
+  PAYLOAD_WARNING_KB: 5000,       // Warn if payload > 5MB
+  PAYLOAD_MAX_KB: 10000,          // Hard limit ~10MB (GAS serialization limit)
+  
+  // Pagination
+  DEFAULT_PAGE_SIZE: 500,         // Default rows per page
+  MAX_PAGE_SIZE: 1000,            // Maximum rows per page
+  
+  // Performance
+  BATCH_SIZE: 400,                // Rows per batch operation
+  LOCK_TIMEOUT_MS: 30000,         // 30 seconds lock timeout
+  SCRIPT_TIMEOUT_BUFFER_MS: 25000, // Leave 25s buffer before 6min limit
+  
+  // Data filtering
+  DEFAULT_RECENT_DAYS: 30         // Default days for recent data filter
+};
+
 function doGet(e) {
   return HtmlService.createHtmlOutputFromFile('InsoilTool')
     .setTitle(`Insoil Tool ${APP_VERSION} (${BUILD_TIMESTAMP})`)
@@ -209,9 +234,9 @@ function getInitialData() {
       out.__info.payloadSizeKB = sizeKB;
       
       // GAS cache limit is ~100KB per entry; serialization limit is ~10MB
-      // Only cache config data if < 500KB (conservative)
-      if (sizeKB < 500) {
-        cache.put(cacheKey, serialized, 60);
+      // Only cache config data if < CONFIG.CACHE_SIZE_LIMIT_KB (conservative)
+      if (sizeKB < CONFIG.CACHE_SIZE_LIMIT_KB) {
+        cache.put(cacheKey, serialized, CONFIG.CACHE_TTL_SEC);
         console.log('[getInitialData] Cached payload sizeKB=' + sizeKB + ' traceId=' + traceId);
       } else {
         console.warn('[getInitialData] Payload too large for cache: ' + sizeKB + 'KB traceId=' + traceId);
@@ -1533,7 +1558,7 @@ function getOperationalDataRecent(days) {
       const sizeKB = Math.round(serialized.length / 1024);
       SAFE.__info.payloadSizeKB = sizeKB;
       
-      if (sizeKB > 5000) { // > 5MB warning
+      if (sizeKB > CONFIG.PAYLOAD_WARNING_KB) { // > 5MB warning
         console.warn('[getOperationalDataRecent] Large payload: ' + sizeKB + 'KB for ' + nDays + ' days');
       }
       
@@ -1560,9 +1585,20 @@ function getOperationalDataRecent(days) {
 function getOperationalDataPaginated(options) {
   const t0 = Date.now();
   const page = Number(options?.page) || 1;
-  const pageSize = Math.min(Number(options?.pageSize) || 500, 1000); // max 1000 per page
-  const days = Number(options?.days) || 30;
+  const pageSize = Math.min(Number(options?.pageSize) || CONFIG.DEFAULT_PAGE_SIZE, CONFIG.MAX_PAGE_SIZE);
+  const days = Number(options?.days) || CONFIG.DEFAULT_RECENT_DAYS;
   const sheetType = options?.sheetType || 'both';
+  
+  // Validate sheetType
+  if (!['rgb', 'qc', 'both'].includes(sheetType)) {
+    Logger.log('[getOperationalDataPaginated] Invalid sheetType: ' + sheetType);
+    return { 
+      rgbData: [], 
+      qcData: [], 
+      __status: 'ERROR', 
+      __error: 'Invalid sheetType: must be rgb, qc, or both'
+    };
+  }
   
   const SAFE = { 
     rgbData: [], 
@@ -1573,6 +1609,8 @@ function getOperationalDataPaginated(options) {
       pageSize,
       totalPages: 0,
       totalRecords: 0,
+      totalRgbRecords: 0,
+      totalQcRecords: 0,
       hasMore: false
     },
     __info: {}
@@ -1592,6 +1630,13 @@ function getOperationalDataPaginated(options) {
       if (!d || isNaN(d.getTime())) return false;
       return d >= cutoff;
     };
+    
+    // Helper to calculate pagination metadata
+    const calcPagination = (totalRecords) => ({
+      totalRecords,
+      totalPages: Math.ceil(totalRecords / pageSize),
+      hasMore: page < Math.ceil(totalRecords / pageSize)
+    });
 
     // Load RGB data if requested
     if (sheetType === 'rgb' || sheetType === 'both') {
@@ -1602,9 +1647,13 @@ function getOperationalDataPaginated(options) {
       const endIdx = startIdx + pageSize;
       SAFE.rgbData = filtered.slice(startIdx, endIdx);
       
-      SAFE.__pagination.totalRecords = filtered.length;
-      SAFE.__pagination.totalPages = Math.ceil(filtered.length / pageSize);
-      SAFE.__pagination.hasMore = page < SAFE.__pagination.totalPages;
+      const paginationInfo = calcPagination(filtered.length);
+      SAFE.__pagination.totalRgbRecords = paginationInfo.totalRecords;
+      if (sheetType === 'rgb') {
+        SAFE.__pagination.totalRecords = paginationInfo.totalRecords;
+        SAFE.__pagination.totalPages = paginationInfo.totalPages;
+        SAFE.__pagination.hasMore = paginationInfo.hasMore;
+      }
     }
 
     // Load QC data if requested
@@ -1618,12 +1667,22 @@ function getOperationalDataPaginated(options) {
         const endIdx = startIdx + pageSize;
         SAFE.qcData = filtered.slice(startIdx, endIdx);
         
+        const paginationInfo = calcPagination(filtered.length);
+        SAFE.__pagination.totalQcRecords = paginationInfo.totalRecords;
         if (sheetType === 'qc') {
-          SAFE.__pagination.totalRecords = filtered.length;
-          SAFE.__pagination.totalPages = Math.ceil(filtered.length / pageSize);
-          SAFE.__pagination.hasMore = page < SAFE.__pagination.totalPages;
+          SAFE.__pagination.totalRecords = paginationInfo.totalRecords;
+          SAFE.__pagination.totalPages = paginationInfo.totalPages;
+          SAFE.__pagination.hasMore = paginationInfo.hasMore;
         }
       }
+    }
+    
+    // For 'both' mode, combine totals
+    if (sheetType === 'both') {
+      const combinedTotal = SAFE.__pagination.totalRgbRecords + SAFE.__pagination.totalQcRecords;
+      SAFE.__pagination.totalRecords = combinedTotal;
+      SAFE.__pagination.totalPages = Math.ceil(combinedTotal / pageSize);
+      SAFE.__pagination.hasMore = page < SAFE.__pagination.totalPages;
     }
     
     SAFE.__info = {
@@ -2898,8 +2957,8 @@ function getRGBDataFormatted_(ss, sheetName, isQC) {
     for (let c = 0; c < headersOrig.length; c++) {
       const h = headersOrig[c];
       if (!h) continue;
-      // Skip if already set to avoid duplication
-      if (obj[h] === undefined) {
+      // Skip if already set to avoid duplication (check property existence, not falsiness)
+      if (!(h in obj)) {
         obj[h] = row[c];
       }
     }
