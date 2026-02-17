@@ -201,7 +201,25 @@ function getInitialData() {
     console.log('[getInitialData] OK traceId=' + traceId + ' ms=' + out.__info.ms +
       ' missing=' + JSON.stringify(out.__missingSheets) +
       ' counts=' + JSON.stringify(out.__info.counts));
-    cache.put(cacheKey, JSON.stringify(out), 60);
+    
+    // Safe caching: only cache if payload is reasonably sized
+    try {
+      const serialized = JSON.stringify(out);
+      const sizeKB = Math.round(serialized.length / 1024);
+      out.__info.payloadSizeKB = sizeKB;
+      
+      // GAS cache limit is ~100KB per entry; serialization limit is ~10MB
+      // Only cache config data if < 500KB (conservative)
+      if (sizeKB < 500) {
+        cache.put(cacheKey, serialized, 60);
+        console.log('[getInitialData] Cached payload sizeKB=' + sizeKB + ' traceId=' + traceId);
+      } else {
+        console.warn('[getInitialData] Payload too large for cache: ' + sizeKB + 'KB traceId=' + traceId);
+      }
+    } catch (cacheErr) {
+      console.error('[getInitialData] Cache failed: ' + (cacheErr.message || cacheErr) + ' traceId=' + traceId);
+    }
+    
     return out;
 
   } catch (err) {
@@ -1471,9 +1489,11 @@ function getOperationalData() {
 /**
  * Return operational data limited to the last N days.
  * Used for fast initial load; full data can be warmed later.
+ * IMPORTANT: Includes size monitoring to prevent payload overflow.
  */
 function getOperationalDataRecent(days) {
-  const SAFE = { rgbData: [], qcData: [], __status: 'OK' };
+  const t0 = Date.now();
+  const SAFE = { rgbData: [], qcData: [], __status: 'OK', __info: {} };
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     if (!ss) throw new Error('No active spreadsheet bound to script');
@@ -1496,6 +1516,34 @@ function getOperationalDataRecent(days) {
 
     SAFE.rgbData = rgbData.filter(isRecent);
     SAFE.qcData = qcData.filter(isRecent);
+    
+    // Add size and performance monitoring
+    SAFE.__info = {
+      ms: Date.now() - t0,
+      days: nDays,
+      totalRgb: rgbData.length,
+      totalQc: qcData.length,
+      filteredRgb: SAFE.rgbData.length,
+      filteredQc: SAFE.qcData.length
+    };
+    
+    // Size estimation and warning
+    try {
+      const serialized = JSON.stringify(SAFE);
+      const sizeKB = Math.round(serialized.length / 1024);
+      SAFE.__info.payloadSizeKB = sizeKB;
+      
+      if (sizeKB > 5000) { // > 5MB warning
+        console.warn('[getOperationalDataRecent] Large payload: ' + sizeKB + 'KB for ' + nDays + ' days');
+      }
+      
+      Logger.log('[getOperationalDataRecent] OK days=' + nDays + 
+        ' rgbTotal=' + rgbData.length + ' rgbFiltered=' + SAFE.rgbData.length +
+        ' qcTotal=' + qcData.length + ' qcFiltered=' + SAFE.qcData.length +
+        ' sizeKB=' + sizeKB + ' ms=' + SAFE.__info.ms);
+    } catch (sizeErr) {
+      console.error('[getOperationalDataRecent] Size check failed: ' + sizeErr.message);
+    }
 
     return SAFE;
   } catch (e) {
@@ -1504,7 +1552,111 @@ function getOperationalDataRecent(days) {
   }
 }
 
+/**
+ * Get operational data with pagination support.
+ * Returns a page of data with metadata for client-side pagination.
+ * @param {Object} options - { page: 1, pageSize: 500, days: 30, sheetType: 'rgb'|'qc'|'both' }
+ */
+function getOperationalDataPaginated(options) {
+  const t0 = Date.now();
+  const page = Number(options?.page) || 1;
+  const pageSize = Math.min(Number(options?.pageSize) || 500, 1000); // max 1000 per page
+  const days = Number(options?.days) || 30;
+  const sheetType = options?.sheetType || 'both';
+  
+  const SAFE = { 
+    rgbData: [], 
+    qcData: [], 
+    __status: 'OK', 
+    __pagination: {
+      page,
+      pageSize,
+      totalPages: 0,
+      totalRecords: 0,
+      hasMore: false
+    },
+    __info: {}
+  };
+  
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    if (!ss) throw new Error('No active spreadsheet bound to script');
 
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - days);
+
+    const isRecent = (row) => {
+      if (!row) return false;
+      const v = row.Test_date ?? row.time ?? row.Date ?? row.datetime ?? '';
+      const d = _parseAnyDate_(v);
+      if (!d || isNaN(d.getTime())) return false;
+      return d >= cutoff;
+    };
+
+    // Load RGB data if requested
+    if (sheetType === 'rgb' || sheetType === 'both') {
+      const rgbData = getRGBDataFormatted_(ss, 'RGB_Data', false) || [];
+      const filtered = rgbData.filter(isRecent);
+      
+      const startIdx = (page - 1) * pageSize;
+      const endIdx = startIdx + pageSize;
+      SAFE.rgbData = filtered.slice(startIdx, endIdx);
+      
+      SAFE.__pagination.totalRecords = filtered.length;
+      SAFE.__pagination.totalPages = Math.ceil(filtered.length / pageSize);
+      SAFE.__pagination.hasMore = page < SAFE.__pagination.totalPages;
+    }
+
+    // Load QC data if requested
+    if (sheetType === 'qc' || sheetType === 'both') {
+      const qcSheet = ss.getSheetByName('QC_Data');
+      if (qcSheet) {
+        const qcData = getRGBDataFormatted_(ss, 'QC_Data', true) || [];
+        const filtered = qcData.filter(isRecent);
+        
+        const startIdx = (page - 1) * pageSize;
+        const endIdx = startIdx + pageSize;
+        SAFE.qcData = filtered.slice(startIdx, endIdx);
+        
+        if (sheetType === 'qc') {
+          SAFE.__pagination.totalRecords = filtered.length;
+          SAFE.__pagination.totalPages = Math.ceil(filtered.length / pageSize);
+          SAFE.__pagination.hasMore = page < SAFE.__pagination.totalPages;
+        }
+      }
+    }
+    
+    SAFE.__info = {
+      ms: Date.now() - t0,
+      days,
+      page,
+      pageSize
+    };
+    
+    // Size check
+    try {
+      const serialized = JSON.stringify(SAFE);
+      const sizeKB = Math.round(serialized.length / 1024);
+      SAFE.__info.payloadSizeKB = sizeKB;
+      
+      Logger.log('[getOperationalDataPaginated] OK page=' + page + '/' + SAFE.__pagination.totalPages +
+        ' records=' + SAFE.__pagination.totalRecords + ' sizeKB=' + sizeKB + ' ms=' + SAFE.__info.ms);
+    } catch (sizeErr) {
+      console.error('[getOperationalDataPaginated] Size check failed: ' + sizeErr.message);
+    }
+
+    return SAFE;
+  } catch (e) {
+    Logger.log('[getOperationalDataPaginated FATAL] ' + e.message);
+    return { 
+      rgbData: [], 
+      qcData: [], 
+      __status: 'ERROR', 
+      __error: e.message,
+      __pagination: SAFE.__pagination
+    };
+  }
+}
 
 function syncMoveDataToQC(reqRows) {
   const lock = LockService.getScriptLock();
@@ -2729,26 +2881,30 @@ function getRGBDataFormatted_(ss, sheetName, isQC) {
 
     const timeVal = idxDate >= 0 ? String(row[idxDate] || '').trim() : '';
 
-    // Base object for existing JS code paths
+    // OPTIMIZED: Base object with canonical keys (no duplication)
     const obj = {
       id: `${did}__${tid}`,
-      did,
-      tid,
+      Device_ID: did,
+      Test_ID: tid,
+      Test_date: timeVal,
       time: timeVal,
+      did, // keep for backward compatibility
+      tid,
       raw: {} // keep for backward compatibility (even if unused in new raw-table)
     };
 
-    // Add ALL sheet columns by their header name
+    // Add ALL sheet columns by their header name (legacy support)
+    // NOTE: This creates large payloads. Consider using getRGBDataOptimized_ for smaller responses.
     for (let c = 0; c < headersOrig.length; c++) {
       const h = headersOrig[c];
       if (!h) continue;
-      obj[h] = row[c];
+      // Skip if already set to avoid duplication
+      if (obj[h] === undefined) {
+        obj[h] = row[c];
+      }
     }
 
-    // Ensure canonical keys exist for UI/filtering
-    obj.Device_ID = obj.Device_ID ?? did;
-    obj.Test_ID = obj.Test_ID ?? tid;
-    obj.Test_date = obj.Test_date ?? timeVal;
+    // Ensure canonical keys exist for UI/filtering (coalesce from various column name variants)
     obj.Client_ID = obj.Client_ID ?? obj.client_id ?? obj.ClientID ?? obj.clientId ?? '';
     obj.Farm_ID = obj.Farm_ID ?? obj.farm_id ?? obj.FarmID ?? obj.farmId ?? '';
     obj.crop = obj.crop ?? obj.Crop ?? obj.CropID ?? '';
