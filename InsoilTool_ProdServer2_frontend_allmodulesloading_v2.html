@@ -3268,6 +3268,437 @@
       color: #dc2626;
     }
 
+    /* ==================== Inventory Dashboard ==================== */
+    #mod-inventory .inventory-dashboard {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    #mod-inventory .inventory-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    #mod-inventory .inventory-metric-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    #mod-inventory .inventory-metric-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      transform: translateY(-2px);
+    }
+
+    #mod-inventory .inventory-metric-card.warning {
+      border-left: 4px solid #f59e0b;
+      background: #fffbeb;
+    }
+
+    #mod-inventory .inventory-metric-card.pending {
+      border-left: 4px solid #3b82f6;
+      background: #eff6ff;
+    }
+
+    #mod-inventory .inventory-metric-card.success {
+      border-left: 4px solid #10b981;
+      background: #f0fdf4;
+    }
+
+    #mod-inventory .metric-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    #mod-inventory .metric-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    #mod-inventory .metric-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #mod-inventory .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.2;
+    }
+
+    #mod-inventory .metric-change {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    /* Search and Toolbar */
+    #mod-inventory .inventory-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    #mod-inventory .inventory-toolbar-left {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex: 1;
+    }
+
+    #mod-inventory .inventory-toolbar-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    #mod-inventory .inventory-search-box {
+      position: relative;
+      flex: 1;
+      max-width: 400px;
+    }
+
+    #mod-inventory .inventory-search-input {
+      width: 100%;
+      padding: 8px 12px 8px 36px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+
+    #mod-inventory .inventory-search-input:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    #mod-inventory .inventory-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    #mod-inventory .inventory-filter-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    #mod-inventory .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #e0e7ff;
+      border: 1px solid #c7d2fe;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #3730a3;
+    }
+
+    #mod-inventory .filter-chip-remove {
+      cursor: pointer;
+      font-weight: 700;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    #mod-inventory .filter-chip-remove:hover {
+      opacity: 1;
+    }
+
+    /* Quick Actions */
+    #mod-inventory .inventory-quick-actions {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    #mod-inventory .inventory-quick-actions h3 {
+      margin: 0 0 16px 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    #mod-inventory .quick-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    #mod-inventory .quick-action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    #mod-inventory .quick-action-btn:hover {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      color: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    }
+
+    #mod-inventory .action-icon {
+      font-size: 1.5rem;
+    }
+
+    /* Recent Activity Timeline */
+    #mod-inventory .inventory-recent-activity {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    #mod-inventory .inventory-recent-activity h3 {
+      margin: 0 0 16px 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    #mod-inventory .activity-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #mod-inventory .activity-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 8px;
+      border-left: 3px solid #d1d5db;
+    }
+
+    #mod-inventory .activity-item.add {
+      border-left-color: #10b981;
+      background: #f0fdf4;
+    }
+
+    #mod-inventory .activity-item.update {
+      border-left-color: #3b82f6;
+      background: #eff6ff;
+    }
+
+    #mod-inventory .activity-item.delete {
+      border-left-color: #ef4444;
+      background: #fef2f2;
+    }
+
+    #mod-inventory .activity-icon {
+      font-size: 1.25rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    #mod-inventory .activity-content {
+      flex: 1;
+    }
+
+    #mod-inventory .activity-title {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    #mod-inventory .activity-description {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    #mod-inventory .activity-time {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    #mod-inventory .activity-empty {
+      text-align: center;
+      padding: 40px;
+      color: #9ca3af;
+      font-size: 0.875rem;
+    }
+
+    /* Low Stock Alerts */
+    #mod-inventory .inventory-alerts {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    #mod-inventory .inventory-alerts h3 {
+      margin: 0 0 16px 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    #mod-inventory .alerts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #mod-inventory .alert-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #fffbeb;
+      border: 1px solid #fef3c7;
+      border-radius: 8px;
+    }
+
+    #mod-inventory .alert-icon {
+      font-size: 1.5rem;
+    }
+
+    #mod-inventory .alert-content {
+      flex: 1;
+    }
+
+    #mod-inventory .alert-title {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #92400e;
+    }
+
+    #mod-inventory .alert-description {
+      font-size: 0.75rem;
+      color: #b45309;
+    }
+
+    #mod-inventory .alert-action {
+      padding: 6px 12px;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #92400e;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    #mod-inventory .alert-action:hover {
+      background: #fde68a;
+    }
+
+    /* Status Badges */
+    #mod-inventory .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #mod-inventory .status-badge.success {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+    }
+
+    #mod-inventory .status-badge.warning {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    #mod-inventory .status-badge.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    #mod-inventory .status-badge.info {
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+    }
+
+    #mod-inventory .status-badge.pending {
+      background: #e0e7ff;
+      color: #3730a3;
+      border: 1px solid #c7d2fe;
+    }
+
+    /* Progress Bars for Stock Levels */
+    #mod-inventory .stock-progress {
+      width: 100%;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    #mod-inventory .stock-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #059669);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    #mod-inventory .stock-progress-bar.low {
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+    }
+
+    #mod-inventory .stock-progress-bar.critical {
+      background: linear-gradient(90deg, #ef4444, #dc2626);
+    }
+
     /* Chart Containers */
     .chart-box {
       background: var(--bg-surface);
@@ -9113,13 +9544,34 @@
     <!-- Inventory Manager Module -->
     <!-- ==================== Inventory Module ==================== -->
     <div id="mod-inventory" class="module-view">
+      <!-- Enhanced Header with Search and Actions -->
       <div class="module-header">
-        <div class="toolbar">
-          <button class="btn btn-blue" onclick="refreshInventoryData()">Refresh Inventory</button>
+        <div class="inventory-header">
+          <div class="inventory-title">Inventory Manager</div>
+          <div class="inventory-header-note">
+            <span id="inventory-save-status" class="inventory-save-status">All changes saved</span>
+          </div>
+        </div>
+        <div class="inventory-toolbar">
+          <div class="inventory-toolbar-left">
+            <div class="inventory-search-box">
+              <input type="text" id="inventory-search-input" placeholder="Search inventory..." class="inventory-search-input" oninput="filterInventoryGlobal(this.value)">
+              <span class="inventory-search-icon">🔍</span>
+            </div>
+            <div class="inventory-filter-chips" id="inventory-filter-chips"></div>
+          </div>
+          <div class="inventory-toolbar-right">
+            <button class="btn btn-outline btn-sm" onclick="exportInventoryCSV()">📥 Export CSV</button>
+            <button class="btn btn-outline btn-sm" onclick="exportInventoryExcel()">📊 Export Excel</button>
+            <button class="btn btn-blue btn-sm" onclick="refreshInventoryData()">🔄 Refresh</button>
+          </div>
         </div>
       </div>
+
+      <!-- Dashboard Tab -->
       <div class="tab-nav inventory-tabs">
-        <button class="tab-btn active" onclick="inventoryTab('stock', event)">Stock</button>
+        <button class="tab-btn active" onclick="inventoryTab('dashboard', event)">📊 Dashboard</button>
+        <button class="tab-btn" onclick="inventoryTab('stock', event)">Stock</button>
         <button class="tab-btn" onclick="inventoryTab('constitution', event)">Device Constitution</button>
         <button class="tab-btn" onclick="inventoryTab('approvals', event)">Approvals</button>
         <button class="tab-btn" onclick="inventoryTab('liquidation', event)">Liquidation</button>
@@ -9130,6 +9582,108 @@
           <div class="tab-info-panel">
             <button class="tab-info-close" onclick="closeTabInfo(this)">×</button>
             <div class="tab-info-content"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Overview -->
+      <div id="inv-tab-dashboard" class="tab-content active">
+        <div class="inventory-dashboard">
+          <!-- Key Metrics Cards -->
+          <div class="inventory-metrics-grid">
+            <div class="inventory-metric-card">
+              <div class="metric-icon">📦</div>
+              <div class="metric-content">
+                <div class="metric-label">Total Parts</div>
+                <div class="metric-value" id="metric-total-parts">0</div>
+                <div class="metric-change">Across <span id="metric-parts-items">0</span> items</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card">
+              <div class="metric-icon">🏭</div>
+              <div class="metric-content">
+                <div class="metric-label">Built Devices</div>
+                <div class="metric-value" id="metric-built-devices">0</div>
+                <div class="metric-change"><span id="metric-built-pending">0</span> in stock</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card">
+              <div class="metric-icon">💰</div>
+              <div class="metric-content">
+                <div class="metric-label">Total Value</div>
+                <div class="metric-value">₹<span id="metric-total-value">0</span></div>
+                <div class="metric-change">Cost per device: ₹<span id="metric-cost-per-device">0</span></div>
+              </div>
+            </div>
+            <div class="inventory-metric-card warning">
+              <div class="metric-icon">⚠️</div>
+              <div class="metric-content">
+                <div class="metric-label">Low Stock Alerts</div>
+                <div class="metric-value" id="metric-low-stock">0</div>
+                <div class="metric-change">Items below threshold</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card pending">
+              <div class="metric-icon">⏳</div>
+              <div class="metric-content">
+                <div class="metric-label">Pending Approvals</div>
+                <div class="metric-value" id="metric-pending-approvals">0</div>
+                <div class="metric-change">Awaiting action</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card success">
+              <div class="metric-icon">✅</div>
+              <div class="metric-content">
+                <div class="metric-label">Recent Activity</div>
+                <div class="metric-value" id="metric-recent-count">0</div>
+                <div class="metric-change">Last 7 days</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="inventory-quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="quick-actions-grid">
+              <button class="quick-action-btn" onclick="inventoryTab('stock', event); inventorySubtab('stock', 'parts')">
+                <span class="action-icon">➕</span>
+                <span class="action-label">Add Parts</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('stock', event); inventorySubtab('stock', 'built')">
+                <span class="action-icon">🏭</span>
+                <span class="action-label">Register Device</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('approvals', event)">
+                <span class="action-icon">✓</span>
+                <span class="action-label">Review Approvals</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('liquidation', event)">
+                <span class="action-icon">📤</span>
+                <span class="action-label">Issue/Sale</span>
+              </button>
+              <button class="quick-action-btn" onclick="exportInventoryCSV()">
+                <span class="action-icon">📥</span>
+                <span class="action-label">Export Data</span>
+              </button>
+              <button class="quick-action-btn" onclick="refreshInventoryData()">
+                <span class="action-icon">🔄</span>
+                <span class="action-label">Refresh All</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent Activity Timeline -->
+          <div class="inventory-recent-activity">
+            <h3>Recent Activity</h3>
+            <div class="activity-timeline" id="activity-timeline">
+              <div class="activity-empty">No recent activity</div>
+            </div>
+          </div>
+
+          <!-- Low Stock Alerts -->
+          <div class="inventory-alerts" id="inventory-alerts-section" style="display:none;">
+            <h3>⚠️ Low Stock Alerts</h3>
+            <div class="alerts-list" id="low-stock-alerts"></div>
           </div>
         </div>
       </div>
@@ -11289,7 +11843,8 @@ function inventoryDateTimeBlur(input, type, id, field) {
 
 function isValidEmail(value) {
     if (!value) return true;
-    return /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(String(value).trim());
+    // RFC 5322 simplified - requires 2+ char TLD and proper email structure
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(String(value).trim());
 }
 
 function isValidDeviceId15(value) {
@@ -11510,7 +12065,7 @@ function initInventoryModule() {
     }
     inventoryState.initialized = true;
     initInventoryTableAutoResize();
-    inventoryTab('stock');
+    inventoryTab('dashboard');
     inventorySubtab('stock', 'parts');
     inventoryLiquidationSubtab('requests');
     loadInventoryData();
@@ -11528,6 +12083,7 @@ function inventoryTab(tabId, e) {
         content.style.cssText = 'display: block !important';
     }
     if (e && e.currentTarget) e.currentTarget.classList.add('active');
+    if (tabId === 'dashboard') updateInventoryDashboard();
     if (tabId === 'approvals') refreshInventoryApprovals();
     if (tabId === 'liquidation') inventoryLiquidationSubtab('requests');
     if (tabId === 'prod-batch' && typeof dbRenderMaster === 'function') dbRenderMaster('prod');
@@ -11588,6 +12144,231 @@ function renderInventoryAll() {
     renderInventoryClients();
     renderInventoryRefillBatch();
     refreshInventoryApprovals();
+    updateInventoryDashboard();
+}
+
+// ==================== Dashboard Functions ====================
+
+function updateInventoryDashboard() {
+    // Calculate metrics
+    const totalParts = inventoryState.parts.reduce((sum, row) => sum + (Number(row.qty) || 0), 0);
+    const uniqueItems = new Set(inventoryState.parts.map(r => r.item).filter(Boolean)).size;
+    const builtDevices = inventoryState.built.length;
+    const builtInStock = inventoryState.built.filter(r => r.movement === 'Inbound').length;
+    
+    // Calculate total value
+    const partsValue = inventoryState.parts.reduce((sum, row) => {
+        return sum + ((Number(row.qty) || 0) * (Number(row.costPerUnit) || 0));
+    }, 0);
+    const constitutionCost = inventoryState.constitution.reduce((sum, row) => {
+        return sum + ((Number(row.unitsPerDevice) || 0) * (Number(row.costPerUnit) || 0));
+    }, 0);
+    
+    // Low stock alerts (items with qty < 10)
+    const lowStockItems = inventoryState.parts.filter(r => (Number(r.qty) || 0) < 10 && (Number(r.qty) || 0) > 0);
+    
+    // Pending approvals
+    const pendingApprovals = inventoryState.approvals.filter(r => r.status === 'Pending').length;
+    
+    // Recent activity (last 7 days)
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    const recentCount = inventoryState.liquidation.filter(r => {
+        if (!r.date) return false;
+        const date = new Date(r.date);
+        return date >= sevenDaysAgo;
+    }).length;
+    
+    // Update metrics
+    document.getElementById('metric-total-parts').textContent = totalParts.toLocaleString();
+    document.getElementById('metric-parts-items').textContent = uniqueItems;
+    document.getElementById('metric-built-devices').textContent = builtDevices;
+    document.getElementById('metric-built-pending').textContent = builtInStock;
+    document.getElementById('metric-total-value').textContent = partsValue.toLocaleString();
+    document.getElementById('metric-cost-per-device').textContent = constitutionCost.toFixed(0);
+    document.getElementById('metric-low-stock').textContent = lowStockItems.length;
+    document.getElementById('metric-pending-approvals').textContent = pendingApprovals;
+    document.getElementById('metric-recent-count').textContent = recentCount;
+    
+    // Update recent activity timeline
+    updateActivityTimeline();
+    
+    // Update low stock alerts
+    updateLowStockAlerts(lowStockItems);
+}
+
+function updateActivityTimeline() {
+    const timeline = document.getElementById('activity-timeline');
+    if (!timeline) return;
+    
+    // Get recent liquidation activities
+    const activities = inventoryState.liquidation
+        .filter(r => r.date)
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 10);
+    
+    if (activities.length === 0) {
+        timeline.innerHTML = '<div class="activity-empty">No recent activity</div>';
+        return;
+    }
+    
+    timeline.innerHTML = activities.map(activity => {
+        const actionClass = activity.action === 'Issue' ? 'update' : 'add';
+        const icon = activity.action === 'Issue' ? '📤' : '💰';
+        const timeAgo = getTimeAgo(activity.date);
+        
+        return `
+            <div class="activity-item ${actionClass}">
+                <div class="activity-icon">${icon}</div>
+                <div class="activity-content">
+                    <div class="activity-title">${escapeHtml(activity.action)} - ${escapeHtml(activity.item || 'Item')}</div>
+                    <div class="activity-description">
+                        ${escapeHtml(activity.unitsIssued || 0)} units to ${escapeHtml(activity.issuedTo || 'Unknown')}
+                    </div>
+                </div>
+                <div class="activity-time">${timeAgo}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+function updateLowStockAlerts(lowStockItems) {
+    const alertsSection = document.getElementById('inventory-alerts-section');
+    const alertsList = document.getElementById('low-stock-alerts');
+    
+    if (!alertsSection || !alertsList) return;
+    
+    if (lowStockItems.length === 0) {
+        alertsSection.style.display = 'none';
+        return;
+    }
+    
+    alertsSection.style.display = 'block';
+    alertsList.innerHTML = lowStockItems.map(item => `
+        <div class="alert-item">
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-content">
+                <div class="alert-title">${escapeHtml(item.item || 'Unknown Item')}</div>
+                <div class="alert-description">
+                    Current stock: ${escapeHtml(item.qty || 0)} ${escapeHtml(item.unit || 'units')} - Below threshold
+                </div>
+            </div>
+            <button class="alert-action" onclick="inventoryTab('stock', null); inventorySubtab('stock', 'parts')">
+                Reorder
+            </button>
+        </div>
+    `).join('');
+}
+
+function getTimeAgo(dateString) {
+    if (!dateString) return 'Unknown';
+    
+    const date = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.floor((now - date) / 1000);
+    
+    if (seconds < 60) return 'Just now';
+    if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+    if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+    if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`;
+    return date.toLocaleDateString();
+}
+
+// ==================== Search and Filter Functions ====================
+
+function filterInventoryGlobal(searchTerm) {
+    const term = searchTerm.toLowerCase().trim();
+    if (!term) {
+        // Clear filters and show all rows
+        clearInventoryFilters();
+        return;
+    }
+    
+    // Filter all tables
+    filterInventoryTable('parts', term);
+    filterInventoryTable('built', term);
+    filterInventoryTable('constitution', term);
+    filterInventoryTable('liquidation', term);
+    filterInventoryTable('clients', term);
+}
+
+function filterInventoryTable(type, searchTerm) {
+    const tableId = inventoryTableIds[type];
+    if (!tableId) return;
+    
+    const table = document.getElementById(tableId);
+    if (!table) return;
+    
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+    
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+function clearInventoryFilters() {
+    Object.values(inventoryTableIds).forEach(tableId => {
+        const table = document.getElementById(tableId);
+        if (!table) return;
+        const tbody = table.querySelector('tbody');
+        if (!tbody) return;
+        Array.from(tbody.querySelectorAll('tr')).forEach(row => {
+            row.style.display = '';
+        });
+    });
+}
+
+// ==================== Export Functions ====================
+
+function exportInventoryCSV() {
+    const activeTab = document.querySelector('#mod-inventory .tab-content.active');
+    if (!activeTab) return;
+    
+    // Determine which table to export based on active tab
+    let dataType = 'parts';
+    if (activeTab.id === 'inv-tab-constitution') dataType = 'constitution';
+    else if (activeTab.id === 'inv-tab-stock') {
+        dataType = document.getElementById('inv-stock-toggle')?.checked ? 'built' : 'parts';
+    } else if (activeTab.id === 'inv-tab-liquidation') {
+        dataType = document.getElementById('inv-liquidation-toggle')?.checked ? 'clients' : 'liquidation';
+    } else if (activeTab.id === 'inv-tab-refill') dataType = 'refill';
+    else if (activeTab.id === 'inv-tab-approvals') dataType = 'approvals';
+    
+    const data = inventoryState[dataType] || [];
+    if (data.length === 0) {
+        alert('No data to export');
+        return;
+    }
+    
+    // Convert to CSV
+    const headers = Object.keys(data[0]).filter(key => !key.startsWith('_'));
+    const csv = [
+        headers.join(','),
+        ...data.map(row => headers.map(header => {
+            const value = row[header] ?? '';
+            return `"${String(value).replace(/"/g, '""')}"`;
+        }).join(','))
+    ].join('\n');
+    
+    // Download
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `inventory_${dataType}_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+
+function exportInventoryExcel() {
+    alert('Excel export will generate a multi-sheet workbook with all inventory data.\n\nFeature coming soon!');
+    // TODO: Implement Excel export with multiple sheets
 }
 
 function setInventoryDirty(isDirty) {
@@ -11595,6 +12376,34 @@ function setInventoryDirty(isDirty) {
     const status = document.getElementById('inventory-save-status');
     if (!status) return;
     status.textContent = isDirty ? 'Unsaved changes' : 'All changes saved';
+}
+
+function showInventoryLoading(message = 'Loading...') {
+    const status = document.getElementById('inventory-save-status');
+    if (status) {
+        status.textContent = message;
+        status.style.color = '#2563eb';
+    }
+}
+
+function hideInventoryLoading() {
+    const status = document.getElementById('inventory-save-status');
+    if (status) {
+        status.textContent = inventoryState.dirty ? 'Unsaved changes' : 'All changes saved';
+        status.style.color = '';
+    }
+}
+
+function showInventoryError(title, message, canRetry = false, retryAction = null) {
+    let fullMessage = `${title}\n\n${message}`;
+    if (canRetry) {
+        fullMessage += '\n\nWould you like to retry?';
+        if (confirm(fullMessage) && retryAction) {
+            retryAction();
+        }
+    } else {
+        alert(fullMessage);
+    }
 }
 
 const inventoryTextMeasureCanvas = document.createElement('canvas');
@@ -11808,9 +12617,14 @@ function addInventoryRow(type) {
 
 function deleteInventoryRows(type) {
     if (!isInventoryAdmin()) {
-        alert('Admin login required to delete rows.');
+        showInventoryError(
+            'Permission Denied',
+            'Admin login required to delete rows.',
+            false
+        );
         return;
     }
+    
     const rows = inventoryState[type] || [];
     let selectedIds = new Set(rows.filter(r => r._selected).map(r => r.id));
     if (!selectedIds.size) {
@@ -11819,12 +12633,29 @@ function deleteInventoryRows(type) {
         selectedIds = new Set(checks.map(c => c.dataset.rowId));
     }
     if (!selectedIds.size) {
-        alert('Select at least one row to delete.');
+        showInventoryError(
+            'No Selection',
+            'Select at least one row to delete.',
+            false
+        );
         return;
     }
+    
+    // Confirmation dialog with details
+    const count = selectedIds.size;
+    const typeLabel = type.charAt(0).toUpperCase() + type.slice(1);
+    const confirmMessage = `Are you sure you want to delete ${count} ${typeLabel} ${count === 1 ? 'row' : 'rows'}?\n\nThis action cannot be undone.`;
+    
+    if (!confirm(confirmMessage)) {
+        return;
+    }
+    
     inventoryState[type] = rows.filter(r => !selectedIds.has(r.id));
     setInventoryDirty(true);
     renderInventoryAll();
+    
+    // Show success message
+    alert(`Successfully deleted ${count} ${count === 1 ? 'row' : 'rows'}.`);
 }
 
 function toggleInventorySelectAll(type, source) {
@@ -11961,41 +12792,63 @@ function loadInventoryData() {
         renderInventoryAll();
         return;
     }
+    
+    showInventoryLoading('Loading inventory data...');
+    
     google.script.run
         .withSuccessHandler((res) => {
-            inventoryState.constitution = normalizeInventoryRows('constitution', res?.constitution || []);
-            inventoryState.parts = normalizeInventoryRows('parts', res?.parts || []);
-            inventoryState.built = normalizeInventoryRows('built', res?.built || []);
-            const liquidationRaw = res?.liquidation || [];
-            const liquidationMap = new Map();
-            const normalizedLiquidation = liquidationRaw.map(row => {
-                const createdAt = row.requestCreatedAt || row.date || combineDateWithCurrentIstTime(formatDateToIso(new Date()));
-                const newRequestId = formatInventoryRequestId(row.action, createdAt);
-                if (row.requestId && row.requestId !== newRequestId) {
-                    liquidationMap.set(row.requestId, newRequestId);
-                }
-                return normalizeInventoryRow('liquidation', {
-                    ...row,
-                    requestCreatedAt: createdAt,
-                    requestId: newRequestId
+            try {
+                inventoryState.constitution = normalizeInventoryRows('constitution', res?.constitution || []);
+                inventoryState.parts = normalizeInventoryRows('parts', res?.parts || []);
+                inventoryState.built = normalizeInventoryRows('built', res?.built || []);
+                const liquidationRaw = res?.liquidation || [];
+                const liquidationMap = new Map();
+                const normalizedLiquidation = liquidationRaw.map(row => {
+                    const createdAt = row.requestCreatedAt || row.date || combineDateWithCurrentIstTime(formatDateToIso(new Date()));
+                    const newRequestId = formatInventoryRequestId(row.action, createdAt);
+                    if (row.requestId && row.requestId !== newRequestId) {
+                        liquidationMap.set(row.requestId, newRequestId);
+                    }
+                    return normalizeInventoryRow('liquidation', {
+                        ...row,
+                        requestCreatedAt: createdAt,
+                        requestId: newRequestId
+                    });
                 });
-            });
-            inventoryState.liquidation = normalizedLiquidation;
-            inventoryState.clients = normalizeInventoryRows('clients', res?.clients || []);
-            inventoryState.approvals = normalizeInventoryRows('approvals', res?.approvals || []).map(row => {
-                const updated = { ...row };
-                if (liquidationMap.has(updated.requestId)) {
-                    updated.requestId = liquidationMap.get(updated.requestId);
-                }
-                return updated;
-            });
-            inventoryState.refill = normalizeInventoryRows('refill', res?.refill || []);
-            setInventoryDirty(false);
-            renderInventoryAll();
+                inventoryState.liquidation = normalizedLiquidation;
+                inventoryState.clients = normalizeInventoryRows('clients', res?.clients || []);
+                inventoryState.approvals = normalizeInventoryRows('approvals', res?.approvals || []).map(row => {
+                    const updated = { ...row };
+                    if (liquidationMap.has(updated.requestId)) {
+                        updated.requestId = liquidationMap.get(updated.requestId);
+                    }
+                    return updated;
+                });
+                inventoryState.refill = normalizeInventoryRows('refill', res?.refill || []);
+                setInventoryDirty(false);
+                renderInventoryAll();
+                hideInventoryLoading();
+            } catch (error) {
+                console.error('Error processing inventory data:', error);
+                showInventoryError(
+                    'Data Processing Error',
+                    'Failed to process inventory data. Some data may be corrupted.',
+                    false
+                );
+                hideInventoryLoading();
+                renderInventoryAll();
+            }
         })
         .withFailureHandler((err) => {
-            console.error(err);
-            alert('Failed to load inventory data: ' + (err?.message || err));
+            console.error('Failed to load inventory:', err);
+            const errorMessage = err?.message || String(err);
+            showInventoryError(
+                'Failed to Load Inventory',
+                `${errorMessage}\n\nPlease check your connection and try again.`,
+                true,
+                loadInventoryData
+            );
+            hideInventoryLoading();
             renderInventoryAll();
         })
         .getInventoryData();
@@ -12045,17 +12898,25 @@ function saveInventoryTable(type) {
 
 function saveInventoryData(type) {
     if (typeof google === 'undefined' || !google.script?.run) {
-        alert('Inventory save is only available in the Apps Script deployment.');
+        showInventoryError(
+            'Save Not Available',
+            'Inventory save is only available in the Apps Script deployment.',
+            false
+        );
         return;
     }
+    
+    // Validate all tables that need to be saved
     const tablesToValidate = type ? [type] : ['constitution', 'parts', 'built', 'liquidation', 'clients', 'approvals', 'refill'];
     for (const tableType of tablesToValidate) {
         const result = validateInventoryTable(tableType);
         if (!result.valid) {
-            alert(`${result.title}: ${result.message}`);
+            showInventoryError(result.title, result.message, false);
             return;
         }
     }
+    
+    // Prepare payload
     const constitutionPayload = inventoryState.constitution.map(row => {
         const costPerDevice = (Number(row.unitsPerDevice) || 0) * (Number(row.costPerUnit) || 0);
         return {
@@ -12076,14 +12937,25 @@ function saveInventoryData(type) {
         approvals: inventoryState.approvals,
         refill: inventoryState.refill
     };
+    
+    showInventoryLoading('Saving inventory data...');
+    
     google.script.run
         .withSuccessHandler((res) => {
             setInventoryDirty(false);
-            alert(res?.msg || 'Inventory saved.');
+            hideInventoryLoading();
+            alert(res?.msg || 'Inventory saved successfully.');
         })
         .withFailureHandler((err) => {
-            console.error(err);
-            alert('Failed to save inventory data: ' + (err?.message || err));
+            console.error('Failed to save inventory:', err);
+            const errorMessage = err?.message || String(err);
+            showInventoryError(
+                'Failed to Save Inventory',
+                `${errorMessage}\n\nYour changes are still stored locally. Please try again.`,
+                true,
+                () => saveInventoryData(type)
+            );
+            hideInventoryLoading();
         })
         .saveInventoryData(payload);
 }
@@ -12159,37 +13031,37 @@ function renderInventoryConstitution() {
         const unitOptions = getInventoryPartsOptions('unit', row.unit);
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="constitution" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('constitution','${row.id}','_selected',this.checked)"></td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="constitution" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('constitution','${escapeHtml(row.id)}','_selected',this.checked)"></td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${row.id}','category',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','category',this.value)">
               ${categoryOptions}
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${row.id}','itemClass',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','itemClass',this.value)">
               ${itemClassOptions}
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${row.id}','item',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','item',this.value)">
               ${itemOptions}
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${row.id}','unit',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','unit',this.value)">
               ${unitOptions}
             </select>
           </td>
-          <td><input type="number" class="db-input" value="${row.unitsPerDevice ?? ''}" oninput="updateInventoryFieldInline('constitution','${row.id}','unitsPerDevice',this.value)"></td>
-          <td><input type="number" class="db-input" value="${row.costPerUnit ?? ''}" oninput="updateInventoryFieldInline('constitution','${row.id}','costPerUnit',this.value)"></td>
-          <td><input class="db-input" value="${row.version || ''}" oninput="updateInventoryFieldInline('constitution','${row.id}','version',this.value)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.unitsPerDevice ?? '')}" oninput="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','unitsPerDevice',this.value)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.costPerUnit ?? '')}" oninput="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','costPerUnit',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.version || '')}" oninput="updateInventoryFieldInline('constitution','${escapeHtml(row.id)}','version',this.value)"></td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.effectiveDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'constitution', '${row.id}', 'effectiveDate')"
-              onchange="inventoryDateTimeChange(this, 'constitution', '${row.id}', 'effectiveDate')"
-              onblur="inventoryDateTimeBlur(this, 'constitution', '${row.id}', 'effectiveDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.effectiveDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'constitution', '${escapeHtml(row.id)}', 'effectiveDate')"
+              onchange="inventoryDateTimeChange(this, 'constitution', '${escapeHtml(row.id)}', 'effectiveDate')"
+              onblur="inventoryDateTimeBlur(this, 'constitution', '${escapeHtml(row.id)}', 'effectiveDate')">
           </td>
-          <td data-constitution-cost="${row.id}">₹${costPerDevice.toFixed(2)}</td>
+          <td data-constitution-cost="${escapeHtml(row.id)}">₹${costPerDevice.toFixed(2)}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -12205,36 +13077,36 @@ function renderInventoryParts() {
     inventoryState.parts.forEach(row => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="parts" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('parts','${row.id}','_selected',this.checked)"></td>
-          <td><input class="db-input" value="${row.category || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','category',this.value)"></td>
-          <td><input class="db-input" value="${row.itemClass || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','itemClass',this.value)"></td>
-          <td><input class="db-input" value="${row.item || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','item',this.value)"></td>
-          <td><input class="db-input" value="${row.unit || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','unit',this.value)"></td>
-          <td><input type="number" class="db-input" value="${row.qty ?? ''}" oninput="updateInventoryFieldInline('parts','${row.id}','qty',this.value)"></td>
-          <td><input type="number" class="db-input" value="${row.costPerUnit ?? ''}" oninput="updateInventoryFieldInline('parts','${row.id}','costPerUnit',this.value)"></td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="parts" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('parts','${escapeHtml(row.id)}','_selected',this.checked)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.category || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','category',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.itemClass || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','itemClass',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.item || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','item',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.unit || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','unit',this.value)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.qty ?? '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','qty',this.value)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.costPerUnit ?? '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','costPerUnit',this.value)"></td>
           <td>
-            <select class="db-input" onchange="updateInventoryField('parts','${row.id}','movement',this.value)">
+            <select class="db-input" onchange="updateInventoryField('parts','${escapeHtml(row.id)}','movement',this.value)">
               <option value="Inbound" ${row.movement === 'Inbound' ? 'selected' : ''}>Inbound</option>
               <option value="Issue" ${row.movement === 'Issue' ? 'selected' : ''}>Issue</option>
               <option value="Sale" ${row.movement === 'Sale' ? 'selected' : ''}>Sale</option>
             </select>
           </td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.date) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'parts', '${row.id}', 'date')"
-              onchange="inventoryDateTimeChange(this, 'parts', '${row.id}', 'date')"
-              onblur="inventoryDateTimeBlur(this, 'parts', '${row.id}', 'date')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.date) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'parts', '${escapeHtml(row.id)}', 'date')"
+              onchange="inventoryDateTimeChange(this, 'parts', '${escapeHtml(row.id)}', 'date')"
+              onblur="inventoryDateTimeBlur(this, 'parts', '${escapeHtml(row.id)}', 'date')">
           </td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.deliveryDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'parts', '${row.id}', 'deliveryDate')"
-              onchange="inventoryDateTimeChange(this, 'parts', '${row.id}', 'deliveryDate')"
-              onblur="inventoryDateTimeBlur(this, 'parts', '${row.id}', 'deliveryDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.deliveryDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'parts', '${escapeHtml(row.id)}', 'deliveryDate')"
+              onchange="inventoryDateTimeChange(this, 'parts', '${escapeHtml(row.id)}', 'deliveryDate')"
+              onblur="inventoryDateTimeBlur(this, 'parts', '${escapeHtml(row.id)}', 'deliveryDate')">
           </td>
-          <td><input class="db-input" value="${row.poNumber || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','poNumber',this.value)"></td>
-          <td><input class="db-input" value="${row.confirmedBy || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','confirmedBy',this.value)"></td>
-          <td><input class="db-input" value="${row.issuedTo || ''}" oninput="updateInventoryFieldInline('parts','${row.id}','issuedTo',this.value)"></td>
-          <td>${row.requestId || '-'}</td>
+          <td><input class="db-input" value="${escapeHtml(row.poNumber || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','poNumber',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.confirmedBy || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','confirmedBy',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.issuedTo || '')}" oninput="updateInventoryFieldInline('parts','${escapeHtml(row.id)}','issuedTo',this.value)"></td>
+          <td>${escapeHtml(row.requestId || '-')}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -12251,36 +13123,36 @@ function renderInventoryBuilt() {
         const invalidDeviceId = row.deviceId && !isValidDeviceId15(row.deviceId);
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="built" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('built','${row.id}','_selected',this.checked)"></td>
-          <td><input class="db-input" value="${row.serial || ''}" oninput="updateInventoryFieldInline('built','${row.id}','serial',this.value)"></td>
-          <td><input class="db-input ${invalidDeviceId ? 'inv-input-invalid' : ''}" maxlength="15" inputmode="numeric" data-built-device-id value="${row.deviceId || ''}" oninput="updateInventoryFieldInline('built','${row.id}','deviceId',this.value); validateInventoryBuiltInput(this)"></td>
-          <td><input type="number" class="db-input" value="${row.count ?? ''}" oninput="updateInventoryFieldInline('built','${row.id}','count',this.value)"></td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="built" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('built','${escapeHtml(row.id)}','_selected',this.checked)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.serial || '')}" oninput="updateInventoryFieldInline('built','${escapeHtml(row.id)}','serial',this.value)"></td>
+          <td><input class="db-input ${invalidDeviceId ? 'inv-input-invalid' : ''}" maxlength="15" inputmode="numeric" data-built-device-id value="${escapeHtml(row.deviceId || '')}" oninput="updateInventoryFieldInline('built','${escapeHtml(row.id)}','deviceId',this.value); validateInventoryBuiltInput(this)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.count ?? '')}" oninput="updateInventoryFieldInline('built','${escapeHtml(row.id)}','count',this.value)"></td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.mfgDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'built', '${row.id}', 'mfgDate')"
-              onchange="inventoryDateTimeChange(this, 'built', '${row.id}', 'mfgDate')"
-              onblur="inventoryDateTimeBlur(this, 'built', '${row.id}', 'mfgDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.mfgDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'built', '${escapeHtml(row.id)}', 'mfgDate')"
+              onchange="inventoryDateTimeChange(this, 'built', '${escapeHtml(row.id)}', 'mfgDate')"
+              onblur="inventoryDateTimeBlur(this, 'built', '${escapeHtml(row.id)}', 'mfgDate')">
           </td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.saleDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'built', '${row.id}', 'saleDate')"
-              onchange="inventoryDateTimeChange(this, 'built', '${row.id}', 'saleDate')"
-              onblur="inventoryDateTimeBlur(this, 'built', '${row.id}', 'saleDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.saleDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'built', '${escapeHtml(row.id)}', 'saleDate')"
+              onchange="inventoryDateTimeChange(this, 'built', '${escapeHtml(row.id)}', 'saleDate')"
+              onblur="inventoryDateTimeBlur(this, 'built', '${escapeHtml(row.id)}', 'saleDate')">
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('built','${row.id}','soldTo',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('built','${escapeHtml(row.id)}','soldTo',this.value)">
               ${clientOptions}
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryField('built','${row.id}','movement',this.value)">
+            <select class="db-input" onchange="updateInventoryField('built','${escapeHtml(row.id)}','movement',this.value)">
               <option value="Inbound" ${row.movement === 'Inbound' ? 'selected' : ''}>Inbound</option>
               <option value="Issue" ${row.movement === 'Issue' ? 'selected' : ''}>Issue</option>
               <option value="Sale" ${row.movement === 'Sale' ? 'selected' : ''}>Sale</option>
             </select>
           </td>
-          <td><input type="checkbox" ${row.confirmed ? 'checked' : ''} onchange="updateInventoryCheckbox('built','${row.id}','confirmed',this.checked)"></td>
-          <td>${row.requestId || '-'}</td>
+          <td><input type="checkbox" ${row.confirmed ? 'checked' : ''} onchange="updateInventoryCheckbox('built','${escapeHtml(row.id)}','confirmed',this.checked)"></td>
+          <td>${escapeHtml(row.requestId || '-')}</td>
         `;
         tbody.appendChild(tr);
     });
@@ -12341,37 +13213,37 @@ function renderInventoryLiquidation() {
         const clientOptions = getInventoryClientOptions(row.issuedTo);
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="liquidation" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('liquidation','${row.id}','_selected',this.checked)"></td>
-          <td>${row.requestId || '-'}</td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="liquidation" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('liquidation','${escapeHtml(row.id)}','_selected',this.checked)"></td>
+          <td>${escapeHtml(row.requestId || '-')}</td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('liquidation','${row.id}','item',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('liquidation','${escapeHtml(row.id)}','item',this.value)">
               ${itemOptions}
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryField('liquidation','${row.id}','action',this.value)">
+            <select class="db-input" onchange="updateInventoryField('liquidation','${escapeHtml(row.id)}','action',this.value)">
               <option value="Issue" ${row.action === 'Issue' ? 'selected' : ''}>Issue</option>
               <option value="Sale" ${row.action === 'Sale' ? 'selected' : ''}>Sale</option>
               <option value="Transfer" ${row.action === 'Transfer' ? 'selected' : ''}>Transfer</option>
             </select>
           </td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('liquidation','${row.id}','issuedTo',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('liquidation','${escapeHtml(row.id)}','issuedTo',this.value)">
               ${clientOptions}
             </select>
           </td>
           <td>${Number(row.unitsBefore || 0)}</td>
-          <td data-liquidation-after="${row.id}">${Number(row.unitsAfter || 0)}</td>
-          <td><input type="number" class="db-input" value="${row.unitsIssued ?? ''}" oninput="updateInventoryFieldInline('liquidation','${row.id}','unitsIssued',this.value)"></td>
+          <td data-liquidation-after="${escapeHtml(row.id)}">${Number(row.unitsAfter || 0)}</td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.unitsIssued ?? '')}" oninput="updateInventoryFieldInline('liquidation','${escapeHtml(row.id)}','unitsIssued',this.value)"></td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.date) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'liquidation', '${row.id}', 'date')"
-              onchange="inventoryDateTimeChange(this, 'liquidation', '${row.id}', 'date')"
-              onblur="inventoryDateTimeBlur(this, 'liquidation', '${row.id}', 'date')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.date) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'liquidation', '${escapeHtml(row.id)}', 'date')"
+              onchange="inventoryDateTimeChange(this, 'liquidation', '${escapeHtml(row.id)}', 'date')"
+              onblur="inventoryDateTimeBlur(this, 'liquidation', '${escapeHtml(row.id)}', 'date')">
           </td>
-          <td><input type="checkbox" ${row.acknowledged ? 'checked' : ''} onchange="toggleInventoryAcknowledged('${row.id}', this.checked)"></td>
+          <td><input type="checkbox" ${row.acknowledged ? 'checked' : ''} onchange="toggleInventoryAcknowledged('${escapeHtml(row.id)}', this.checked)"></td>
           <td><input type="file" class="db-input" accept="application/pdf"></td>
-          <td><span class="inventory-status ${statusClass}">${row.status || 'Pending'}</span></td>
+          <td><span class="inventory-status ${statusClass}">${escapeHtml(row.status || 'Pending')}</span></td>
         `;
         tbody.appendChild(tr);
     });
@@ -12390,24 +13262,24 @@ function renderInventoryClients() {
         const gstinDisabled = row.clientType === 'In-house deptt' ? 'disabled' : '';
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="clients" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('clients','${row.id}','_selected',this.checked)"></td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="clients" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('clients','${escapeHtml(row.id)}','_selected',this.checked)"></td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('clients','${row.id}','clientType',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','clientType',this.value)">
               <option value="Manufacturer" ${row.clientType === 'Manufacturer' ? 'selected' : ''}>Manufacturer</option>
               <option value="Customer" ${row.clientType === 'Customer' ? 'selected' : ''}>Customer</option>
               <option value="In-house deptt" ${row.clientType === 'In-house deptt' ? 'selected' : ''}>In-house deptt</option>
             </select>
           </td>
-          <td><input class="db-input" value="${row.clientName || ''}" oninput="updateInventoryFieldInline('clients','${row.id}','clientName',this.value)"></td>
-          <td><input class="db-input" value="${row.clientAddress || ''}" oninput="updateInventoryFieldInline('clients','${row.id}','clientAddress',this.value)"></td>
-          <td><input class="db-input" value="${row.clientContact || ''}" oninput="clientContactInput(this, '${row.id}')"></td>
-          <td><input class="db-input" value="${row.clientEmail || ''}" oninput="updateInventoryFieldInline('clients','${row.id}','clientEmail',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.clientName || '')}" oninput="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','clientName',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.clientAddress || '')}" oninput="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','clientAddress',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.clientContact || '')}" oninput="clientContactInput(this, '${escapeHtml(row.id)}')"></td>
+          <td><input class="db-input" value="${escapeHtml(row.clientEmail || '')}" oninput="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','clientEmail',this.value)"></td>
           <td>
-            <select class="db-input" onchange="updateInventoryFieldInline('clients','${row.id}','item',this.value)">
+            <select class="db-input" onchange="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','item',this.value)">
               ${itemOptions}
             </select>
           </td>
-          <td><input class="db-input" value="${gstinValue}" ${gstinReadonly} ${gstinDisabled} oninput="updateInventoryFieldInline('clients','${row.id}','gstin',this.value.toUpperCase())"></td>
+          <td><input class="db-input" value="${escapeHtml(gstinValue)}" ${gstinReadonly} ${gstinDisabled} oninput="updateInventoryFieldInline('clients','${escapeHtml(row.id)}','gstin',this.value.toUpperCase())"></td>
         `;
         tbody.appendChild(tr);
     });
@@ -12422,31 +13294,31 @@ function renderInventoryRefillBatch() {
     inventoryState.refill.forEach(row => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><input type="checkbox" data-row-id="${row.id}" data-inv-type="refill" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('refill','${row.id}','_selected',this.checked)"></td>
-          <td><input class="db-input" value="${row.refillId || ''}" oninput="updateInventoryFieldInline('refill','${row.id}','refillId',this.value)"></td>
-          <td><input type="number" class="db-input" value="${row.lotSize ?? ''}" oninput="updateInventoryFieldInline('refill','${row.id}','lotSize',this.value)"></td>
-          <td><input class="db-input" value="${row.refillLotId || ''}" readonly></td>
-          <td><input class="db-input" value="${row.manufacturerName || ''}" oninput="updateInventoryFieldInline('refill','${row.id}','manufacturerName',this.value)"></td>
+          <td><input type="checkbox" data-row-id="${escapeHtml(row.id)}" data-inv-type="refill" ${row._selected ? 'checked' : ''} onchange="updateInventoryCheckbox('refill','${escapeHtml(row.id)}','_selected',this.checked)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.refillId || '')}" oninput="updateInventoryFieldInline('refill','${escapeHtml(row.id)}','refillId',this.value)"></td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.lotSize ?? '')}" oninput="updateInventoryFieldInline('refill','${escapeHtml(row.id)}','lotSize',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.refillLotId || '')}" readonly></td>
+          <td><input class="db-input" value="${escapeHtml(row.manufacturerName || '')}" oninput="updateInventoryFieldInline('refill','${escapeHtml(row.id)}','manufacturerName',this.value)"></td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.manufactureDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'refill', '${row.id}', 'manufactureDate')"
-              onchange="inventoryDateTimeChange(this, 'refill', '${row.id}', 'manufactureDate')"
-              onblur="inventoryDateTimeBlur(this, 'refill', '${row.id}', 'manufactureDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.manufactureDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'refill', '${escapeHtml(row.id)}', 'manufactureDate')"
+              onchange="inventoryDateTimeChange(this, 'refill', '${escapeHtml(row.id)}', 'manufactureDate')"
+              onblur="inventoryDateTimeBlur(this, 'refill', '${escapeHtml(row.id)}', 'manufactureDate')">
           </td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.expiryDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'refill', '${row.id}', 'expiryDate')"
-              onchange="inventoryDateTimeChange(this, 'refill', '${row.id}', 'expiryDate')"
-              onblur="inventoryDateTimeBlur(this, 'refill', '${row.id}', 'expiryDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.expiryDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'refill', '${escapeHtml(row.id)}', 'expiryDate')"
+              onchange="inventoryDateTimeChange(this, 'refill', '${escapeHtml(row.id)}', 'expiryDate')"
+              onblur="inventoryDateTimeBlur(this, 'refill', '${escapeHtml(row.id)}', 'expiryDate')">
           </td>
           <td>
-            <input class="db-input" type="text" value="${formatInventoryDateTimeDisplay(row.deliveryDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'refill', '${row.id}', 'deliveryDate')"
-              onchange="inventoryDateTimeChange(this, 'refill', '${row.id}', 'deliveryDate')"
-              onblur="inventoryDateTimeBlur(this, 'refill', '${row.id}', 'deliveryDate')">
+            <input class="db-input" type="text" value="${escapeHtml(formatInventoryDateTimeDisplay(row.deliveryDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'refill', '${escapeHtml(row.id)}', 'deliveryDate')"
+              onchange="inventoryDateTimeChange(this, 'refill', '${escapeHtml(row.id)}', 'deliveryDate')"
+              onblur="inventoryDateTimeBlur(this, 'refill', '${escapeHtml(row.id)}', 'deliveryDate')">
           </td>
-          <td><input class="db-input" value="${row.poNumber || ''}" oninput="updateInventoryFieldInline('refill','${row.id}','poNumber',this.value)"></td>
-          <td><input class="db-input" value="${row.notes || ''}" oninput="updateInventoryFieldInline('refill','${row.id}','notes',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.poNumber || '')}" oninput="updateInventoryFieldInline('refill','${escapeHtml(row.id)}','poNumber',this.value)"></td>
+          <td><input class="db-input" value="${escapeHtml(row.notes || '')}" oninput="updateInventoryFieldInline('refill','${escapeHtml(row.id)}','notes',this.value)"></td>
         `;
         tbody.appendChild(tr);
     });
@@ -12494,20 +13366,20 @@ function refreshInventoryApprovals() {
         const statusClass = row.status ? row.status.toLowerCase() : 'pending';
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${row.requestId}</td>
-          <td>${row.requestedBy || '-'}</td>
-          <td><input type="number" class="db-input" value="${row.tatDays ?? 3}" oninput="updateInventoryFieldInline('approvals','${row.requestId}','tatDays',this.value)"></td>
+          <td>${escapeHtml(row.requestId)}</td>
+          <td>${escapeHtml(row.requestedBy || '-')}</td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.tatDays ?? 3)}" oninput="updateInventoryFieldInline('approvals','${escapeHtml(row.requestId)}','tatDays',this.value)"></td>
           <td>
-            <input class="db-input" type="text" data-approval-due="${row.requestId}" value="${formatInventoryDateTimeDisplay(row.dueDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'approvals', '${row.requestId}', 'dueDate')"
-              onchange="inventoryDateTimeChange(this, 'approvals', '${row.requestId}', 'dueDate')"
-              onblur="inventoryDateTimeBlur(this, 'approvals', '${row.requestId}', 'dueDate')">
+            <input class="db-input" type="text" data-approval-due="${escapeHtml(row.requestId)}" value="${escapeHtml(formatInventoryDateTimeDisplay(row.dueDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'approvals', '${escapeHtml(row.requestId)}', 'dueDate')"
+              onchange="inventoryDateTimeChange(this, 'approvals', '${escapeHtml(row.requestId)}', 'dueDate')"
+              onblur="inventoryDateTimeBlur(this, 'approvals', '${escapeHtml(row.requestId)}', 'dueDate')">
           </td>
-          <td><span class="inventory-status ${statusClass}">${row.status}</span></td>
-          <td>${row.approver || '-'}</td>
+          <td><span class="inventory-status ${statusClass}">${escapeHtml(row.status)}</span></td>
+          <td>${escapeHtml(row.approver || '-')}</td>
           <td>
-            <button class="btn btn-green btn-sm" onclick="approveInventoryRequest('${row.requestId}','Approved')">Approve</button>
-            <button class="btn btn-outline btn-red btn-sm" onclick="approveInventoryRequest('${row.requestId}','Rejected')">Reject</button>
+            <button class="btn btn-green btn-sm" onclick="approveInventoryRequest('${escapeHtml(row.requestId)}','Approved')">Approve</button>
+            <button class="btn btn-outline btn-red btn-sm" onclick="approveInventoryRequest('${escapeHtml(row.requestId)}','Rejected')">Reject</button>
           </td>
         `;
         tbody.appendChild(tr);
