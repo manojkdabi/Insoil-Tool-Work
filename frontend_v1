@@ -27008,7 +27008,8 @@ function ratingFromBands(value, bands, labels) {
 
 
 // ✅ Simple farmer-action library (edit wording anytime)
-var ACTION_LIB = {
+// ✅ ACTION_LIB - English version
+var ACTION_LIB_EN = {
   pH: {
     'Acidic':   { action: 'Apply lime (agri lime/dolomite) + FYM/compost', when: 'Before sowing / land prep', benefit: 'Improves nutrient availability and root growth' },
     'Neutral':  { action: 'Maintain: FYM/compost + balanced fertilization', when: 'Before sowing + topdress', benefit: 'Best nutrient uptake and healthy crop growth' },
@@ -27024,9 +27025,8 @@ var ACTION_LIB = {
     'Medium': { action: 'Continue FYM/compost + residue retention', when: 'Each season', benefit: 'Maintains soil health and yield' },
     'High':   { action: 'Maintain: avoid burning residues; keep adding organics', when: 'Each season', benefit: 'Sustains soil fertility and moisture holding' }
   },
-  // Macros (Low/Medium/High)
   N: {
-    'Low':    { action: 'Increase N: split urea as per schedule  Check older/lower leaves for deficiency symptoms', when: 'Basal + 30 DAS + 60 DAS', benefit: 'Better tillering and growth' },
+    'Low':    { action: 'Increase N: split urea as per schedule. Check older/lower leaves for deficiency symptoms', when: 'Basal + 30 DAS + 60 DAS', benefit: 'Better tillering and growth' },
     'Medium': { action: 'Follow recommended N schedule', when: 'Basal + split doses', benefit: 'Stable growth and yield' },
     'High':   { action: 'Apply only recommended N', when: 'Basal + split doses', benefit: 'Prevents lodging and pest issues' }
   },
@@ -27036,7 +27036,7 @@ var ACTION_LIB = {
     'High':   { action: 'Apply only recommended P', when: 'Basal only if needed', benefit: 'Saves cost; avoids nutrient imbalance' }
   },
   K: {
-    'Low':    { action: 'Apply MOP/SOP as per schedule. Check leaf margines for deficiency symptoms', when: 'Basal + split if advised', benefit: 'Improves grain filling and stress tolerance' },
+    'Low':    { action: 'Apply MOP/SOP as per schedule. Check leaf margins for deficiency symptoms', when: 'Basal + split if advised', benefit: 'Improves grain filling and stress tolerance' },
     'Medium': { action: 'Follow recommended K schedule', when: 'Basal + split', benefit: 'Good yield and quality' },
     'High':   { action: 'Apply only recommended K', when: 'Basal minimal', benefit: 'Prevents nutrient imbalance' }
   },
@@ -27045,7 +27045,6 @@ var ACTION_LIB = {
     'Medium': { action: 'Maintain sulphur via SSP/gypsum', when: 'Basal', benefit: 'Sustains yield and quality' },
     'High':   { action: 'No extra sulphur needed', when: '—', benefit: 'Saves cost' }
   },
-  // Micros (Acute Deficient/Deficient/Latent Deficient/Marginal Sufficient/High/Very High)
   Cu: {
     'Acute Deficient':      { action: 'Apply copper sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Before sowing / early stage', benefit: 'Improves flowering and enzyme activity' },
     'Deficient':            { action: 'Apply copper sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Early growth stage', benefit: 'Prevents deficiency symptoms' },
@@ -27054,16 +27053,15 @@ var ACTION_LIB = {
     'High':                 { action: 'Avoid extra copper', when: 'Do not apply', benefit: 'Prevents toxicity risk' },
     'Very High':            { action: 'Avoid copper; monitor crop symptoms', when: 'Do not apply', benefit: 'Prevents toxicity risk' }
   },
-
-    Zn: {
+  Zn: {
     'Acute Deficient':      { action: 'Apply zinc sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Before sowing / early stage', benefit: 'Improves flowering and enzyme activity' },
     'Deficient':            { action: 'Apply zinc sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Early growth stage', benefit: 'Prevents deficiency symptoms' },
     'Latent Deficient':     { action: 'Apply zinc sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Early stage', benefit: 'Avoids hidden yield loss' },
-    'Marginal Sufficient':  { action: 'No immediate copper needed', when: 'Only when deficiency symptoms appear', benefit: 'Maintain with FYM/compost' },
-    'High':                 { action: 'Avoid extra copper', when: 'Do not apply', benefit: 'Prevents toxicity risk' },
+    'Marginal Sufficient':  { action: 'No immediate zinc needed', when: 'Only when deficiency symptoms appear', benefit: 'Maintain with FYM/compost' },
+    'High':                 { action: 'Avoid extra zinc', when: 'Do not apply', benefit: 'Prevents toxicity risk' },
     'Very High':            { action: 'Avoid zinc; monitor crop symptoms', when: 'Do not apply', benefit: 'Prevents toxicity risk' }
   },
-    Fe: {
+  Fe: {
     'Acute Deficient':      { action: 'Apply iron sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Before sowing / early stage', benefit: 'Improves flowering and enzyme activity' },
     'Deficient':            { action: 'Apply iron sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Early growth stage', benefit: 'Prevents deficiency symptoms' },
     'Latent Deficient':     { action: 'Apply iron sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Early stage', benefit: 'Avoids hidden yield loss' },
@@ -27071,7 +27069,7 @@ var ACTION_LIB = {
     'High':                 { action: 'Avoid extra iron', when: 'Do not apply', benefit: 'Prevents toxicity risk' },
     'Very High':            { action: 'Avoid iron; monitor crop symptoms', when: 'Do not apply', benefit: 'Prevents toxicity risk' }
   },
-    Mn: {
+  Mn: {
     'Acute Deficient':      { action: 'Apply manganese sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Before sowing / early stage', benefit: 'Improves flowering and enzyme activity' },
     'Deficient':            { action: 'Apply manganese sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Early growth stage', benefit: 'Prevents deficiency symptoms' },
     'Latent Deficient':     { action: 'Apply manganese sulphate soil/foliar as advised in Fertilizer Schedule', when: 'Early stage', benefit: 'Avoids hidden yield loss' },
@@ -27079,7 +27077,7 @@ var ACTION_LIB = {
     'High':                 { action: 'Avoid extra manganese', when: 'Do not apply', benefit: 'Prevents toxicity risk' },
     'Very High':            { action: 'Avoid manganese; monitor crop symptoms', when: 'Do not apply', benefit: 'Prevents toxicity risk' }
   },
-    B: {
+  B: {
     'Acute Deficient':      { action: 'Apply boron soil/foliar as advised in Fertilizer Schedule', when: 'Before sowing / early stage', benefit: 'Improves flowering and enzyme activity' },
     'Deficient':            { action: 'Apply borax soil/foliar as advised in Fertilizer Schedule', when: 'Early growth stage', benefit: 'Prevents deficiency symptoms' },
     'Latent Deficient':     { action: 'Apply borax soil/foliar as advised in Fertilizer Schedule', when: 'Early stage', benefit: 'Avoids hidden yield loss' },
@@ -27087,24 +27085,118 @@ var ACTION_LIB = {
     'High':                 { action: 'Avoid extra boron', when: 'Do not apply', benefit: 'Prevents toxicity risk' },
     'Very High':            { action: 'Avoid boron; monitor crop symptoms', when: 'Do not apply', benefit: 'Prevents toxicity risk' }
   }
-  
 };
+
+// ✅ ACTION_LIB - Hindi version
+var ACTION_LIB_HI = {
+  pH: {
+    'अम्लीय':   { action: 'चूना (कृषि चूना/डोलोमाइट) + FYM/कंपोस्ट डालें', when: 'बुवाई से पहले / भूमि तैयारी', benefit: 'पोषक तत्व उपलब्धता और जड़ विकास में सुधार' },
+    'तटस्थ':  { action: 'बनाए रखें: FYM/कंपोस्ट + संतुलित उर्वरक', when: 'बुवाई से पहले + टॉपड्रेस', benefit: 'सर्वोत्तम पोषक तत्व ग्रहण और स्वस्थ फसल वृद्धि' },
+    'क्षारीय': { action: 'जिप्सम + FYM/कंपोस्ट डालें; चूना न डालें', when: 'बुवाई से पहले / भूमि तैयारी', benefit: 'पोषक तत्व उपलब्धता में सुधार और क्षारीयता तनाव कम करता है' }
+  },
+  EC: {
+    'कम':    { action: 'सामान्य: अच्छी गुणवत्ता वाले सिंचाई जल का उपयोग करें', when: 'पूरे मौसम', benefit: 'स्वस्थ फसल वृद्धि' },
+    'मध्यम': { action: 'अच्छी गुणवत्ता वाला पानी उपयोग करें; जल निकासी सुनिश्चित करें', when: 'पहली सिंचाई से पहले', benefit: 'जड़ क्षेत्र में नमक जमाव से बचाता है' },
+    'उच्च':   { action: 'जल निकासी में सुधार + कम EC वाला पानी उपयोग करें; खारा पानी से बचें', when: 'पहली सिंचाई से पहले + बारिश के बाद', benefit: 'लवणता तनाव कम करता है और उपज में सुधार' }
+  },
+  OC: {
+    'कम':    { action: 'FYM/कंपोस्ट/वर्मीकंपोस्ट डालें; फसल अवशेष बनाए रखें', when: 'बुवाई से पहले / भूमि तैयारी', benefit: 'मिट्टी की संरचना और पोषक तत्व आपूर्ति में सुधार' },
+    'मध्यम': { action: 'FYM/कंपोस्ट + अवशेष प्रतिधारण जारी रखें', when: 'प्रत्येक मौसम', benefit: 'मिट्टी स्वास्थ्य और उपज बनाए रखता है' },
+    'उच्च':   { action: 'बनाए रखें: अवशेष न जलाएं; जैविक पदार्थ डालते रहें', when: 'प्रत्येक मौसम', benefit: 'मिट्टी उर्वरता और नमी धारण क्षमता बनाए रखता है' }
+  },
+  N: {
+    'कम':    { action: 'N बढ़ाएं: अनुसूची के अनुसार यूरिया विभाजित करें। कमी के लक्षणों के लिए पुरानी/निचली पत्तियां जांचें', when: 'बेसल + 30 DAS + 60 DAS', benefit: 'बेहतर कल्ले और वृद्धि' },
+    'मध्यम': { action: 'अनुशंसित N अनुसूची का पालन करें', when: 'बेसल + विभाजित खुराक', benefit: 'स्थिर वृद्धि और उपज' },
+    'उच्च':   { action: 'केवल अनुशंसित N डालें', when: 'बेसल + विभाजित खुराक', benefit: 'गिरने और कीट समस्याओं से रोकता है' }
+  },
+  P: {
+    'कम':    { action: 'फॉस्फेट उर्वरक (DAP/SSP) बेसल के रूप में डालें। कमी के लक्षणों के लिए नई/ऊपरी पत्तियां जांचें।', when: 'बुवाई से पहले / बेसल', benefit: 'बेहतर जड़ विकास और प्रारंभिक शक्ति' },
+    'मध्यम': { action: 'अनुशंसित बेसल P डालें', when: 'बुवाई से पहले / बेसल', benefit: 'अच्छी जड़ और फूल विकास' },
+    'उच्च':   { action: 'केवल अनुशंसित P डालें', when: 'बेसल केवल यदि आवश्यक हो', benefit: 'लागत बचाता है; पोषक तत्व असंतुलन से बचाता है' }
+  },
+  K: {
+    'कम':    { action: 'अनुसूची के अनुसार MOP/SOP डालें। कमी के लक्षणों के लिए पत्ती किनारों की जांच करें', when: 'बेसल + यदि सलाह दी जाए तो विभाजित', benefit: 'अनाज भरने और तनाव सहिष्णुता में सुधार' },
+    'मध्यम': { action: 'अनुशंसित K अनुसूची का पालन करें', when: 'बेसल + विभाजित', benefit: 'अच्छी उपज और गुणवत्ता' },
+    'उच्च':   { action: 'केवल अनुशंसित K डालें', when: 'बेसल न्यूनतम', benefit: 'पोषक तत्व असंतुलन से रोकता है' }
+  },
+  S: {
+    'कम':    { action: 'जिप्सम/SSP/सल्फर स्रोत डालें। कमी के लक्षणों के लिए मध्य पत्तियां जांचें', when: 'बेसल', benefit: 'प्रोटीन/तेल संश्लेषण और वृद्धि में सुधार' },
+    'मध्यम': { action: 'SSP/जिप्सम के माध्यम से सल्फर बनाए रखें', when: 'बेसल', benefit: 'उपज और गुणवत्ता बनाए रखता है' },
+    'उच्च':   { action: 'अतिरिक्त सल्फर की आवश्यकता नहीं', when: '—', benefit: 'लागत बचाता है' }
+  },
+  Cu: {
+    'तीव्र कमी':      { action: 'उर्वरक अनुसूची में सलाह के अनुसार कॉपर सल्फेट मिट्टी/पर्णीय डालें', when: 'बुवाई से पहले / प्रारंभिक चरण', benefit: 'फूल और एंजाइम गतिविधि में सुधार' },
+    'कमी':            { action: 'उर्वरक अनुसूची में सलाह के अनुसार कॉपर सल्फेट मिट्टी/पर्णीय डालें', when: 'प्रारंभिक वृद्धि चरण', benefit: 'कमी के लक्षणों से बचाता है' },
+    'गुप्त कमी':     { action: 'उर्वरक अनुसूची में सलाह के अनुसार कॉपर सल्फेट मिट्टी/पर्णीय डालें', when: 'प्रारंभिक चरण', benefit: 'छिपी उपज हानि से बचाता है' },
+    'सीमांत पर्याप्त':  { action: 'तत्काल कॉपर की आवश्यकता नहीं', when: 'केवल जब कमी के लक्षण दिखाई दें', benefit: 'FYM/कंपोस्ट के साथ बनाए रखें' },
+    'उच्च':                 { action: 'अतिरिक्त कॉपर से बचें', when: 'न डालें', benefit: 'विषाक्तता जोखिम से बचाता है' },
+    'बहुत उच्च':            { action: 'कॉपर से बचें; फसल के लक्षणों की निगरानी करें', when: 'न डालें', benefit: 'विषाक्तता जोखिम से बचाता है' }
+  },
+  Zn: {
+    'तीव्र कमी':      { action: 'उर्वरक अनुसूची में सलाह के अनुसार जिंक सल्फेट मिट्टी/पर्णीय डालें', when: 'बुवाई से पहले / प्रारंभिक चरण', benefit: 'फूल और एंजाइम गतिविधि में सुधार' },
+    'कमी':            { action: 'उर्वरक अनुसूची में सलाह के अनुसार जिंक सल्फेट मिट्टी/पर्णीय डालें', when: 'प्रारंभिक वृद्धि चरण', benefit: 'कमी के लक्षणों से बचाता है' },
+    'गुप्त कमी':     { action: 'उर्वरक अनुसूची में सलाह के अनुसार जिंक सल्फेट मिट्टी/पर्णीय डालें', when: 'प्रारंभिक चरण', benefit: 'छिपी उपज हानि से बचाता है' },
+    'सीमांत पर्याप्त':  { action: 'तत्काल जिंक की आवश्यकता नहीं', when: 'केवल जब कमी के लक्षण दिखाई दें', benefit: 'FYM/कंपोस्ट के साथ बनाए रखें' },
+    'उच्च':                 { action: 'अतिरिक्त जिंक से बचें', when: 'न डालें', benefit: 'विषाक्तता जोखिम से बचाता है' },
+    'बहुत उच्च':            { action: 'जिंक से बचें; फसल के लक्षणों की निगरानी करें', when: 'न डालें', benefit: 'विषाक्तता जोखिम से बचाता है' }
+  },
+  Fe: {
+    'तीव्र कमी':      { action: 'उर्वरक अनुसूची में सलाह के अनुसार आयरन सल्फेट मिट्टी/पर्णीय डालें', when: 'बुवाई से पहले / प्रारंभिक चरण', benefit: 'फूल और एंजाइम गतिविधि में सुधार' },
+    'कमी':            { action: 'उर्वरक अनुसूची में सलाह के अनुसार आयरन सल्फेट मिट्टी/पर्णीय डालें', when: 'प्रारंभिक वृद्धि चरण', benefit: 'कमी के लक्षणों से बचाता है' },
+    'गुप्त कमी':     { action: 'उर्वरक अनुसूची में सलाह के अनुसार आयरन सल्फेट मिट्टी/पर्णीय डालें', when: 'प्रारंभिक चरण', benefit: 'छिपी उपज हानि से बचाता है' },
+    'सीमांत पर्याप्त':  { action: 'तत्काल आयरन की आवश्यकता नहीं', when: 'केवल जब कमी के लक्षण दिखाई दें', benefit: 'FYM/कंपोस्ट के साथ बनाए रखें' },
+    'उच्च':                 { action: 'अतिरिक्त आयरन से बचें', when: 'न डालें', benefit: 'विषाक्तता जोखिम से बचाता है' },
+    'बहुत उच्च':            { action: 'आयरन से बचें; फसल के लक्षणों की निगरानी करें', when: 'न डालें', benefit: 'विषाक्तता जोखिम से बचाता है' }
+  },
+  Mn: {
+    'तीव्र कमी':      { action: 'उर्वरक अनुसूची में सलाह के अनुसार मैंगनीज सल्फेट मिट्टी/पर्णीय डालें', when: 'बुवाई से पहले / प्रारंभिक चरण', benefit: 'फूल और एंजाइम गतिविधि में सुधार' },
+    'कमी':            { action: 'उर्वरक अनुसूची में सलाह के अनुसार मैंगनीज सल्फेट मिट्टी/पर्णीय डालें', when: 'प्रारंभिक वृद्धि चरण', benefit: 'कमी के लक्षणों से बचाता है' },
+    'गुप्त कमी':     { action: 'उर्वरक अनुसूची में सलाह के अनुसार मैंगनीज सल्फेट मिट्टी/पर्णीय डालें', when: 'प्रारंभिक चरण', benefit: 'छिपी उपज हानि से बचाता है' },
+    'सीमांत पर्याप्त':  { action: 'तत्काल मैंगनीज की आवश्यकता नहीं', when: 'केवल जब कमी के लक्षण दिखाई दें', benefit: 'FYM/कंपोस्ट के साथ बनाए रखें' },
+    'उच्च':                 { action: 'अतिरिक्त मैंगनीज से बचें', when: 'न डालें', benefit: 'विषाक्तता जोखिम से बचाता है' },
+    'बहुत उच्च':            { action: 'मैंगनीज से बचें; फसल के लक्षणों की निगरानी करें', when: 'न डालें', benefit: 'विषाक्तता जोखिम से बचाता है' }
+  },
+  B: {
+    'तीव्र कमी':      { action: 'उर्वरक अनुसूची में सलाह के अनुसार बोरॉन मिट्टी/पर्णीय डालें', when: 'बुवाई से पहले / प्रारंभिक चरण', benefit: 'फूल और एंजाइम गतिविधि में सुधार' },
+    'कमी':            { action: 'उर्वरक अनुसूची में सलाह के अनुसार बोरेक्स मिट्टी/पर्णीय डालें', when: 'प्रारंभिक वृद्धि चरण', benefit: 'कमी के लक्षणों से बचाता है' },
+    'गुप्त कमी':     { action: 'उर्वरक अनुसूची में सलाह के अनुसार बोरेक्स मिट्टी/पर्णीय डालें', when: 'प्रारंभिक चरण', benefit: 'छिपी उपज हानि से बचाता है' },
+    'सीमांत पर्याप्त':  { action: 'तत्काल बोरॉन की आवश्यकता नहीं', when: 'केवल जब कमी के लक्षण दिखाई दें', benefit: 'FYM/कंपोस्ट के साथ बनाए रखें' },
+    'उच्च':                 { action: 'अतिरिक्त बोरॉन से बचें', when: 'न डालें', benefit: 'विषाक्तता जोखिम से बचाता है' },
+    'बहुत उच्च':            { action: 'बोरॉन से बचें; फसल के लक्षणों की निगरानी करें', when: 'न डालें', benefit: 'विषाक्तता जोखिम से बचाता है' }
+  }
+};
+
+// Default to English for backwards compatibility
+var ACTION_LIB = ACTION_LIB_EN;
+
 // Expose for report/popout contexts safely
-try { globalThis.ACTION_LIB = ACTION_LIB; } catch (e) { /* ignore */ }
+try { 
+  globalThis.ACTION_LIB = ACTION_LIB;
+  globalThis.ACTION_LIB_EN = ACTION_LIB_EN;
+  globalThis.ACTION_LIB_HI = ACTION_LIB_HI;
+} catch (e) { /* ignore */ }
 
 
-function getActionPlanFor(defKey, ratingText){
+function getActionPlanFor(defKey, ratingText, language){
   const key = String(defKey || '');
   const rating = String(ratingText || '');
+  const lang = language || 'en';
 
-  // Prefer local var, fall back to globalThis (popouts/iframes)
-  const lib =
-    (typeof ACTION_LIB !== 'undefined' && ACTION_LIB)
-      ? ACTION_LIB
-      : (typeof globalThis !== 'undefined' && globalThis.ACTION_LIB)
-        ? globalThis.ACTION_LIB
+  // Select the correct ACTION_LIB based on language
+  const libEN = (typeof ACTION_LIB_EN !== 'undefined' && ACTION_LIB_EN)
+      ? ACTION_LIB_EN
+      : (typeof globalThis !== 'undefined' && globalThis.ACTION_LIB_EN)
+        ? globalThis.ACTION_LIB_EN
+        : null;
+        
+  const libHI = (typeof ACTION_LIB_HI !== 'undefined' && ACTION_LIB_HI)
+      ? ACTION_LIB_HI
+      : (typeof globalThis !== 'undefined' && globalThis.ACTION_LIB_HI)
+        ? globalThis.ACTION_LIB_HI
         : null;
 
+  const lib = (lang === 'hi' && libHI) ? libHI : libEN;
+  
   if (!lib) return null;
 
   const map = lib[key];
@@ -27400,7 +27492,7 @@ function applySoilRowToContainer(container, row) {
 
     // ---------- RIGHT CARD (Action / When / Benefit) ----------
     const mappedPlan = (typeof getActionPlanFor === 'function')
-      ? getActionPlanFor(def.key, ratingText)
+      ? getActionPlanFor(def.key, ratingText, lang)
       : null;
 
     const resolvedPlan = mappedPlan || def.actionPlan || def.plan || def.reco || null;
