@@ -27781,8 +27781,9 @@ function identifyContentSections(container) {
   const page = container.querySelector('.page');
   if (!page) return sections;
   
-  // Collect all major content blocks that should not be split
+  // Collect content blocks with finer granularity
   const elements = Array.from(page.children);
+  
   elements.forEach((element, idx) => {
     const rect = element.getBoundingClientRect();
     const offsetTop = element.offsetTop;
@@ -27795,41 +27796,140 @@ function identifyContentSections(container) {
     if (element.classList.contains('hero')) {
       sectionType = 'hero';
       shouldKeepTogether = true;
+      sections.push({
+        element,
+        index: idx,
+        type: sectionType,
+        offsetTop,
+        height,
+        shouldKeepTogether
+      });
     } else if (element.classList.contains('top-strip')) {
       sectionType = 'top-strip';
       shouldKeepTogether = true;
+      sections.push({
+        element,
+        index: idx,
+        type: sectionType,
+        offsetTop,
+        height,
+        shouldKeepTogether
+      });
     } else if (element.classList.contains('section')) {
-      sectionType = 'section';
-      // Check if this section contains subheadings or dose table
-      const hasSubhead = element.querySelector('.subhead');
+      // For sections with param-rows, break them down into individual blocks
+      const paramRows = Array.from(element.querySelectorAll('.param-row'));
+      const subheads = Array.from(element.querySelectorAll('.subhead'));
       const hasDoseTable = element.querySelector('#doseTable');
       
-      // Special handling: if section has subhead, keep the subhead + some content together
-      // but allow the section to be split if it's too large
-      if (hasSubhead && !hasDoseTable) {
-        shouldKeepTogether = true;
-      } else if (hasDoseTable) {
-        // Dose table section - allow splitting but try to keep together if reasonable
-        shouldKeepTogether = height < 600; // Keep together if height < 600px
-      } else {
-        shouldKeepTogether = true;
+      // If section has param-rows (nutrient blocks), split at param-row level
+      if (paramRows.length > 0) {
+        // Get section-head if it exists
+        const sectionHead = element.querySelector('.section-head');
+        if (sectionHead) {
+          sections.push({
+            element: sectionHead,
+            index: idx,
+            type: 'section-head',
+            offsetTop: element.offsetTop + sectionHead.offsetTop,
+            height: sectionHead.getBoundingClientRect().height,
+            shouldKeepTogether: true
+          });
+        }
+        
+        // Process subheads and their associated param-rows
+        let currentSubhead = null;
+        let subheadOffset = 0;
+        
+        Array.from(element.children).forEach((child) => {
+          if (child.classList.contains('subhead')) {
+            currentSubhead = child;
+            subheadOffset = element.offsetTop + child.offsetTop;
+            // Keep subhead with next element (will be handled in pagination logic)
+          } else if (child.classList.contains('param-row')) {
+            const childRect = child.getBoundingClientRect();
+            const childOffset = element.offsetTop + child.offsetTop;
+            
+            // If this is the first param-row after a subhead, include subhead
+            const prevSibling = child.previousElementSibling;
+            if (prevSibling && prevSibling.classList.contains('subhead')) {
+              sections.push({
+                element: prevSibling,
+                index: idx,
+                type: 'subhead',
+                offsetTop: subheadOffset,
+                height: prevSibling.getBoundingClientRect().height,
+                shouldKeepTogether: true,
+                keepWithNext: true // Flag to keep with next element
+              });
+            }
+            
+            sections.push({
+              element: child,
+              index: idx,
+              type: 'param-row',
+              offsetTop: childOffset,
+              height: childRect.height,
+              shouldKeepTogether: true
+            });
+          }
+        });
+      } 
+      // If section has dose table, keep it together if small, else allow splitting
+      else if (hasDoseTable) {
+        sections.push({
+          element,
+          index: idx,
+          type: 'dose-table-section',
+          offsetTop,
+          height,
+          shouldKeepTogether: height < 600
+        });
+      }
+      // For other sections, keep together
+      else {
+        sections.push({
+          element,
+          index: idx,
+          type: 'section',
+          offsetTop,
+          height,
+          shouldKeepTogether: true
+        });
       }
     } else if (element.classList.contains('note-block')) {
+      // Note blocks should be kept together
       sectionType = 'note-block';
       shouldKeepTogether = true;
+      sections.push({
+        element,
+        index: idx,
+        type: sectionType,
+        offsetTop,
+        height,
+        shouldKeepTogether
+      });
     } else if (element.classList.contains('hr') || element.classList.contains('footer')) {
       sectionType = 'separator';
       shouldKeepTogether = false;
+      sections.push({
+        element,
+        index: idx,
+        type: sectionType,
+        offsetTop,
+        height,
+        shouldKeepTogether
+      });
+    } else {
+      // Default: keep together
+      sections.push({
+        element,
+        index: idx,
+        type: 'default',
+        offsetTop,
+        height,
+        shouldKeepTogether: true
+      });
     }
-    
-    sections.push({
-      element,
-      index: idx,
-      type: sectionType,
-      offsetTop,
-      height,
-      shouldKeepTogether
-    });
   });
   
   return sections;
@@ -27865,6 +27965,13 @@ async function renderContentWithSmartPagination(container, pdf, pdfWidth, pdfHei
     const section = sections[i];
     const sectionPdfHeight = section.height * canvasScaleFactor * imgScaleFactor;
     
+    // Check if this section has keepWithNext flag (e.g., subheads)
+    const hasKeepWithNext = section.keepWithNext === true;
+    const nextSection = i + 1 < sections.length ? sections[i + 1] : null;
+    const combinedHeight = hasKeepWithNext && nextSection 
+      ? sectionPdfHeight + (nextSection.height * canvasScaleFactor * imgScaleFactor)
+      : sectionPdfHeight;
+    
     // If a single section is larger than usable height, we must allow it to span pages
     if (sectionPdfHeight > USABLE_HEIGHT) {
       // Flush current page if it has content
@@ -27875,7 +27982,20 @@ async function renderContentWithSmartPagination(container, pdf, pdfWidth, pdfHei
       }
       // Add large section on its own page(s)
       pages.push([section]);
-    } 
+    }
+    // If this section has keepWithNext, check if it and next element fit on current page
+    else if (hasKeepWithNext && nextSection) {
+      if (currentPageHeight + combinedHeight > USABLE_HEIGHT && currentPageSections.length > 0) {
+        // Move both to next page
+        pages.push([...currentPageSections]);
+        currentPageSections = [section];
+        currentPageHeight = sectionPdfHeight;
+      } else {
+        // Add to current page
+        currentPageSections.push(section);
+        currentPageHeight += sectionPdfHeight;
+      }
+    }
     // Check if adding this section would exceed page height
     else if (currentPageHeight + sectionPdfHeight > USABLE_HEIGHT && currentPageSections.length > 0) {
       // For sections that should be kept together, move to next page
