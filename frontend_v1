@@ -27800,10 +27800,18 @@ function identifyContentSections(container) {
       shouldKeepTogether = true;
     } else if (element.classList.contains('section')) {
       sectionType = 'section';
-      // Check if this section contains subheadings
+      // Check if this section contains subheadings or dose table
       const hasSubhead = element.querySelector('.subhead');
       const hasDoseTable = element.querySelector('#doseTable');
-      if (hasSubhead || hasDoseTable) {
+      
+      // Special handling: if section has subhead, keep the subhead + some content together
+      // but allow the section to be split if it's too large
+      if (hasSubhead && !hasDoseTable) {
+        shouldKeepTogether = true;
+      } else if (hasDoseTable) {
+        // Dose table section - allow splitting but try to keep together if reasonable
+        shouldKeepTogether = height < 600; // Keep together if height < 600px
+      } else {
         shouldKeepTogether = true;
       }
     } else if (element.classList.contains('note-block')) {
