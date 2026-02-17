@@ -27816,13 +27816,24 @@ function identifyContentSections(container) {
         shouldKeepTogether
       });
     } else if (element.classList.contains('section')) {
-      // For sections with param-rows, break them down into individual blocks
+      // Check for dose table first, param-rows second
+      const hasDoseTable = element.querySelector('#doseTable');
       const paramRows = Array.from(element.querySelectorAll('.param-row'));
       const subheads = Array.from(element.querySelectorAll('.subhead'));
-      const hasDoseTable = element.querySelector('#doseTable');
       
+      // If section has dose table, keep it together if small, else allow splitting
+      if (hasDoseTable) {
+        sections.push({
+          element,
+          index: idx,
+          type: 'dose-table-section',
+          offsetTop,
+          height,
+          shouldKeepTogether: height < 600
+        });
+      }
       // If section has param-rows (nutrient blocks), split at param-row level
-      if (paramRows.length > 0) {
+      else if (paramRows.length > 0) {
         // Get section-head if it exists
         const sectionHead = element.querySelector('.section-head');
         if (sectionHead) {
@@ -27874,17 +27885,6 @@ function identifyContentSections(container) {
           }
         });
       } 
-      // If section has dose table, keep it together if small, else allow splitting
-      else if (hasDoseTable) {
-        sections.push({
-          element,
-          index: idx,
-          type: 'dose-table-section',
-          offsetTop,
-          height,
-          shouldKeepTogether: height < 600
-        });
-      }
       // For other sections, keep together
       else {
         sections.push({
