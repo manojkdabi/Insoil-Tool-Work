@@ -26424,8 +26424,59 @@ function getStvDirectReportTemplate() {
       .stv-direct-report .bullet{ font-size: 12px; color: #374151; line-height: 1.55; margin: 0; padding-left: 16px; }
       .stv-direct-report .bullet li{ margin: 4px 0; }
 
+      /* Bordered text boxes for Source/References and Fertilizer Schedule heading */
+      .stv-direct-report .text-box{
+        padding: 12px 16px;
+        margin: 0 18px;
+        border: 1px solid rgba(229,231,235,.9);
+        border-radius: 8px;
+        background: #fefefe;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .stv-direct-report .text-box.box-sources{
+        margin-top: 16px;
+        margin-bottom: 8px;
+      }
+      .stv-direct-report .text-box.box-fert-heading{
+        margin-top: 8px;
+        margin-bottom: 12px;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      .stv-direct-report .text-box .box-title{
+        font-weight: 700;
+        font-size: 13px;
+        color: #1f2937;
+        margin-bottom: 8px;
+      }
+      .stv-direct-report .text-box .box-content{
+        font-size: 12px;
+        color: #374151;
+        line-height: 1.5;
+      }
+      
+      /* Keep fertilizer schedule heading with table */
+      .stv-direct-report .fert-schedule-group{
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      
+      /* Ensure dose table section avoids orphaning */
+      .stv-direct-report .dose-table-section{
+        page-break-before: auto;
+        break-before: auto;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
       .stv-direct-report .recap{ padding: 14px 18px 4px; }
       .stv-direct-report .alert{ font-size: 12px; color: #374151; margin: 8px 0 10px; }
+
+      /* Add margin for dose table section */
+      .stv-direct-report .section.dose-table-section{
+        margin: 0 18px;
+      }
 
       .stv-direct-report table{ width:100%; border-collapse: separate; border-spacing: 0; overflow:hidden; border-radius: 12px; border: 1px solid rgba(229,231,235,.9); background:#fff; }
       .stv-direct-report thead th{ background: #2b1f1a; color:#fff; font-size: 12px; font-weight: 700; padding: 10px 10px; text-align:center; border-right: 1px solid rgba(255,255,255,.15); }
@@ -26623,8 +26674,12 @@ function getStvDirectReportTemplate() {
       <div class="note-block">
         <div class="subhead" style="margin-top:0;">Testing Methodology</div>
         <ol class="bullet" id="methodology"></ol>
-        <div class="subhead">Source/References</div>
-        <div class="muted" style="font-size:12px; line-height:1.2;" id="sources"></div>
+      </div>
+
+      <!-- Source/References in bordered text box -->
+      <div class="text-box box-sources">
+        <div class="box-title">Source/References</div>
+        <div class="box-content muted" id="sources"></div>
       </div>
 
       <div class="hr"></div>
@@ -26632,8 +26687,14 @@ function getStvDirectReportTemplate() {
         <div class="disclaimer" id="disclaimer2"></div>
       </div>
 
-      <div class="section" style="padding-top:0;">
-        <div class="subhead" style="margin-top:80px;">Recommended Fertilizer Schedule</div>
+      <!-- Fertilizer Schedule heading in bordered text box -->
+      <div class="text-box box-fert-heading">
+        <div class="box-title">Recommended Fertilizer Schedule</div>
+        <div class="box-content">Fertilizer recommendations and their respective dosages are derived from Govt sources such as ICAR bodies/State Agriculture Universities/KVK and Agriculture departments.</div>
+      </div>
+
+      <!-- Fertilizer Schedule table -->
+      <div class="section dose-table-section" style="padding-top:0; padding-bottom:8px;">
         <div id="doseTable"></div>
       </div>
 
