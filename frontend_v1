@@ -7517,6 +7517,8 @@
                     <tbody id="body-device-registry"></tbody>
                   </table>
                 </div>
+                <!-- ✅ PAGINATION CONTROLS -->
+                <div id="registry-pagination" class="pagination-controls" style="padding: 12px; text-align: center; border-top: 1px solid var(--border-color);"></div>
               </div>
               <div id="registry-detail-panel" class="registry-detail-panel">
                 <div class="registry-detail-header">
@@ -12495,6 +12497,10 @@ let qcData         = [];
 let selectedRowId  = null;
 let isHeavyDataLoaded = false;
 
+// --- PAGINATION STATE ---
+// Devices Module Pagination
+let registryCurrentPage = 1;
+const registryPageSize = 50;
 
 
 // --- PAGINATION STATE ---
@@ -18538,6 +18544,7 @@ let registryMapSearchTerm = '';
 
 function filterRegistryTable(value) {
   registrySearchTerm = String(value || '').trim().toLowerCase();
+  registryCurrentPage = 1; // ✅ Reset to first page when searching
   renderDeviceRegistry();
 }
 
@@ -18691,8 +18698,26 @@ function renderDeviceRegistry() {
   }
 
   const filteredRegistry = deviceRegistry.filter(r => matchesRegistrySearch(r, registrySearchTerm));
+  
+  // ✅ PAGINATION: Calculate page boundaries
+  const totalRecords = filteredRegistry.length;
+  const totalPages = Math.ceil(totalRecords / registryPageSize);
+  
+  // Ensure currentPage is within bounds
+  if (registryCurrentPage > totalPages && totalPages > 0) {
+    registryCurrentPage = totalPages;
+  }
+  if (registryCurrentPage < 1) {
+    registryCurrentPage = 1;
+  }
+  
+  const startIdx = (registryCurrentPage - 1) * registryPageSize;
+  const endIdx = Math.min(startIdx + registryPageSize, totalRecords);
+  const pagedRegistry = filteredRegistry.slice(startIdx, endIdx);
+  
+  console.log(`📄 Rendering Devices page ${registryCurrentPage}/${totalPages} (${startIdx + 1}-${endIdx} of ${totalRecords})`);
 
-  filteredRegistry.forEach(function (r) {
+  pagedRegistry.forEach(function (r) {
     const tr = document.createElement('tr');
     tr.style.cursor = 'pointer'; // Show hand cursor to indicate clickability
 
@@ -18759,6 +18784,9 @@ function renderDeviceRegistry() {
     if (placeInput && typeof initRegistryLocationAutocomplete === 'function') initRegistryLocationAutocomplete(placeInput);
   });
 
+  // ✅ PAGINATION: Render pagination controls
+  renderRegistryPagination(totalRecords, totalPages);
+
   applyRegistryEditMode();
   const searchInput = document.getElementById('registry-search-installed');
   if (searchInput && searchInput.value !== registrySearchTerm) {
@@ -18768,6 +18796,62 @@ function renderDeviceRegistry() {
   refreshRegistryTextareaHeights();
   if (typeof renderDashboard === 'function') renderDashboard();
   setTimeout(renderMapView, 500);
+}
+
+// ✅ PAGINATION: Render pagination controls for Device Registry
+function renderRegistryPagination(totalRecords, totalPages) {
+  const paginationDiv = document.getElementById('registry-pagination');
+  if (!paginationDiv) {
+    console.warn('registry-pagination div not found');
+    return;
+  }
+  
+  if (totalPages <= 1) {
+    paginationDiv.innerHTML = `<span class="pagination-info">Showing all ${totalRecords} devices</span>`;
+    return;
+  }
+  
+  const startRecord = (registryCurrentPage - 1) * registryPageSize + 1;
+  const endRecord = Math.min(registryCurrentPage * registryPageSize, totalRecords);
+  
+  paginationDiv.innerHTML = `
+    <div class="pagination-controls">
+      <button 
+        class="btn btn-sm btn-outline" 
+        onclick="registryGoToPage(1)" 
+        ${registryCurrentPage === 1 ? 'disabled' : ''}>
+        ⏮ First
+      </button>
+      <button 
+        class="btn btn-sm btn-outline" 
+        onclick="registryGoToPage(${registryCurrentPage - 1})" 
+        ${registryCurrentPage === 1 ? 'disabled' : ''}>
+        ◀ Prev
+      </button>
+      <span class="pagination-info">
+        Page ${registryCurrentPage} of ${totalPages} 
+        (${startRecord}-${endRecord} of ${totalRecords} devices)
+      </span>
+      <button 
+        class="btn btn-sm btn-outline" 
+        onclick="registryGoToPage(${registryCurrentPage + 1})" 
+        ${registryCurrentPage === totalPages ? 'disabled' : ''}>
+        Next ▶
+      </button>
+      <button 
+        class="btn btn-sm btn-outline" 
+        onclick="registryGoToPage(${totalPages})" 
+        ${registryCurrentPage === totalPages ? 'disabled' : ''}>
+        Last ⏭
+      </button>
+    </div>
+  `;
+}
+
+// ✅ PAGINATION: Navigate to specific page
+function registryGoToPage(page) {
+  registryCurrentPage = page;
+  renderDeviceRegistry();
 }
 
 function openRegistryDetailPanel(deviceId) {
