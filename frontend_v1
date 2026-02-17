@@ -13166,7 +13166,7 @@ function loadOperationalData(opts = {}) {
     }
   }
 
-  console.log('🔄 Fetching Heavy Data (UNLIMITED)...');
+  console.log('🔄 Fetching Heavy Data (WARNING: UNLIMITED - use with caution)...');
 
   // ✅ Local-only / offline mode guard
   if (typeof google === 'undefined' || !google.script?.run) {
@@ -13397,7 +13397,24 @@ function loadOperationalData(opts = {}) {
     .withFailureHandler(err => {
       window.__opDataInFlight = false;
       console.error('Data Load Error:', err);
-      alert('Heavy data load failed. Check Apps Script logs / execution transcript.');
+      
+      // Check for "Argument too large" error
+      const errMsg = (err && err.message) ? err.message : String(err);
+      if (errMsg.includes('Argument too large') || errMsg.includes('too large')) {
+        alert('❌ Data payload too large!\n\n' +
+              'Your sheet contains too much data to load at once.\n' +
+              'Solution: The app will now load recent data only (last 30 days).\n\n' +
+              'To load all data, reduce the number of rows or use pagination.');
+        
+        // Fallback to recent data
+        if (typeof loadOperationalDataRecent === 'function') {
+          setTimeout(() => {
+            loadOperationalDataRecent({ days: 30, mode: 'full', warmFull: false });
+          }, 1000);
+        }
+      } else {
+        alert('Heavy data load failed. Check Apps Script logs / execution transcript.\n\n' + errMsg);
+      }
     })
     .getOperationalData();
 }
@@ -13419,6 +13436,19 @@ function loadOperationalDataRecent(opts = {}) {
   google.script.run
     .withSuccessHandler(function (res) {
       try {
+        // Log payload info if available
+        if (res && res.__info) {
+          console.log('📊 Recent Data Payload Info:', {
+            sizeKB: res.__info.payloadSizeKB,
+            ms: res.__info.ms,
+            filteredRgb: res.__info.filteredRgb,
+            filteredQc: res.__info.filteredQc,
+            totalRgb: res.__info.totalRgb,
+            totalQc: res.__info.totalQc,
+            days: res.__info.days
+          });
+        }
+        
         if (res && res.rgbData) rgbData = res.rgbData;
         if (res && res.qcData) qcData = res.qcData;
 
@@ -13463,6 +13493,16 @@ function loadOperationalDataRecent(opts = {}) {
     .withFailureHandler(err => {
       window.__opDataInFlight = false;
       console.error('Recent data load failed:', err);
+      
+      const errMsg = (err && err.message) ? err.message : String(err);
+      if (errMsg.includes('Argument too large') || errMsg.includes('too large')) {
+        alert('❌ Data payload still too large!\n\n' +
+              'Even 30 days of data exceeds the size limit.\n' +
+              'Please reduce the number of columns in your sheets or contact support.\n\n' +
+              'Error: ' + errMsg);
+      } else {
+        alert('Recent data load failed:\n' + errMsg);
+      }
     })
     .getOperationalDataRecent(days);
 }
