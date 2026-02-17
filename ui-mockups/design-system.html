@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insoil Tool - Design System</title>
+  <style>
+    /* ============================================
+       UNIFIED DESIGN SYSTEM - Insoil Tool
+       ============================================ */
+    
+    :root {
+      /* Primary Palette - Professional Blue */
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #3b82f6;
+      --primary-lighter: #60a5fa;
+      --primary-bg: #eff6ff;
+      
+      /* Secondary Palette - Modern Teal */
+      --secondary: #14b8a6;
+      --secondary-hover: #0d9488;
+      --secondary-light: #2dd4bf;
+      --secondary-bg: #f0fdfa;
+      
+      /* Status Colors */
+      --success: #10b981;
+      --success-hover: #059669;
+      --success-light: #34d399;
+      --success-bg: #d1fae5;
+      
+      --warning: #f59e0b;
+      --warning-hover: #d97706;
+      --warning-light: #fbbf24;
+      --warning-bg: #fef3c7;
+      
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --danger-light: #f87171;
+      --danger-bg: #fee2e2;
+      
+      --info: #3b82f6;
+      --info-hover: #2563eb;
+      --info-bg: #dbeafe;
+      
+      /* Neutral Scale */
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      
+      /* Sidebar */
+      --sidebar-bg: #1e3a8a;
+      --sidebar-hover: #1e40af;
+      --sidebar-active: #3b82f6;
+      
+      /* Backgrounds */
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-hover: #f1f5f9;
+      
+      /* Borders */
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      
+      /* Spacing (8px grid) */
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+      --spacing-2xl: 48px;
+      
+      /* Border Radius */
+      --radius-sm: 4px;
+      --radius: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-full: 9999px;
+      
+      /* Typography */
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-body);
+      color: var(--gray-800);
+      line-height: 1.6;
+      padding: var(--spacing-2xl);
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    h2 {
+      font-size: 1.875rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-top: var(--spacing-2xl);
+      margin-bottom: var(--spacing-lg);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: var(--spacing-sm);
+    }
+    
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .subtitle {
+      font-size: 1.125rem;
+      color: var(--gray-600);
+      margin-bottom: var(--spacing-2xl);
+    }
+    
+    /* Color Palette Display */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .color-card {
+      background: var(--bg-surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    
+    .color-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .color-swatch {
+      height: 100px;
+      width: 100%;
+    }
+    
+    .color-info {
+      padding: var(--spacing-md);
+    }
+    
+    .color-name {
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .color-value {
+      font-family: monospace;
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+    
+    /* Button Showcase */
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      font-family: var(--font-sans);
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-secondary {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background: var(--secondary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background: var(--success-hover);
+    }
+    
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+    
+    .btn-warning:hover {
+      background: var(--warning-hover);
+    }
+    
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      background: var(--danger-hover);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    /* Card Showcase */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .card {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      box-shadow: var(--shadow);
+      transition: all 0.2s;
+      border-left: 4px solid transparent;
+    }
+    
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .card-primary {
+      border-left-color: var(--primary);
+    }
+    
+    .card-success {
+      border-left-color: var(--success);
+    }
+    
+    .card-warning {
+      border-left-color: var(--warning);
+    }
+    
+    .card-danger {
+      border-left-color: var(--danger);
+    }
+    
+    .card-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: var(--spacing-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .card-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+    
+    /* Badge Showcase */
+    .badge-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .badge-primary {
+      background: var(--primary-bg);
+      color: var(--primary);
+    }
+    
+    .badge-success {
+      background: var(--success-bg);
+      color: var(--success-hover);
+    }
+    
+    .badge-warning {
+      background: var(--warning-bg);
+      color: var(--warning-hover);
+    }
+    
+    .badge-danger {
+      background: var(--danger-bg);
+      color: var(--danger-hover);
+    }
+    
+    .badge-info {
+      background: var(--info-bg);
+      color: var(--info-hover);
+    }
+    
+    /* Table Showcase */
+    .table-container {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    thead {
+      background: var(--gray-50);
+    }
+    
+    th {
+      padding: var(--spacing-md);
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--gray-700);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--border);
+    }
+    
+    td {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--border-light);
+      color: var(--gray-800);
+    }
+    
+    tbody tr {
+      transition: background 0.15s;
+    }
+    
+    tbody tr:hover {
+      background: var(--bg-hover);
+    }
+    
+    /* Spacing Showcase */
+    .spacing-demo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      background: var(--bg-surface);
+      padding: var(--spacing-lg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+    
+    .spacing-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+    }
+    
+    .spacing-box {
+      background: var(--primary);
+      border-radius: var(--radius-sm);
+    }
+    
+    .spacing-label {
+      font-family: monospace;
+      color: var(--gray-600);
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Insoil Tool Design System</h1>
+    <p class="subtitle">Unified theme standardization for professional and engaging UI</p>
+    
+    <h2>Color Palette</h2>
+    
+    <h3>Primary Colors</h3>
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background: #2563eb;"></div>
+        <div class="color-info">
+          <div class="color-name">Primary</div>
+          <div class="color-value">#2563eb</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #1d4ed8;"></div>
+        <div class="color-info">
+          <div class="color-name">Primary Hover</div>
+          <div class="color-value">#1d4ed8</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #3b82f6;"></div>
+        <div class="color-info">
+          <div class="color-name">Primary Light</div>
+          <div class="color-value">#3b82f6</div>
+        </div>
+      </div>
+    </div>
+    
+    <h3>Secondary Colors</h3>
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background: #14b8a6;"></div>
+        <div class="color-info">
+          <div class="color-name">Secondary (Teal)</div>
+          <div class="color-value">#14b8a6</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #0d9488;"></div>
+        <div class="color-info">
+          <div class="color-name">Secondary Hover</div>
+          <div class="color-value">#0d9488</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #2dd4bf;"></div>
+        <div class="color-info">
+          <div class="color-name">Secondary Light</div>
+          <div class="color-value">#2dd4bf</div>
+        </div>
+      </div>
+    </div>
+    
+    <h3>Status Colors</h3>
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background: #10b981;"></div>
+        <div class="color-info">
+          <div class="color-name">Success</div>
+          <div class="color-value">#10b981</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #f59e0b;"></div>
+        <div class="color-info">
+          <div class="color-name">Warning</div>
+          <div class="color-value">#f59e0b</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #ef4444;"></div>
+        <div class="color-info">
+          <div class="color-name">Danger</div>
+          <div class="color-value">#ef4444</div>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background: #3b82f6;"></div>
+        <div class="color-info">
+          <div class="color-name">Info</div>
+          <div class="color-value">#3b82f6</div>
+        </div>
+      </div>
+    </div>
+    
+    <h2>Buttons</h2>
+    <div class="button-grid">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-success">Success</button>
+      <button class="btn btn-warning">Warning</button>
+      <button class="btn btn-danger">Danger</button>
+      <button class="btn btn-outline">Outline</button>
+    </div>
+    
+    <h2>Cards</h2>
+    <div class="card-grid">
+      <div class="card card-primary">
+        <div class="card-title">Total Devices</div>
+        <div class="card-value">353</div>
+      </div>
+      <div class="card card-success">
+        <div class="card-title">Active (24h)</div>
+        <div class="card-value">245</div>
+      </div>
+      <div class="card card-warning">
+        <div class="card-title">Inactive</div>
+        <div class="card-value">108</div>
+      </div>
+      <div class="card card-danger">
+        <div class="card-title">QC Failed</div>
+        <div class="card-value">12</div>
+      </div>
+    </div>
+    
+    <h2>Badges</h2>
+    <div class="badge-grid">
+      <span class="badge badge-primary">Primary</span>
+      <span class="badge badge-success">Pass</span>
+      <span class="badge badge-warning">Warning</span>
+      <span class="badge badge-danger">Fail</span>
+      <span class="badge badge-info">Info</span>
+    </div>
+    
+    <h2>Table Styling</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Device ID</th>
+            <th>Status</th>
+            <th>Client</th>
+            <th>Last Active</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>8616570776</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td>Aman Srivastava</td>
+            <td>2026-01-21</td>
+          </tr>
+          <tr>
+            <td>8622110732</td>
+            <td><span class="badge badge-warning">Inactive</span></td>
+            <td>Soil Tech</td>
+            <td>2026-01-20</td>
+          </tr>
+          <tr>
+            <td>8622110732</td>
+            <td><span class="badge badge-success">Active</span></td>
+            <td>Ajeet Kumar</td>
+            <td>2026-01-21</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <h2>Spacing System (8px Grid)</h2>
+    <div class="spacing-demo">
+      <div class="spacing-item">
+        <div class="spacing-box" style="width: 4px; height: 20px;"></div>
+        <span class="spacing-label">--spacing-xs: 4px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-box" style="width: 8px; height: 20px;"></div>
+        <span class="spacing-label">--spacing-sm: 8px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-box" style="width: 16px; height: 20px;"></div>
+        <span class="spacing-label">--spacing-md: 16px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-box" style="width: 24px; height: 20px;"></div>
+        <span class="spacing-label">--spacing-lg: 24px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-box" style="width: 32px; height: 20px;"></div>
+        <span class="spacing-label">--spacing-xl: 32px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-box" style="width: 48px; height: 20px;"></div>
+        <span class="spacing-label">--spacing-2xl: 48px</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

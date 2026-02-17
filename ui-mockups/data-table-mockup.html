@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Table - Insoil Tool (Improved Theme)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --secondary: #14b8a6;
+      --secondary-hover: #0d9488;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      
+      --sidebar-bg: #1e3a8a;
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-hover: #f1f5f9;
+      --border: #e2e8f0;
+      
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-body);
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: var(--sidebar-bg);
+      color: white;
+      padding: 24px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    
+    .logo {
+      padding: 0 24px 24px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .nav-item {
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.8);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.875rem;
+    }
+    
+    .nav-item:hover {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+    
+    .nav-item.active {
+      background: var(--primary);
+      color: white;
+      font-weight: 500;
+    }
+    
+    .nav-item i {
+      width: 20px;
+    }
+    
+    /* Main Content */
+    .main {
+      margin-left: 250px;
+      flex: 1;
+      padding: 32px;
+    }
+    
+    .header {
+      margin-bottom: 24px;
+    }
+    
+    .header h1 {
+      font-size: 2rem;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+    }
+    
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--border);
+    }
+    
+    .tab {
+      padding: 12px 24px;
+      background: transparent;
+      border: none;
+      color: var(--gray-600);
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.875rem;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+    }
+    
+    .tab:hover {
+      color: var(--primary);
+    }
+    
+    .tab.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    
+    /* Toolbar */
+    .toolbar {
+      background: var(--bg-surface);
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-secondary {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background: var(--secondary-hover);
+    }
+    
+    .btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+    
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .search-box {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      min-width: 200px;
+    }
+    
+    .date-input {
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+    }
+    
+    /* Table Container */
+    .table-container {
+      background: var(--bg-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    thead {
+      background: var(--gray-50);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    th {
+      padding: 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: var(--gray-700);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    
+    td {
+      padding: 16px;
+      border-bottom: 1px solid var(--gray-100);
+      color: var(--gray-800);
+      font-size: 0.875rem;
+    }
+    
+    tbody tr {
+      transition: background 0.15s;
+    }
+    
+    tbody tr:hover {
+      background: var(--bg-hover);
+    }
+    
+    /* Action Buttons in Table */
+    .action-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 500;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-right: 4px;
+    }
+    
+    .action-btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .action-btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+    
+    .action-btn-secondary {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    .action-btn-secondary:hover {
+      background: var(--secondary-hover);
+    }
+    
+    .action-btn-warning {
+      background: var(--warning);
+      color: white;
+    }
+    
+    .action-btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+    
+    /* Badge */
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .badge-success {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+    }
+    
+    .badge-danger {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+    }
+    
+    .badge-warning {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--warning);
+    }
+    
+    /* Pagination */
+    .pagination {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--gray-50);
+      border-top: 1px solid var(--border);
+    }
+    
+    .page-info {
+      color: var(--gray-600);
+      font-size: 0.875rem;
+    }
+    
+    .page-controls {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .page-btn {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      transition: all 0.2s;
+    }
+    
+    .page-btn:hover:not(:disabled) {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <i class="fas fa-leaf"></i>
+      <span>Insoil</span>
+    </div>
+    <div class="nav-item">
+      <i class="fas fa-th-large"></i>
+      <span>Dashboard</span>
+    </div>
+    <div class="nav-item">
+      <i class="fas fa-cubes"></i>
+      <span>Devices</span>
+    </div>
+    <div class="nav-item active">
+      <i class="fas fa-vial"></i>
+      <span>RGB / Abs</span>
+    </div>
+    <div class="nav-item">
+      <i class="fas fa-check-circle"></i>
+      <span>Device QA/QC</span>
+    </div>
+    <div class="nav-item">
+      <i class="fas fa-flask"></i>
+      <span>Soil Test Results</span>
+    </div>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main">
+    <div class="header">
+      <h1>RGB / Abs Data</h1>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active">Calculated Metrics</button>
+      <button class="tab">Raw RGB</button>
+    </div>
+    
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <button class="btn btn-warning">
+        <i class="fas fa-file-export"></i>
+        Template
+      </button>
+      <button class="btn btn-outline">
+        <i class="fas fa-download"></i>
+        Export
+      </button>
+      <button class="btn btn-danger">
+        <i class="fas fa-redo"></i>
+        Reset
+      </button>
+      <button class="btn btn-primary">
+        <i class="fas fa-sync"></i>
+        Refresh Metrics
+      </button>
+      <button class="btn btn-secondary">
+        <i class="fas fa-upload"></i>
+        Import CSV
+      </button>
+      
+      <div style="margin-left: auto; display: flex; gap: 12px;">
+        <input type="date" class="date-input" value="2025-12-21">
+        <input type="date" class="date-input" value="2026-01-20">
+        <input type="text" class="search-box" placeholder="Search Device ID...">
+        <input type="text" class="search-box" placeholder="Search Test ID...">
+      </div>
+    </div>
+    
+    <!-- Table -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox"></th>
+            <th>QC</th>
+            <th>Client ID</th>
+            <th>Farm ID</th>
+            <th>Batch ID</th>
+            <th>Device ID</th>
+            <th>Test ID</th>
+            <th>Crop</th>
+            <th>Test Date</th>
+            <th>NH₄-N</th>
+            <th>P</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td></td>
+            <td>Default</td>
+            <td>Default</td>
+            <td>Default</td>
+            <td>861657077656432</td>
+            <td>42330</td>
+            <td>Wheat</td>
+            <td>2026-01-20 | 00:00</td>
+            <td>0.04</td>
+            <td>0.10</td>
+            <td>
+              <button class="action-btn action-btn-primary">View</button>
+              <button class="action-btn action-btn-secondary">Edit</button>
+              <button class="action-btn action-btn-danger">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td></td>
+            <td>Default</td>
+            <td>Default</td>
+            <td>Default</td>
+            <td>862211073286023</td>
+            <td>42210</td>
+            <td>Wheat</td>
+            <td>2026-01-20 | 00:00</td>
+            <td>0.15</td>
+            <td>0.19</td>
+            <td>
+              <button class="action-btn action-btn-primary">View</button>
+              <button class="action-btn action-btn-secondary">Edit</button>
+              <button class="action-btn action-btn-danger">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td></td>
+            <td>Default</td>
+            <td>Default</td>
+            <td>Default</td>
+            <td>862211073286023</td>
+            <td>42211</td>
+            <td>Wheat</td>
+            <td>2026-01-20 | 00:00</td>
+            <td>0.07</td>
+            <td>0.03</td>
+            <td>
+              <button class="action-btn action-btn-primary">View</button>
+              <button class="action-btn action-btn-secondary">Edit</button>
+              <button class="action-btn action-btn-danger">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td></td>
+            <td>Default</td>
+            <td>Default</td>
+            <td>Default</td>
+            <td>861657077656432</td>
+            <td>42329</td>
+            <td>Wheat</td>
+            <td>2026-01-20 | 00:00</td>
+            <td>0.04</td>
+            <td>0.10</td>
+            <td>
+              <button class="action-btn action-btn-primary">View</button>
+              <button class="action-btn action-btn-secondary">Edit</button>
+              <button class="action-btn action-btn-danger">Delete</button>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td></td>
+            <td>Default</td>
+            <td>Default</td>
+            <td>Default</td>
+            <td>861657077656432</td>
+            <td>42331</td>
+            <td>Wheat</td>
+            <td>2026-01-20 | 00:00</td>
+            <td>0.04</td>
+            <td>0.15</td>
+            <td>
+              <button class="action-btn action-btn-primary">View</button>
+              <button class="action-btn action-btn-secondary">Edit</button>
+              <button class="action-btn action-btn-danger">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- Pagination -->
+      <div class="pagination">
+        <div class="page-info">Showing 1-50 of 393</div>
+        <div class="page-controls">
+          <button class="page-btn" disabled>
+            <i class="fas fa-angle-double-left"></i> First
+          </button>
+          <button class="page-btn" disabled>
+            <i class="fas fa-angle-left"></i> Prev
+          </button>
+          <button class="page-btn">Page 1 of 8</button>
+          <button class="page-btn">
+            Next <i class="fas fa-angle-right"></i>
+          </button>
+          <button class="page-btn">
+            Last <i class="fas fa-angle-double-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
