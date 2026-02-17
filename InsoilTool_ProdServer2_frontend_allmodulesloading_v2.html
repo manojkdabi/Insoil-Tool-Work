@@ -3268,6 +3268,437 @@
       color: #dc2626;
     }
 
+    /* ==================== Inventory Dashboard ==================== */
+    #mod-inventory .inventory-dashboard {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    #mod-inventory .inventory-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    #mod-inventory .inventory-metric-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    #mod-inventory .inventory-metric-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      transform: translateY(-2px);
+    }
+
+    #mod-inventory .inventory-metric-card.warning {
+      border-left: 4px solid #f59e0b;
+      background: #fffbeb;
+    }
+
+    #mod-inventory .inventory-metric-card.pending {
+      border-left: 4px solid #3b82f6;
+      background: #eff6ff;
+    }
+
+    #mod-inventory .inventory-metric-card.success {
+      border-left: 4px solid #10b981;
+      background: #f0fdf4;
+    }
+
+    #mod-inventory .metric-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+
+    #mod-inventory .metric-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    #mod-inventory .metric-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #mod-inventory .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.2;
+    }
+
+    #mod-inventory .metric-change {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    /* Search and Toolbar */
+    #mod-inventory .inventory-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    #mod-inventory .inventory-toolbar-left {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex: 1;
+    }
+
+    #mod-inventory .inventory-toolbar-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    #mod-inventory .inventory-search-box {
+      position: relative;
+      flex: 1;
+      max-width: 400px;
+    }
+
+    #mod-inventory .inventory-search-input {
+      width: 100%;
+      padding: 8px 12px 8px 36px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      transition: all 0.2s;
+    }
+
+    #mod-inventory .inventory-search-input:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    #mod-inventory .inventory-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    #mod-inventory .inventory-filter-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    #mod-inventory .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #e0e7ff;
+      border: 1px solid #c7d2fe;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #3730a3;
+    }
+
+    #mod-inventory .filter-chip-remove {
+      cursor: pointer;
+      font-weight: 700;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    #mod-inventory .filter-chip-remove:hover {
+      opacity: 1;
+    }
+
+    /* Quick Actions */
+    #mod-inventory .inventory-quick-actions {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    #mod-inventory .inventory-quick-actions h3 {
+      margin: 0 0 16px 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    #mod-inventory .quick-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    #mod-inventory .quick-action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    #mod-inventory .quick-action-btn:hover {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      color: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    }
+
+    #mod-inventory .action-icon {
+      font-size: 1.5rem;
+    }
+
+    /* Recent Activity Timeline */
+    #mod-inventory .inventory-recent-activity {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    #mod-inventory .inventory-recent-activity h3 {
+      margin: 0 0 16px 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    #mod-inventory .activity-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #mod-inventory .activity-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      background: #f9fafb;
+      border-radius: 8px;
+      border-left: 3px solid #d1d5db;
+    }
+
+    #mod-inventory .activity-item.add {
+      border-left-color: #10b981;
+      background: #f0fdf4;
+    }
+
+    #mod-inventory .activity-item.update {
+      border-left-color: #3b82f6;
+      background: #eff6ff;
+    }
+
+    #mod-inventory .activity-item.delete {
+      border-left-color: #ef4444;
+      background: #fef2f2;
+    }
+
+    #mod-inventory .activity-icon {
+      font-size: 1.25rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    #mod-inventory .activity-content {
+      flex: 1;
+    }
+
+    #mod-inventory .activity-title {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    #mod-inventory .activity-description {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    #mod-inventory .activity-time {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    #mod-inventory .activity-empty {
+      text-align: center;
+      padding: 40px;
+      color: #9ca3af;
+      font-size: 0.875rem;
+    }
+
+    /* Low Stock Alerts */
+    #mod-inventory .inventory-alerts {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    #mod-inventory .inventory-alerts h3 {
+      margin: 0 0 16px 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    #mod-inventory .alerts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #mod-inventory .alert-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #fffbeb;
+      border: 1px solid #fef3c7;
+      border-radius: 8px;
+    }
+
+    #mod-inventory .alert-icon {
+      font-size: 1.5rem;
+    }
+
+    #mod-inventory .alert-content {
+      flex: 1;
+    }
+
+    #mod-inventory .alert-title {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #92400e;
+    }
+
+    #mod-inventory .alert-description {
+      font-size: 0.75rem;
+      color: #b45309;
+    }
+
+    #mod-inventory .alert-action {
+      padding: 6px 12px;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #92400e;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    #mod-inventory .alert-action:hover {
+      background: #fde68a;
+    }
+
+    /* Status Badges */
+    #mod-inventory .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #mod-inventory .status-badge.success {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+    }
+
+    #mod-inventory .status-badge.warning {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    #mod-inventory .status-badge.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    #mod-inventory .status-badge.info {
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+    }
+
+    #mod-inventory .status-badge.pending {
+      background: #e0e7ff;
+      color: #3730a3;
+      border: 1px solid #c7d2fe;
+    }
+
+    /* Progress Bars for Stock Levels */
+    #mod-inventory .stock-progress {
+      width: 100%;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    #mod-inventory .stock-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #059669);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    #mod-inventory .stock-progress-bar.low {
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+    }
+
+    #mod-inventory .stock-progress-bar.critical {
+      background: linear-gradient(90deg, #ef4444, #dc2626);
+    }
+
     /* Chart Containers */
     .chart-box {
       background: var(--bg-surface);
@@ -9113,13 +9544,34 @@
     <!-- Inventory Manager Module -->
     <!-- ==================== Inventory Module ==================== -->
     <div id="mod-inventory" class="module-view">
+      <!-- Enhanced Header with Search and Actions -->
       <div class="module-header">
-        <div class="toolbar">
-          <button class="btn btn-blue" onclick="refreshInventoryData()">Refresh Inventory</button>
+        <div class="inventory-header">
+          <div class="inventory-title">Inventory Manager</div>
+          <div class="inventory-header-note">
+            <span id="inventory-save-status" class="inventory-save-status">All changes saved</span>
+          </div>
+        </div>
+        <div class="inventory-toolbar">
+          <div class="inventory-toolbar-left">
+            <div class="inventory-search-box">
+              <input type="text" id="inventory-search-input" placeholder="Search inventory..." class="inventory-search-input" oninput="filterInventoryGlobal(this.value)">
+              <span class="inventory-search-icon">🔍</span>
+            </div>
+            <div class="inventory-filter-chips" id="inventory-filter-chips"></div>
+          </div>
+          <div class="inventory-toolbar-right">
+            <button class="btn btn-outline btn-sm" onclick="exportInventoryCSV()">📥 Export CSV</button>
+            <button class="btn btn-outline btn-sm" onclick="exportInventoryExcel()">📊 Export Excel</button>
+            <button class="btn btn-blue btn-sm" onclick="refreshInventoryData()">🔄 Refresh</button>
+          </div>
         </div>
       </div>
+
+      <!-- Dashboard Tab -->
       <div class="tab-nav inventory-tabs">
-        <button class="tab-btn active" onclick="inventoryTab('stock', event)">Stock</button>
+        <button class="tab-btn active" onclick="inventoryTab('dashboard', event)">📊 Dashboard</button>
+        <button class="tab-btn" onclick="inventoryTab('stock', event)">Stock</button>
         <button class="tab-btn" onclick="inventoryTab('constitution', event)">Device Constitution</button>
         <button class="tab-btn" onclick="inventoryTab('approvals', event)">Approvals</button>
         <button class="tab-btn" onclick="inventoryTab('liquidation', event)">Liquidation</button>
@@ -9130,6 +9582,108 @@
           <div class="tab-info-panel">
             <button class="tab-info-close" onclick="closeTabInfo(this)">×</button>
             <div class="tab-info-content"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Overview -->
+      <div id="inv-tab-dashboard" class="tab-content active">
+        <div class="inventory-dashboard">
+          <!-- Key Metrics Cards -->
+          <div class="inventory-metrics-grid">
+            <div class="inventory-metric-card">
+              <div class="metric-icon">📦</div>
+              <div class="metric-content">
+                <div class="metric-label">Total Parts</div>
+                <div class="metric-value" id="metric-total-parts">0</div>
+                <div class="metric-change">Across <span id="metric-parts-items">0</span> items</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card">
+              <div class="metric-icon">🏭</div>
+              <div class="metric-content">
+                <div class="metric-label">Built Devices</div>
+                <div class="metric-value" id="metric-built-devices">0</div>
+                <div class="metric-change"><span id="metric-built-pending">0</span> in stock</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card">
+              <div class="metric-icon">💰</div>
+              <div class="metric-content">
+                <div class="metric-label">Total Value</div>
+                <div class="metric-value">₹<span id="metric-total-value">0</span></div>
+                <div class="metric-change">Cost per device: ₹<span id="metric-cost-per-device">0</span></div>
+              </div>
+            </div>
+            <div class="inventory-metric-card warning">
+              <div class="metric-icon">⚠️</div>
+              <div class="metric-content">
+                <div class="metric-label">Low Stock Alerts</div>
+                <div class="metric-value" id="metric-low-stock">0</div>
+                <div class="metric-change">Items below threshold</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card pending">
+              <div class="metric-icon">⏳</div>
+              <div class="metric-content">
+                <div class="metric-label">Pending Approvals</div>
+                <div class="metric-value" id="metric-pending-approvals">0</div>
+                <div class="metric-change">Awaiting action</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card success">
+              <div class="metric-icon">✅</div>
+              <div class="metric-content">
+                <div class="metric-label">Recent Activity</div>
+                <div class="metric-value" id="metric-recent-count">0</div>
+                <div class="metric-change">Last 7 days</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="inventory-quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="quick-actions-grid">
+              <button class="quick-action-btn" onclick="inventoryTab('stock', event); inventorySubtab('stock', 'parts')">
+                <span class="action-icon">➕</span>
+                <span class="action-label">Add Parts</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('stock', event); inventorySubtab('stock', 'built')">
+                <span class="action-icon">🏭</span>
+                <span class="action-label">Register Device</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('approvals', event)">
+                <span class="action-icon">✓</span>
+                <span class="action-label">Review Approvals</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('liquidation', event)">
+                <span class="action-icon">📤</span>
+                <span class="action-label">Issue/Sale</span>
+              </button>
+              <button class="quick-action-btn" onclick="exportInventoryCSV()">
+                <span class="action-icon">📥</span>
+                <span class="action-label">Export Data</span>
+              </button>
+              <button class="quick-action-btn" onclick="refreshInventoryData()">
+                <span class="action-icon">🔄</span>
+                <span class="action-label">Refresh All</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent Activity Timeline -->
+          <div class="inventory-recent-activity">
+            <h3>Recent Activity</h3>
+            <div class="activity-timeline" id="activity-timeline">
+              <div class="activity-empty">No recent activity</div>
+            </div>
+          </div>
+
+          <!-- Low Stock Alerts -->
+          <div class="inventory-alerts" id="inventory-alerts-section" style="display:none;">
+            <h3>⚠️ Low Stock Alerts</h3>
+            <div class="alerts-list" id="low-stock-alerts"></div>
           </div>
         </div>
       </div>
@@ -11511,7 +12065,7 @@ function initInventoryModule() {
     }
     inventoryState.initialized = true;
     initInventoryTableAutoResize();
-    inventoryTab('stock');
+    inventoryTab('dashboard');
     inventorySubtab('stock', 'parts');
     inventoryLiquidationSubtab('requests');
     loadInventoryData();
@@ -11529,6 +12083,7 @@ function inventoryTab(tabId, e) {
         content.style.cssText = 'display: block !important';
     }
     if (e && e.currentTarget) e.currentTarget.classList.add('active');
+    if (tabId === 'dashboard') updateInventoryDashboard();
     if (tabId === 'approvals') refreshInventoryApprovals();
     if (tabId === 'liquidation') inventoryLiquidationSubtab('requests');
     if (tabId === 'prod-batch' && typeof dbRenderMaster === 'function') dbRenderMaster('prod');
@@ -11589,6 +12144,231 @@ function renderInventoryAll() {
     renderInventoryClients();
     renderInventoryRefillBatch();
     refreshInventoryApprovals();
+    updateInventoryDashboard();
+}
+
+// ==================== Dashboard Functions ====================
+
+function updateInventoryDashboard() {
+    // Calculate metrics
+    const totalParts = inventoryState.parts.reduce((sum, row) => sum + (Number(row.qty) || 0), 0);
+    const uniqueItems = new Set(inventoryState.parts.map(r => r.item).filter(Boolean)).size;
+    const builtDevices = inventoryState.built.length;
+    const builtInStock = inventoryState.built.filter(r => r.movement === 'Inbound').length;
+    
+    // Calculate total value
+    const partsValue = inventoryState.parts.reduce((sum, row) => {
+        return sum + ((Number(row.qty) || 0) * (Number(row.costPerUnit) || 0));
+    }, 0);
+    const constitutionCost = inventoryState.constitution.reduce((sum, row) => {
+        return sum + ((Number(row.unitsPerDevice) || 0) * (Number(row.costPerUnit) || 0));
+    }, 0);
+    
+    // Low stock alerts (items with qty < 10)
+    const lowStockItems = inventoryState.parts.filter(r => (Number(r.qty) || 0) < 10 && (Number(r.qty) || 0) > 0);
+    
+    // Pending approvals
+    const pendingApprovals = inventoryState.approvals.filter(r => r.status === 'Pending').length;
+    
+    // Recent activity (last 7 days)
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    const recentCount = inventoryState.liquidation.filter(r => {
+        if (!r.date) return false;
+        const date = new Date(r.date);
+        return date >= sevenDaysAgo;
+    }).length;
+    
+    // Update metrics
+    document.getElementById('metric-total-parts').textContent = totalParts.toLocaleString();
+    document.getElementById('metric-parts-items').textContent = uniqueItems;
+    document.getElementById('metric-built-devices').textContent = builtDevices;
+    document.getElementById('metric-built-pending').textContent = builtInStock;
+    document.getElementById('metric-total-value').textContent = partsValue.toLocaleString();
+    document.getElementById('metric-cost-per-device').textContent = constitutionCost.toFixed(0);
+    document.getElementById('metric-low-stock').textContent = lowStockItems.length;
+    document.getElementById('metric-pending-approvals').textContent = pendingApprovals;
+    document.getElementById('metric-recent-count').textContent = recentCount;
+    
+    // Update recent activity timeline
+    updateActivityTimeline();
+    
+    // Update low stock alerts
+    updateLowStockAlerts(lowStockItems);
+}
+
+function updateActivityTimeline() {
+    const timeline = document.getElementById('activity-timeline');
+    if (!timeline) return;
+    
+    // Get recent liquidation activities
+    const activities = inventoryState.liquidation
+        .filter(r => r.date)
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 10);
+    
+    if (activities.length === 0) {
+        timeline.innerHTML = '<div class="activity-empty">No recent activity</div>';
+        return;
+    }
+    
+    timeline.innerHTML = activities.map(activity => {
+        const actionClass = activity.action === 'Issue' ? 'update' : 'add';
+        const icon = activity.action === 'Issue' ? '📤' : '💰';
+        const timeAgo = getTimeAgo(activity.date);
+        
+        return `
+            <div class="activity-item ${actionClass}">
+                <div class="activity-icon">${icon}</div>
+                <div class="activity-content">
+                    <div class="activity-title">${escapeHtml(activity.action)} - ${escapeHtml(activity.item || 'Item')}</div>
+                    <div class="activity-description">
+                        ${escapeHtml(activity.unitsIssued || 0)} units to ${escapeHtml(activity.issuedTo || 'Unknown')}
+                    </div>
+                </div>
+                <div class="activity-time">${timeAgo}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+function updateLowStockAlerts(lowStockItems) {
+    const alertsSection = document.getElementById('inventory-alerts-section');
+    const alertsList = document.getElementById('low-stock-alerts');
+    
+    if (!alertsSection || !alertsList) return;
+    
+    if (lowStockItems.length === 0) {
+        alertsSection.style.display = 'none';
+        return;
+    }
+    
+    alertsSection.style.display = 'block';
+    alertsList.innerHTML = lowStockItems.map(item => `
+        <div class="alert-item">
+            <div class="alert-icon">⚠️</div>
+            <div class="alert-content">
+                <div class="alert-title">${escapeHtml(item.item || 'Unknown Item')}</div>
+                <div class="alert-description">
+                    Current stock: ${escapeHtml(item.qty || 0)} ${escapeHtml(item.unit || 'units')} - Below threshold
+                </div>
+            </div>
+            <button class="alert-action" onclick="inventoryTab('stock', null); inventorySubtab('stock', 'parts')">
+                Reorder
+            </button>
+        </div>
+    `).join('');
+}
+
+function getTimeAgo(dateString) {
+    if (!dateString) return 'Unknown';
+    
+    const date = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.floor((now - date) / 1000);
+    
+    if (seconds < 60) return 'Just now';
+    if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+    if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+    if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`;
+    return date.toLocaleDateString();
+}
+
+// ==================== Search and Filter Functions ====================
+
+function filterInventoryGlobal(searchTerm) {
+    const term = searchTerm.toLowerCase().trim();
+    if (!term) {
+        // Clear filters and show all rows
+        clearInventoryFilters();
+        return;
+    }
+    
+    // Filter all tables
+    filterInventoryTable('parts', term);
+    filterInventoryTable('built', term);
+    filterInventoryTable('constitution', term);
+    filterInventoryTable('liquidation', term);
+    filterInventoryTable('clients', term);
+}
+
+function filterInventoryTable(type, searchTerm) {
+    const tableId = inventoryTableIds[type];
+    if (!tableId) return;
+    
+    const table = document.getElementById(tableId);
+    if (!table) return;
+    
+    const tbody = table.querySelector('tbody');
+    if (!tbody) return;
+    
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+function clearInventoryFilters() {
+    Object.values(inventoryTableIds).forEach(tableId => {
+        const table = document.getElementById(tableId);
+        if (!table) return;
+        const tbody = table.querySelector('tbody');
+        if (!tbody) return;
+        Array.from(tbody.querySelectorAll('tr')).forEach(row => {
+            row.style.display = '';
+        });
+    });
+}
+
+// ==================== Export Functions ====================
+
+function exportInventoryCSV() {
+    const activeTab = document.querySelector('#mod-inventory .tab-content.active');
+    if (!activeTab) return;
+    
+    // Determine which table to export based on active tab
+    let dataType = 'parts';
+    if (activeTab.id === 'inv-tab-constitution') dataType = 'constitution';
+    else if (activeTab.id === 'inv-tab-stock') {
+        dataType = document.getElementById('inv-stock-toggle')?.checked ? 'built' : 'parts';
+    } else if (activeTab.id === 'inv-tab-liquidation') {
+        dataType = document.getElementById('inv-liquidation-toggle')?.checked ? 'clients' : 'liquidation';
+    } else if (activeTab.id === 'inv-tab-refill') dataType = 'refill';
+    else if (activeTab.id === 'inv-tab-approvals') dataType = 'approvals';
+    
+    const data = inventoryState[dataType] || [];
+    if (data.length === 0) {
+        alert('No data to export');
+        return;
+    }
+    
+    // Convert to CSV
+    const headers = Object.keys(data[0]).filter(key => !key.startsWith('_'));
+    const csv = [
+        headers.join(','),
+        ...data.map(row => headers.map(header => {
+            const value = row[header] ?? '';
+            return `"${String(value).replace(/"/g, '""')}"`;
+        }).join(','))
+    ].join('\n');
+    
+    // Download
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `inventory_${dataType}_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+
+function exportInventoryExcel() {
+    alert('Excel export will generate a multi-sheet workbook with all inventory data.\n\nFeature coming soon!');
+    // TODO: Implement Excel export with multiple sheets
 }
 
 function setInventoryDirty(isDirty) {
