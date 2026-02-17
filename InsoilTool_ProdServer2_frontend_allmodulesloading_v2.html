@@ -11289,7 +11289,8 @@ function inventoryDateTimeBlur(input, type, id, field) {
 
 function isValidEmail(value) {
     if (!value) return true;
-    return /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(String(value).trim());
+    // RFC 5322 simplified - requires 2+ char TLD and proper email structure
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(String(value).trim());
 }
 
 function isValidDeviceId15(value) {
@@ -12494,20 +12495,20 @@ function refreshInventoryApprovals() {
         const statusClass = row.status ? row.status.toLowerCase() : 'pending';
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${row.requestId}</td>
-          <td>${row.requestedBy || '-'}</td>
-          <td><input type="number" class="db-input" value="${row.tatDays ?? 3}" oninput="updateInventoryFieldInline('approvals','${row.requestId}','tatDays',this.value)"></td>
+          <td>${escapeHtml(row.requestId)}</td>
+          <td>${escapeHtml(row.requestedBy || '-')}</td>
+          <td><input type="number" class="db-input" value="${escapeHtml(row.tatDays ?? 3)}" oninput="updateInventoryFieldInline('approvals','${escapeHtml(row.requestId)}','tatDays',this.value)"></td>
           <td>
-            <input class="db-input" type="text" data-approval-due="${row.requestId}" value="${formatInventoryDateTimeDisplay(row.dueDate) || ''}"
-              onfocus="inventoryDateTimeFocus(this, 'approvals', '${row.requestId}', 'dueDate')"
-              onchange="inventoryDateTimeChange(this, 'approvals', '${row.requestId}', 'dueDate')"
-              onblur="inventoryDateTimeBlur(this, 'approvals', '${row.requestId}', 'dueDate')">
+            <input class="db-input" type="text" data-approval-due="${escapeHtml(row.requestId)}" value="${escapeHtml(formatInventoryDateTimeDisplay(row.dueDate) || '')}"
+              onfocus="inventoryDateTimeFocus(this, 'approvals', '${escapeHtml(row.requestId)}', 'dueDate')"
+              onchange="inventoryDateTimeChange(this, 'approvals', '${escapeHtml(row.requestId)}', 'dueDate')"
+              onblur="inventoryDateTimeBlur(this, 'approvals', '${escapeHtml(row.requestId)}', 'dueDate')">
           </td>
-          <td><span class="inventory-status ${statusClass}">${row.status}</span></td>
-          <td>${row.approver || '-'}</td>
+          <td><span class="inventory-status ${statusClass}">${escapeHtml(row.status)}</span></td>
+          <td>${escapeHtml(row.approver || '-')}</td>
           <td>
-            <button class="btn btn-green btn-sm" onclick="approveInventoryRequest('${row.requestId}','Approved')">Approve</button>
-            <button class="btn btn-outline btn-red btn-sm" onclick="approveInventoryRequest('${row.requestId}','Rejected')">Reject</button>
+            <button class="btn btn-green btn-sm" onclick="approveInventoryRequest('${escapeHtml(row.requestId)}','Approved')">Approve</button>
+            <button class="btn btn-outline btn-red btn-sm" onclick="approveInventoryRequest('${escapeHtml(row.requestId)}','Rejected')">Reject</button>
           </td>
         `;
         tbody.appendChild(tr);
