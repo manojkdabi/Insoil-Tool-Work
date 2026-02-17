@@ -3465,6 +3465,40 @@
       background: #f59e0b;
     }
 
+    /* Device Comparison Styles */
+    .device-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    .trend-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .trend-up {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .trend-down {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .trend-stable {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
     /* Export Button Styles */
     .btn-export {
       background: #14b8a6;
@@ -8161,9 +8195,15 @@
     <div id="mod-analytics" class="module-view">
       <div class="module-header">
         <div class="toolbar">
-          <select id="an-device" onchange="updateAnalyticsCharts()" style="min-width:150px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label style="font-size:0.85rem; font-weight:500;">Device:</label>
+            <select id="an-device" onchange="updateAnalyticsCharts()" style="min-width:150px;" multiple size="1" title="Hold Ctrl/Cmd to select multiple devices">
                 <option value="">Loading devices...</option>
             </select>
+            <label style="display:flex; align-items:center; gap:4px; font-size:0.8rem;">
+              <input type="checkbox" id="an-compare-mode" onchange="toggleCompareMode()"> Compare
+            </label>
+          </div>
           <input type="date" id="an-date-from" class="date-input" onchange="syncAnalyticsDateRange()">
           <span style="font-size:0.8em;">to</span>
           <input type="date" id="an-date-to" class="date-input" onchange="syncAnalyticsDateRange()">
@@ -8172,6 +8212,7 @@
           <button class="btn btn-outline" onclick="setDateRange('month')">This Month</button>
           <button class="btn btn-blue" onclick="updateAnalyticsCharts()">Refresh Graphs</button>
           <button class="btn-export" onclick="exportAnalyticsData('csv')">💾 Export CSV</button>
+          <button class="btn btn-outline" onclick="exportAnalyticsData('json')">📄 Export JSON</button>
         </div>
       </div>
       <div class="panel-lower" style="flex: 1; overflow-y: auto; height: 100%; padding: 20px;">
@@ -8194,6 +8235,14 @@
             </button>
           </div>
           <div id="stats-grid" class="stats-grid"></div>
+        </div>
+
+        <!-- Multi-Device Comparison Panel -->
+        <div id="device-comparison-panel" style="display:none; margin-bottom: 20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 style="margin:0; font-size:16px; font-weight:600;">🔄 Multi-Device Comparison</h3>
+          </div>
+          <div id="device-comparison-grid" class="stats-grid"></div>
         </div>
 
         <div id="stats-box"
@@ -20867,6 +20916,8 @@ function updateAnalyticsCharts() {
     renderStatisticsSummary();
     // NEW: Check thresholds and update alert panel
     checkThresholdsAndUpdateAlerts();
+    // NEW: Render device comparison
+    renderDeviceComparison();
 }
 
 function syncAnalyticsDateRange() {
@@ -21263,9 +21314,164 @@ function exportToJSON(data, params, device, dateFrom, dateTo) {
     console.log(`Exported ${data.length} records to ${filename}`);
 }
 
+// Toggle compare mode
+function toggleCompareMode() {
+    const checkbox = document.getElementById('an-compare-mode');
+    const deviceSelect = document.getElementById('an-device');
+    const comparisonPanel = document.getElementById('device-comparison-panel');
+    
+    if (!checkbox || !deviceSelect || !comparisonPanel) return;
+    
+    if (checkbox.checked) {
+        // Enable multi-select
+        deviceSelect.setAttribute('multiple', 'multiple');
+        deviceSelect.setAttribute('size', '5');
+        deviceSelect.style.minHeight = '100px';
+        comparisonPanel.style.display = 'block';
+    } else {
+        // Disable multi-select
+        deviceSelect.removeAttribute('multiple');
+        deviceSelect.removeAttribute('size');
+        deviceSelect.style.minHeight = '';
+        comparisonPanel.style.display = 'none';
+        
+        // Keep only first selected option
+        if (deviceSelect.selectedOptions.length > 0) {
+            const firstValue = deviceSelect.selectedOptions[0].value;
+            Array.from(deviceSelect.options).forEach(opt => {
+                opt.selected = (opt.value === firstValue);
+            });
+        }
+    }
+    
+    updateAnalyticsCharts();
+}
+
+// Get selected devices (supports both single and multi-select)
+function getSelectedDevices() {
+    const deviceSelect = document.getElementById('an-device');
+    if (!deviceSelect) return [];
+    
+    const compareMode = document.getElementById('an-compare-mode')?.checked;
+    
+    if (compareMode && deviceSelect.hasAttribute('multiple')) {
+        return Array.from(deviceSelect.selectedOptions).map(opt => opt.value).filter(v => v);
+    } else {
+        const value = deviceSelect.value;
+        return value ? [value] : [];
+    }
+}
+
+// Render device comparison panel
+function renderDeviceComparison() {
+    const comparisonGrid = document.getElementById('device-comparison-grid');
+    const comparisonPanel = document.getElementById('device-comparison-panel');
+    
+    if (!comparisonGrid || !comparisonPanel) return;
+    
+    const compareMode = document.getElementById('an-compare-mode')?.checked;
+    if (!compareMode) {
+        comparisonPanel.style.display = 'none';
+        return;
+    }
+    
+    const devices = getSelectedDevices();
+    if (devices.length < 2) {
+        comparisonPanel.style.display = 'none';
+        return;
+    }
+    
+    comparisonPanel.style.display = 'block';
+    
+    // Get date range
+    const dateFrom = document.getElementById('an-date-from')?.value;
+    const dateTo = document.getElementById('an-date-to')?.value;
+    
+    const fromDate = dateFrom ? new Date(dateFrom) : new Date('1900-01-01');
+    const toDate = dateTo ? new Date(dateTo) : new Date('2100-01-01');
+    toDate.setHours(23, 59, 59);
+    
+    // Get selected parameters
+    const checkedParams = Array.from(document.querySelectorAll('#an-param-strip input:checked'));
+    const selectedParams = checkedParams.map(cb => {
+        const key = cb.value;
+        const col = cols.find(c => c.k === key);
+        return { k: key, label: col ? col.n : key };
+    });
+    
+    if (selectedParams.length === 0) {
+        comparisonGrid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:20px; color:#94a3b8;">Select parameters to compare</div>';
+        return;
+    }
+    
+    comparisonGrid.innerHTML = '';
+    
+    // Device colors
+    const colors = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6'];
+    
+    devices.forEach((deviceId, idx) => {
+        // Filter data for this device
+        const deviceData = rgbData.filter(row => {
+            const deviceMatch = row.did === deviceId || row.device_id === deviceId || row.deviceId === deviceId;
+            const rowDate = parseDateObj(row.time) || new Date(row.timestamp || row.Timestamp);
+            return deviceMatch && rowDate >= fromDate && rowDate <= toDate;
+        });
+        
+        if (deviceData.length === 0) {
+            const card = document.createElement('div');
+            card.className = 'stat-card';
+            card.innerHTML = `
+                <div style="display:flex; align-items:center; margin-bottom:12px;">
+                    <span class="device-indicator" style="background:${colors[idx % colors.length]}"></span>
+                    <strong>Device ${deviceId}</strong>
+                </div>
+                <div style="color:#94a3b8; text-align:center; padding:20px;">No data available</div>
+            `;
+            comparisonGrid.appendChild(card);
+            return;
+        }
+        
+        // Calculate statistics for first selected parameter
+        const firstParam = selectedParams[0];
+        const stats = calculateStatistics(deviceData, firstParam.k);
+        
+        if (!stats) return;
+        
+        const completeness = (stats.count / deviceData.length * 100).toFixed(1);
+        
+        const card = document.createElement('div');
+        card.className = 'stat-card';
+        card.innerHTML = `
+            <div style="display:flex; align-items:center; margin-bottom:12px;">
+                <span class="device-indicator" style="background:${colors[idx % colors.length]}"></span>
+                <strong>Device ${deviceId}</strong>
+            </div>
+            <div style="margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                    <span style="font-size:13px; color:#64748b;">${firstParam.label} Avg:</span>
+                    <strong style="font-size:16px;">${stats.mean.toFixed(2)}</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                    <span style="font-size:13px; color:#64748b;">Range:</span>
+                    <span style="font-size:13px;">${stats.min.toFixed(2)} - ${stats.max.toFixed(2)}</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:13px; color:#64748b;">Data Quality:</span>
+                    ${getDataQualityBadge(completeness)}
+                </div>
+            </div>
+            <div style="font-size:12px; color:#94a3b8; padding-top:8px; border-top:1px solid #e2e8f0;">
+                ${stats.count} samples from ${deviceData.length} records
+            </div>
+        `;
+        
+        comparisonGrid.appendChild(card);
+    });
+}
+
 // ============ END: Analytics Enhancement Functions ============
 
-// 1. New: Updated renderTrendChart to integrate the Chart.js Zoom Plugin
+// 1. New: Updated renderTrendChart to integrate the Chart.js Zoom Plugin and Multi-Device Support
 function renderTrendChart() {
     const ctx = document.getElementById('c-trend');
     if(!ctx) return;
@@ -21274,27 +21480,64 @@ function renderTrendChart() {
     
     if(keys.length===0){ if(chartObjs.trend) chartObjs.trend.clear(); return; }
     
-    const did = document.getElementById('an-device').value;
+    // Support for multi-device selection
+    const devices = getSelectedDevices();
+    const compareMode = document.getElementById('an-compare-mode')?.checked;
+    
     const f = new Date(document.getElementById('date-rgb-from').value||'1900-01-01');
     const t = new Date(document.getElementById('date-rgb-to').value||'2100-01-01'); t.setHours(23,59,59);
     
-    const rows = normalizeAnalyticsRows(rgbData.filter(r=>{
-        const d=parseDateObj(r.time); 
-        return (!did || r.did===did) && d>=f && d<=t; 
-    }).sort((a,b)=>parseDateObj(a.time)-parseDateObj(b.time)));
+    let datasets = [];
+    
+    if (compareMode && devices.length > 1) {
+        // Multi-device mode: Create separate dataset for each device-parameter combination
+        const deviceColors = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6'];
+        
+        devices.forEach((deviceId, deviceIdx) => {
+            const deviceRows = normalizeAnalyticsRows(rgbData.filter(r=>{
+                const d=parseDateObj(r.time);
+                const deviceMatch = r.did===deviceId || r.device_id===deviceId || r.deviceId===deviceId;
+                return deviceMatch && d>=f && d<=t; 
+            }).sort((a,b)=>parseDateObj(a.time)-parseDateObj(b.time)));
+            
+            if (deviceRows.length === 0) return;
+            
+            const labels = deviceRows.map(r=>r.time);
+            
+            keys.forEach(k => {
+                const paramLabel = cols.find(c=>c.k===k)?.n||k;
+                datasets.push({
+                    label: `${paramLabel} (Dev ${deviceId})`,
+                    data: deviceRows.map(r=>calcMetric(r.raw,k)),
+                    borderColor: deviceColors[deviceIdx % deviceColors.length],
+                    backgroundColor: deviceColors[deviceIdx % deviceColors.length] + '20',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    pointRadius: 1
+                });
+            });
+        });
+    } else {
+        // Single device mode (original behavior)
+        const did = devices.length > 0 ? devices[0] : '';
+        const rows = normalizeAnalyticsRows(rgbData.filter(r=>{
+            const d=parseDateObj(r.time); 
+            return (!did || r.did===did || r.device_id===did || r.deviceId===did) && d>=f && d<=t; 
+        }).sort((a,b)=>parseDateObj(a.time)-parseDateObj(b.time)));
 
-    const labels = rows.map(r=>r.time);
-    const datasets = keys.map(k=>({
-        label: cols.find(c=>c.k===k)?.n||k,
-        data: rows.map(r=>calcMetric(r.raw,k)),
-        borderColor: getBandColor(k,1),
-        backgroundColor: getBandColor(k,0.1),
-        borderWidth:1, tension:0.3, pointRadius:1
-    }));
+        const labels = rows.map(r=>r.time);
+        datasets = keys.map(k=>({
+            label: cols.find(c=>c.k===k)?.n||k,
+            data: rows.map(r=>calcMetric(r.raw,k)),
+            borderColor: getBandColor(k,1),
+            backgroundColor: getBandColor(k,0.1),
+            borderWidth:1, tension:0.3, pointRadius:1
+        }));
+    }
 
     if(chartObjs.trend) chartObjs.trend.destroy();
     chartObjs.trend = new Chart(ctx, { // Storing the chart instance in chartObjs.trend
-        type:'line', data:{labels,datasets},
+        type:'line', data:{datasets},
         options:{
             responsive:true, maintainAspectRatio:false,
             scales:{ x:{ticks:{maxTicksLimit:10}} },
