@@ -10533,6 +10533,8 @@ function attemptLogin() {
 }
 
 function applyPermissions(role, customModules) {
+  console.log('🔐 applyPermissions called with role:', role, 'customModules:', customModules);
+  
   // Normalize role (avoid spaces/case issues)
   role = String(role || '').trim();
 
@@ -10542,9 +10544,11 @@ function applyPermissions(role, customModules) {
   // ✅ Admin must always see everything (even if customModules exists)
   if (role.toLowerCase() === 'admin') {
     allowed = ['all'];
+    console.log('✅ Admin role detected - all modules allowed');
   } else {
     const hasCustom = Array.isArray(customModules) && customModules.length > 0;
     allowed = hasCustom ? customModules : (ROLE_PERMISSIONS[role] || []);
+    console.log('📋 Allowed modules:', allowed);
   }
 
   allowed = normalizeAccessList(allowed);
@@ -10556,11 +10560,15 @@ function applyPermissions(role, customModules) {
 
   const allNavItems = document.querySelectorAll('.nav-item');
   const allowedSet = new Set(allowed);
+  
+  console.log('🔍 Total nav items found:', allNavItems.length);
+  console.log('✅ Final allowed list:', Array.from(allowed));
 
   // 2) Hide all tabs initially
   allNavItems.forEach(el => el.style.display = 'none');
 
   // 3) Show allowed tabs
+  let visibleCount = 0;
   allNavItems.forEach(el => {
     const clickAttr = el.getAttribute('onclick') || '';
     const dataModule = el.dataset?.module || '';
@@ -10569,18 +10577,26 @@ function applyPermissions(role, customModules) {
 
     if (allowed.includes('all')) {
       el.style.display = 'flex';
+      visibleCount++;
       return;
     }
 
     if (moduleId && allowed.includes(moduleId)) {
       el.style.display = 'flex';
+      visibleCount++;
+      console.log('✅ Showing module:', moduleId);
       return;
     }
 
     // fallback: older onclick patterns
     const isAllowed = allowed.some(id => clickAttr.includes(`'${id}'`));
-    if (isAllowed) el.style.display = 'flex';
+    if (isAllowed) {
+      el.style.display = 'flex';
+      visibleCount++;
+    }
   });
+  
+  console.log('📊 Visible nav items:', visibleCount, '/', allNavItems.length);
 
   applyAccessControls(allowedSet);
 
@@ -17420,17 +17436,38 @@ function ensureOperationalDataLoaded(options = {}) {
 
 // Module navigation (left sidebar)
 function nav(id, e) {
-    // 1. Reset all modules
-    document.querySelectorAll('.module-view').forEach(elem => elem.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(elem => elem.classList.remove('active'));
+    console.log('🔄 nav() called with id:', id, 'event:', e);
+    
+    try {
+        // 1. Reset all modules
+        document.querySelectorAll('.module-view').forEach(elem => elem.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(elem => elem.classList.remove('active'));
 
-    // 2. Activate target module
-    const modEl = document.getElementById('mod-' + id);
-    if (modEl) modEl.classList.add('active');
+        // 2. Activate target module
+        const modEl = document.getElementById('mod-' + id);
+        if (modEl) {
+            modEl.classList.add('active');
+            console.log('✅ Module activated:', id);
+        } else {
+            console.error('❌ Module not found:', 'mod-' + id);
+        }
 
-    // 3. Highlight Sidebar Item
-    if (e && e.currentTarget) {
-        e.currentTarget.classList.add('active');
+        // 3. Highlight Sidebar Item
+        if (e && e.currentTarget) {
+            e.currentTarget.classList.add('active');
+        } else if (e && e.target) {
+            // Fallback to event.target if currentTarget not available
+            e.target.classList.add('active');
+        } else {
+            // No event provided - find and activate nav item by data-module or onclick attribute
+            const navItem = document.querySelector(`.nav-item[onclick*="'${id}'"]`);
+            if (navItem) {
+                navItem.classList.add('active');
+                console.log('✅ Nav item highlighted (fallback):', id);
+            }
+        }
+    } catch (err) {
+        console.error('❌ nav() error:', err);
     }
 
     // 4. Module-Specific Logic (Refreshes)
@@ -28799,6 +28836,30 @@ function autoSavePrefs() {
 
 // Apply to all inputs
 document.addEventListener('DOMContentLoaded', function() {
+  console.log('🔄 Setting up module navigation listeners...');
+  
+  // Add programmatic click listeners to all nav-items as backup to inline onclick
+  document.querySelectorAll('.nav-item').forEach(el => {
+    // Extract module ID from onclick attribute
+    const onclickAttr = el.getAttribute('onclick');
+    if (onclickAttr) {
+      const match = onclickAttr.match(/nav\(['"]([^'"]+)['"]/);
+      if (match) {
+        const moduleId = match[1];
+        
+        // Add click listener that calls nav() programmatically
+        el.addEventListener('click', function(event) {
+          console.log('📍 Nav-item clicked:', moduleId);
+          nav(moduleId, event);
+        });
+        
+        console.log('✅ Listener added for module:', moduleId);
+      }
+    }
+  });
+  
+  console.log('✅ Module navigation listeners ready');
+  
   // Load preferences after 2 seconds (after data loads)
   setTimeout(() => UserPrefs.apply(), 2000);
   
