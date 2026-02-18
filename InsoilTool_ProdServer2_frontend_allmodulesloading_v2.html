@@ -8258,10 +8258,22 @@ input[inputmode="numeric"] {
             <div class="registry-split">
               <div class="registry-panel" id="install-upper">
                 <div class="registry-toolbar">
-                  <div style="flex:1; display:flex; align-items:center; gap:8px;">
+                  <div style="flex:1; display:flex; align-items:center; gap:8px; flex-wrap: wrap;">
                     <input type="text" id="registry-search-installed" class="search-input"
                     placeholder="Search Client / Device ID / Mobile / MO Name / Place"
-                    oninput="filterRegistryTable(this.value)">
+                    oninput="filterRegistryTable(this.value)"
+                    style="min-width: 250px; flex: 1;">
+                    
+                    <button class="btn btn-outline" onclick="toggleAdvancedFilters()" title="Advanced filters">
+                      <span style="margin-right: 4px;">🔍</span> Filters
+                    </button>
+                    
+                    <button class="btn btn-outline" onclick="exportRegistryToCSV()" title="Export filtered results to CSV">
+                      <span style="margin-right: 4px;">📥</span> Export CSV
+                    </button>
+                    
+                    <div style="border-left: 1px solid #d1d5db; height: 24px; margin: 0 4px;"></div>
+                    
                     <button class="btn btn-green registry-edit-only" onclick="addRegistryRow()">+ Row</button>
                     <button class="btn btn-outline btn-red registry-edit-only" onclick="removeRegistryRows()">− Row</button>
                     <button class="btn registry-edit-only" onclick="saveDeviceRegistry()">Save</button>
@@ -8271,6 +8283,49 @@ input[inputmode="numeric"] {
                   Edit Table
                 </label>
                 </div>
+                
+                <!-- Advanced Filters Panel -->
+                <div id="advanced-filters-panel" style="display: none; padding: 12px; background: #f9fafb; border-bottom: 1px solid #e5e7eb;">
+                  <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 0.75rem; font-weight: 600; color: #6b7280;">State</label>
+                      <select id="filter-state" class="db-input" onchange="applyAdvancedFilters()" style="min-width: 150px;">
+                        <option value="">All States</option>
+                      </select>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 0.75rem; font-weight: 600; color: #6b7280;">District</label>
+                      <select id="filter-district" class="db-input" onchange="applyAdvancedFilters()" style="min-width: 150px;">
+                        <option value="">All Districts</option>
+                      </select>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 0.75rem; font-weight: 600; color: #6b7280;">Date From</label>
+                      <input type="date" id="filter-date-from" class="db-input" onchange="applyAdvancedFilters()">
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 0.75rem; font-weight: 600; color: #6b7280;">Date To</label>
+                      <input type="date" id="filter-date-to" class="db-input" onchange="applyAdvancedFilters()">
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 0.75rem; font-weight: 600; color: #6b7280;">GPS Status</label>
+                      <select id="filter-gps-status" class="db-input" onchange="applyAdvancedFilters()" style="min-width: 120px;">
+                        <option value="">All</option>
+                        <option value="valid">Has GPS</option>
+                        <option value="invalid">No GPS</option>
+                      </select>
+                    </div>
+                    
+                    <button class="btn btn-sm btn-outline" onclick="clearAdvancedFilters()" style="margin-top: auto;">
+                      Clear Filters
+                    </button>
+                  </div>
+                </div>
+                
                 <div class="registry-table-wrap">
                   <table id="tbl-device-registry" class="selectable-table">
                     <thead></thead>
@@ -20272,6 +20327,172 @@ function removeRegistryRows() {
   if (removed === 0) showToast('Select at least one row to remove.', 'warning');
 }
 
+// Toggle advanced filters panel
+function toggleAdvancedFilters() {
+  const panel = document.getElementById('advanced-filters-panel');
+  if (!panel) return;
+  
+  const isVisible = panel.style.display !== 'none';
+  panel.style.display = isVisible ? 'none' : 'block';
+  
+  if (!isVisible) {
+    // Populate state and district dropdowns
+    populateFilterDropdowns();
+  }
+}
+
+// Populate state and district filter dropdowns
+function populateFilterDropdowns() {
+  if (!deviceRegistry || deviceRegistry.length === 0) return;
+  
+  const states = new Set();
+  const districts = new Set();
+  
+  deviceRegistry.forEach(r => {
+    if (r.state) states.add(r.state);
+    if (r.district) districts.add(r.district);
+  });
+  
+  const stateSelect = document.getElementById('filter-state');
+  const districtSelect = document.getElementById('filter-district');
+  
+  if (stateSelect) {
+    const currentValue = stateSelect.value;
+    stateSelect.innerHTML = '<option value="">All States</option>' +
+      Array.from(states).sort().map(s => 
+        `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`
+      ).join('');
+    stateSelect.value = currentValue;
+  }
+  
+  if (districtSelect) {
+    const currentValue = districtSelect.value;
+    districtSelect.innerHTML = '<option value="">All Districts</option>' +
+      Array.from(districts).sort().map(d => 
+        `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`
+      ).join('');
+    districtSelect.value = currentValue;
+  }
+}
+
+// Apply advanced filters
+function applyAdvancedFilters() {
+  const state = document.getElementById('filter-state')?.value || '';
+  const district = document.getElementById('filter-district')?.value || '';
+  const dateFrom = document.getElementById('filter-date-from')?.value || '';
+  const dateTo = document.getElementById('filter-date-to')?.value || '';
+  const gpsStatus = document.getElementById('filter-gps-status')?.value || '';
+  
+  registryAdvancedFilters = { state, district, dateFrom, dateTo, gpsStatus };
+  registryCurrentPage = 1;
+  renderDeviceRegistry();
+}
+
+// Clear advanced filters
+function clearAdvancedFilters() {
+  document.getElementById('filter-state').value = '';
+  document.getElementById('filter-district').value = '';
+  document.getElementById('filter-date-from').value = '';
+  document.getElementById('filter-date-to').value = '';
+  document.getElementById('filter-gps-status').value = '';
+  
+  registryAdvancedFilters = { state: '', district: '', dateFrom: '', dateTo: '', gpsStatus: '' };
+  registryCurrentPage = 1;
+  renderDeviceRegistry();
+}
+
+// Check if row matches advanced filters
+function matchesAdvancedFilters(row) {
+  const { state, district, dateFrom, dateTo, gpsStatus } = registryAdvancedFilters;
+  
+  // State filter
+  if (state && String(row.state || '').toLowerCase() !== state.toLowerCase()) {
+    return false;
+  }
+  
+  // District filter
+  if (district && String(row.district || '').toLowerCase() !== district.toLowerCase()) {
+    return false;
+  }
+  
+  // Date range filter
+  if (dateFrom || dateTo) {
+    const rowDate = row.date || '';
+    if (dateFrom && rowDate < dateFrom) return false;
+    if (dateTo && rowDate > dateTo) return false;
+  }
+  
+  // GPS status filter
+  if (gpsStatus) {
+    const hasValidGPS = validateGPS(row.gps || '');
+    if (gpsStatus === 'valid' && !hasValidGPS) return false;
+    if (gpsStatus === 'invalid' && hasValidGPS) return false;
+  }
+  
+  return true;
+}
+
+// Export registry to CSV
+function exportRegistryToCSV() {
+  if (!deviceRegistry || deviceRegistry.length === 0) {
+    showToast('No device data to export', 'warning');
+    return;
+  }
+  
+  // Apply current search and filters
+  let filtered = fastSearchRegistry(registrySearchTerm);
+  filtered = applySortToRegistry(filtered);
+  filtered = filtered.filter(r => matchesAdvancedFilters(r));
+  
+  if (filtered.length === 0) {
+    showToast('No devices match the current filters', 'warning');
+    return;
+  }
+  
+  // Build CSV
+  const headers = [
+    'Client', 'Company', 'PAN', 'GSTIN', 'Address', 
+    'Device ID', 'SIM', 'Aadhaar', 'Mobile', 'MO Name', 
+    'Date', 'Place', 'GPS', 'PIN', 'Block', 'District', 
+    'State', 'Prod Batch'
+  ];
+  
+  const rows = filtered.map(r => [
+    r.client || '',
+    r.company || '',
+    r.pan || '',
+    r.gstin || '',
+    r.address || '',
+    r.did || '',
+    r.sim || '',
+    r.aadhaar || '',
+    r.mobile || '',
+    r.moName || '',
+    r.date || '',
+    r.place || '',
+    r.gps || '',
+    r.pin || '',
+    r.block || '',
+    r.district || '',
+    r.state || '',
+    r.prodBatchId || ''
+  ].map(cell => `"${String(cell).replace(/"/g, '""')}"`));
+  
+  const csvContent = [
+    headers.join(','),
+    ...rows.map(row => row.join(','))
+  ].join('\n');
+  
+  // Download
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `device_registry_${new Date().toISOString().slice(0, 10)}.csv`;
+  link.click();
+  
+  showToast(`Exported ${filtered.length} devices to CSV`, 'success');
+}
+
 function renderDeviceRegistry() {
   const tbody = document.getElementById('body-device-registry');
   if (!tbody) return;
@@ -20327,6 +20548,9 @@ function renderDeviceRegistry() {
 
   // Use fast cached search
   let filteredRegistry = fastSearchRegistry(registrySearchTerm);
+  
+  // Apply advanced filters
+  filteredRegistry = filteredRegistry.filter(r => matchesAdvancedFilters(r));
   
   // Apply sorting
   filteredRegistry = applySortToRegistry(filteredRegistry);
