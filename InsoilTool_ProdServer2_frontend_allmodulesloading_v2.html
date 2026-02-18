@@ -6669,8 +6669,8 @@
       font-weight: 700;
     }
 
-    /* Impact tabs - force horizontal row */
-    #mod-impact #impactTabsRow {
+    /* Impact tabs - force horizontal row (only when module is active) */
+    #mod-impact.active #impactTabsRow {
       display: flex !important;
       flex-direction: row !important;
       flex-wrap: wrap !important;
@@ -6679,7 +6679,7 @@
       justify-content: flex-start !important;
     }
 
-    #mod-impact #impactTabsRow .ia-tab {
+    #mod-impact.active #impactTabsRow .ia-tab {
       width: auto !important;
       display: inline-flex !important;
       flex: 0 0 auto !important;
