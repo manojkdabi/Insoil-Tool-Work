@@ -9054,22 +9054,22 @@
    =========================== */
 
 /* Do NOT force display here. Let your JS/nav control visibility. */
-#mod-stv-direct{
+#mod-stv-direct.active{
   height: 100% !important;
   min-height: 0 !important;
 }
 
 /* Only when STV Direct is actually visible, make it a column layout */
-#mod-stv-direct[style*="display: block"],
-#mod-stv-direct[style*="display:block"],
-#mod-stv-direct[style*="display: flex"],
-#mod-stv-direct[style*="display:flex"]{
+#mod-stv-direct.active[style*="display: block"],
+#mod-stv-direct.active[style*="display:block"],
+#mod-stv-direct.active[style*="display: flex"],
+#mod-stv-direct.active[style*="display:flex"]{
   display: flex !important;
   flex-direction: column !important;
 }
 
 /* Let STV Direct consume full available height below its toolbar */
-#mod-stv-direct .split-container{
+#mod-stv-direct.active .split-container{
   flex: 1 1 auto !important;
   height: auto !important;
   min-height: 0 !important;
@@ -9077,7 +9077,7 @@
 }
 
 /* Kill the global 40% height rule for STV Direct only */
-#mod-stv-direct .panel-upper{
+#mod-stv-direct.active .panel-upper{
   flex: 1 1 auto !important;
   height: auto !important;
   min-height: 0 !important;
@@ -9085,7 +9085,7 @@
 }
 
 /* Ensure horizontal scroll actually happens when columns exceed viewport */
-#mod-stv-direct #tbl-stv-direct{
+#mod-stv-direct.active #tbl-stv-direct{
   width: max-content !important;
   min-width: 100% !important;
 }
