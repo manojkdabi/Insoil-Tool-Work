@@ -2199,6 +2199,554 @@
       }
     }
 
+    /***** NUTRIENT MANAGER - ENHANCED UI/UX *****/
+    
+    /* Dashboard Section */
+    #mod-fertilizer .nm-dashboard {
+      padding: 20px;
+      background: #f9fafb;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    #mod-fertilizer .nm-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    #mod-fertilizer .nm-metric-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    #mod-fertilizer .nm-metric-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      transform: translateY(-2px);
+    }
+
+    #mod-fertilizer .nm-metric-card.primary {
+      border-left: 4px solid #3b82f6;
+      background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+    }
+
+    #mod-fertilizer .nm-metric-card.success {
+      border-left: 4px solid #10b981;
+      background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+    }
+
+    #mod-fertilizer .nm-metric-card.warning {
+      border-left: 4px solid #f59e0b;
+      background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
+    }
+
+    #mod-fertilizer .nm-metric-card.info {
+      border-left: 4px solid #8b5cf6;
+      background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
+    }
+
+    #mod-fertilizer .nm-metric-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    #mod-fertilizer .nm-metric-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    #mod-fertilizer .nm-metric-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #mod-fertilizer .nm-metric-value {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.2;
+    }
+
+    #mod-fertilizer .nm-metric-subtitle {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    /* Quick Actions */
+    #mod-fertilizer .nm-quick-actions {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    #mod-fertilizer .nm-quick-actions h3 {
+      margin: 0 0 16px 0;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    #mod-fertilizer .nm-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    #mod-fertilizer .nm-action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    #mod-fertilizer .nm-action-btn:hover {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      color: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    }
+
+    #mod-fertilizer .nm-action-icon {
+      font-size: 1.5rem;
+    }
+
+    /* Loading States */
+    #mod-fertilizer .nm-loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      backdrop-filter: blur(4px);
+    }
+
+    #mod-fertilizer .nm-loading-overlay.hidden {
+      display: none;
+    }
+
+    #mod-fertilizer .nm-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid #e5e7eb;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: nm-spin 0.8s linear infinite;
+    }
+
+    @keyframes nm-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #mod-fertilizer .nm-loading-text {
+      margin-top: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    #mod-fertilizer .nm-progress-bar {
+      width: 300px;
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 3px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    #mod-fertilizer .nm-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+      animation: nm-progress-shimmer 1.5s infinite;
+    }
+
+    @keyframes nm-progress-shimmer {
+      0% { opacity: 0.8; }
+      50% { opacity: 1; }
+      100% { opacity: 0.8; }
+    }
+
+    /* Button Loading State */
+    #mod-fertilizer .btn.loading {
+      position: relative;
+      color: transparent !important;
+      pointer-events: none;
+    }
+
+    #mod-fertilizer .btn.loading::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      margin-left: -8px;
+      margin-top: -8px;
+      border: 2px solid #ffffff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: nm-spin 0.6s linear infinite;
+    }
+
+    /* Empty State */
+    #mod-fertilizer .nm-empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border: 2px dashed #e5e7eb;
+      border-radius: 12px;
+      margin: 20px;
+    }
+
+    #mod-fertilizer .nm-empty-icon {
+      font-size: 4rem;
+      opacity: 0.3;
+      margin-bottom: 16px;
+    }
+
+    #mod-fertilizer .nm-empty-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    #mod-fertilizer .nm-empty-text {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    #mod-fertilizer .nm-empty-action {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #3b82f6;
+      color: white;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    #mod-fertilizer .nm-empty-action:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Skeleton Loader */
+    #mod-fertilizer .nm-skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: nm-skeleton-loading 1.5s infinite;
+      border-radius: 4px;
+    }
+
+    @keyframes nm-skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    #mod-fertilizer .nm-skeleton-row {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    #mod-fertilizer .nm-skeleton-cell {
+      height: 20px;
+      flex: 1;
+    }
+
+    /* Status Badges */
+    #mod-fertilizer .nm-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    #mod-fertilizer .nm-badge.low {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    #mod-fertilizer .nm-badge.medium {
+      background: #fffbeb;
+      color: #d97706;
+      border: 1px solid #fde68a;
+    }
+
+    #mod-fertilizer .nm-badge.high {
+      background: #f0fdf4;
+      color: #16a34a;
+      border: 1px solid #bbf7d0;
+    }
+
+    #mod-fertilizer .nm-badge.adequate {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* Tooltips */
+    #mod-fertilizer .nm-tooltip {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: help;
+    }
+
+    #mod-fertilizer .nm-tooltip .nm-tooltip-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #e5e7eb;
+      color: #6b7280;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+
+    #mod-fertilizer .nm-tooltip:hover .nm-tooltip-icon {
+      background: #3b82f6;
+      color: white;
+    }
+
+    #mod-fertilizer .nm-tooltip .nm-tooltip-text {
+      visibility: hidden;
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f2937;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+
+    #mod-fertilizer .nm-tooltip .nm-tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #1f2937 transparent transparent transparent;
+    }
+
+    #mod-fertilizer .nm-tooltip:hover .nm-tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Toast Notifications */
+    #mod-fertilizer .nm-toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      min-width: 300px;
+      max-width: 500px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      z-index: 10000;
+      animation: nm-toast-slide-in 0.3s ease;
+    }
+
+    @keyframes nm-toast-slide-in {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    #mod-fertilizer .nm-toast.nm-toast-exit {
+      animation: nm-toast-slide-out 0.3s ease;
+    }
+
+    @keyframes nm-toast-slide-out {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+    }
+
+    #mod-fertilizer .nm-toast-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    #mod-fertilizer .nm-toast-content {
+      flex: 1;
+    }
+
+    #mod-fertilizer .nm-toast-title {
+      font-weight: 700;
+      font-size: 0.875rem;
+      margin-bottom: 4px;
+      color: #111827;
+    }
+
+    #mod-fertilizer .nm-toast-message {
+      font-size: 0.875rem;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+
+    #mod-fertilizer .nm-toast-close {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      color: #9ca3af;
+      cursor: pointer;
+      padding: 0;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    #mod-fertilizer .nm-toast-close:hover {
+      color: #374151;
+    }
+
+    #mod-fertilizer .nm-toast.success {
+      border-left: 4px solid #10b981;
+    }
+
+    #mod-fertilizer .nm-toast.error {
+      border-left: 4px solid #ef4444;
+    }
+
+    #mod-fertilizer .nm-toast.warning {
+      border-left: 4px solid #f59e0b;
+    }
+
+    #mod-fertilizer .nm-toast.info {
+      border-left: 4px solid #3b82f6;
+    }
+
+    /* Enhanced Tables */
+    #mod-fertilizer .selectable-table tbody tr:hover {
+      background-color: #f9fafb;
+      transition: background-color 0.15s ease;
+    }
+
+    #mod-fertilizer .selectable-table th {
+      background: #f9fafb;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      #mod-fertilizer .nm-dashboard {
+        padding: 12px;
+      }
+
+      #mod-fertilizer .nm-metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      #mod-fertilizer .nm-metric-card {
+        padding: 16px;
+      }
+
+      #mod-fertilizer .nm-metric-icon {
+        font-size: 2rem;
+      }
+
+      #mod-fertilizer .nm-metric-value {
+        font-size: 1.5rem;
+      }
+
+      #mod-fertilizer .nm-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #mod-fertilizer .nm-toast {
+        left: 10px;
+        right: 10px;
+        min-width: auto;
+      }
+
+      #mod-fertilizer .nm-toolbar-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #mod-fertilizer .nm-toolbar-row > * {
+        width: 100% !important;
+      }
+
+      #mod-fertilizer .module-header {
+        padding: 12px;
+      }
+    }
+
     /***** DEVICE QA/QC – LAYOUT (single source of truth) *****/
 
     #mod-qaqc .qaqc-toolbar {
@@ -9277,6 +9825,85 @@ tr.duplicate-row {
     <!-- Nutrient Manager Module -->
     <!-- ==================== Fertilizer Module ==================== -->
     <div id="mod-fertilizer" class="module-view">
+      <!-- Dashboard Section -->
+      <div class="nm-dashboard">
+        <!-- Metrics Cards -->
+        <div class="nm-metrics-grid">
+          <div class="nm-metric-card primary">
+            <div class="nm-metric-icon">📋</div>
+            <div class="nm-metric-content">
+              <div class="nm-metric-label">Total Plans</div>
+              <div class="nm-metric-value" id="nm-stat-total-plans">0</div>
+              <div class="nm-metric-subtitle">Created plans</div>
+            </div>
+          </div>
+          <div class="nm-metric-card success">
+            <div class="nm-metric-icon">🧮</div>
+            <div class="nm-metric-content">
+              <div class="nm-metric-label">Active Calculations</div>
+              <div class="nm-metric-value" id="nm-stat-active-calcs">0</div>
+              <div class="nm-metric-subtitle">In progress</div>
+            </div>
+          </div>
+          <div class="nm-metric-card warning">
+            <div class="nm-metric-icon">💰</div>
+            <div class="nm-metric-content">
+              <div class="nm-metric-label">Total Cost</div>
+              <div class="nm-metric-value">₹<span id="nm-stat-total-cost">0</span></div>
+              <div class="nm-metric-subtitle">From all plans</div>
+            </div>
+          </div>
+          <div class="nm-metric-card info">
+            <div class="nm-metric-icon">🎯</div>
+            <div class="nm-metric-content">
+              <div class="nm-metric-label">Avg Yield Target</div>
+              <div class="nm-metric-value"><span id="nm-stat-avg-yield">0</span></div>
+              <div class="nm-metric-subtitle" id="nm-stat-yield-unit">t/ha</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="nm-quick-actions">
+          <h3>Quick Actions</h3>
+          <div class="nm-actions-grid">
+            <button class="nm-action-btn" onclick="nmQuickLoadTest()">
+              <span class="nm-action-icon">🔬</span>
+              <span>Load Test</span>
+            </button>
+            <button class="nm-action-btn" onclick="nmQuickCalculate()">
+              <span class="nm-action-icon">⚡</span>
+              <span>Calculate</span>
+            </button>
+            <button class="nm-action-btn" onclick="nmQuickExport()">
+              <span class="nm-action-icon">📄</span>
+              <span>Export PDF</span>
+            </button>
+            <button class="nm-action-btn" onclick="nmViewSchedule()">
+              <span class="nm-action-icon">📅</span>
+              <span>View Schedule</span>
+            </button>
+            <button class="nm-action-btn" onclick="nmClearAll()">
+              <span class="nm-action-icon">🔄</span>
+              <span>Clear All</span>
+            </button>
+            <button class="nm-action-btn" onclick="nmShowHelp()">
+              <span class="nm-action-icon">❓</span>
+              <span>Help</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Overlay -->
+      <div id="nm-loading-overlay" class="nm-loading-overlay hidden">
+        <div class="nm-spinner"></div>
+        <div class="nm-loading-text" id="nm-loading-text">Loading...</div>
+        <div class="nm-progress-bar">
+          <div class="nm-progress-fill" id="nm-progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+
       <div class="module-header">
         <div class="nm-toolbar">
           <div class="nm-toolbar-row nm-toolbar-primary">
@@ -9321,28 +9948,41 @@ tr.duplicate-row {
             <summary>Calculation settings</summary>
             <div class="nm-advanced-content">
               <input type="number" id="nm-target-yield" class="date-input"
-                placeholder="Target yield" style="width:110px;">
+                placeholder="Target yield" style="width:110px;" 
+                title="Enter expected crop yield in tonnes per hectare">
               <span id="nm-yield-unit" style="font-size:0.8rem; color:#6b7280;">t/ha</span>
+              <span class="nm-tooltip">
+                <span class="nm-tooltip-icon">i</span>
+                <span class="nm-tooltip-text">Expected crop yield per hectare</span>
+              </span>
 
               <span class="divider-v"></span>
 
-              <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;">
+              <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;" 
+                title="Calculate fertilizer recommendations for soil application">
                 <input type="checkbox" id="nm-method-soil" checked> Soil
               </label>
-              <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;">
+              <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;"
+                title="Calculate water-soluble fertilizer recommendations">
                 <input type="checkbox" id="nm-method-fert" checked> Fertigation
               </label>
-              <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;">
+              <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;"
+                title="Calculate foliar spray recommendations">
                 <input type="checkbox" id="nm-method-foliar"> Foliar
               </label>
 
               <span style="font-size:0.8rem; color:#6b7280;">Calc method</span>
 
-              <select id="nm-method" onchange="onMethodChange()">
+              <select id="nm-method" onchange="onMethodChange()" 
+                title="Select calculation methodology: RDF (Recommended Dose of Fertilizer) or STCR (Soil Test Crop Response)">
                 <option value="">Select method...</option>
                 <option value="RDF">RDF</option>
                 <option value="STCR">STCR</option>
               </select>
+              <span class="nm-tooltip">
+                <span class="nm-tooltip-icon">i</span>
+                <span class="nm-tooltip-text">RDF: Standard dosage | STCR: Soil-based dosage</span>
+              </span>
 
               <div id="nm-method-info" class="nm-method-info"></div>
             </div>
@@ -9356,6 +9996,11 @@ tr.duplicate-row {
             <button type="button" onclick="nmExportPlan()" class="btn btn-slate">
               Export Plan (PDF)
             </button>
+
+            <select id="nutrient-manager-language" style="padding:6px 10px; border:1px solid #d1d5db; border-radius:6px; font-size:0.875rem; background:#fff; cursor:pointer; margin-left:8px;">
+              <option value="en">English</option>
+              <option value="hi">हिन्दी (Hindi)</option>
+            </select>
 
             <div class="spacer"></div>
           </div>
@@ -26552,6 +27197,100 @@ function fmtSoilVal(v, nutrient) {
   return num.toFixed(2); // default: 2 decimal places
 }
 
+// Nutrient Manager Report Translations
+const nutrientManagerTranslations = {
+  en: {
+    "Nutrient Management Plan": "Nutrient Management Plan",
+    "Report ID": "Report ID",
+    "Device ID": "Device ID",
+    "Test ID": "Test ID",
+    "Client": "Client",
+    "Crop": "Crop",
+    "Target Yield": "Target Yield",
+    "Date": "Date",
+    "Soil Fertility Status": "Soil Fertility Status",
+    "Nutrient": "Nutrient",
+    "Soil Value": "Soil Value",
+    "Unit": "Unit",
+    "Classification": "Classification",
+    "Application Schedule": "Application Schedule",
+    "Stage": "Stage",
+    "Days After Sowing": "Days After Sowing",
+    "Application Method": "Application Method",
+    "N (kg/ha)": "N (kg/ha)",
+    "P2O5 (kg/ha)": "P2O5 (kg/ha)",
+    "K2O (kg/ha)": "K2O (kg/ha)",
+    "Nutrient Source": "Nutrient Source",
+    "Product Quantity": "Product Quantity",
+    "Estimated Cost": "Estimated Cost",
+    "Delivery Method": "Delivery Method",
+    "Notes": "Notes",
+    "Total Cost": "Total Cost",
+    "Recommendations": "Recommendations",
+    "Low": "Low",
+    "Medium": "Medium",
+    "High": "High",
+    "Adequate": "Adequate",
+    "kg/ha": "kg/ha",
+    "tons/ha": "tons/ha",
+    "Basal": "Basal",
+    "Top Dressing": "Top Dressing",
+    "Foliar": "Foliar",
+    "Generated on": "Generated on"
+  },
+  hi: {
+    "Nutrient Management Plan": "पोषक तत्व प्रबंधन योजना",
+    "Report ID": "रिपोर्ट आईडी",
+    "Device ID": "उपकरण आईडी",
+    "Test ID": "परीक्षण आईडी",
+    "Client": "ग्राहक",
+    "Crop": "फसल",
+    "Target Yield": "लक्ष्य उपज",
+    "Date": "तारीख",
+    "Soil Fertility Status": "मिट्टी उर्वरता स्थिति",
+    "Nutrient": "पोषक तत्व",
+    "Soil Value": "मिट्टी मान",
+    "Unit": "इकाई",
+    "Classification": "वर्गीकरण",
+    "Application Schedule": "अनुप्रयोग अनुसूची",
+    "Stage": "चरण",
+    "Days After Sowing": "बुवाई के बाद दिन",
+    "Application Method": "अनुप्रयोग विधि",
+    "N (kg/ha)": "नाइट्रोजन (किग्रा/हे)",
+    "P2O5 (kg/ha)": "फास्फोरस (किग्रा/हे)",
+    "K2O (kg/ha)": "पोटाश (किग्रा/हे)",
+    "Nutrient Source": "पोषक तत्व स्रोत",
+    "Product Quantity": "उत्पाद मात्रा",
+    "Estimated Cost": "अनुमानित लागत",
+    "Delivery Method": "वितरण विधि",
+    "Notes": "टिप्पणियाँ",
+    "Total Cost": "कुल लागत",
+    "Recommendations": "सिफारिशें",
+    "Low": "कम",
+    "Medium": "मध्यम",
+    "High": "उच्च",
+    "Adequate": "पर्याप्त",
+    "kg/ha": "किग्रा/हे",
+    "tons/ha": "टन/हे",
+    "Basal": "बेसल",
+    "Top Dressing": "टॉप ड्रेसिंग",
+    "Foliar": "पत्तियों पर",
+    "Generated on": "उत्पन्न तिथि"
+  }
+};
+
+// Helper function to get selected language for Nutrient Manager
+function getNutrientManagerLanguage() {
+  const langSelect = document.getElementById('nutrient-manager-language');
+  return langSelect ? langSelect.value : 'en';
+}
+
+// Helper function to get translated text
+function getNutrientManagerText(key) {
+  const lang = getNutrientManagerLanguage();
+  return nutrientManagerTranslations[lang]?.[key] || nutrientManagerTranslations.en[key] || key;
+}
+
 function recalculateNutrientPlan() {
   const clientSel = document.getElementById('nm-client');
   const schemeSel = document.getElementById('nm-rating-scheme');
@@ -26731,6 +27470,9 @@ function exportNutrientPDF() {
     return;
   }
 
+  // Get selected language
+  const language = getNutrientManagerLanguage();
+
   const cropId = cropSel.value;
   const method = methodSel.value;
   const targetYield = tyInp.value || null;
@@ -26758,7 +27500,7 @@ function exportNutrientPDF() {
       N: 180,
       P: 25,
       K: 180
-    });
+    }, language);
 }
 
 
@@ -26772,6 +27514,9 @@ function nmExportPlan() {
     alert('Please calculate a nutrient plan before exporting.');
     return;
   }
+
+  // Get selected language
+  const language = getNutrientManagerLanguage();
 
   // Basic inputs from UI
   var deviceId = document.getElementById('nm-device-id').value.trim();
@@ -26878,7 +27623,8 @@ function nmExportPlan() {
     kRate:              kRate,
     stages:             pdfStages,
     fertilizerMaterials: fertilizerMaterials,
-    fertilizerCosts:     fertilizerCosts
+    fertilizerCosts:     fertilizerCosts,
+    language:           language
   };
 
   console.log('nmExportPlan cfg about to send:', cfg);
@@ -26917,6 +27663,341 @@ function nmExportPlan() {
     .generateNutrientPlanPDFForUI(cfg);
 }
 
+
+/********************************************
+ * NUTRIENT MANAGER - ENHANCED UI/UX FUNCTIONS
+ ********************************************/
+
+// Dashboard Update Functions
+function nmUpdateDashboard() {
+  // Update Total Plans
+  const totalPlans = window.nmPlanHistory ? window.nmPlanHistory.length : 0;
+  document.getElementById('nm-stat-total-plans').textContent = totalPlans;
+
+  // Update Active Calculations (if plan exists)
+  const activeCalcs = (window.nmCurrentStages && window.nmCurrentStages.length > 0) ? 1 : 0;
+  document.getElementById('nm-stat-active-calcs').textContent = activeCalcs;
+
+  // Calculate Total Cost from current plan
+  let totalCost = 0;
+  if (window.nmCurrentFertilizerSchedule && Array.isArray(window.nmCurrentFertilizerSchedule)) {
+    window.nmCurrentFertilizerSchedule.forEach(function(item) {
+      totalCost += Number(item.totalCost || 0);
+    });
+  }
+  document.getElementById('nm-stat-total-cost').textContent = totalCost.toFixed(2);
+
+  // Update Average Yield Target
+  const yieldInput = document.getElementById('nm-target-yield');
+  const avgYield = yieldInput && yieldInput.value ? parseFloat(yieldInput.value) : 0;
+  document.getElementById('nm-stat-avg-yield').textContent = avgYield.toFixed(1);
+}
+
+// Initialize dashboard on module load
+function nmInitDashboard() {
+  if (!window.nmPlanHistory) {
+    window.nmPlanHistory = [];
+  }
+  nmUpdateDashboard();
+}
+
+// Loading Overlay Functions
+function nmShowLoading(text, showProgress) {
+  const overlay = document.getElementById('nm-loading-overlay');
+  const loadingText = document.getElementById('nm-loading-text');
+  const progressBar = document.getElementById('nm-progress-fill');
+  
+  if (overlay) {
+    overlay.classList.remove('hidden');
+    if (loadingText) loadingText.textContent = text || 'Loading...';
+    if (progressBar && !showProgress) {
+      progressBar.parentElement.style.display = 'none';
+    } else if (progressBar && showProgress) {
+      progressBar.parentElement.style.display = 'block';
+      progressBar.style.width = '0%';
+    }
+  }
+}
+
+function nmHideLoading() {
+  const overlay = document.getElementById('nm-loading-overlay');
+  if (overlay) {
+    overlay.classList.add('hidden');
+  }
+}
+
+function nmUpdateProgress(percent) {
+  const progressBar = document.getElementById('nm-progress-fill');
+  if (progressBar) {
+    progressBar.style.width = percent + '%';
+  }
+}
+
+// Button Loading State
+function nmSetButtonLoading(buttonElement, isLoading) {
+  if (!buttonElement) return;
+  
+  if (isLoading) {
+    buttonElement.classList.add('loading');
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove('loading');
+    buttonElement.disabled = false;
+  }
+}
+
+// Toast Notification System
+function nmShowToast(type, title, message, duration) {
+  duration = duration || 4000;
+  
+  const icons = {
+    success: '✅',
+    error: '❌',
+    warning: '⚠️',
+    info: 'ℹ️'
+  };
+  
+  const toast = document.createElement('div');
+  toast.className = 'nm-toast ' + type;
+  toast.innerHTML = `
+    <div class="nm-toast-icon">${icons[type] || 'ℹ️'}</div>
+    <div class="nm-toast-content">
+      <div class="nm-toast-title">${title}</div>
+      <div class="nm-toast-message">${message}</div>
+    </div>
+    <button class="nm-toast-close" onclick="this.parentElement.remove()">×</button>
+  `;
+  
+  document.body.appendChild(toast);
+  
+  setTimeout(function() {
+    toast.classList.add('nm-toast-exit');
+    setTimeout(function() {
+      toast.remove();
+    }, 300);
+  }, duration);
+}
+
+// Empty State Management
+function nmShowEmptyState(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  
+  container.innerHTML = `
+    <div class="nm-empty-state">
+      <div class="nm-empty-icon">🌱</div>
+      <div class="nm-empty-title">No Nutrient Plan Yet</div>
+      <div class="nm-empty-text">
+        Select a device, test, and crop from the toolbar above,<br>
+        then click "Recalculate Plan" to generate nutrient recommendations.
+      </div>
+      <button class="nm-empty-action" onclick="nmQuickCalculate()">
+        Get Started
+      </button>
+    </div>
+  `;
+}
+
+// Skeleton Loader
+function nmShowSkeleton(containerId, rowCount) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  
+  let skeletonHTML = '';
+  for (let i = 0; i < (rowCount || 5); i++) {
+    skeletonHTML += `
+      <div class="nm-skeleton-row">
+        <div class="nm-skeleton nm-skeleton-cell" style="width: 30%"></div>
+        <div class="nm-skeleton nm-skeleton-cell" style="width: 20%"></div>
+        <div class="nm-skeleton nm-skeleton-cell" style="width: 15%"></div>
+        <div class="nm-skeleton nm-skeleton-cell" style="width: 25%"></div>
+      </div>
+    `;
+  }
+  container.innerHTML = skeletonHTML;
+}
+
+// Quick Action Functions
+function nmQuickLoadTest() {
+  const deviceInput = document.getElementById('nm-device-id');
+  const testInput = document.getElementById('nm-test-id');
+  
+  if (!deviceInput.value || !testInput.value) {
+    nmShowToast('warning', 'Missing Information', 'Please enter Device ID and Test ID first', 3000);
+    deviceInput.focus();
+  } else {
+    nmShowToast('info', 'Loading Test', 'Fetching soil test data...', 2000);
+    // Trigger existing load mechanism
+    nmOnTestInput();
+  }
+}
+
+function nmQuickCalculate() {
+  const deviceId = document.getElementById('nm-device-id').value;
+  const testId = document.getElementById('nm-test-id').value;
+  const crop = document.getElementById('nm-crop').value;
+  
+  if (!deviceId || !testId) {
+    nmShowToast('warning', 'Missing Information', 'Please enter Device ID and Test ID', 3000);
+    return;
+  }
+  
+  if (!crop) {
+    nmShowToast('warning', 'Missing Crop', 'Please select a crop', 3000);
+    return;
+  }
+  
+  nmShowLoading('Calculating nutrient plan...', false);
+  
+  // Call existing calculation function
+  setTimeout(function() {
+    recalculateNutrientPlan();
+    nmHideLoading();
+  }, 500);
+}
+
+function nmQuickExport() {
+  if (!window.nmCurrentStages || !window.nmCurrentStages.length) {
+    nmShowToast('warning', 'No Plan Available', 'Please calculate a nutrient plan first', 3000);
+    return;
+  }
+  
+  nmShowLoading('Generating PDF report...', true);
+  
+  // Simulate progress
+  let progress = 0;
+  const progressInterval = setInterval(function() {
+    progress += 10;
+    nmUpdateProgress(progress);
+    if (progress >= 90) {
+      clearInterval(progressInterval);
+    }
+  }, 200);
+  
+  // Call existing export function
+  setTimeout(function() {
+    nmExportPlan();
+    clearInterval(progressInterval);
+    nmUpdateProgress(100);
+    setTimeout(function() {
+      nmHideLoading();
+      nmShowToast('success', 'Export Complete', 'PDF report generated successfully', 3000);
+    }, 500);
+  }, 2000);
+}
+
+function nmViewSchedule() {
+  // Switch to schedule tab
+  const scheduleTab = document.querySelector('button[onclick*="nm-schedule"]');
+  if (scheduleTab) {
+    scheduleTab.click();
+    nmShowToast('info', 'Switched View', 'Showing nutrient schedule', 2000);
+  }
+}
+
+function nmClearAll() {
+  if (confirm('Are you sure you want to clear all data? This cannot be undone.')) {
+    // Clear inputs
+    document.getElementById('nm-device-id').value = '';
+    document.getElementById('nm-test-id').value = '';
+    document.getElementById('nm-crop').value = '';
+    document.getElementById('nm-target-yield').value = '';
+    
+    // Clear tables
+    const fertilityBody = document.getElementById('nm-fertility-body');
+    if (fertilityBody) fertilityBody.innerHTML = '';
+    
+    const scheduleBody = document.getElementById('nm-nutrient-schedule-body');
+    if (scheduleBody) scheduleBody.innerHTML = '';
+    
+    // Clear global state
+    window.nmCurrentStages = [];
+    window.nmCurrentFertilizerSchedule = [];
+    
+    // Update dashboard
+    nmUpdateDashboard();
+    
+    nmShowToast('success', 'Cleared', 'All data has been cleared', 2000);
+  }
+}
+
+function nmShowHelp() {
+  // Toggle the info panel
+  const infoBtn = document.querySelector('#mod-fertilizer .tab-info-btn');
+  if (infoBtn) {
+    infoBtn.click();
+  } else {
+    nmShowToast('info', 'Help', 'Use the toolbar to select device, test, and crop. Then calculate your nutrient plan.', 5000);
+  }
+}
+
+// Add status badges to rating cells
+function nmFormatRating(rating) {
+  if (!rating) return '';
+  
+  const ratingLower = rating.toLowerCase();
+  let badgeClass = '';
+  
+  if (ratingLower.includes('low') || ratingLower.includes('deficient')) {
+    badgeClass = 'low';
+  } else if (ratingLower.includes('medium') || ratingLower.includes('moderate')) {
+    badgeClass = 'medium';
+  } else if (ratingLower.includes('high') || ratingLower.includes('adequate') || ratingLower.includes('sufficient')) {
+    badgeClass = 'high';
+  } else {
+    badgeClass = 'adequate';
+  }
+  
+  return `<span class="nm-badge ${badgeClass}">${rating}</span>`;
+}
+
+// Enhanced table population with badges
+function nmPopulateFertilityTable(data) {
+  const tbody = document.getElementById('nm-fertility-body');
+  if (!tbody || !data) return;
+  
+  tbody.innerHTML = '';
+  
+  data.forEach(function(row) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${row.parameter || ''}</td>
+      <td>${row.value || ''}</td>
+      <td>${row.unit || ''}</td>
+      <td>${nmFormatRating(row.rating)}</td>
+      <td>${row.requirement || ''}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Initialize enhanced UI when module loads
+if (typeof window.nmEnhancedInit === 'undefined') {
+  window.nmEnhancedInit = true;
+  
+  // Initialize dashboard when page loads
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', nmInitDashboard);
+  } else {
+    nmInitDashboard();
+  }
+  
+  // Hook into existing calculation function
+  const originalRecalculate = window.recalculateNutrientPlan;
+  if (originalRecalculate) {
+    window.recalculateNutrientPlan = function() {
+      const result = originalRecalculate.apply(this, arguments);
+      
+      // Update dashboard after calculation
+      setTimeout(function() {
+        nmUpdateDashboard();
+        nmShowToast('success', 'Calculation Complete', 'Nutrient plan has been updated', 3000);
+      }, 500);
+      
+      return result;
+    };
+  }
+}
 
 
 
