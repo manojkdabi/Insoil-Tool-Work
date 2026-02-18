@@ -15585,6 +15585,32 @@ function escapeHtml(value) {
     .replaceAll("'", '&#39;');
 }
 
+// Nutrient Manager input validation
+function nmValidateTestId(testId) {
+  if (!testId || typeof testId !== 'string') return false;
+  // Allow alphanumeric, underscore, hyphen, max 50 chars
+  return /^[A-Za-z0-9_-]{1,50}$/.test(testId.trim());
+}
+
+function nmValidateDeviceId(deviceId) {
+  if (!deviceId || typeof deviceId !== 'string') return false;
+  // Allow alphanumeric, underscore, hyphen, max 50 chars
+  return /^[A-Za-z0-9_-]{1,50}$/.test(deviceId.trim());
+}
+
+function nmValidateNumericInput(value, min, max) {
+  const num = parseFloat(value);
+  if (!Number.isFinite(num)) return false;
+  if (min !== undefined && num < min) return false;
+  if (max !== undefined && num > max) return false;
+  return true;
+}
+
+function nmSanitizeId(id) {
+  if (!id) return '';
+  return String(id).replace(/[^A-Za-z0-9_-]/g, '').substring(0, 50);
+}
+
 // Debounce utility for search performance
 function debounce(func, delay) {
   let timeoutId;
@@ -26548,6 +26574,23 @@ function recalculateNutrientPlan() {
     return;
   }
 
+  // Validate device ID and test ID
+  if (!nmValidateDeviceId(deviceId)) {
+    alert('Invalid Device ID format. Use alphanumeric characters, underscores, or hyphens (max 50 chars).');
+    return;
+  }
+
+  if (!nmValidateTestId(testId)) {
+    alert('Invalid Test ID format. Use alphanumeric characters, underscores, or hyphens (max 50 chars).');
+    return;
+  }
+
+  // Validate target yield if provided
+  if (targetYield && !nmValidateNumericInput(targetYield, 0, undefined)) {
+    alert('Invalid Target Yield. Must be a positive number.');
+    return;
+  }
+
   const sumBody = document.getElementById('nm-fertility-body');
   const nutrientBody = document.getElementById('body-nm-nutrient-schedule');
   const fertilizerBody = document.getElementById('body-nm-fertilizer-schedule');
@@ -27519,6 +27562,12 @@ function nmLoadPlanForCurrentSelection() {
   var testId = testIdInput ? testIdInput.value.trim() : '';
   if (!testId) return;
 
+  // Validate test ID
+  if (!nmValidateTestId(testId)) {
+    console.error('Invalid test ID format');
+    return;
+  }
+
   var clientId = nmCurrentClientId || 'Default';
   var rsSel = document.getElementById('nm-rating-scheme');
   var ratingSchemeId = rsSel ? rsSel.value : '';
@@ -27551,10 +27600,10 @@ function nmRenderSummaryTable(summary) {
   summary.forEach(function(row) {
     var tr = document.createElement('tr');
     tr.innerHTML =
-      '<td>' + row.nutrient   + '</td>' +
-      '<td>' + row.soilValue  + '</td>' +
-      '<td>' + (row.unit || '') + '</td>' +
-      '<td>' + (row.className || '') + '</td>';
+      '<td>' + escapeHtml(row.nutrient)   + '</td>' +
+      '<td>' + escapeHtml(row.soilValue)  + '</td>' +
+      '<td>' + escapeHtml(row.unit || '') + '</td>' +
+      '<td>' + escapeHtml(row.className || '') + '</td>';
     tbody.appendChild(tr);
   });
 }
@@ -27567,17 +27616,17 @@ function nmRenderStagePlanTable(stages) {
   stages.forEach(function(row) {
     var tr = document.createElement('tr');
     tr.innerHTML =
-      '<td>' + row.stage       + '</td>' +
-      '<td>' + (row.days || '') + '</td>' +
-      '<td>' + (row.method || '') + '</td>' +
-      '<td>' + (row.N || '') + '</td>' +
-      '<td>' + (row.P2O5 || '') + '</td>' +
-      '<td>' + (row.K2O || '') + '</td>' +
-      '<td>' + (row.sourceMix || '') + '</td>' +
-      '<td>' + (row.productQty || '') + '</td>' +
-      '<td>' + (row.cost || '') + '</td>' +
-      '<td>' + (row.delivery || '') + '</td>' +
-      '<td>' + (row.flags || '') + '</td>';
+      '<td>' + escapeHtml(row.stage)       + '</td>' +
+      '<td>' + escapeHtml(row.days || '') + '</td>' +
+      '<td>' + escapeHtml(row.method || '') + '</td>' +
+      '<td>' + escapeHtml(row.N || '') + '</td>' +
+      '<td>' + escapeHtml(row.P2O5 || '') + '</td>' +
+      '<td>' + escapeHtml(row.K2O || '') + '</td>' +
+      '<td>' + escapeHtml(row.sourceMix || '') + '</td>' +
+      '<td>' + escapeHtml(row.productQty || '') + '</td>' +
+      '<td>' + escapeHtml(row.cost || '') + '</td>' +
+      '<td>' + escapeHtml(row.delivery || '') + '</td>' +
+      '<td>' + escapeHtml(row.flags || '') + '</td>';
     tbody.appendChild(tr);
   });
 }
