@@ -4947,7 +4947,7 @@
     }
 
     /* ==================== Inventory Manager ==================== */
-    #mod-inventory .inventory-toolbar {
+    #mod-inventory.active .inventory-toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -4955,44 +4955,44 @@
       padding: 8px 12px 0;
     }
 
-    #mod-inventory .module-header {
+    #mod-inventory.active .module-header {
       display: flex;
       flex-direction: column;
       gap: 6px;
       padding: 10px 12px 0;
     }
 
-    #mod-inventory .inventory-header {
+    #mod-inventory.active .inventory-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
 
-    #mod-inventory .inventory-title {
+    #mod-inventory.active .inventory-title {
       font-weight: 800;
       font-size: 1rem;
       letter-spacing: 0.3px;
       color: var(--text-dark);
     }
 
-    #mod-inventory .inventory-header-note {
+    #mod-inventory.active .inventory-header-note {
       font-size: 0.8rem;
       color: var(--text-muted);
       font-weight: 600;
     }
 
-    #mod-inventory .inventory-tabs {
+    #mod-inventory.active .inventory-tabs {
       margin-top: 8px;
     }
 
-    #mod-inventory .inventory-subtabs {
+    #mod-inventory.active .inventory-subtabs {
       display: flex;
       gap: 8px;
       margin: 10px 0 14px;
     }
 
-    #mod-inventory .inventory-panel {
+    #mod-inventory.active .inventory-panel {
       background: var(--surface);
       border: 1px solid var(--border-color);
       border-radius: 14px;
@@ -5003,11 +5003,11 @@
       gap: 10px;
     }
 
-    #mod-inventory .inventory-panel.active {
+    #mod-inventory.active .inventory-panel.active {
       display: flex;
     }
 
-    #mod-inventory .inventory-panel-header {
+    #mod-inventory.active .inventory-panel-header {
       display: flex;
       justify-content: space-between;
       gap: 12px;
@@ -5015,26 +5015,26 @@
       align-items: center;
     }
 
-    #mod-inventory .inventory-panel-title {
+    #mod-inventory.active .inventory-panel-title {
       font-weight: 800;
       font-size: 1rem;
       letter-spacing: 0.2px;
     }
 
-    #mod-inventory .inventory-panel-subtitle {
+    #mod-inventory.active .inventory-panel-subtitle {
       font-size: 0.78rem;
       color: var(--text-muted);
       font-weight: 600;
     }
 
-    #mod-inventory .inventory-actions {
+    #mod-inventory.active .inventory-actions {
       display: flex;
       gap: 8px;
       align-items: center;
       flex-wrap: wrap;
     }
 
-    #mod-inventory .inventory-edit-toggle {
+    #mod-inventory.active .inventory-edit-toggle {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -5043,7 +5043,7 @@
       color: var(--text-muted);
     }
 
-    #mod-inventory .inventory-switch-group {
+    #mod-inventory.active .inventory-switch-group {
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -5053,16 +5053,16 @@
       border: 1px solid var(--border-color);
     }
 
-    #mod-inventory .inventory-switch {
+    #mod-inventory.active .inventory-switch {
       display: inline-flex;
       align-items: center;
     }
 
-    #mod-inventory .inventory-switch input {
+    #mod-inventory.active .inventory-switch input {
       display: none;
     }
 
-    #mod-inventory .inventory-switch-slider {
+    #mod-inventory.active .inventory-switch-slider {
       width: 44px;
       height: 22px;
       background: #cbd5f5;
@@ -5072,7 +5072,7 @@
       cursor: pointer;
     }
 
-    #mod-inventory .inventory-switch-slider::after {
+    #mod-inventory.active .inventory-switch-slider::after {
       content: "";
       width: 18px;
       height: 18px;
@@ -5085,44 +5085,44 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     }
 
-    #mod-inventory .inventory-switch input:checked+.inventory-switch-slider {
+    #mod-inventory.active .inventory-switch input:checked+.inventory-switch-slider {
       background: #22c55e;
     }
 
-    #mod-inventory .inventory-switch input:checked+.inventory-switch-slider::after {
+    #mod-inventory.active .inventory-switch input:checked+.inventory-switch-slider::after {
       transform: translateX(22px);
     }
 
-    #mod-inventory .inventory-switch-label {
+    #mod-inventory.active .inventory-switch-label {
       font-size: 0.78rem;
       font-weight: 600;
       color: var(--text-muted);
       transition: color 0.2s ease;
     }
 
-    #mod-inventory .inventory-switch-label.active {
+    #mod-inventory.active .inventory-switch-label.active {
       color: var(--accent-dark);
     }
 
-    #mod-inventory .inv-readonly {
+    #mod-inventory.active .inv-readonly {
       opacity: 1;
       color: #000;
     }
 
-    #mod-inventory .inventory-table-wrap input:disabled,
-    #mod-inventory .inventory-table-wrap select:disabled,
-    #mod-inventory .inventory-table-wrap textarea:disabled,
-    #mod-inventory .inventory-table-wrap button:disabled {
+    #mod-inventory.active .inventory-table-wrap input:disabled,
+    #mod-inventory.active .inventory-table-wrap select:disabled,
+    #mod-inventory.active .inventory-table-wrap textarea:disabled,
+    #mod-inventory.active .inventory-table-wrap button:disabled {
       opacity: 1;
       color: #000;
     }
 
-    #mod-inventory .inv-input-invalid {
+    #mod-inventory.active .inv-input-invalid {
       background: #fef9c3;
       border-color: #f59e0b;
     }
 
-    #mod-inventory .inventory-table-wrap {
+    #mod-inventory.active .inventory-table-wrap {
       overflow: auto;
       border-radius: 12px;
       border: 1px solid var(--border-color);
@@ -5130,13 +5130,13 @@
       max-height: 460px;
     }
 
-    #mod-inventory .inventory-table-wrap table {
+    #mod-inventory.active .inventory-table-wrap table {
       width: max-content;
       min-width: 100%;
       table-layout: fixed;
     }
 
-    #mod-inventory .inventory-footer {
+    #mod-inventory.active .inventory-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -5144,30 +5144,30 @@
       flex-wrap: wrap;
     }
 
-    #mod-inventory .inventory-summary {
+    #mod-inventory.active .inventory-summary {
       font-weight: 700;
       color: var(--accent-dark);
     }
 
-    #mod-inventory .inventory-note {
+    #mod-inventory.active .inventory-note {
       font-size: 0.75rem;
       color: var(--text-muted);
     }
 
-    #mod-inventory .inventory-toolbar-right {
+    #mod-inventory.active .inventory-toolbar-right {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
     }
 
-    #mod-inventory .inventory-save-status {
+    #mod-inventory.active .inventory-save-status {
       font-size: 0.72rem;
       color: var(--text-muted);
       font-weight: 600;
     }
 
-    #mod-inventory .inventory-chip {
+    #mod-inventory.active .inventory-chip {
       background: rgba(15, 118, 110, 0.08);
       color: #0f766e;
       border: 1px solid rgba(15, 118, 110, 0.2);
@@ -5179,37 +5179,37 @@
       letter-spacing: 0.4px;
     }
 
-    #mod-inventory .inventory-status {
+    #mod-inventory.active .inventory-status {
       font-weight: 700;
     }
 
-    #mod-inventory .inventory-status.pending {
+    #mod-inventory.active .inventory-status.pending {
       color: #d97706;
     }
 
-    #mod-inventory .inventory-status.approved {
+    #mod-inventory.active .inventory-status.approved {
       color: #16a34a;
     }
 
-    #mod-inventory .inventory-status.rejected {
+    #mod-inventory.active .inventory-status.rejected {
       color: #dc2626;
     }
 
     /* ==================== Inventory Dashboard ==================== */
-    #mod-inventory .inventory-dashboard {
+    #mod-inventory.active .inventory-dashboard {
       padding: 20px;
       display: flex;
       flex-direction: column;
       gap: 24px;
     }
 
-    #mod-inventory .inventory-metrics-grid {
+    #mod-inventory.active .inventory-metrics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 16px;
     }
 
-    #mod-inventory .inventory-metric-card {
+    #mod-inventory.active .inventory-metric-card {
       background: white;
       border: 1px solid #e5e7eb;
       border-radius: 12px;
@@ -5221,39 +5221,39 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
-    #mod-inventory .inventory-metric-card:hover {
+    #mod-inventory.active .inventory-metric-card:hover {
       box-shadow: 0 4px 12px rgba(0,0,0,0.12);
       transform: translateY(-2px);
     }
 
-    #mod-inventory .inventory-metric-card.warning {
+    #mod-inventory.active .inventory-metric-card.warning {
       border-left: 4px solid #f59e0b;
       background: #fffbeb;
     }
 
-    #mod-inventory .inventory-metric-card.pending {
+    #mod-inventory.active .inventory-metric-card.pending {
       border-left: 4px solid #3b82f6;
       background: #eff6ff;
     }
 
-    #mod-inventory .inventory-metric-card.success {
+    #mod-inventory.active .inventory-metric-card.success {
       border-left: 4px solid #10b981;
       background: #f0fdf4;
     }
 
-    #mod-inventory .metric-icon {
+    #mod-inventory.active .metric-icon {
       font-size: 2.5rem;
       line-height: 1;
     }
 
-    #mod-inventory .metric-content {
+    #mod-inventory.active .metric-content {
       flex: 1;
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
 
-    #mod-inventory .metric-label {
+    #mod-inventory.active .metric-label {
       font-size: 0.875rem;
       color: #6b7280;
       font-weight: 600;
@@ -5261,20 +5261,20 @@
       letter-spacing: 0.5px;
     }
 
-    #mod-inventory .metric-value {
+    #mod-inventory.active .metric-value {
       font-size: 2rem;
       font-weight: 700;
       color: #111827;
       line-height: 1.2;
     }
 
-    #mod-inventory .metric-change {
+    #mod-inventory.active .metric-change {
       font-size: 0.75rem;
       color: #9ca3af;
     }
 
     /* Search and Toolbar */
-    #mod-inventory .inventory-toolbar {
+    #mod-inventory.active .inventory-toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -5285,26 +5285,26 @@
       margin-bottom: 8px;
     }
 
-    #mod-inventory .inventory-toolbar-left {
+    #mod-inventory.active .inventory-toolbar-left {
       display: flex;
       gap: 12px;
       align-items: center;
       flex: 1;
     }
 
-    #mod-inventory .inventory-toolbar-right {
+    #mod-inventory.active .inventory-toolbar-right {
       display: flex;
       gap: 8px;
       align-items: center;
     }
 
-    #mod-inventory .inventory-search-box {
+    #mod-inventory.active .inventory-search-box {
       position: relative;
       flex: 1;
       max-width: 400px;
     }
 
-    #mod-inventory .inventory-search-input {
+    #mod-inventory.active .inventory-search-input {
       width: 100%;
       padding: 8px 12px 8px 36px;
       border: 1px solid #d1d5db;
@@ -5313,13 +5313,13 @@
       transition: all 0.2s;
     }
 
-    #mod-inventory .inventory-search-input:focus {
+    #mod-inventory.active .inventory-search-input:focus {
       outline: none;
       border-color: #2563eb;
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
-    #mod-inventory .inventory-search-icon {
+    #mod-inventory.active .inventory-search-icon {
       position: absolute;
       left: 12px;
       top: 50%;
@@ -5327,13 +5327,13 @@
       pointer-events: none;
     }
 
-    #mod-inventory .inventory-filter-chips {
+    #mod-inventory.active .inventory-filter-chips {
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
     }
 
-    #mod-inventory .filter-chip {
+    #mod-inventory.active .filter-chip {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -5346,39 +5346,39 @@
       color: #3730a3;
     }
 
-    #mod-inventory .filter-chip-remove {
+    #mod-inventory.active .filter-chip-remove {
       cursor: pointer;
       font-weight: 700;
       opacity: 0.7;
       transition: opacity 0.2s;
     }
 
-    #mod-inventory .filter-chip-remove:hover {
+    #mod-inventory.active .filter-chip-remove:hover {
       opacity: 1;
     }
 
     /* Quick Actions */
-    #mod-inventory .inventory-quick-actions {
+    #mod-inventory.active .inventory-quick-actions {
       background: white;
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       padding: 20px;
     }
 
-    #mod-inventory .inventory-quick-actions h3 {
+    #mod-inventory.active .inventory-quick-actions h3 {
       margin: 0 0 16px 0;
       font-size: 1.125rem;
       font-weight: 700;
       color: #111827;
     }
 
-    #mod-inventory .quick-actions-grid {
+    #mod-inventory.active .quick-actions-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 12px;
     }
 
-    #mod-inventory .quick-action-btn {
+    #mod-inventory.active .quick-action-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -5394,7 +5394,7 @@
       color: #374151;
     }
 
-    #mod-inventory .quick-action-btn:hover {
+    #mod-inventory.active .quick-action-btn:hover {
       background: #eff6ff;
       border-color: #3b82f6;
       color: #2563eb;
@@ -5402,32 +5402,32 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.08);
     }
 
-    #mod-inventory .action-icon {
+    #mod-inventory.active .action-icon {
       font-size: 1.5rem;
     }
 
     /* Recent Activity Timeline */
-    #mod-inventory .inventory-recent-activity {
+    #mod-inventory.active .inventory-recent-activity {
       background: white;
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       padding: 20px;
     }
 
-    #mod-inventory .inventory-recent-activity h3 {
+    #mod-inventory.active .inventory-recent-activity h3 {
       margin: 0 0 16px 0;
       font-size: 1.125rem;
       font-weight: 700;
       color: #111827;
     }
 
-    #mod-inventory .activity-timeline {
+    #mod-inventory.active .activity-timeline {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    #mod-inventory .activity-item {
+    #mod-inventory.active .activity-item {
       display: flex;
       gap: 12px;
       padding: 12px;
@@ -5436,22 +5436,22 @@
       border-left: 3px solid #d1d5db;
     }
 
-    #mod-inventory .activity-item.add {
+    #mod-inventory.active .activity-item.add {
       border-left-color: #10b981;
       background: #f0fdf4;
     }
 
-    #mod-inventory .activity-item.update {
+    #mod-inventory.active .activity-item.update {
       border-left-color: #3b82f6;
       background: #eff6ff;
     }
 
-    #mod-inventory .activity-item.delete {
+    #mod-inventory.active .activity-item.delete {
       border-left-color: #ef4444;
       background: #fef2f2;
     }
 
-    #mod-inventory .activity-icon {
+    #mod-inventory.active .activity-icon {
       font-size: 1.25rem;
       width: 32px;
       height: 32px;
@@ -5463,29 +5463,29 @@
       flex-shrink: 0;
     }
 
-    #mod-inventory .activity-content {
+    #mod-inventory.active .activity-content {
       flex: 1;
     }
 
-    #mod-inventory .activity-title {
+    #mod-inventory.active .activity-title {
       font-weight: 600;
       font-size: 0.875rem;
       color: #111827;
       margin-bottom: 2px;
     }
 
-    #mod-inventory .activity-description {
+    #mod-inventory.active .activity-description {
       font-size: 0.75rem;
       color: #6b7280;
     }
 
-    #mod-inventory .activity-time {
+    #mod-inventory.active .activity-time {
       font-size: 0.75rem;
       color: #9ca3af;
       font-weight: 500;
     }
 
-    #mod-inventory .activity-empty {
+    #mod-inventory.active .activity-empty {
       text-align: center;
       padding: 40px;
       color: #9ca3af;
@@ -5493,27 +5493,27 @@
     }
 
     /* Low Stock Alerts */
-    #mod-inventory .inventory-alerts {
+    #mod-inventory.active .inventory-alerts {
       background: white;
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       padding: 20px;
     }
 
-    #mod-inventory .inventory-alerts h3 {
+    #mod-inventory.active .inventory-alerts h3 {
       margin: 0 0 16px 0;
       font-size: 1.125rem;
       font-weight: 700;
       color: #111827;
     }
 
-    #mod-inventory .alerts-list {
+    #mod-inventory.active .alerts-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
-    #mod-inventory .alert-item {
+    #mod-inventory.active .alert-item {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -5523,26 +5523,26 @@
       border-radius: 8px;
     }
 
-    #mod-inventory .alert-icon {
+    #mod-inventory.active .alert-icon {
       font-size: 1.5rem;
     }
 
-    #mod-inventory .alert-content {
+    #mod-inventory.active .alert-content {
       flex: 1;
     }
 
-    #mod-inventory .alert-title {
+    #mod-inventory.active .alert-title {
       font-weight: 600;
       font-size: 0.875rem;
       color: #92400e;
     }
 
-    #mod-inventory .alert-description {
+    #mod-inventory.active .alert-description {
       font-size: 0.75rem;
       color: #b45309;
     }
 
-    #mod-inventory .alert-action {
+    #mod-inventory.active .alert-action {
       padding: 6px 12px;
       background: #fef3c7;
       border: 1px solid #fde68a;
@@ -5554,12 +5554,12 @@
       transition: all 0.2s;
     }
 
-    #mod-inventory .alert-action:hover {
+    #mod-inventory.active .alert-action:hover {
       background: #fde68a;
     }
 
     /* Status Badges */
-    #mod-inventory .status-badge {
+    #mod-inventory.active .status-badge {
       display: inline-flex;
       align-items: center;
       gap: 4px;
@@ -5571,38 +5571,38 @@
       letter-spacing: 0.5px;
     }
 
-    #mod-inventory .status-badge.success {
+    #mod-inventory.active .status-badge.success {
       background: #d1fae5;
       color: #065f46;
       border: 1px solid #6ee7b7;
     }
 
-    #mod-inventory .status-badge.warning {
+    #mod-inventory.active .status-badge.warning {
       background: #fef3c7;
       color: #92400e;
       border: 1px solid #fde68a;
     }
 
-    #mod-inventory .status-badge.error {
+    #mod-inventory.active .status-badge.error {
       background: #fee2e2;
       color: #991b1b;
       border: 1px solid #fecaca;
     }
 
-    #mod-inventory .status-badge.info {
+    #mod-inventory.active .status-badge.info {
       background: #dbeafe;
       color: #1e40af;
       border: 1px solid #93c5fd;
     }
 
-    #mod-inventory .status-badge.pending {
+    #mod-inventory.active .status-badge.pending {
       background: #e0e7ff;
       color: #3730a3;
       border: 1px solid #c7d2fe;
     }
 
     /* Progress Bars for Stock Levels */
-    #mod-inventory .stock-progress {
+    #mod-inventory.active .stock-progress {
       width: 100%;
       height: 8px;
       background: #e5e7eb;
@@ -5611,18 +5611,18 @@
       margin-top: 4px;
     }
 
-    #mod-inventory .stock-progress-bar {
+    #mod-inventory.active .stock-progress-bar {
       height: 100%;
       background: linear-gradient(90deg, #10b981, #059669);
       border-radius: 999px;
       transition: width 0.3s ease;
     }
 
-    #mod-inventory .stock-progress-bar.low {
+    #mod-inventory.active .stock-progress-bar.low {
       background: linear-gradient(90deg, #f59e0b, #d97706);
     }
 
-    #mod-inventory .stock-progress-bar.critical {
+    #mod-inventory.active .stock-progress-bar.critical {
       background: linear-gradient(90deg, #ef4444, #dc2626);
     }
 
@@ -11766,6 +11766,1515 @@ tr.duplicate-row {
 
 
 
+    <div id="mod-inventory" class="module-view">
+      <!-- Enhanced Header with Search and Actions -->
+      <div class="module-header">
+        <div class="inventory-header">
+          <div class="inventory-title">Inventory Manager</div>
+          <div class="inventory-header-note">
+            <span id="inventory-save-status" class="inventory-save-status">All changes saved</span>
+          </div>
+        </div>
+        <div class="inventory-toolbar">
+          <div class="inventory-toolbar-left">
+            <div class="inventory-search-box">
+              <input type="text" id="inventory-search-input" placeholder="Search inventory..." class="inventory-search-input" oninput="filterInventoryGlobal(this.value)">
+              <span class="inventory-search-icon">🔍</span>
+            </div>
+            <div class="inventory-filter-chips" id="inventory-filter-chips"></div>
+          </div>
+          <div class="inventory-toolbar-right">
+            <button class="btn btn-outline btn-sm" onclick="exportInventoryCSV()">📥 Export CSV</button>
+            <button class="btn btn-outline btn-sm" onclick="exportInventoryExcel()">📊 Export Excel</button>
+            <button class="btn btn-blue btn-sm" onclick="refreshInventoryData()">🔄 Refresh</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Tab -->
+      <div class="tab-nav inventory-tabs">
+        <button class="tab-btn active" onclick="inventoryTab('dashboard', event)">📊 Dashboard</button>
+        <button class="tab-btn" onclick="inventoryTab('stock', event)">Stock</button>
+        <button class="tab-btn" onclick="inventoryTab('constitution', event)">Device Constitution</button>
+        <button class="tab-btn" onclick="inventoryTab('approvals', event)">Approvals</button>
+        <button class="tab-btn" onclick="inventoryTab('liquidation', event)">Liquidation</button>
+        <button class="tab-btn" onclick="inventoryTab('prod-batch', event)">Prod Batch</button>
+        <button class="tab-btn" onclick="inventoryTab('refill', event)">Refill Batch</button>
+        <div class="tab-info">
+          <button class="tab-info-btn" onclick="toggleTabInfo(this, 'inventory')" title="About Inventory">i</button>
+          <div class="tab-info-panel">
+            <button class="tab-info-close" onclick="closeTabInfo(this)">×</button>
+            <div class="tab-info-content"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Overview -->
+      <div id="inv-tab-dashboard" class="tab-content active">
+        <div class="inventory-dashboard">
+          <!-- Key Metrics Cards -->
+          <div class="inventory-metrics-grid">
+            <div class="inventory-metric-card">
+              <div class="metric-icon">📦</div>
+              <div class="metric-content">
+                <div class="metric-label">Total Parts</div>
+                <div class="metric-value" id="metric-total-parts">0</div>
+                <div class="metric-change">Across <span id="metric-parts-items">0</span> items</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card">
+              <div class="metric-icon">🏭</div>
+              <div class="metric-content">
+                <div class="metric-label">Built Devices</div>
+                <div class="metric-value" id="metric-built-devices">0</div>
+                <div class="metric-change"><span id="metric-built-pending">0</span> in stock</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card">
+              <div class="metric-icon">💰</div>
+              <div class="metric-content">
+                <div class="metric-label">Total Value</div>
+                <div class="metric-value">₹<span id="metric-total-value">0</span></div>
+                <div class="metric-change">Cost per device: ₹<span id="metric-cost-per-device">0</span></div>
+              </div>
+            </div>
+            <div class="inventory-metric-card warning">
+              <div class="metric-icon">⚠️</div>
+              <div class="metric-content">
+                <div class="metric-label">Low Stock Alerts</div>
+                <div class="metric-value" id="metric-low-stock">0</div>
+                <div class="metric-change">Items below threshold</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card pending">
+              <div class="metric-icon">⏳</div>
+              <div class="metric-content">
+                <div class="metric-label">Pending Approvals</div>
+                <div class="metric-value" id="metric-pending-approvals">0</div>
+                <div class="metric-change">Awaiting action</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card success">
+              <div class="metric-icon">✅</div>
+              <div class="metric-content">
+                <div class="metric-label">Recent Activity</div>
+                <div class="metric-value" id="metric-recent-count">0</div>
+                <div class="metric-change">Last 7 days</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="inventory-quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="quick-actions-grid">
+              <button class="quick-action-btn" onclick="inventoryTab('stock', event); inventorySubtab('stock', 'parts')">
+                <span class="action-icon">➕</span>
+                <span class="action-label">Add Parts</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('stock', event); inventorySubtab('stock', 'built')">
+                <span class="action-icon">🏭</span>
+                <span class="action-label">Register Device</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('approvals', event)">
+                <span class="action-icon">✓</span>
+                <span class="action-label">Review Approvals</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('liquidation', event)">
+                <span class="action-icon">📤</span>
+                <span class="action-label">Issue/Sale</span>
+              </button>
+              <button class="quick-action-btn" onclick="exportInventoryCSV()">
+                <span class="action-icon">📥</span>
+                <span class="action-label">Export Data</span>
+              </button>
+              <button class="quick-action-btn" onclick="refreshInventoryData()">
+                <span class="action-icon">🔄</span>
+                <span class="action-label">Refresh All</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent Activity Timeline -->
+          <div class="inventory-recent-activity">
+            <h3>Recent Activity</h3>
+            <div class="activity-timeline" id="activity-timeline">
+              <div class="activity-empty">No recent activity</div>
+            </div>
+          </div>
+
+          <!-- Low Stock Alerts -->
+          <div class="inventory-alerts" id="inventory-alerts-section" style="display:none;">
+            <h3>⚠️ Low Stock Alerts</h3>
+            <div class="alerts-list" id="low-stock-alerts"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Device Constitution -->
+      <div id="inv-tab-constitution" class="tab-content">
+        <div class="inventory-panel">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Device Constitution (BOM)</div>
+              <div class="inventory-panel-subtitle">Defines component usage and device cost model.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('constitution', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('constitution')">+ Row</button>
+              <button class="btn btn-outline" onclick="triggerInventoryCsv('constitution')">Import CSV</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('constitution')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('constitution')">Save</button>
+              <input id="inv-constitution-csv" type="file" accept=".csv,text/csv" style="display:none" onchange="importInventoryCsv('constitution', this)">
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-constitution-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('constitution', this)"></th>
+                  <th>Category</th>
+                  <th>Item Class</th>
+                  <th>Item</th>
+                  <th>Unit</th>
+                  <th>Units/Device</th>
+                  <th>Cost (Rs)/Unit</th>
+                  <th>Version</th>
+                  <th>Effective Date</th>
+                  <th>Cost/Device</th>
+                </tr>
+              </thead>
+              <tbody id="inv-constitution-body"></tbody>
+            </table>
+          </div>
+          <div class="inventory-footer">
+            <div class="inventory-summary">
+              Total estimated cost/device: ₹<span id="inv-constitution-total">0</span>
+            </div>
+            <div class="inventory-note">Tip: update Version/Effective Date when BOM changes.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stock -->
+      <div id="inv-tab-stock" class="tab-content active">
+        <div class="inventory-switch-group inventory-subtabs">
+          <span class="inventory-switch-label active" data-inv-subtab="parts">Parts</span>
+          <label class="inventory-switch">
+            <input type="checkbox" id="inv-stock-toggle" onchange="inventorySubtab('stock', this.checked ? 'built' : 'parts')">
+            <span class="inventory-switch-slider"></span>
+          </label>
+          <span class="inventory-switch-label" data-inv-subtab="built">Built Units</span>
+        </div>
+
+        <div id="inv-stock-parts" class="inventory-panel active">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Parts Stock</div>
+              <div class="inventory-panel-subtitle">Issue/Sale requests are created at row add.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('parts', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('parts')">+ Row</button>
+              <button class="btn btn-outline" onclick="triggerInventoryCsv('parts')">Import CSV</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('parts')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('parts')">Save</button>
+              <input id="inv-parts-csv" type="file" accept=".csv,text/csv" style="display:none" onchange="importInventoryCsv('parts', this)">
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-parts-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('parts', this)"></th>
+                  <th>Category</th>
+                  <th>Item Class</th>
+                  <th>Item</th>
+                  <th>Unit</th>
+                  <th>In-stock Qty</th>
+                  <th>Cost (Rs)/Unit</th>
+                  <th>Movement Type</th>
+                  <th>Date of Movement</th>
+                  <th>Delivery Date</th>
+                  <th>PO number</th>
+                  <th>Confirmed by</th>
+                  <th>Issued to</th>
+                  <th>Request ID</th>
+                </tr>
+              </thead>
+              <tbody id="inv-parts-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="inv-stock-built" class="inventory-panel" style="display:none;">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Built Units</div>
+              <div class="inventory-panel-subtitle">New builds consume BOM items and create a stock entry.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('built', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('built')">+ Row</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('built')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('built')">Save</button>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-built-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('built', this)"></th>
+                  <th>Serial</th>
+                  <th>Device ID</th>
+                  <th>Count</th>
+                  <th>Date of Manufacture</th>
+                  <th>Date of Sale</th>
+                  <th>Sold/Issued To</th>
+                  <th>Movement</th>
+                  <th>Confirmed</th>
+                  <th>Request ID</th>
+                </tr>
+              </thead>
+              <tbody id="inv-built-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liquidation -->
+      <div id="inv-tab-liquidation" class="tab-content">
+        <div class="inventory-switch-group inventory-liquidation-tabs">
+          <span class="inventory-switch-label active" data-inv-subtab="requests">Liquidation</span>
+          <label class="inventory-switch">
+            <input type="checkbox" id="inv-liquidation-toggle" onchange="inventoryLiquidationSubtab(this.checked ? 'clients' : 'requests')">
+            <span class="inventory-switch-slider"></span>
+          </label>
+          <span class="inventory-switch-label" data-inv-subtab="clients">Clients</span>
+        </div>
+
+        <div id="inv-liquidation-requests" class="inventory-panel active">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Liquidation</div>
+              <div class="inventory-panel-subtitle">Stock changes only after approval and acknowledgment.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('liquidation', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('liquidation')">+ Issue/Sale</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('liquidation')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('liquidation')">Save</button>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-liquidation-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('liquidation', this)"></th>
+                  <th>Request ID</th>
+                  <th>Item</th>
+                  <th>Issue/Sale</th>
+                  <th>Issued/Sold To</th>
+                  <th>Units Before</th>
+                  <th>Units After</th>
+                  <th>Units Issued</th>
+                  <th>Date Issued</th>
+                  <th>Acknowledged</th>
+                  <th>Evidence (PDF)</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="inv-liquidation-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="inv-liquidation-clients" class="inventory-panel" style="display:none;">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Clients</div>
+              <div class="inventory-panel-subtitle">Manage client/vendor records for liquidation.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('clients', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('clients')">+ Client</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('clients')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('clients')">Save</button>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-clients-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('clients', this)"></th>
+                  <th>Client type</th>
+                  <th>Client name</th>
+                  <th>Client address</th>
+                  <th>Client contact</th>
+                  <th>Client email</th>
+                  <th>Item</th>
+                  <th>GSTIN</th>
+                </tr>
+              </thead>
+              <tbody id="inv-clients-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prod Batch -->
+      <div id="inv-tab-prod-batch" class="tab-content">
+        <div class="inventory-panel">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Prod Batch (Master)</div>
+              <div class="inventory-panel-subtitle">Maintain production batch definitions for Inventory workflows.</div>
+            </div>
+            <div class="inventory-actions">
+              <button class="btn btn-green" onclick="dbAddRow('prod')">+ Row</button>
+              <button class="btn btn-outline btn-red" onclick="dbRemoveRows('prod')">− Row</button>
+              <button class="btn btn-blue btn-sm" onclick="dbSaveMaster('prod')">Save Prod Batch</button>
+              <label class="db-edit-toggle">
+                <input type="checkbox" data-db-edit-toggle="true" onchange="toggleDbEdit('prod-batch', this.checked)">
+                Edit Table
+              </label>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="tbl-db-prod-batch" class="selectable-table">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Refill Batch -->
+      <div id="inv-tab-refill" class="tab-content">
+        <div class="inventory-panel">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Refill Batch</div>
+              <div class="inventory-panel-subtitle">Track refill lots, sizes, and manufacturer details.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('refill', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('refill')">+ Row</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('refill')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('refill')">Save</button>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-refill-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('refill', this)"></th>
+                  <th>Refill Box ID</th>
+                  <th>Lot size</th>
+                  <th>Refill lot ID</th>
+                  <th>Manufacturer name</th>
+                  <th>Manufacture date</th>
+                  <th>Expiry Date</th>
+                  <th>Delivery Date</th>
+                  <th>PO number</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody id="inv-refill-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approvals -->
+      <div id="inv-tab-approvals" class="tab-content">
+        <div class="inventory-panel">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Approvals</div>
+              <div class="inventory-panel-subtitle">Approve requests before liquidation applies to stock.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('approvals', this.checked)"> Edit
+              </label>
+              <button class="btn btn-outline" onclick="refreshInventoryApprovals()">Refresh</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('approvals')">Save</button>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-approvals-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th>Request ID</th>
+                  <th>Requested By</th>
+                  <th>TAT (days)</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Approver</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inv-approvals-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nutrient Manager-2 Module -->
+    <!-- ==================== Fertilizer Module 2 ==================== -->
+    <div id="mod-fertilizer2" class="module-view">
+      <div class="module-header">
+
+        <!-- Row 1: Context selectors (Client, Device, Test, Agronomy) -->
+        <div class="toolbar" style="border-bottom:1px solid var(--border-color); padding-bottom:8px;">
+
+          <select id="nm2-client" class="search-input" style="min-width:150px;">
+        <option value="Default">Default Client</option>
+      </select>
+          <span style="font-size:0.8rem; color:#6b7280;">Client</span>
+
+          <select id="nm2-rating-scheme" class="search-input" style="min-width:180px;">
+        <option value="">Rating scheme...</option>
+      </select>
+          <span style="font-size:0.8rem; color:#6b7280;">Scheme</span>
+
+          <span class="divider-v"></span>
+
+          <!-- Device ID autocomplete -->
+          <div class="autocomplete-container" style="width:140px;">
+            <input type="text" id="nm2-device-id" class="search-input"
+               placeholder="Device ID" autocomplete="off"
+               oninput="nm2OnDeviceInput()" onclick="nm2ShowDeviceList()">
+            <div id="nm2-device-list" class="autocomplete-list" style="display:none;"></div>
+          </div>
+
+          <!-- Test ID autocomplete -->
+          <div class="autocomplete-container" style="width:140px;">
+            <input type="text" id="nm2-test-id" class="search-input"
+               placeholder="Test ID" autocomplete="off"
+               oninput="nm2OnTestInput()" onclick="nm2ShowTestList()">
+            <div id="nm2-test-list" class="autocomplete-list" style="display:none;"></div>
+          </div>
+
+          <span class="divider-v"></span>
+
+          <!-- Crop + Target Yield -->
+          <select id="nm2-crop" class="search-input" style="min-width:180px;">
+        <option value="">Select crop...</option>
+      </select>
+
+          <input type="number" id="nm2-target-yield" class="date-input"
+             placeholder="Target yield" style="width:110px;">
+          <span id="nm2-yield-unit" style="font-size:0.8rem; color:#6b7280;">t/ha</span>
+
+          <span class="divider-v"></span>
+
+          <!-- Method + Calc Method -->
+          <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;">
+        <input type="checkbox" id="nm2-method-soil" checked> Soil
+      </label>
+          <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;">
+        <input type="checkbox" id="nm2-method-fert" checked> Fertigation
+      </label>
+          <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;">
+        <input type="checkbox" id="nm2-method-foliar"> Foliar
+      </label>
+
+          <span style="font-size:0.8rem; color:#6b7280;">Calc method</span>
+          <select id="nm2-method" onchange="nm2MethodChange()">
+        <option value="">Select method...</option>
+        <option value="RDF">RDF</option>
+        <option value="STCR">STCR</option>
+      </select>
+
+          <div class="spacer"></div>
+        </div>
+
+        <!-- Row 2: Empty for now (future Stage override UI) -->
+
+        <!-- Row 3: Action buttons + Bulk Export -->
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:8px 0;">
+
+          <!-- Primary actions -->
+          <button type="button" onclick="nm2RecalculatePlan()" class="btn btn-blue">
+        Recalculate Plan
+      </button>
+          <button type="button" onclick="nm2ExportPlan()" class="btn btn-slate">
+        Export Plan PDF
+      </button>
+          <button type="button" onclick="nm2ToggleAdvanced()" class="btn btn-outline">
+        Advanced Overrides
+      </button>
+
+          <span class="divider-v"></span>
+
+          <!-- Bulk Export controls -->
+          <span style="font-size:0.8rem; color:#6b7280; font-weight:600;">Bulk PDF:</span>
+
+          <input type="date" id="nm2-bulk-from" class="date-input" style="width:130px;">
+          <span style="font-size:0.8rem; color:#6b7280;">to</span>
+          <input type="date" id="nm2-bulk-to" class="date-input" style="width:130px;">
+
+          <input type="number" id="nm2-bulk-limit" class="date-input"
+             style="width:70px;" placeholder="Limit" value="50" min="1" max="500">
+
+          <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;">
+        <input type="checkbox" id="nm2-bulk-success-only" checked>
+        SUCCESS only
+      </label>
+
+          <button type="button" onclick="nm2BulkPreview()" class="btn btn-outline"
+              style="padding:4px 10px; font-size:0.85rem;">
+        Preview Count
+      </button>
+
+          <button type="button" onclick="nm2BulkExport()" class="btn btn-teal"
+              style="padding:4px 12px; font-size:0.85rem;">
+        📦 Bulk Export (Drive)
+      </button>
+
+          <span id="nm2-bulk-status" style="font-size:0.75rem; color:#888; margin-left:6px;">
+        Ready
+      </span>
+
+        </div>
+
+        <!-- Context strip (read-only info) -->
+        <div style="padding:4px 20px 8px 20px; font-size:0.78rem; color:#6b7280; 
+                display:flex; gap:16px; border-top:1px solid var(--border-color);">
+          <span>Field: <span id="nm2-field-context" style="font-weight:600;">—</span></span>
+          <span>Soil type: <span id="nm2-soil-type" style="font-weight:600;">—</span></span>
+          <span>Scheme: <span id="nm2-scheme-label" style="font-weight:600;">—</span></span>
+          <span>Mode: <span id="nm2-mode-label" style="font-weight:600;">Standard (no yield)</span></span>
+        </div>
+
+      </div>
+
+      <!-- Advanced Override Panel (collapsible, default hidden) -->
+      <div id="nm2-advanced-panel"
+        style="display:none; padding:10px 20px; background:#f8f9fa; border-bottom:1px solid var(--border-color);">
+        <strong style="font-size:0.85rem; color:#374151;">Advanced P-Source Override</strong>
+        <div
+          style="display:grid; grid-template-columns: 200px 150px auto; gap:10px; margin-top:8px; align-items:center;">
+
+          <label style="font-size:0.8rem; font-weight:600;">P Source 1:</label>
+          <select id="nm2-p-source-1" class="search-input" style="width:100%;">
+        <option value="">DAP (18:46:0)</option>
+      </select>
+          <select id="nm2-p-stage-1" class="search-input" style="width:150px;">
+        <option value="BASAL">BASAL</option>
+        <option value="VEG">VEG</option>
+        <option value="FLOWERING">FLOWERING</option>
+      </select>
+
+          <label style="font-size:0.8rem; font-weight:600;">P Source 2 (optional):</label>
+          <select id="nm2-p-source-2" class="search-input" style="width:100%;">
+        <option value="">—</option>
+      </select>
+          <select id="nm2-p-stage-2" class="search-input" style="width:150px;">
+        <option value="BASAL">BASAL</option>
+        <option value="VEG">VEG</option>
+      </select>
+
+          <div></div>
+          <button type="button" onclick="nm2ApplyOverride()" class="btn btn-green" style="padding:4px 12px; font-size:0.85rem;">
+        Apply Override
+      </button>
+          <span id="nm2-override-status" style="font-size:0.75rem; color:#888;">No override active</span>
+
+        </div>
+      </div>
+
+      <!-- Upper panel: Nutrient summary + Soil fertility -->
+      <div class="split-container">
+        <div class="panel-upper" id="nm2-upper">
+          <div class="panel-label">NUTRIENT SUMMARY & SOIL FERTILITY</div>
+          <div style="padding:10px; display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start;">
+
+            <!-- Soil fertility table (right) -->
+            <div style="flex:1; min-width:260px;">
+              <div style="font-size:0.8rem; font-weight:600; color:#4b5563; margin-bottom:4px;">
+                Soil Test & Rating
+              </div>
+              <table class="selectable-table" style="width:100%; font-size:0.78rem;">
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Unit</th>
+                    <th>Rating</th>
+                  </tr>
+                </thead>
+                <tbody id="nm2-fertility-body">
+                  <!-- Populated when DeviceID + TestID resolved -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Drag handle between upper and lower panels -->
+        <div id="nm2-divider" class="panel-divider"></div>
+
+        <!-- Lower panel: Stage-wise plan -->
+        <div class="panel-lower" id="nm2-lower">
+          <div class="panel-label">
+            STAGE-WISE NUTRIENT PLAN
+            <span style="font-weight:normal; font-size:0.78rem; margin-left:auto;">
+          Per stage & method (soil / fertigation / foliar)
+        </span>
+          </div>
+          <div class="table-wrapper">
+            <table id="tbl-fert2-stages" class="selectable-table">
+              <thead>
+                <tr>
+                  <th>Stage</th>
+                  <th>Nutrient</th>
+                  <th>Days / Years</th>
+                  <th>Method</th>
+                  <th>Dose (kg/ha)</th>
+                  <th>Source mix</th>
+                  <th>Product qty / ha</th>
+                  <th>Cost / ha</th>
+                  <th>Delivery details</th>
+                  <th>Flags</th>
+                </tr>
+              </thead>
+              <tbody id="body-fert2-stages">
+                <tr>
+                  <td colspan="10" style="text-align:center; padding:10px;">No plan calculated.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!-- Impact Module -->
+    <!-- ==================== Impact Module ==================== -->
+    <div id="mod-impact" class="module-view">
+      <div class="module-header">
+        <div class="toolbar">
+          <span style="font-weight:bold; font-size:1.1rem; color:var(--primary);">Impact Assessment</span>
+
+          <div class="divider-v"></div>
+
+          <!-- Sticky filters are implemented inside module body to keep layout consistent with your other modules -->
+          <button class="btn btn-blue" id="ia-refresh">Refresh</button>
+          <button class="btn btn-indigo" id="ia-export">Export</button>
+
+          <span style="margin-left:auto; color:#64748b; font-size:12px;">
+        UI-only (no backend wiring yet)
+      </span>
+        </div>
+      </div>
+
+      <div class="ia-wrap">
+
+        <!-- Sticky Filter Bar -->
+        <div class="ia-filterbar">
+          <div class="ia-filter-row">
+            <label class="ia-lbl">Season</label>
+            <select class="ia-inp" id="ia-season">
+          <option value="ALL">All</option>
+          <option value="RABI_2025_26">Rabi 2025–26</option>
+          <option value="KHARIF_2025">Kharif 2025</option>
+        </select>
+
+            <label class="ia-lbl">Crop</label>
+            <select class="ia-inp" id="ia-crop">
+          <option value="ALL">All</option>
+          <option value="WHEAT">Wheat</option>
+          <option value="RICE">Rice</option>
+          <option value="POTATO">Potato</option>
+        </select>
+
+            <label class="ia-lbl">Client</label>
+            <select class="ia-inp" id="ia-client">
+          <option value="Default">Default</option>
+        </select>
+
+            <label class="ia-lbl">State</label>
+            <select class="ia-inp" id="ia-state">
+          <option value="ALL">All</option>
+        </select>
+
+            <label class="ia-lbl">District</label>
+            <select class="ia-inp" id="ia-district">
+          <option value="ALL">All</option>
+        </select>
+
+            <label class="ia-lbl">Block</label>
+            <select class="ia-inp" id="ia-block">
+          <option value="ALL">All</option>
+        </select>
+          </div>
+
+          <div class="ia-filter-row">
+            <label class="ia-lbl">Farm ID</label>
+            <input class="ia-inp" id="ia-farm" placeholder="Type..." />
+
+            <label class="ia-lbl">Device ID</label>
+            <input class="ia-inp" id="ia-device" placeholder="Type..." />
+
+            <label class="ia-lbl">Test ID</label>
+            <input class="ia-inp" id="ia-test" placeholder="Type..." />
+
+            <button class="btn btn-teal" id="ia-apply">Apply</button>
+            <button class="btn btn-outline" id="ia-clear">Clear</button>
+
+            <span class="ia-status" id="ia-status">Filters ready</span>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="ia-tabs" id="impactTabsRow">
+          <button type="button" class="ia-tab active" data-ia-tab="dash">
+    Dashboard <span class="ia-info" data-info="tab-dashboard">ⓘ</span>
+  </button>
+
+          <button type="button" class="ia-tab" data-ia-tab="fert">
+    Fertilizer Usage <span class="ia-info" data-info="tab-fertilizer">ⓘ</span>
+  </button>
+
+          <button type="button" class="ia-tab" data-ia-tab="yield">
+    Yield Records <span class="ia-info" data-info="tab-yield">ⓘ</span>
+  </button>
+
+          <button type="button" class="ia-tab" data-ia-tab="soil">
+    Soil Change <span class="ia-info" data-info="tab-soil">ⓘ</span>
+  </button>
+
+          <button type="button" class="ia-tab" data-ia-tab="cov">
+    Coverage <span class="ia-info" data-info="tab-coverage">ⓘ</span>
+  </button>
+        </div>
+
+
+
+        <!-- TAB: Dashboard -->
+        <div class="ia-tabpage active" id="ia-tab-dash">
+
+          <!-- SUMMARY CARDS -->
+          <div class="ia-kpi-grid">
+            <div class="ia-kpi" data-kpi="farms">
+              <span class="ia-info ia-kpi-info" data-info="kpi-farms">ⓘ</span>
+              <div class="ia-kpi-title">Farms</div>
+              <div class="ia-kpi-val" id="ia-kpi-farms">—</div>
+              <div class="ia-kpi-sub">With any record</div>
+            </div>
+            <div class="ia-kpi" data-kpi="area">
+              <span class="ia-info ia-kpi-info" data-info="kpi-area">ⓘ</span>
+              <div class="ia-kpi-title">Area (acres)</div>
+              <div class="ia-kpi-val" id="ia-kpi-area">—</div>
+              <div class="ia-kpi-sub">Filtered scope</div>
+            </div>
+            <div class="ia-kpi" data-kpi="tests">
+              <span class="ia-info ia-kpi-info" data-info="kpi-tests">ⓘ</span>
+              <div class="ia-kpi-title">Soil Samples</div>
+              <div class="ia-kpi-val" id="ia-kpi-tests">—</div>
+              <div class="ia-kpi-sub">Baseline + follow-up</div>
+            </div>
+            <div class="ia-kpi" data-kpi="repeat">
+              <span class="ia-info ia-kpi-info" data-info="kpi-repeat">ⓘ</span>
+              <div class="ia-kpi-title">Repeat Tests</div>
+              <div class="ia-kpi-val" id="ia-kpi-repeat">—</div>
+              <div class="ia-kpi-sub">% farms with ≥2 tests</div>
+            </div>
+            <div class="ia-kpi" data-kpi="fertilizer">
+              <span class="ia-info ia-kpi-info" data-info="kpi-fertilizer">ⓘ</span>
+              <div class="ia-kpi-title">Fertilizer Data</div>
+              <div class="ia-kpi-val" id="ia-kpi-fert">—</div>
+              <div class="ia-kpi-sub">Farms with usage lines</div>
+            </div>
+            <div class="ia-kpi" data-kpi="yield">
+              <span class="ia-info ia-kpi-info" data-info="kpi-yield">ⓘ</span>
+              <div class="ia-kpi-title">Yield Data</div>
+              <div class="ia-kpi-val" id="ia-kpi-yield">—</div>
+              <div class="ia-kpi-sub">Farms with yield entries</div>
+            </div>
+          </div>
+
+          <!-- ECONOMIC IMPACT PANEL -->
+          <div class="ia-panel" id="ia-panel-econ">
+            <div class="ia-panel-head">
+              <div class="ia-panel-title">
+                Economic Impact (₹)
+                <span class="ia-info" data-info="panel-economic">ⓘ</span>
+              </div>
+              <div class="ia-panel-actions">
+                <button class="btn btn-orange ia-collapse" data-target="ia-panel-econ">Minimize</button>
+              </div>
+            </div>
+            <div class="ia-panel-body">
+              <div class="ia-two-col">
+                <div class="ia-metric-list">
+                  <div class="ia-metric"><span>Avg Fertilizer Cost / acre (Baseline)</span><b id="ia-econ-cb">—</b>
+                  </div>
+                  <div class="ia-metric"><span>Avg Fertilizer Cost / acre (Follow-up)</span><b id="ia-econ-cf">—</b>
+                  </div>
+                  <div class="ia-metric"><span>Avg Cost Change / acre</span><b id="ia-econ-dc">—</b></div>
+                  <div class="ia-metric"><span>Total Cost Change (Filtered)</span><b id="ia-econ-tc">—</b></div>
+                </div>
+
+                <div class="ia-metric-list">
+                  <div class="ia-metric"><span>Avg Yield (kg/acre)</span><b id="ia-econ-y">—</b></div>
+                  <div class="ia-metric"><span>Avg Yield Change (kg/acre)</span><b id="ia-econ-dy">—</b></div>
+                  <div class="ia-metric"><span>Avg Revenue Change / acre (if priced)</span><b id="ia-econ-dr">—</b>
+                  </div>
+                  <div class="ia-metric"><span>Net Benefit / acre (if priced)</span><b id="ia-econ-net">—</b></div>
+                </div>
+              </div>
+
+              <div class="ia-note">
+                Note: These fields will populate after backend wiring (Baseline vs Follow-up).
+              </div>
+            </div>
+          </div>
+
+          <!-- BOTTOM SPLIT: Nutrients + Yield -->
+          <div class="ia-split">
+            <!-- Nutrient Use Impact -->
+            <div class="ia-panel" id="ia-panel-nutr">
+              <div class="ia-panel-head">
+                <div class="ia-panel-title">
+                  Nutrient Use Impact
+                  <span class="ia-info" data-info="panel-nutrient">ⓘ</span>
+                </div>
+
+                <div class="ia-panel-actions">
+                  <button class="btn btn-orange ia-collapse" data-target="ia-panel-nutr">Minimize</button>
+                </div>
+              </div>
+              <div class="ia-panel-body">
+                <div class="ia-chart-ph">[Chart placeholder: N / P2O5 / K2O Baseline vs Follow-up]</div>
+                <div class="table-wrapper" style="margin-top:10px;">
+                  <table class="selectable-table">
+                    <thead>
+                      <tr>
+                        <th>Nutrient</th>
+                        <th>Baseline (kg/acre)</th>
+                        <th>Follow-up (kg/acre)</th>
+                        <th>Change</th>
+                        <th>#Farms</th>
+                        <th>Area</th>
+                      </tr>
+                    </thead>
+                    <tbody id="ia-nutr-tbody">
+                      <tr>
+                        <td colspan="6" style="text-align:center; padding:10px; color:#777;">No data (UI-only)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Yield Impact -->
+            <div class="ia-panel" id="ia-panel-yimp">
+              <div class="ia-panel-head">
+                <div class="ia-panel-title">
+                  Yield Impact
+                  <span class="ia-info" data-info="panel-yieldimpact">ⓘ</span>
+                </div>
+
+                <div class="ia-panel-actions">
+                  <button class="btn btn-orange ia-collapse" data-target="ia-panel-yimp">Minimize</button>
+                </div>
+              </div>
+              <div class="ia-panel-body">
+                <div class="ia-chart-ph">[Chart placeholder: Yield distribution + ΔYield distribution]</div>
+                <div class="table-wrapper" style="margin-top:10px;">
+                  <table class="selectable-table">
+                    <thead>
+                      <tr>
+                        <th>Crop</th>
+                        <th>#Farms</th>
+                        <th>Area</th>
+                        <th>Avg Yield</th>
+                        <th>Avg ΔYield</th>
+                        <th>Price Used?</th>
+                      </tr>
+                    </thead>
+                    <tbody id="ia-yield-tbody">
+                      <tr>
+                        <td colspan="6" style="text-align:center; padding:10px; color:#777;">No data (UI-only)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RECENT TABLE -->
+          <div class="ia-panel" id="ia-panel-recent">
+            <div class="ia-panel-head">
+              <div class="ia-panel-title">
+                Recent Tests
+                <span class="ia-info" data-info="panel-recent">ⓘ</span>
+              </div>
+
+              <div class="ia-panel-actions">
+                <button class="btn btn-orange ia-collapse" data-target="ia-panel-recent">Minimize</button>
+              </div>
+            </div>
+            <div class="ia-panel-body">
+              <div class="table-wrapper">
+                <table class="selectable-table">
+                  <thead>
+                    <tr>
+                      <th>Test ID</th>
+                      <th>Device ID</th>
+                      <th>Date</th>
+                      <th>District</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ia-recent-tbody">
+                    <tr>
+                      <td colspan="5" style="text-align:center; padding:10px; color:#777;">No data (UI-only)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- TAB: Fertilizer Usage -->
+        <div class="ia-tabpage" id="ia-tab-fert">
+
+          <div class="ia-panel" id="ia-panel-fert-entry">
+            <div class="ia-panel-head">
+              <div class="ia-panel-title">
+                Fertilizer Usage Entry
+                <span class="ia-info" data-info="panel-fert-entry">ⓘ</span>
+              </div>
+
+              <div class="ia-panel-actions">
+                <button class="btn btn-orange ia-collapse" data-target="ia-panel-fert-entry">Minimize</button>
+              </div>
+            </div>
+            <div class="ia-panel-body">
+              <div class="ia-form-grid">
+                <div>
+                  <label class="ia-lbl">ClientID</label>
+                  <select class="ia-inp">
+                <option>Default</option>
+              </select>
+                </div>
+                <div>
+                  <label class="ia-lbl">Farm_ID</label>
+                  <input class="ia-inp" placeholder="autosuggest later" />
+                </div>
+                <div>
+                  <label class="ia-lbl">Device_ID</label>
+                  <input class="ia-inp" placeholder="autosuggest later" />
+                </div>
+                <div>
+                  <label class="ia-lbl">Test_ID</label>
+                  <input class="ia-inp" placeholder="autosuggest later" />
+                </div>
+
+                <div>
+                  <label class="ia-lbl">Season</label>
+                  <select class="ia-inp">
+                <option>Rabi 2025–26</option>
+                <option>Kharif 2025</option>
+              </select>
+                </div>
+                <div>
+                  <label class="ia-lbl">Crop</label>
+                  <input class="ia-inp" placeholder="auto-fill later" />
+                </div>
+                <div>
+                  <label class="ia-lbl">Area (acre)</label>
+                  <input class="ia-inp" placeholder="0.0" />
+                </div>
+                <div>
+                  <label class="ia-lbl">
+  Type <span class="ia-info" data-info="field-baseline-followup">ⓘ</span>
+</label>
+
+                  <select class="ia-inp">
+                <option>Baseline</option>
+                <option>Follow-up</option>
+              </select>
+                </div>
+
+                <div>
+                  <label class="ia-lbl">
+  Method <span class="ia-info" data-info="field-yield-method">ⓘ</span>
+</label>
+
+                  <select class="ia-inp">
+                <option>SOIL</option>
+                <option>FERTIGATION</option>
+              </select>
+                </div>
+                <div>
+                  <label class="ia-lbl">
+  Evidence <span class="ia-info" data-info="field-evidence">ⓘ</span>
+</label>
+
+                  <select class="ia-inp">
+                <option>Farmer recall</option>
+                <option>Bill</option>
+                <option>FPO record</option>
+              </select>
+                </div>
+
+                <div style="grid-column: 1 / span 2;">
+                  <label class="ia-lbl">Notes</label>
+                  <input class="ia-inp" placeholder="Optional notes..." />
+                </div>
+
+                <div class="ia-form-actions">
+                  <button class="btn btn-green" type="button">Save Entry</button>
+                  <button class="btn btn-outline" type="button">Clear</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ia-panel" id="ia-panel-fert-grid">
+            <div class="ia-panel-head">
+              <div class="ia-panel-title">
+                Line Item Grid
+                <span class="ia-info" data-info="panel-fert-grid">ⓘ</span>
+              </div>
+
+              <div class="ia-panel-actions">
+                <button class="btn btn-green" type="button" data-ia-action="add-row">+ Add Row</button>
+                <button class="btn btn-red" type="button" data-ia-action="remove-row">- Remove Row</button>
+                <button class="btn btn-orange ia-collapse" type="button" data-target="ia-panel-fert-grid">Minimize</button>
+              </div>
+
+
+            </div>
+            <div class="ia-panel-body">
+              <div class="table-wrapper">
+                <table class="selectable-table">
+                  <thead>
+                    <tr>
+                      <th>Stage</th>
+                      <th>SourceID</th>
+                      <th>SourceName</th>
+                      <th>Qty</th>
+                      <th>Unit</th>
+                      <th>UnitSize</th>
+                      <th>Price/Unit</th>
+                      <th>Cost</th>
+                      <th>Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ia-fert-lines">
+                    <tr>
+                      <td>
+                        <select class="ia-inp"><option>BASAL</option><option>VEG</option><option>FLOWERING</option><option>FRUITING</option><option>OTHER</option></select>
+                      </td>
+                      <td><input class="ia-inp" placeholder="DAP" /></td>
+                      <td><input class="ia-inp" placeholder="auto later" disabled /></td>
+                      <td><input class="ia-inp" placeholder="0.0" /></td>
+                      <td><select class="ia-inp"><option>bag</option><option>kg</option></select></td>
+                      <td><input class="ia-inp" placeholder="50" disabled /></td>
+                      <td><input class="ia-inp" placeholder="1400" disabled /></td>
+                      <td><input class="ia-inp" placeholder="auto" disabled /></td>
+                      <td><input class="ia-inp" placeholder="..." /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="ia-note">Source dropdown will be wired to NutrientSources later.</div>
+            </div>
+          </div>
+
+          <div class="ia-panel" id="ia-panel-fert-table">
+            <div class="ia-panel-head">
+              <div class="ia-panel-title">
+                Saved Fertilizer Usage Records
+                <span class="ia-info" data-info="panel-fert-table">ⓘ</span>
+              </div>
+
+              <div class="ia-panel-actions">
+                <input class="ia-inp ia-inp-sm" placeholder="Search..." />
+                <button class="btn btn-indigo">Export CSV</button>
+                <button class="btn btn-orange ia-collapse" data-target="ia-panel-fert-table">Minimize</button>
+              </div>
+            </div>
+            <div class="ia-panel-body">
+              <div class="table-wrapper">
+                <table class="selectable-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Farm_ID</th>
+                      <th>Device_ID</th>
+                      <th>Test_ID</th>
+                      <th>Season</th>
+                      <th>Crop</th>
+                      <th>Type</th>
+                      <th>Stage</th>
+                      <th>SourceID</th>
+                      <th>Qty</th>
+                      <th>Unit</th>
+                      <th>Cost</th>
+                      <th>Entered_By</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="13" style="text-align:center; padding:10px; color:#777;">No data (UI-only)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- TAB: Yield Records -->
+        <div class="ia-tabpage" id="ia-tab-yield">
+
+          <div class="ia-panel" id="ia-panel-yield-entry">
+            <div class="ia-panel-head">
+              <div class="ia-panel-title">
+                Yield Entry
+                <span class="ia-info" data-info="panel-yield-entry">ⓘ</span>
+              </div>
+
+              <div class="ia-panel-actions">
+                <button class="btn btn-orange ia-collapse" data-target="ia-panel-yield-entry">Minimize</button>
+              </div>
+            </div>
+            <div class="ia-panel-body">
+              <div class="ia-form-grid">
+                <div><label class="ia-lbl">ClientID</label><select class="ia-inp"><option>Default</option></select>
+                </div>
+                <div><label class="ia-lbl">Farm_ID</label><input class="ia-inp" placeholder="autosuggest later" /></div>
+                <div><label class="ia-lbl">Device_ID</label><input class="ia-inp" placeholder="autosuggest later" />
+                </div>
+                <div><label class="ia-lbl">Test_ID</label><input class="ia-inp" placeholder="autosuggest later" /></div>
+
+                <div>
+                  <label class="ia-lbl">Season</label><select class="ia-inp"><option>Rabi 2025–26</option><option>Kharif 2025</option></select>
+                </div>
+                <div><label class="ia-lbl">Crop</label><input class="ia-inp" placeholder="auto-fill later" /></div>
+                <div><label class="ia-lbl">Area (acre)</label><input class="ia-inp" placeholder="0.0" /></div>
+                <div><label class="ia-lbl">Yield (kg/acre)</label><input class="ia-inp" placeholder="0" /></div>
+
+                <div>
+                  <label class="ia-lbl">Method</label><select class="ia-inp"><option>Farmer recall</option><option>Weighment</option><option>Trader slip</option></select>
+                </div>
+                <div><label class="ia-lbl">Price (₹/kg)</label><input class="ia-inp" placeholder="optional" /></div>
+                <div style="grid-column: 1 / span 2;"><label class="ia-lbl">Notes</label><input class="ia-inp" placeholder="Optional notes..." />
+                </div>
+
+                <div class="ia-form-actions">
+                  <button class="btn btn-green" type="button">Save Yield</button>
+                  <button class="btn btn-outline" type="button">Clear</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ia-panel" id="ia-panel-yield-table">
+            <div class="ia-panel-head">
+              <div class="ia-panel-title">
+                Yield Records
+                <span class="ia-info" data-info="panel-yield-table">ⓘ</span>
+              </div>
+
+              <div class="ia-panel-actions">
+                <input class="ia-inp ia-inp-sm" placeholder="Search..." />
+                <button class="btn btn-indigo">Export CSV</button>
+                <button class="btn btn-orange ia-collapse" data-target="ia-panel-yield-table">Minimize</button>
+              </div>
+            </div>
+            <div class="ia-panel-body">
+              <div class="table-wrapper">
+                <table class="selectable-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Farm_ID</th>
+                      <th>Device_ID</th>
+                      <th>Test_ID</th>
+                      <th>Season</th>
+                      <th>Crop</th>
+                      <th>Area</th>
+                      <th>Yield kg/acre</th>
+                      <th>Method</th>
+                      <th>Price</th>
+                      <th>Revenue</th>
+                      <th>Entered_By</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="12" style="text-align:center; padding:10px; color:#777;">No data (UI-only)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- TAB: Soil Change -->
+        <div class="ia-tabpage" id="ia-tab-soil">
+
+          <div class="ia-panel" id="ia-panel-pair">
+            <div class="ia-panel-head">
+              <div class="ia-panel-title">
+                Pairing Rule
+                <span class="ia-info" data-info="panel-pairing">ⓘ</span>
+              </div>
+
+              <div class="ia-panel-actions">
+                <button class="btn btn-orange ia-collapse" data-target="ia-panel-pair">Minimize</button>
+              </div>
+            </div>
+            <div class="ia-panel-body">
+              <div class="ia-form-grid">
+                <div style="grid-column: 1 / span 2;">
+                  <label class="ia-lbl">
+  Compare <span class="ia-info" data-info="field-pairing-compare">ⓘ</span>
+</label>
+                  <div class="ia-radio">
+                    <label><input type="radio" name="ia-pair" checked> Same Farm_ID within Season</label>
+                    <label><input type="radio" name="ia-pair"> Previous Test_ID for same Device_ID</label>
+                  </div>
+                </div>
+                <div>
+                  <label class="ia-lbl">Window</label>
+                  <select class="ia-inp">
+                <option>0–18 months</option>
+                <option>0–12 months</option>
+                <option>0–24 months</option>
+              </select>
+                </div>
+              </div>
+              <div class="ia-note">Soil change analytics will be computed after backend wiring.</div>
+            </div>
+          </div>
+
+          <div class="ia-split">
+            <div class="ia-panel" id="ia-panel-soilsum">
+              <div class="ia-panel-head">
+                <div class="ia-panel-title">
+                  Soil Change Summary
+                  <span class="ia-info" data-info="panel-soil-summary">ⓘ</span>
+                </div>
+
+                <div class="ia-panel-actions">
+                  <button class="btn btn-orange ia-collapse" data-target="ia-panel-soilsum">Minimize</button>
+                </div>
+              </div>
+              <div class="ia-panel-body">
+                <div class="ia-metric-list">
+                  <div class="ia-metric"><span>% farms with OC improvement</span><b>—</b></div>
+                  <div class="ia-metric"><span>% farms moved into optimal pH</span><b>—</b></div>
+                  <div class="ia-metric"><span># deficiencies corrected (Low→Med)</span><b>—</b></div>
+                </div>
+                <div class="ia-chart-ph" style="margin-top:10px;">[Chart placeholder: parameter-wise improvement]</div>
+              </div>
+            </div>
+
+            <div class="ia-panel" id="ia-panel-trans">
+              <div class="ia-panel-head">
+                <div class="ia-panel-title">
+                  Class Transitions
+                  <span class="ia-info" data-info="panel-soil-transition">ⓘ</span>
+                </div>
+
+                <div class="ia-panel-actions">
+                  <button class="btn btn-orange ia-collapse" data-target="ia-panel-trans">Minimize</button>
+                </div>
+              </div>
+              <div class="ia-panel-body">
+                <div class="ia-chart-ph">[Chart placeholder: Low → Medium → High transitions]</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ia-panel" id="ia-panel-matrix">
+            <div class="ia-panel-head">
+              <div class="ia-panel-title">
+                Parameter Transition Table
+                <span class="ia-info" data-info="panel-soil-matrix">ⓘ</span>
+              </div>
+
+              <div class="ia-panel-actions">
+                <button class="btn btn-orange ia-collapse" data-target="ia-panel-matrix">Minimize</button>
+              </div>
+            </div>
+            <div class="ia-panel-body">
+              <div class="table-wrapper">
+                <table class="selectable-table">
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Low→Med</th>
+                      <th>Med→High</th>
+                      <th>No change</th>
+                      <th>Worse</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="5" style="text-align:center; padding:10px; color:#777;">No data (UI-only)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- TAB: Coverage -->
+        <div class="ia-tabpage" id="ia-tab-cov">
+
+          <div class="ia-kpi-grid" style="margin-top:0;">
+            <div class="ia-kpi" data-kpi="cov-states">
+              <span class="ia-info ia-kpi-info" data-info="kpi-coverage-states">ⓘ</span>
+              <div class="ia-kpi-title">States</div>
+              <div class="ia-kpi-val">—</div>
+              <div class="ia-kpi-sub">Covered</div>
+            </div>
+            <div class="ia-kpi" data-kpi="cov-districts">
+              <span class="ia-info ia-kpi-info" data-info="kpi-coverage-districts">ⓘ</span>
+              <div class="ia-kpi-title">Districts</div>
+              <div class="ia-kpi-val">—</div>
+              <div class="ia-kpi-sub">Covered</div>
+            </div>
+            <div class="ia-kpi" data-kpi="cov-farmers">
+              <span class="ia-info ia-kpi-info" data-info="kpi-coverage-farmers">ⓘ</span>
+              <div class="ia-kpi-title">Farmers</div>
+              <div class="ia-kpi-val">—</div>
+              <div class="ia-kpi-sub">Unique</div>
+            </div>
+            <div class="ia-kpi" data-kpi="cov-area">
+              <span class="ia-info ia-kpi-info" data-info="kpi-coverage-area">ⓘ</span>
+              <div class="ia-kpi-title">Area</div>
+              <div class="ia-kpi-val">—</div>
+              <div class="ia-kpi-sub">Acres</div>
+            </div>
+            <div class="ia-kpi" data-kpi="cov-devices">
+              <span class="ia-info ia-kpi-info" data-info="kpi-coverage-devices">ⓘ</span>
+              <div class="ia-kpi-title">Devices</div>
+              <div class="ia-kpi-val">—</div>
+              <div class="ia-kpi-sub">Unique</div>
+            </div>
+            <div class="ia-kpi" data-kpi="cov-tests">
+              <span class="ia-info ia-kpi-info" data-info="kpi-coverage-tests">ⓘ</span>
+              <div class="ia-kpi-title">Tests</div>
+              <div class="ia-kpi-val">—</div>
+              <div class="ia-kpi-sub">Total</div>
+            </div>
+          </div>
+
+          <div class="ia-split">
+            <div class="ia-panel" id="ia-panel-map">
+              <div class="ia-panel-head">
+                <div class="ia-panel-title">
+                  Coverage Map
+                  <span class="ia-info" data-info="panel-coverage-map">ⓘ</span>
+                </div>
+
+                <div class="ia-panel-actions">
+                  <button class="btn btn-orange ia-collapse" data-target="ia-panel-map">Minimize</button>
+                </div>
+              </div>
+              <div class="ia-panel-body">
+                <div class="ia-chart-ph" style="height:320px;">[Map placeholder]</div>
+              </div>
+            </div>
+
+            <div class="ia-panel" id="ia-panel-covtable">
+              <div class="ia-panel-head">
+                <div class="ia-panel-title">
+                  Coverage by District
+                  <span class="ia-info" data-info="panel-coverage-table">ⓘ</span>
+                </div>
+
+                <div class="ia-panel-actions">
+                  <button class="btn btn-orange ia-collapse" data-target="ia-panel-covtable">Minimize</button>
+                </div>
+              </div>
+              <div class="ia-panel-body">
+                <div class="table-wrapper" style="max-height:360px;">
+                  <table class="selectable-table">
+                    <thead>
+                      <tr>
+                        <th>District</th>
+                        <th>Farmers</th>
+                        <th>Tests</th>
+                        <th>Area</th>
+                        <th>Avg ΔCost</th>
+                        <th>Avg ΔYield</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan="6" style="text-align:center; padding:10px; color:#777;">No data (UI-only)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Impact Info Modal (one-time) -->
+      <div id="ia-info-modal" class="ia-info-modal hidden">
+        <div class="ia-info-card">
+          <div class="ia-info-header">
+            <span id="ia-info-title"></span>
+            <button type="button" class="ia-info-close" onclick="iaCloseInfo()">✕</button>
+          </div>
+          <div id="ia-info-body" class="ia-info-body"></div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+    <!-- User Feedback Module -->
+
+    <!-- ==================== User Feedback Module ==================== -->
+    <!-- User Feedback Module -->
     <!-- User Feedback Module -->
 
     <!-- ==================== User Feedback Module ==================== -->
