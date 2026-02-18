@@ -1588,11 +1588,11 @@
 
     #mod-fertilizer .nm-toolbar-row {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       align-items: center;
       gap: 10px;
       width: 100%;
-      overflow-x: auto;
+      padding: 8px 0;
     }
 
     #mod-fertilizer .nm-advanced {
@@ -2381,8 +2381,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      padding: 16px;
+      padding: 12px;
       background: #f9fafb;
       border: 1px solid #e5e7eb;
       border-radius: 8px;
@@ -2391,6 +2392,10 @@
       font-size: 0.875rem;
       font-weight: 600;
       color: #374151;
+      width: 100px;
+      height: 100px;
+      min-width: 100px;
+      min-height: 100px;
     }
 
     #mod-fertilizer .nm-action-btn:hover {
@@ -2451,11 +2456,13 @@
     }
 
     #mod-fertilizer .nm-action-icon {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       line-height: 1;
-      display: inline-block;
-      width: 1.5em;  /* em units scale with font-size */
-      height: 1.5em; /* em units scale with font-size */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2em;
+      height: 2em;
       text-align: center;
     }
 
@@ -10490,12 +10497,10 @@ tr.duplicate-row {
             <select id="nm-client" class="search-input" style="min-width: 150px; border-radius: 20px; border: 1px solid #d1d5db; padding: 6px 16px; background: white; font-size: 0.875rem;">
               <option value="Default">Default Client</option>
             </select>
-            <span style="font-size:0.8rem; color:#6b7280;">Client</span>
 
             <select id="nm-rating-scheme" class="search-input" style="min-width: 180px; border-radius: 20px; border: 1px solid #d1d5db; padding: 6px 16px; background: white; font-size: 0.875rem;">
               <option value="">Rating scheme...</option>
             </select>
-            <span style="font-size:0.8rem; color:#6b7280;">Scheme</span>
 
             <span class="divider-v"></span>
 
@@ -10523,7 +10528,11 @@ tr.duplicate-row {
               <option value="">Select crop...</option>
             </select>
           </div>
+        </div>
+      </div>
 
+      <div class="module-header">
+        <div class="nm-toolbar">
           <details class="nm-advanced">
             <summary>Calculation settings</summary>
             <div class="nm-advanced-content">
@@ -26268,9 +26277,27 @@ async function nmExportPlan() {
     // Build reportData structure similar to Soil Test Results
     const soilMetrics = window.nmCurrentSoilMetrics || {};
     
+    // Build proper dosePlan structure with fertilizerDoses from nmCurrentStages
+    const dosePlan = {
+      cropId: cropId,
+      fertilizerDoses: window.nmCurrentStages.map(stage => ({
+        stage: stage.stage || '-',
+        nutrient: stage.nutrient || (stage.nRate > 0 ? 'N' : stage.pRate > 0 ? 'P' : stage.kRate > 0 ? 'K' : ''),
+        dose: stage.nRate || stage.pRate || stage.kRate || 0,
+        productKgPerHa: stage.nRate || stage.pRate || stage.kRate || 0,
+        sourceName: stage.product || '',
+        growthPeriod: stage.growthPeriod || '',
+        window: stage.window || '',
+        remarks: stage.remarks || ''
+      })),
+      stageOrder: [...new Set(window.nmCurrentStages.map(s => s.stage))],
+      nutrientRequirements: window.nmCurrentSummary || []
+    };
+    
     const reportData = {
       ClientID: clientId,
-      Farmer: clientName || clientId,
+      Farmer: 'Default',
+      Name: 'Default',
       Farm_ID: '',
       Crop: cropName,
       Test_ID: testId,
@@ -26289,7 +26316,7 @@ async function nmExportPlan() {
       Fe: soilMetrics.Fe || null,
       Mn: soilMetrics.Mn || null,
       B: soilMetrics.B || null,
-      dosePlan: window.nmCurrentStages || [],
+      stvDirectDosePlan: dosePlan,
       language: language
     };
 
