@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Module Enhancement Mockup - Insoil Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            padding: 24px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .header .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .content {
+            padding: 32px;
+        }
+        
+        .toolbar {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .toolbar select,
+        .toolbar input,
+        .toolbar button {
+            padding: 10px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+        }
+        
+        .toolbar button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .toolbar button:hover {
+            background: #1e40af;
+            transform: translateY(-1px);
+        }
+        
+        .toolbar .btn-export {
+            background: #14b8a6;
+        }
+        
+        .toolbar .btn-export:hover {
+            background: #0d9488;
+        }
+        
+        .toolbar .btn-report {
+            background: #8b5cf6;
+        }
+        
+        .toolbar .btn-report:hover {
+            background: #7c3aed;
+        }
+        
+        .section {
+            margin-bottom: 32px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title .icon {
+            font-size: 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .stat-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+        
+        .stat-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .stat-card h3 {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        
+        .stat-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .stat-detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-detail-label {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+        
+        .stat-detail-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #334155;
+        }
+        
+        .quality-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .quality-good {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .quality-fair {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .quality-poor {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .chart-container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .chart-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .chart-type-selector {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 6px;
+            padding: 2px;
+        }
+        
+        .chart-type-btn {
+            padding: 6px 12px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 13px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .chart-type-btn.active {
+            background: white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .chart-mock {
+            height: 300px;
+            background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
+            border: 2px dashed #cbd5e1;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-mock::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(37,99,235,0.1) 0%, transparent 100%);
+        }
+        
+        .alert-panel {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-left: 4px solid #ef4444;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .alert-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .alert-icon {
+            font-size: 20px;
+            color: #ef4444;
+        }
+        
+        .alert-title {
+            font-weight: 600;
+            color: #991b1b;
+        }
+        
+        .alert-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .alert-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .alert-severity {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .severity-high {
+            background: #ef4444;
+        }
+        
+        .severity-medium {
+            background: #f59e0b;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        
+        .comparison-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .device-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .device-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .trend-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .trend-up {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .trend-down {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .trend-stable {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        
+        .feature-highlight {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #fbbf24;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 24px 0;
+        }
+        
+        .feature-highlight strong {
+            color: #92400e;
+        }
+        
+        .export-menu {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .export-option {
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .export-option:hover {
+            background: #f8fafc;
+            border-color: #2563eb;
+        }
+        
+        .footer {
+            background: #f8fafc;
+            padding: 20px 32px;
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .toolbar select,
+            .toolbar input,
+            .toolbar button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>📊 Enhanced Analytics Module</h1>
+                <div class="subtitle">Advanced Soil Data Analysis & Insights</div>
+            </div>
+            <span class="badge">✨ Improved</span>
+        </div>
+        
+        <div class="content">
+            <!-- Enhanced Toolbar -->
+            <div class="toolbar">
+                <select style="min-width: 150px;">
+                    <option>Device 001, 002, 003 (Multi-Select)</option>
+                </select>
+                <input type="date" value="2026-01-01">
+                <span>to</span>
+                <input type="date" value="2026-02-17">
+                <button>🔄 Refresh</button>
+                <button class="btn-export">💾 Export Data</button>
+                <button class="btn-report">📄 Generate Report</button>
+            </div>
+            
+            <div class="feature-highlight">
+                <strong>🎉 New Features:</strong> Statistical summaries, multi-device comparison, data export (CSV/Excel/JSON), threshold alerts, advanced chart types, data quality indicators, and automated report generation!
+            </div>
+            
+            <!-- Alert Panel (NEW) -->
+            <div class="alert-panel">
+                <div class="alert-header">
+                    <span class="alert-icon">⚠️</span>
+                    <span class="alert-title">Active Alerts (3)</span>
+                </div>
+                <ul class="alert-list">
+                    <li class="alert-item">
+                        <span class="alert-severity severity-high"></span>
+                        <span><strong>Device 001:</strong> pH level 8.2 exceeds maximum threshold (7.5) - Last reading 2h ago</span>
+                    </li>
+                    <li class="alert-item">
+                        <span class="alert-severity severity-medium"></span>
+                        <span><strong>Device 002:</strong> Moisture content 15% below minimum threshold (20%) - Last reading 4h ago</span>
+                    </li>
+                    <li class="alert-item">
+                        <span class="alert-severity severity-high"></span>
+                        <span><strong>Device 003:</strong> Temperature spike detected (38°C) - Possible sensor anomaly</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Statistical Summary (NEW) -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">📈</span>
+                    Statistical Summary
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>pH Level</h3>
+                        <div class="stat-value">6.8</div>
+                        <div class="stat-label">Mean Value</div>
+                        <div class="stat-details">
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Min/Max</span>
+                                <span class="stat-detail-value">5.9 / 8.2</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Std Dev</span>
+                                <span class="stat-detail-value">0.43</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Samples</span>
+                                <span class="stat-detail-value">1,247</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Quality</span>
+                                <span class="quality-badge quality-good">Good</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Moisture %</h3>
+                        <div class="stat-value">45.2</div>
+                        <div class="stat-label">Mean Value</div>
+                        <div class="stat-details">
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Min/Max</span>
+                                <span class="stat-detail-value">15.3 / 78.1</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Std Dev</span>
+                                <span class="stat-detail-value">12.8</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Samples</span>
+                                <span class="stat-detail-value">1,198</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Quality</span>
+                                <span class="quality-badge quality-fair">Fair</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Temperature °C</h3>
+                        <div class="stat-value">24.5</div>
+                        <div class="stat-label">Mean Value</div>
+                        <div class="stat-details">
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Min/Max</span>
+                                <span class="stat-detail-value">18.2 / 38.0</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Std Dev</span>
+                                <span class="stat-detail-value">3.2</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Samples</span>
+                                <span class="stat-detail-value">1,247</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Quality</span>
+                                <span class="quality-badge quality-poor">Poor</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>EC (dS/m)</h3>
+                        <div class="stat-value">2.3</div>
+                        <div class="stat-label">Mean Value</div>
+                        <div class="stat-details">
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Min/Max</span>
+                                <span class="stat-detail-value">1.1 / 4.2</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Std Dev</span>
+                                <span class="stat-detail-value">0.67</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Samples</span>
+                                <span class="stat-detail-value">1,247</span>
+                            </div>
+                            <div class="stat-detail-item">
+                                <span class="stat-detail-label">Quality</span>
+                                <span class="quality-badge quality-good">Good</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enhanced Chart with Multiple Types (NEW) -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Parameter Trends with Threshold Indicators</div>
+                    <div class="chart-controls">
+                        <div class="chart-type-selector">
+                            <button class="chart-type-btn active">Line</button>
+                            <button class="chart-type-btn">Scatter</button>
+                            <button class="chart-type-btn">Heatmap</button>
+                            <button class="chart-type-btn">Box Plot</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-mock">
+                    📊 Interactive Chart with Threshold Lines (Red: Min/Max, Green Zone: Optimal Range)
+                </div>
+            </div>
+            
+            <!-- Multi-Device Comparison (NEW) -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🔄</span>
+                    Multi-Device Comparison
+                </div>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <div class="device-name">
+                            <span class="device-indicator" style="background: #3b82f6;"></span>
+                            Device 001
+                        </div>
+                        <div style="margin: 12px 0;">
+                            <div style="margin-bottom: 8px;">
+                                <span style="font-size: 13px; color: #64748b;">pH Average:</span>
+                                <strong style="font-size: 16px; color: #1e293b;"> 6.8</strong>
+                                <span class="trend-indicator trend-stable">→ Stable</span>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <span style="font-size: 13px; color: #64748b;">Moisture:</span>
+                                <strong style="font-size: 16px; color: #1e293b;"> 52%</strong>
+                                <span class="trend-indicator trend-up">↑ +8%</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 13px; color: #64748b;">Data Quality:</span>
+                                <span class="quality-badge quality-good">98% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-card">
+                        <div class="device-name">
+                            <span class="device-indicator" style="background: #10b981;"></span>
+                            Device 002
+                        </div>
+                        <div style="margin: 12px 0;">
+                            <div style="margin-bottom: 8px;">
+                                <span style="font-size: 13px; color: #64748b;">pH Average:</span>
+                                <strong style="font-size: 16px; color: #1e293b;"> 7.1</strong>
+                                <span class="trend-indicator trend-up">↑ +0.3</span>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <span style="font-size: 13px; color: #64748b;">Moisture:</span>
+                                <strong style="font-size: 16px; color: #1e293b;"> 38%</strong>
+                                <span class="trend-indicator trend-down">↓ -12%</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 13px; color: #64748b;">Data Quality:</span>
+                                <span class="quality-badge quality-fair">87% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-card">
+                        <div class="device-name">
+                            <span class="device-indicator" style="background: #f59e0b;"></span>
+                            Device 003
+                        </div>
+                        <div style="margin: 12px 0;">
+                            <div style="margin-bottom: 8px;">
+                                <span style="font-size: 13px; color: #64748b;">pH Average:</span>
+                                <strong style="font-size: 16px; color: #1e293b;"> 6.5</strong>
+                                <span class="trend-indicator trend-down">↓ -0.2</span>
+                            </div>
+                            <div style="margin-bottom: 8px;">
+                                <span style="font-size: 13px; color: #64748b;">Moisture:</span>
+                                <strong style="font-size: 16px; color: #1e293b;"> 45%</strong>
+                                <span class="trend-indicator trend-stable">→ Stable</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 13px; color: #64748b;">Data Quality:</span>
+                                <span class="quality-badge quality-poor">72% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Correlation Matrix (NEW) -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <div class="chart-title">Parameter Correlation Matrix</div>
+                </div>
+                <div class="chart-mock">
+                    🔥 Heatmap showing correlations between all soil parameters
+                </div>
+            </div>
+            
+            <!-- Export Options (NEW) -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">💾</span>
+                    Export & Sharing Options
+                </div>
+                <div class="export-menu">
+                    <div class="export-option">
+                        <span>📊</span>
+                        <span>Export CSV</span>
+                    </div>
+                    <div class="export-option">
+                        <span>📗</span>
+                        <span>Export Excel</span>
+                    </div>
+                    <div class="export-option">
+                        <span>📄</span>
+                        <span>Export PDF Report</span>
+                    </div>
+                    <div class="export-option">
+                        <span>🖼️</span>
+                        <span>Export Chart Images</span>
+                    </div>
+                    <div class="export-option">
+                        <span>📋</span>
+                        <span>Copy to Clipboard</span>
+                    </div>
+                    <div class="export-option">
+                        <span>📧</span>
+                        <span>Email Report</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Insoil Tool - Enhanced Analytics Module</strong></p>
+            <p style="margin-top: 8px;">This mockup demonstrates the proposed improvements including statistical summaries, alerts, multi-device comparison, advanced charts, and export capabilities.</p>
+        </div>
+    </div>
+</body>
+</html>
