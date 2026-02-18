@@ -8088,7 +8088,9 @@ tr.duplicate-row {
         <div class="toolbar">
           <div class="toolbar-row" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; width:100%;">
             <button class="btn" onclick="renderResults()">Refresh Results</button>
+            <button class="btn btn-indigo" onclick="exportResultsBulkPdf()" id="results-bulk-pdf" disabled>Bulk PDF Export</button>
             <span id="stv-version-tag" style="font-size:0.8rem; color:#555; margin-left:8px;"></span>
+            <span id="results-status" style="font-size:0.85rem; color:#64748b; margin-left:8px;"></span>
           </div>
 
           <div class="toolbar-row" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; width:100%;">
@@ -8128,6 +8130,9 @@ tr.duplicate-row {
 
               <thead>
                 <tr>
+                  <th>
+                    <input type="checkbox" id="results-select-all" onclick="toggleResultsSelectAll(this)">
+                  </th>
                   <th>#</th>
                   <th>Test Status</th>
                   <th>Report</th>
@@ -18861,7 +18866,8 @@ function renderResults() {
   const pageData = filtered.slice(startIdx, endIdx);
 
   if (pageData.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="18" style="padding:20px; text-align:center; color:#666;">No results found</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="22" style="padding:20px; text-align:center; color:#666;">No results found</td></tr>`;
+    updateResultsBulkButton(); // Update bulk button
     return;
   }
 
@@ -18932,7 +18938,8 @@ function renderResults() {
     const safeCropParam = String(d.crop ?? '').replace(/'/g, "\\'");
     const safeTimeParam = String(d.time ?? d.Test_date ?? '').replace(/'/g, "\\'");
 
-    tr.innerHTML = `<td>${globalIdx}</td><td class="${tClass}">${testStatus}</td>
+    tr.innerHTML = `<td><input type="checkbox" class="row-checkbox" data-id="${d.id}" onchange="updateResultsBulkButton()"></td>
+      <td>${globalIdx}</td><td class="${tClass}">${testStatus}</td>
       <td><button class="btn btn-sm btn-outline" onclick="downloadResultsReport(event, '${safeTid}', '${safeDid}', '${safeCropParam}', '${safeTimeParam}')">Download report</button></td>
       <td>${safeClientId}</td><td>${safeFarmId}</td><td>${safeCrop}</td><td>${safeTid}</td><td>${safeDid}</td><td class="col-date">${safeTime}</td>
       <td class="${st(phN)}">${ph}</td><td class="${st(ecN)}">${ec}</td><td class="${st(ocN)}">${oc}</td><td class="${st(nN)}">${n}</td>
@@ -18941,6 +18948,9 @@ function renderResults() {
 
     tbody.appendChild(tr);
   });
+  
+  // Update bulk button after rendering
+  updateResultsBulkButton();
 }
 
 function formatReportDate(testDate) {
@@ -19124,6 +19134,98 @@ async function downloadResultsReport(evt, testId, deviceId, crop, testDate) {
     alert('Error generating report: ' + (err && err.message ? err.message : err));
   } finally {
     resetButton();
+  }
+}
+
+function toggleResultsSelectAll(checkbox) {
+  const checkboxes = document.querySelectorAll('#tbl-results .row-checkbox');
+  checkboxes.forEach(cb => {
+    cb.checked = checkbox.checked;
+  });
+  updateResultsBulkButton();
+}
+
+function updateResultsBulkButton() {
+  const checkboxes = document.querySelectorAll('#tbl-results .row-checkbox:checked');
+  const bulkBtn = document.getElementById('results-bulk-pdf');
+  if (bulkBtn) {
+    bulkBtn.disabled = checkboxes.length === 0;
+    if (checkboxes.length > 0) {
+      bulkBtn.textContent = `Bulk PDF Export (${checkboxes.length})`;
+    } else {
+      bulkBtn.textContent = 'Bulk PDF Export';
+    }
+  }
+}
+
+function getSelectedResultsRows() {
+  const checkboxes = document.querySelectorAll('#tbl-results .row-checkbox:checked');
+  const selectedIds = Array.from(checkboxes).map(cb => cb.dataset.id);
+  return (rgbData || []).filter(row => selectedIds.includes(String(row.id)));
+}
+
+async function exportResultsBulkPdf() {
+  if (!ensureResultsReportLibs()) return;
+
+  const selected = getSelectedResultsRows();
+  if (!selected.length) {
+    alert('Select at least one result row to export.');
+    return;
+  }
+
+  const statusEl = document.getElementById('results-status');
+  if (statusEl) statusEl.textContent = `Generating ${selected.length} PDF report(s)...`;
+
+  // One DOWNLOAD timestamp for the whole bulk run (consistent filenames)
+  const stamp = stvNowStamp();
+  
+  // Get selected language from Results module
+  const langSelect = document.getElementById('results-language');
+  const language = langSelect ? langSelect.value : 'en';
+
+  try {
+    const JSZip = window.JSZip;
+    if (!JSZip) {
+      alert('JSZip library is not loaded. Cannot create ZIP file.');
+      if (statusEl) statusEl.textContent = 'Export failed.';
+      return;
+    }
+
+    const zip = new JSZip();
+
+    for (let i = 0; i < selected.length; i++) {
+      const row = selected[i];
+      const testDate = row?.time ?? row?.Test_date ?? '';
+
+      const stvRow = buildStvDirectRowFromResults(row, testDate);
+      const dosePlan = await fetchStvDirectDosePlan(stvRow);
+      const reportData = mapSTVDirectReportRow(stvRow, dosePlan);
+      reportData.language = language;
+      const blob = await generateStvDirectPdfBlob(reportData);
+
+      const pdfName = buildSTVReportFileName(stvRow, stamp);
+      zip.file(pdfName, blob);
+
+      if (statusEl) statusEl.textContent = `Generated ${i + 1}/${selected.length} PDFs...`;
+    }
+
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+
+    // ZIP name uses download timestamp
+    const zipName = `Results.Bulk.PDF.${stamp.ddmmyy}.${stamp.hhmm}.zip`;
+    downloadBlobFile(zipName, zipBlob);
+
+    if (statusEl) statusEl.textContent = 'Bulk export ready.';
+    
+    // Clear selection after successful export
+    const selectAllCheckbox = document.getElementById('results-select-all');
+    if (selectAllCheckbox) selectAllCheckbox.checked = false;
+    toggleResultsSelectAll(selectAllCheckbox || { checked: false });
+    
+  } catch (err) {
+    console.error('Results bulk export failed:', err);
+    alert('Failed to generate bulk PDF export: ' + (err && err.message ? err.message : err));
+    if (statusEl) statusEl.textContent = 'Bulk export failed.';
   }
 }
 
