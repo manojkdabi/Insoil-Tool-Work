@@ -18922,9 +18922,19 @@ function renderResults() {
       return (n != null && n <= 0) ? 'val-red' : '';
     };
 
+    // Safely escape all user-generated content
+    const safeClientId = escapeHtml(d.clientId || d.Client_ID || '-');
+    const safeFarmId = escapeHtml(d.farmId || d.Farm_ID || '-');
+    const safeCrop = escapeHtml(d.crop || '-');
+    const safeTid = escapeHtml(d.tid);
+    const safeDid = escapeHtml(d.did);
+    const safeTime = escapeHtml(d.time);
+    const safeCropParam = String(d.crop ?? '').replace(/'/g, "\\'");
+    const safeTimeParam = String(d.time ?? d.Test_date ?? '').replace(/'/g, "\\'");
+
     tr.innerHTML = `<td>${globalIdx}</td><td class="${tClass}">${testStatus}</td>
-      <td><button class="btn btn-sm btn-outline" onclick="downloadResultsReport(event, '${d.tid}', '${d.did}', '${d.crop ?? ''}', '${d.time ?? d.Test_date ?? ''}')">Download report</button></td>
-      <td>${d.clientId || d.Client_ID || '-'}</td><td>${d.farmId || d.Farm_ID || '-'}</td><td>${d.crop || '-'}</td><td>${d.tid}</td><td>${d.did}</td><td class="col-date">${d.time}</td>
+      <td><button class="btn btn-sm btn-outline" onclick="downloadResultsReport(event, '${safeTid}', '${safeDid}', '${safeCropParam}', '${safeTimeParam}')">Download report</button></td>
+      <td>${safeClientId}</td><td>${safeFarmId}</td><td>${safeCrop}</td><td>${safeTid}</td><td>${safeDid}</td><td class="col-date">${safeTime}</td>
       <td class="${st(phN)}">${ph}</td><td class="${st(ecN)}">${ec}</td><td class="${st(ocN)}">${oc}</td><td class="${st(nN)}">${n}</td>
       <td class="${st(pN)}">${p}</td><td class="${st(kN)}">${k}</td><td class="${st(sN)}">${s}</td><td class="${st(znN)}">${zn}</td>
       <td class="${st(cuN)}">${cu}</td><td class="${st(feN)}">${fe}</td><td class="${st(mnN)}">${mn}</td><td class="${st(bN)}">${b}</td>`;
@@ -19151,17 +19161,25 @@ function renderResultsDetails(row) {
         let status      = fail ? "FAIL" : "PASS";
         let statusClass = fail ? "val-red" : "status-pass";
 
+        const safeDid = escapeHtml(row.did);
+        const paramName = cols.find(c => c.k === rule.p)?.n || '';
+        const safeParamName = escapeHtml(paramName);
+        const safeC = rawObj ? escapeHtml(rawObj.c) : '-';
+        const safeT = rawObj ? escapeHtml(rawObj.t) : '-';
+        const safeRe = fail ? escapeHtml(rule.re) : '-';
+        const safeAc = fail ? escapeHtml(rule.ac) : '-';
+
         tbody.innerHTML += `
             <tr>
-                <td>${row.did}</td>
-                <td><b>${cols.find(c => c.k === rule.p).n}</b></td>
+                <td>${safeDid}</td>
+                <td><b>${safeParamName}</b></td>
                 <td class="${fail ? 'val-red' : 'text-black'}">${val.toFixed(3)}</td>
                 <td class="text-blue">${(finalVal+blank).toFixed(3)}</td>
-                <td>${rawObj ? rawObj.c : '-'}</td>
-                <td>${rawObj ? rawObj.t : '-'}</td>
+                <td>${safeC}</td>
+                <td>${safeT}</td>
                 <td class="${statusClass}">${status}</td>
-                <td>${fail ? rule.re : '-'}</td>
-                <td>${fail ? rule.ac : '-'}</td>
+                <td>${safeRe}</td>
+                <td>${safeAc}</td>
             </tr>
         `;
     });
@@ -19264,7 +19282,7 @@ function renderResultsRGB() {
         <th>Test ID</th>
         <th>Device ID</th>
         <th>Test date</th>
-        ${pairs.map(p => `<th>${getRgbParamDisplayName(p.label)}<br><small>T | C</small></th>`).join('')}
+        ${pairs.map(p => `<th>${escapeHtml(getRgbParamDisplayName(p.label))}<br><small>T | C</small></th>`).join('')}
       </tr>`;
 
     tbody.innerHTML = '';
@@ -19272,17 +19290,17 @@ function renderResultsRGB() {
       const tr = document.createElement('tr');
 
       let html =
-        `<td>${metaClient(r)}</td>` +
-        `<td>${metaFarm(r)}</td>` +
-        `<td>${metaProd(r)}</td>` +
-        `<td>${metaBatch(r)}</td>` +
-        `<td><b>${r.Test_ID ?? r.tid ?? ''}</b></td>` +
-        `<td>${r.Device_ID ?? r.did ?? ''}</td>` +
-        `<td class="col-date">${r.Test_date ?? r.time ?? ''}</td>`;
+        `<td>${escapeHtml(metaClient(r))}</td>` +
+        `<td>${escapeHtml(metaFarm(r))}</td>` +
+        `<td>${escapeHtml(metaProd(r))}</td>` +
+        `<td>${escapeHtml(metaBatch(r))}</td>` +
+        `<td><b>${escapeHtml(r.Test_ID ?? r.tid ?? '')}</b></td>` +
+        `<td>${escapeHtml(r.Device_ID ?? r.did ?? '')}</td>` +
+        `<td class="col-date">${escapeHtml(r.Test_date ?? r.time ?? '')}</td>`;
 
       pairs.forEach(p => {
-        const tv = (r[p.tKey] ?? '').toString();
-        const cv = (r[p.cKey] ?? '').toString();
+        const tv = escapeHtml((r[p.tKey] ?? '').toString());
+        const cv = escapeHtml((r[p.cKey] ?? '').toString());
         html += `<td>${tv} | ${cv}</td>`;
       });
 
@@ -19298,22 +19316,22 @@ function renderResultsRGB() {
     `<tr>
       <th>Client</th><th>Farm</th><th>ProdBatch</th><th>QCBatch</th>
       <th>Test ID</th><th>Device ID</th><th>Time</th>
-      ${cols.map(c => `<th>${c.n}<br><small>Test | Cal</small></th>`).join('')}
+      ${cols.map(c => `<th>${escapeHtml(c.n)}<br><small>Test | Cal</small></th>`).join('')}
     </tr>`;
 
   tbody.innerHTML = '';
   rows.forEach(row => {
     const tr = document.createElement('tr');
     let html =
-      `<td>${metaClient(row)}</td>` +
-      `<td>${metaFarm(row)}</td>` +
-      `<td>${metaProd(row)}</td>` +
-      `<td>${metaBatch(row)}</td>` +
-      `<td><b>${row.tid}</b></td><td>${row.did}</td><td class="col-date">${row.time}</td>`;
+      `<td>${escapeHtml(metaClient(row))}</td>` +
+      `<td>${escapeHtml(metaFarm(row))}</td>` +
+      `<td>${escapeHtml(metaProd(row))}</td>` +
+      `<td>${escapeHtml(metaBatch(row))}</td>` +
+      `<td><b>${escapeHtml(row.tid)}</b></td><td>${escapeHtml(row.did)}</td><td class="col-date">${escapeHtml(row.time)}</td>`;
 
     cols.forEach(c => {
       const r = row.raw?.[c.k];
-      html += r ? `<td class="${getBandClass(c.b)}">${r.t} | ${r.c}</td>` : `<td>-</td>`;
+      html += r ? `<td class="${getBandClass(c.b)}">${escapeHtml(r.t)} | ${escapeHtml(r.c)}</td>` : `<td>-</td>`;
     });
 
     tr.innerHTML = html;
