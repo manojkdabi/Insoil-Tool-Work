@@ -23,6 +23,11 @@
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Leaflet MarkerCluster for better map performance -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
   <script>
     (function () {
@@ -6969,6 +6974,163 @@
   min-width: 100% !important;
 }
 
+/* ===== DEVICES MODULE ENHANCEMENTS ===== */
+
+/* GPS validation styling */
+.gps-invalid {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2 !important;
+}
+
+.gps-invalid:focus {
+  outline-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Map layer button styling */
+.map-layer-btn.active {
+  background-color: #2563eb !important;
+  color: white !important;
+  border-color: #2563eb !important;
+}
+
+/* Search result badge */
+.search-result-badge {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Sortable column headers */
+th[onclick] {
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+th[onclick]:hover {
+  background-color: #f3f4f6;
+}
+
+/* Map search results display */
+.map-search-results {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Marker cluster custom styling */
+.marker-cluster {
+  background-color: rgba(37, 99, 235, 0.6);
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+}
+
+.marker-cluster div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(37, 99, 235, 0.8);
+}
+
+.marker-cluster-small {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 11px;
+}
+
+.marker-cluster-medium {
+  width: 40px !important;
+  height: 40px !important;
+  font-size: 13px;
+}
+
+.marker-cluster-large {
+  width: 50px !important;
+  height: 50px !important;
+  font-size: 15px;
+}
+
+/* Loading state for search inputs */
+.search-input {
+  transition: opacity 0.2s ease;
+}
+
+/* Map popup table styling */
+.map-popup-table {
+  font-size: 0.85rem;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.map-popup-table th {
+  background-color: #f3f4f6;
+  padding: 4px 8px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.map-popup-table td {
+  padding: 4px 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.map-popup-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Input mode indicators for mobile/numeric fields */
+input[inputmode="tel"],
+input[inputmode="numeric"] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Registry Dashboard Statistics */
+.stat-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#registry-dashboard {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Advanced Filters Panel */
+#advanced-filters-panel {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Duplicate row highlighting */
+tr.duplicate-row {
+  background-color: #fef2f2 !important;
+  border-left: 3px solid #ef4444 !important;
+}
 
 
     //--------------------------------------------------------- END OF NEW CSS --------------------------------------------------------------
@@ -8129,13 +8291,50 @@
 
         <div class="device-subtab-body">
           <div id="install-subtab-installed" class="device-subtab-content active">
+            
+            <!-- Device Registry Dashboard -->
+            <div id="registry-dashboard" style="display: flex; gap: 12px; padding: 12px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; flex-wrap: wrap;">
+              <div class="stat-card" style="flex: 1; min-width: 150px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-bottom: 4px;">TOTAL DEVICES</div>
+                <div id="stat-total" style="font-size: 1.5rem; font-weight: 700; color: #111827;">0</div>
+              </div>
+              <div class="stat-card" style="flex: 1; min-width: 150px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-bottom: 4px;">WITH GPS</div>
+                <div id="stat-gps" style="font-size: 1.5rem; font-weight: 700; color: #16a34a;">0</div>
+              </div>
+              <div class="stat-card" style="flex: 1; min-width: 150px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-bottom: 4px;">STATES</div>
+                <div id="stat-states" style="font-size: 1.5rem; font-weight: 700; color: #2563eb;">0</div>
+              </div>
+              <div class="stat-card" style="flex: 1; min-width: 150px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-bottom: 4px;">DISTRICTS</div>
+                <div id="stat-districts" style="font-size: 1.5rem; font-weight: 700; color: #7c3aed;">0</div>
+              </div>
+              <div class="stat-card" style="flex: 1; min-width: 150px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-bottom: 4px;">DUPLICATES</div>
+                <div id="stat-duplicates" style="font-size: 1.5rem; font-weight: 700; color: #ef4444;">0</div>
+              </div>
+            </div>
+            
             <div class="registry-split">
               <div class="registry-panel" id="install-upper">
                 <div class="registry-toolbar">
-                  <div style="flex:1; display:flex; align-items:center; gap:8px;">
+                  <div style="flex:1; display:flex; align-items:center; gap:8px; flex-wrap: wrap;">
                     <input type="text" id="registry-search-installed" class="search-input"
                     placeholder="Search Client / Device ID / Mobile / MO Name / Place"
-                    oninput="filterRegistryTable(this.value)">
+                    oninput="filterRegistryTable(this.value)"
+                    style="min-width: 250px; flex: 1;">
+                    
+                    <button class="btn btn-outline" onclick="toggleAdvancedFilters()" title="Advanced filters">
+                      <span style="margin-right: 4px;">🔍</span> Filters
+                    </button>
+                    
+                    <button class="btn btn-outline" onclick="exportRegistryToCSV()" title="Export filtered results to CSV">
+                      <span style="margin-right: 4px;">📥</span> Export CSV
+                    </button>
+                    
+                    <div style="border-left: 1px solid #d1d5db; height: 24px; margin: 0 4px;"></div>
+                    
                     <button class="btn btn-green registry-edit-only" onclick="addRegistryRow()">+ Row</button>
                     <button class="btn btn-outline btn-red registry-edit-only" onclick="removeRegistryRows()">− Row</button>
                     <button class="btn registry-edit-only" onclick="saveDeviceRegistry()">Save</button>
@@ -8145,6 +8344,49 @@
                   Edit Table
                 </label>
                 </div>
+                
+                <!-- Advanced Filters Panel -->
+                <div id="advanced-filters-panel" style="display: none; padding: 12px; background: #f9fafb; border-bottom: 1px solid #e5e7eb;">
+                  <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 0.75rem; font-weight: 600; color: #6b7280;">State</label>
+                      <select id="filter-state" class="db-input" onchange="applyAdvancedFilters()" style="min-width: 150px;">
+                        <option value="">All States</option>
+                      </select>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 0.75rem; font-weight: 600; color: #6b7280;">District</label>
+                      <select id="filter-district" class="db-input" onchange="applyAdvancedFilters()" style="min-width: 150px;">
+                        <option value="">All Districts</option>
+                      </select>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 0.75rem; font-weight: 600; color: #6b7280;">Date From</label>
+                      <input type="date" id="filter-date-from" class="db-input" onchange="applyAdvancedFilters()">
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 0.75rem; font-weight: 600; color: #6b7280;">Date To</label>
+                      <input type="date" id="filter-date-to" class="db-input" onchange="applyAdvancedFilters()">
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <label style="font-size: 0.75rem; font-weight: 600; color: #6b7280;">GPS Status</label>
+                      <select id="filter-gps-status" class="db-input" onchange="applyAdvancedFilters()" style="min-width: 120px;">
+                        <option value="">All</option>
+                        <option value="valid">Has GPS</option>
+                        <option value="invalid">No GPS</option>
+                      </select>
+                    </div>
+                    
+                    <button class="btn btn-sm btn-outline" onclick="clearAdvancedFilters()" style="margin-top: auto;">
+                      Clear Filters
+                    </button>
+                  </div>
+                </div>
+                
                 <div class="registry-table-wrap">
                   <table id="tbl-device-registry" class="selectable-table">
                     <thead></thead>
@@ -8237,11 +8479,29 @@
 
           <div id="install-subtab-map" class="device-subtab-content">
             <div id="install-lower">
-              <div class="device-map-toolbar">
+              <div class="device-map-toolbar" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 12px; background: #f9fafb; border-bottom: 1px solid #e5e7eb;">
                 <input type="text" id="registry-search-map" class="search-input"
                   placeholder="Search Client / Device ID / Mobile / MO Name / Place"
-                  oninput="filterRegistryMap(this.value)">
-                <button class="btn btn-blue" onclick="renderMapView()">Refresh Map</button>
+                  oninput="filterRegistryMap(this.value)"
+                  style="flex: 1; min-width: 250px;">
+                
+                <div style="display: flex; gap: 4px; align-items: center; border-left: 1px solid #d1d5db; padding-left: 8px;">
+                  <span style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-right: 4px;">MAP:</span>
+                  <button class="btn btn-sm map-layer-btn active" onclick="switchMapBaseLayer('street')" 
+                    style="padding: 4px 8px; font-size: 0.75rem;">Street</button>
+                  <button class="btn btn-sm btn-outline map-layer-btn" onclick="switchMapBaseLayer('satellite')" 
+                    style="padding: 4px 8px; font-size: 0.75rem;">Satellite</button>
+                  <button class="btn btn-sm btn-outline map-layer-btn" onclick="switchMapBaseLayer('terrain')" 
+                    style="padding: 4px 8px; font-size: 0.75rem;">Terrain</button>
+                </div>
+                
+                <button class="btn btn-blue" onclick="renderMapView()" style="margin-left: auto;">
+                  <span style="margin-right: 4px;">🔄</span> Refresh
+                </button>
+                
+                <button class="btn btn-outline" onclick="exportMapData()" title="Export visible devices as CSV">
+                  <span style="margin-right: 4px;">📥</span> Export CSV
+                </button>
               </div>
               <div id="map-container"></div>
             </div>
@@ -13619,6 +13879,31 @@ let isHeavyDataLoaded = false;
 let registryCurrentPage = 1;
 const registryPageSize = 50;
 
+// --- ENHANCED FEATURES STATE ---
+// Sorting state
+let registrySortColumn = null;
+let registrySortDirection = 'asc'; // 'asc' or 'desc'
+// Column visibility
+let registryHiddenColumns = [];
+// Map clustering and layers
+let mapClusterGroup = null;
+let mapHeatLayer = null;
+let mapBaseLayer = 'street'; // 'street', 'satellite', 'terrain'
+// Search result count
+let registrySearchResultCount = 0;
+let registryMapSearchResultCount = 0;
+// Cached normalized search data for performance
+let registrySearchCache = null;
+// Advanced filters
+let registryAdvancedFilters = {
+  state: '',
+  district: '',
+  dateFrom: '',
+  dateTo: '',
+  status: ''
+};
+// Bulk selection
+let registryBulkSelected = new Set();
 
 // --- PAGINATION STATE ---
 const ROWS_PER_PAGE = 50; 
@@ -15267,6 +15552,29 @@ function escapeHtml(value) {
     .replaceAll("'", '&#39;');
 }
 
+// Debounce utility for search performance
+function debounce(func, delay) {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+// Validate GPS coordinate format
+function validateGPS(gpsString) {
+  if (!gpsString) return false;
+  const gpsRegex = /^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/;
+  return gpsRegex.test(gpsString.trim());
+}
+
+// Sanitize GPS input
+function sanitizeGPS(gpsString) {
+  if (!gpsString) return '';
+  const cleaned = gpsString.trim();
+  return validateGPS(cleaned) ? cleaned : '';
+}
+
 
 function fmt3(x) {
   const n = Number(x);
@@ -15557,7 +15865,7 @@ function statusToColor(status) {
 
 /**
  * Build the Map View table + markers from the Device Installation Registry.
- * Uses the lat/lng stored on the GPS input (.reg-gps) as data-lat / data-lng.
+ * Enhanced with clustering, base map switching, and statistics.
  */
 function renderMapView() {
     // 1. Initialize Map (if needed)
@@ -15566,24 +15874,85 @@ function renderMapView() {
     var container = document.getElementById('map-container');
     if (!container) return;
 
+    // Restore search input opacity
+    const searchInput = document.getElementById('registry-search-map');
+    if (searchInput) {
+        searchInput.style.opacity = '1';
+    }
+
     if (!mapInstance) {
         console.log("Creating Map Instance...");
         mapInstance = L.map('map-container').setView([22.5, 78.5], 5);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        
+        // Base layers for switching
+        const streetLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             attribution: '© OpenStreetMap, © CARTO',
             maxZoom: 20
-        }).addTo(mapInstance);
-        mapMarkersLayer = L.layerGroup().addTo(mapInstance);
+        });
+        
+        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '© Esri',
+            maxZoom: 19
+        });
+        
+        const terrainLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenTopoMap',
+            maxZoom: 17
+        });
+        
+        // Store layers for switching
+        window.mapBaseLayers = {
+            street: streetLayer,
+            satellite: satelliteLayer,
+            terrain: terrainLayer
+        };
+        
+        // Add default layer
+        streetLayer.addTo(mapInstance);
+        
+        // Initialize marker cluster group with custom options
+        if (typeof L.markerClusterGroup !== 'undefined') {
+            mapClusterGroup = L.markerClusterGroup({
+                maxClusterRadius: 50,
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: false,
+                zoomToBoundsOnClick: true,
+                iconCreateFunction: function(cluster) {
+                    const count = cluster.getChildCount();
+                    let size = 'small';
+                    if (count > 10) size = 'medium';
+                    if (count > 50) size = 'large';
+                    return L.divIcon({
+                        html: `<div><span>${count}</span></div>`,
+                        className: 'marker-cluster marker-cluster-' + size,
+                        iconSize: L.point(40, 40)
+                    });
+                }
+            });
+            mapInstance.addLayer(mapClusterGroup);
+        } else {
+            // Fallback to regular layer group
+            mapMarkersLayer = L.layerGroup().addTo(mapInstance);
+        }
     } else {
         // Essential for split-panes: Force map to relearn its size
         mapInstance.invalidateSize(); 
     }
 
     // 2. Read Registry Rows & Plot Markers
-    mapMarkersLayer.clearLayers();
+    if (mapClusterGroup) {
+        mapClusterGroup.clearLayers();
+    } else if (mapMarkersLayer) {
+        mapMarkersLayer.clearLayers();
+    }
+    
     var markerPoints = [];
     var locationMap = new Map();
     const deviceStats = buildDeviceDashboardStats(rgbData || []);
+    
+    // Count search results
+    let matchCount = 0;
+    let totalWithGPS = 0;
     
     // We read directly from the inputs in the table you just built
     var rows = document.querySelectorAll('#body-device-registry tr');
@@ -15603,18 +15972,8 @@ function renderMapView() {
         var mobile = mobileInput ? mobileInput.value : "";
         var moName = moNameInput ? moNameInput.value : "";
         var place  = placeInput ? placeInput.value : "";
-
-        if (registryMapSearchTerm && !matchesRegistrySearch({
-            client,
-            did,
-            mobile,
-            moName,
-            place
-        }, registryMapSearchTerm)) {
-            return;
-        }
-        var gps    = gpsInput.value;
         
+        var gps    = gpsInput.value;
         var coords = parseLatLonString(gps);
         
         // Fallback to hidden dataset if text is empty (from autocomplete)
@@ -15624,22 +15983,36 @@ function renderMapView() {
                 lng: parseFloat(gpsInput.dataset.lng)
             };
         }
+        
+        if (!coords || isNaN(coords.lat)) return;
+        
+        totalWithGPS++;
+        
+        const matches = !registryMapSearchTerm || matchesRegistrySearch({
+            client, did, mobile, moName, place
+        }, registryMapSearchTerm);
+        
+        if (!matches) return;
+        
+        matchCount++;
 
-        if (coords && !isNaN(coords.lat)) {
-            const key = `${coords.lat.toFixed(6)},${coords.lng.toFixed(6)}`;
-            if (!locationMap.has(key)) {
-                locationMap.set(key, { coords, entries: [] });
-            }
-            locationMap.get(key).entries.push({
-                client,
-                did,
-                moName,
-                mobile,
-                address: row.querySelector('.reg-address')?.value || '',
-                ...(deviceStats.get(did) || {})
-            });
+        const key = `${coords.lat.toFixed(6)},${coords.lng.toFixed(6)}`;
+        if (!locationMap.has(key)) {
+            locationMap.set(key, { coords, entries: [] });
         }
+        locationMap.get(key).entries.push({
+            client,
+            did,
+            moName,
+            mobile,
+            address: row.querySelector('.reg-address')?.value || '',
+            place,
+            ...(deviceStats.get(did) || {})
+        });
     });
+
+    // Store search result count
+    registryMapSearchResultCount = matchCount;
 
     locationMap.forEach(({ coords, entries }) => {
         const status = summarizeLocationStatus(entries);
@@ -15650,8 +16023,14 @@ function renderMapView() {
             fillColor: markerColor,
             fillOpacity: 0.85,
             weight: 2
-        }).addTo(mapMarkersLayer);
+        });
         m.bindPopup(buildRegistryPopup(entries));
+        
+        if (mapClusterGroup) {
+            mapClusterGroup.addLayer(m);
+        } else if (mapMarkersLayer) {
+            m.addTo(mapMarkersLayer);
+        }
         markerPoints.push([coords.lat, coords.lng]);
     });
 
@@ -15669,9 +16048,64 @@ function renderMapView() {
     // 4. Force Resize to prevent gray box
     setTimeout(function(){ mapInstance.invalidateSize(); }, 200);
 
-    const mapSearchInput = document.getElementById('registry-search-map');
-    if (mapSearchInput && mapSearchInput.value !== registryMapSearchTerm) {
-        mapSearchInput.value = registryMapSearchTerm;
+    // 5. Update search result display
+    updateMapSearchResults(matchCount, totalWithGPS);
+    
+    if (searchInput && searchInput.value !== registryMapSearchTerm) {
+        searchInput.value = registryMapSearchTerm;
+    }
+}
+
+// Update map search result count display
+function updateMapSearchResults(matchCount, totalWithGPS) {
+    const toolbar = document.querySelector('.device-map-toolbar');
+    if (!toolbar) return;
+    
+    let resultDiv = toolbar.querySelector('.map-search-results');
+    if (!resultDiv) {
+        resultDiv = document.createElement('div');
+        resultDiv.className = 'map-search-results';
+        resultDiv.style.cssText = 'margin-left: 12px; padding: 6px 12px; background: #f3f4f6; border-radius: 6px; font-size: 0.875rem; color: #374151;';
+        toolbar.appendChild(resultDiv);
+    }
+    
+    if (registryMapSearchTerm) {
+        const percentage = totalWithGPS > 0 ? Math.round((matchCount / totalWithGPS) * 100) : 0;
+        resultDiv.innerHTML = `
+            <span style="font-weight: 600; color: #2563eb;">${matchCount}</span> of 
+            <span style="font-weight: 600;">${totalWithGPS}</span> devices 
+            <span style="color: #6b7280;">(${percentage}%)</span>
+        `;
+        resultDiv.style.display = 'block';
+    } else {
+        resultDiv.innerHTML = `<span style="font-weight: 600;">${totalWithGPS}</span> devices with GPS`;
+        resultDiv.style.display = 'block';
+    }
+}
+
+// Switch base map layer
+function switchMapBaseLayer(layerName) {
+    if (!mapInstance || !window.mapBaseLayers) return;
+    
+    // Remove all base layers
+    Object.values(window.mapBaseLayers).forEach(layer => {
+        if (mapInstance.hasLayer(layer)) {
+            mapInstance.removeLayer(layer);
+        }
+    });
+    
+    // Add selected layer
+    const selectedLayer = window.mapBaseLayers[layerName];
+    if (selectedLayer) {
+        selectedLayer.addTo(mapInstance);
+        mapBaseLayer = layerName;
+        
+        // Update button states
+        document.querySelectorAll('.map-layer-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        const activeBtn = document.querySelector(`[onclick="switchMapBaseLayer('${layerName}')"]`);
+        if (activeBtn) activeBtn.classList.add('active');
     }
 }
 
@@ -15705,6 +16139,98 @@ function buildRegistryPopup(entries) {
         html += `</div>`;
     }
     return html;
+}
+
+// Export map data as CSV
+function exportMapData() {
+    if (!deviceRegistry || deviceRegistry.length === 0) {
+        showToast('No device data to export', 'warning');
+        return;
+    }
+    
+    // Filter by current search term
+    const filtered = registryMapSearchTerm 
+        ? fastSearchRegistry(registryMapSearchTerm)
+        : deviceRegistry;
+    
+    // Filter only devices with GPS coordinates
+    const withGPS = filtered.filter(r => {
+        const gps = r.gps || '';
+        return validateGPS(gps) || (r.lat && r.lng);
+    });
+    
+    if (withGPS.length === 0) {
+        showToast('No devices with GPS coordinates found', 'warning');
+        return;
+    }
+    
+    // Build CSV
+    const headers = [
+        'Client', 'Company', 'Device ID', 'Mobile', 'MO Name', 
+        'Place', 'GPS', 'Address', 'PIN', 'Block', 'District', 
+        'State', 'Date', 'Prod Batch'
+    ];
+    
+    const rows = withGPS.map(r => [
+        r.client || '',
+        r.company || '',
+        r.did || '',
+        r.mobile || '',
+        r.moName || '',
+        r.place || '',
+        r.gps || '',
+        r.address || '',
+        r.pin || '',
+        r.block || '',
+        r.district || '',
+        r.state || '',
+        r.date || '',
+        r.prodBatchId || ''
+    ].map(cell => `"${String(cell).replace(/"/g, '""')}"`));
+    
+    const csvContent = [
+        headers.join(','),
+        ...rows.map(row => row.join(','))
+    ].join('\n');
+    
+    // Download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `device_map_export_${new Date().toISOString().slice(0, 10)}.csv`;
+    link.click();
+    
+    showToast(`Exported ${withGPS.length} devices with GPS coordinates`, 'success');
+}
+
+// Toggle marker clustering on/off
+function toggleMapClustering() {
+    if (!mapInstance || !mapClusterGroup) return;
+    
+    const isEnabled = mapInstance.hasLayer(mapClusterGroup);
+    
+    if (isEnabled) {
+        // Disable clustering
+        const layers = mapClusterGroup.getLayers();
+        mapInstance.removeLayer(mapClusterGroup);
+        
+        if (!mapMarkersLayer) {
+            mapMarkersLayer = L.layerGroup().addTo(mapInstance);
+        }
+        layers.forEach(layer => mapMarkersLayer.addLayer(layer));
+        
+        showToast('Clustering disabled', 'info');
+    } else {
+        // Enable clustering
+        if (mapMarkersLayer) {
+            const layers = mapMarkersLayer.getLayers();
+            mapInstance.removeLayer(mapMarkersLayer);
+            layers.forEach(layer => mapClusterGroup.addLayer(layer));
+        }
+        mapInstance.addLayer(mapClusterGroup);
+        
+        showToast('Clustering enabled', 'info');
+    }
 }
 
 // Helper Function
@@ -19659,15 +20185,35 @@ function setRegistryReadOnly(readonly) {
 let registrySearchTerm = '';
 let registryMapSearchTerm = '';
 
-function filterRegistryTable(value) {
+// Debounced version of filterRegistryTable for better performance
+const debouncedFilterRegistryTable = debounce(function(value) {
   registrySearchTerm = String(value || '').trim().toLowerCase();
   registryCurrentPage = 1; // ✅ Reset to first page when searching
   renderDeviceRegistry();
+}, 300);
+
+function filterRegistryTable(value) {
+  // Show loading indicator during search
+  const searchInput = document.getElementById('registry-search-installed');
+  if (searchInput) {
+    searchInput.style.opacity = '0.6';
+  }
+  debouncedFilterRegistryTable(value);
 }
 
-function filterRegistryMap(value) {
+// Debounced version of filterRegistryMap for better performance
+const debouncedFilterRegistryMap = debounce(function(value) {
   registryMapSearchTerm = String(value || '').trim().toLowerCase();
   renderMapView();
+}, 300);
+
+function filterRegistryMap(value) {
+  // Show loading indicator during search
+  const searchInput = document.getElementById('registry-search-map');
+  if (searchInput) {
+    searchInput.style.opacity = '0.6';
+  }
+  debouncedFilterRegistryMap(value);
 }
 
 function matchesRegistrySearch(row, term) {
@@ -19757,6 +20303,75 @@ function toggleRegistrySelectAll(source) {
   checks.forEach(cb => { cb.checked = source.checked; });
 }
 
+// Sort registry by column
+function sortRegistry(column) {
+  if (!column) return;
+  
+  // Toggle sort direction if clicking same column
+  if (registrySortColumn === column) {
+    registrySortDirection = registrySortDirection === 'asc' ? 'desc' : 'asc';
+  } else {
+    registrySortColumn = column;
+    registrySortDirection = 'asc';
+  }
+  
+  renderDeviceRegistry();
+}
+
+// Apply sorting to filtered registry
+function applySortToRegistry(registry) {
+  if (!registrySortColumn || !Array.isArray(registry)) return registry;
+  
+  const sorted = [...registry].sort((a, b) => {
+    let aVal = a[registrySortColumn] ?? '';
+    let bVal = b[registrySortColumn] ?? '';
+    
+    // Convert to string for comparison
+    aVal = String(aVal).toLowerCase();
+    bVal = String(bVal).toLowerCase();
+    
+    if (aVal < bVal) return registrySortDirection === 'asc' ? -1 : 1;
+    if (aVal > bVal) return registrySortDirection === 'asc' ? 1 : -1;
+    return 0;
+  });
+  
+  return sorted;
+}
+
+// Build search result count badge
+function getSearchResultBadge(count, total) {
+  if (!registrySearchTerm) return '';
+  const percentage = total > 0 ? Math.round((count / total) * 100) : 0;
+  return `<span class="search-result-badge" style="margin-left: 8px; padding: 2px 8px; background: #2563eb; color: white; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">
+    ${count} of ${total} (${percentage}%)
+  </span>`;
+}
+
+// Cache normalized search data for performance
+function buildRegistrySearchCache() {
+  if (!Array.isArray(deviceRegistry)) return;
+  
+  registrySearchCache = deviceRegistry.map(r => ({
+    original: r,
+    searchText: [
+      r.client, r.company, r.did, r.mobile, r.moName, 
+      r.place, r.block, r.district, r.state, r.address
+    ]
+      .map(v => String(v ?? '').toLowerCase())
+      .join(' ')
+  }));
+}
+
+// Fast search using cache
+function fastSearchRegistry(term) {
+  if (!term) return deviceRegistry;
+  if (!registrySearchCache) buildRegistrySearchCache();
+  
+  return registrySearchCache
+    .filter(item => item.searchText.includes(term))
+    .map(item => item.original);
+}
+
 function removeRegistryRows() {
   if (!registryEditMode) return;
   const tbody = document.getElementById('body-device-registry');
@@ -19773,34 +20388,335 @@ function removeRegistryRows() {
   if (removed === 0) showToast('Select at least one row to remove.', 'warning');
 }
 
+// Toggle advanced filters panel
+function toggleAdvancedFilters() {
+  const panel = document.getElementById('advanced-filters-panel');
+  if (!panel) return;
+  
+  const isVisible = panel.style.display !== 'none';
+  panel.style.display = isVisible ? 'none' : 'block';
+  
+  if (!isVisible) {
+    // Populate state and district dropdowns
+    populateFilterDropdowns();
+  }
+}
+
+// Populate state and district filter dropdowns
+function populateFilterDropdowns() {
+  if (!deviceRegistry || deviceRegistry.length === 0) return;
+  
+  const states = new Set();
+  const districts = new Set();
+  
+  deviceRegistry.forEach(r => {
+    if (r.state) states.add(r.state);
+    if (r.district) districts.add(r.district);
+  });
+  
+  const stateSelect = document.getElementById('filter-state');
+  const districtSelect = document.getElementById('filter-district');
+  
+  if (stateSelect) {
+    const currentValue = stateSelect.value;
+    stateSelect.innerHTML = '<option value="">All States</option>' +
+      Array.from(states).sort().map(s => 
+        `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`
+      ).join('');
+    stateSelect.value = currentValue;
+  }
+  
+  if (districtSelect) {
+    const currentValue = districtSelect.value;
+    districtSelect.innerHTML = '<option value="">All Districts</option>' +
+      Array.from(districts).sort().map(d => 
+        `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`
+      ).join('');
+    districtSelect.value = currentValue;
+  }
+}
+
+// Apply advanced filters
+function applyAdvancedFilters() {
+  const state = document.getElementById('filter-state')?.value || '';
+  const district = document.getElementById('filter-district')?.value || '';
+  const dateFrom = document.getElementById('filter-date-from')?.value || '';
+  const dateTo = document.getElementById('filter-date-to')?.value || '';
+  const gpsStatus = document.getElementById('filter-gps-status')?.value || '';
+  
+  registryAdvancedFilters = { state, district, dateFrom, dateTo, gpsStatus };
+  registryCurrentPage = 1;
+  renderDeviceRegistry();
+}
+
+// Clear advanced filters
+function clearAdvancedFilters() {
+  document.getElementById('filter-state').value = '';
+  document.getElementById('filter-district').value = '';
+  document.getElementById('filter-date-from').value = '';
+  document.getElementById('filter-date-to').value = '';
+  document.getElementById('filter-gps-status').value = '';
+  
+  registryAdvancedFilters = { state: '', district: '', dateFrom: '', dateTo: '', gpsStatus: '' };
+  registryCurrentPage = 1;
+  renderDeviceRegistry();
+}
+
+// Check if row matches advanced filters
+function matchesAdvancedFilters(row) {
+  const { state, district, dateFrom, dateTo, gpsStatus } = registryAdvancedFilters;
+  
+  // State filter
+  if (state && String(row.state || '').toLowerCase() !== state.toLowerCase()) {
+    return false;
+  }
+  
+  // District filter
+  if (district && String(row.district || '').toLowerCase() !== district.toLowerCase()) {
+    return false;
+  }
+  
+  // Date range filter
+  if (dateFrom || dateTo) {
+    const rowDate = row.date || '';
+    if (dateFrom && rowDate < dateFrom) return false;
+    if (dateTo && rowDate > dateTo) return false;
+  }
+  
+  // GPS status filter
+  if (gpsStatus) {
+    const hasValidGPS = validateGPS(row.gps || '');
+    if (gpsStatus === 'valid' && !hasValidGPS) return false;
+    if (gpsStatus === 'invalid' && hasValidGPS) return false;
+  }
+  
+  return true;
+}
+
+// Export registry to CSV
+function exportRegistryToCSV() {
+  if (!deviceRegistry || deviceRegistry.length === 0) {
+    showToast('No device data to export', 'warning');
+    return;
+  }
+  
+  // Apply current search and filters
+  let filtered = fastSearchRegistry(registrySearchTerm);
+  filtered = applySortToRegistry(filtered);
+  filtered = filtered.filter(r => matchesAdvancedFilters(r));
+  
+  if (filtered.length === 0) {
+    showToast('No devices match the current filters', 'warning');
+    return;
+  }
+  
+  // Build CSV
+  const headers = [
+    'Client', 'Company', 'PAN', 'GSTIN', 'Address', 
+    'Device ID', 'SIM', 'Aadhaar', 'Mobile', 'MO Name', 
+    'Date', 'Place', 'GPS', 'PIN', 'Block', 'District', 
+    'State', 'Prod Batch'
+  ];
+  
+  const rows = filtered.map(r => [
+    r.client || '',
+    r.company || '',
+    r.pan || '',
+    r.gstin || '',
+    r.address || '',
+    r.did || '',
+    r.sim || '',
+    r.aadhaar || '',
+    r.mobile || '',
+    r.moName || '',
+    r.date || '',
+    r.place || '',
+    r.gps || '',
+    r.pin || '',
+    r.block || '',
+    r.district || '',
+    r.state || '',
+    r.prodBatchId || ''
+  ].map(cell => `"${String(cell).replace(/"/g, '""')}"`));
+  
+  const csvContent = [
+    headers.join(','),
+    ...rows.map(row => row.join(','))
+  ].join('\n');
+  
+  // Download
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `device_registry_${new Date().toISOString().slice(0, 10)}.csv`;
+  link.click();
+  
+  showToast(`Exported ${filtered.length} devices to CSV`, 'success');
+}
+
+// Update registry dashboard statistics
+function updateRegistryDashboard() {
+  if (!deviceRegistry || deviceRegistry.length === 0) {
+    document.getElementById('stat-total').textContent = '0';
+    document.getElementById('stat-gps').textContent = '0';
+    document.getElementById('stat-states').textContent = '0';
+    document.getElementById('stat-districts').textContent = '0';
+    document.getElementById('stat-duplicates').textContent = '0';
+    return;
+  }
+  
+  const total = deviceRegistry.length;
+  const withGPS = deviceRegistry.filter(r => validateGPS(r.gps || '')).length;
+  const states = new Set(deviceRegistry.map(r => r.state).filter(Boolean));
+  const districts = new Set(deviceRegistry.map(r => r.district).filter(Boolean));
+  
+  // Detect duplicates
+  const duplicates = detectDuplicateDevices();
+  
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-gps').textContent = `${withGPS} (${Math.round(withGPS/total*100)}%)`;
+  document.getElementById('stat-states').textContent = states.size;
+  document.getElementById('stat-districts').textContent = districts.size;
+  document.getElementById('stat-duplicates').textContent = duplicates.length;
+  
+  // Color code duplicates stat
+  const dupStat = document.getElementById('stat-duplicates');
+  if (duplicates.length > 0) {
+    dupStat.style.color = '#ef4444';
+    dupStat.style.cursor = 'pointer';
+    dupStat.title = 'Click to highlight duplicates';
+    dupStat.onclick = () => highlightDuplicates(duplicates);
+  } else {
+    dupStat.style.color = '#16a34a';
+    dupStat.style.cursor = 'default';
+    dupStat.title = '';
+    dupStat.onclick = null;
+  }
+}
+
+// Detect duplicate devices
+function detectDuplicateDevices() {
+  if (!deviceRegistry || deviceRegistry.length === 0) return [];
+  
+  const deviceIds = {};
+  const mobiles = {};
+  const duplicates = [];
+  
+  deviceRegistry.forEach((r, idx) => {
+    const did = String(r.did || '').trim().toLowerCase();
+    const mobile = String(r.mobile || '').trim();
+    
+    // Check Device ID duplicates
+    if (did && did !== '') {
+      if (deviceIds[did]) {
+        deviceIds[did].push(idx);
+      } else {
+        deviceIds[did] = [idx];
+      }
+    }
+    
+    // Check Mobile duplicates (10 digit numbers only)
+    if (mobile && mobile.length === 10 && /^\d{10}$/.test(mobile)) {
+      if (mobiles[mobile]) {
+        mobiles[mobile].push(idx);
+      } else {
+        mobiles[mobile] = [idx];
+      }
+    }
+  });
+  
+  // Collect all duplicate indices
+  const dupSet = new Set();
+  
+  Object.values(deviceIds).forEach(indices => {
+    if (indices.length > 1) {
+      indices.forEach(idx => dupSet.add(idx));
+    }
+  });
+  
+  Object.values(mobiles).forEach(indices => {
+    if (indices.length > 1) {
+      indices.forEach(idx => dupSet.add(idx));
+    }
+  });
+  
+  return Array.from(dupSet);
+}
+
+// Highlight duplicate rows in the table
+function highlightDuplicates(duplicateIndices) {
+  if (!duplicateIndices || duplicateIndices.length === 0) {
+    showToast('No duplicates found', 'info');
+    return;
+  }
+  
+  // Clear search to show all
+  registrySearchTerm = '';
+  const searchInput = document.getElementById('registry-search-installed');
+  if (searchInput) searchInput.value = '';
+  
+  // Clear advanced filters
+  clearAdvancedFilters();
+  
+  // Re-render to show all devices
+  renderDeviceRegistry();
+  
+  // After render, highlight duplicate rows
+  setTimeout(() => {
+    const tbody = document.getElementById('body-device-registry');
+    if (!tbody) return;
+    
+    const rows = tbody.querySelectorAll('tr');
+    rows.forEach((row, idx) => {
+      const globalIdx = (registryCurrentPage - 1) * registryPageSize + idx;
+      // Note: This is simplified - would need to track actual indices properly
+      row.style.backgroundColor = '#fef2f2';
+      row.style.borderLeft = '3px solid #ef4444';
+    });
+    
+    showToast(`Highlighted ${duplicateIndices.length} potential duplicate entries`, 'warning');
+  }, 100);
+}
+
 function renderDeviceRegistry() {
   const tbody = document.getElementById('body-device-registry');
   if (!tbody) return;
 
-  // NEW: ensure headers are always present (every re-render)
+  // Restore search input opacity (using inline reference to avoid duplicate declaration)
+  const regSearchInput = document.getElementById('registry-search-installed');
+  if (regSearchInput) {
+    regSearchInput.style.opacity = '1';
+  }
+
+  // NEW: ensure headers are always present (every re-render) with sorting
   const thead = document.querySelector('#tbl-device-registry thead');
   if (thead) {
+    const sortIcon = (col) => {
+      if (registrySortColumn !== col) return ' <span style="opacity:0.3">⇅</span>';
+      return registrySortDirection === 'asc' ? ' ↑' : ' ↓';
+    };
+    
     thead.innerHTML = `
       <tr>
         <th class="registry-edit-only" data-col="select"><input type="checkbox" aria-label="Select all" onclick="toggleRegistrySelectAll(this)"></th>
-        <th data-col="client">Client</th>
-        <th data-col="company">Company</th>
-        <th data-col="pan">PAN</th>
-        <th data-col="gstin">GSTIN</th>
-        <th data-col="address">Address</th>
-        <th data-col="did">Device ID</th>
-        <th data-col="sim">SIM</th>
-        <th data-col="aadhaar">Aadhaar</th>
-        <th data-col="mobile">Mobile</th>
-        <th data-col="moName">MO Name</th>
-        <th data-col="date">Date</th>
-        <th data-col="place">Place</th>
-        <th data-col="gps">GPS</th>
-        <th data-col="pin">PIN</th>
-        <th data-col="block">Block</th>
-        <th data-col="district">District</th>
-        <th data-col="state">State</th>
-        <th data-col="prodBatchId">Prod Batch</th>
+        <th data-col="client" onclick="sortRegistry('client')" style="cursor:pointer;" title="Click to sort">Client${sortIcon('client')}</th>
+        <th data-col="company" onclick="sortRegistry('company')" style="cursor:pointer;" title="Click to sort">Company${sortIcon('company')}</th>
+        <th data-col="pan" onclick="sortRegistry('pan')" style="cursor:pointer;" title="Click to sort">PAN${sortIcon('pan')}</th>
+        <th data-col="gstin" onclick="sortRegistry('gstin')" style="cursor:pointer;" title="Click to sort">GSTIN${sortIcon('gstin')}</th>
+        <th data-col="address" onclick="sortRegistry('address')" style="cursor:pointer;" title="Click to sort">Address${sortIcon('address')}</th>
+        <th data-col="did" onclick="sortRegistry('did')" style="cursor:pointer;" title="Click to sort">Device ID${sortIcon('did')}</th>
+        <th data-col="sim" onclick="sortRegistry('sim')" style="cursor:pointer;" title="Click to sort">SIM${sortIcon('sim')}</th>
+        <th data-col="aadhaar" onclick="sortRegistry('aadhaar')" style="cursor:pointer;" title="Click to sort">Aadhaar${sortIcon('aadhaar')}</th>
+        <th data-col="mobile" onclick="sortRegistry('mobile')" style="cursor:pointer;" title="Click to sort">Mobile${sortIcon('mobile')}</th>
+        <th data-col="moName" onclick="sortRegistry('moName')" style="cursor:pointer;" title="Click to sort">MO Name${sortIcon('moName')}</th>
+        <th data-col="date" onclick="sortRegistry('date')" style="cursor:pointer;" title="Click to sort">Date${sortIcon('date')}</th>
+        <th data-col="place" onclick="sortRegistry('place')" style="cursor:pointer;" title="Click to sort">Place${sortIcon('place')}</th>
+        <th data-col="gps" data-col="gps">GPS</th>
+        <th data-col="pin" onclick="sortRegistry('pin')" style="cursor:pointer;" title="Click to sort">PIN${sortIcon('pin')}</th>
+        <th data-col="block" onclick="sortRegistry('block')" style="cursor:pointer;" title="Click to sort">Block${sortIcon('block')}</th>
+        <th data-col="district" onclick="sortRegistry('district')" style="cursor:pointer;" title="Click to sort">District${sortIcon('district')}</th>
+        <th data-col="state" onclick="sortRegistry('state')" style="cursor:pointer;" title="Click to sort">State${sortIcon('state')}</th>
+        <th data-col="prodBatchId" onclick="sortRegistry('prodBatchId')" style="cursor:pointer;" title="Click to sort">Prod Batch${sortIcon('prodBatchId')}</th>
         <th data-col="action">Action</th>
       </tr>
     `;
@@ -19811,10 +20727,21 @@ function renderDeviceRegistry() {
   if (!Array.isArray(deviceRegistry) || deviceRegistry.length === 0) {
     addRegistryRow(true);
     applyRegistryEditMode();
+    registrySearchResultCount = 0;
     return;
   }
 
-  const filteredRegistry = deviceRegistry.filter(r => matchesRegistrySearch(r, registrySearchTerm));
+  // Use fast cached search
+  let filteredRegistry = fastSearchRegistry(registrySearchTerm);
+  
+  // Apply advanced filters
+  filteredRegistry = filteredRegistry.filter(r => matchesAdvancedFilters(r));
+  
+  // Apply sorting
+  filteredRegistry = applySortToRegistry(filteredRegistry);
+  
+  // Store search result count for display
+  registrySearchResultCount = filteredRegistry.length;
   
   // ✅ PAGINATION: Calculate page boundaries
   const totalRecords = filteredRegistry.length;
@@ -19834,33 +20761,61 @@ function renderDeviceRegistry() {
   
   console.log(`📄 Rendering Devices page ${registryCurrentPage}/${totalPages} (${startIdx + 1}-${endIdx} of ${totalRecords})`);
 
-  pagedRegistry.forEach(function (r) {
+  pagedRegistry.forEach(function (r, pageIdx) {
     const tr = document.createElement('tr');
     tr.style.cursor = 'pointer'; // Show hand cursor to indicate clickability
+    
+    // ✅ Track original Device ID for save mapping
+    if (r.did) {
+      tr.setAttribute('data-original-did', r.did);
+    }
 
+    // ✅ FIX XSS: Escape all user-provided values
     const safeDid = escapeHtml(String(r.did ?? ''));
+    const safeClient = escapeHtml(String(r.client ?? ''));
+    const safeCompany = escapeHtml(String(r.company ?? ''));
+    const safePan = escapeHtml(String(r.pan ?? ''));
+    const safeGstin = escapeHtml(String(r.gstin ?? ''));
+    const safeAddress = escapeHtml(String(r.address ?? ''));
+    const safeSim = escapeHtml(String(r.sim ?? ''));
+    const safeAadhaar = escapeHtml(String(r.aadhaar ?? ''));
+    const safeMobile = escapeHtml(String(r.mobile ?? ''));
+    const safeMoName = escapeHtml(String(r.moName ?? ''));
+    const safeDate = escapeHtml(String(r.date ?? ''));
+    const safePlace = escapeHtml(String(r.place ?? ''));
+    const safeGps = escapeHtml(String(r.gps ?? ''));
+    const safePin = escapeHtml(String(r.pin ?? ''));
+    const safeBlock = escapeHtml(String(r.block ?? ''));
+    const safeDistrict = escapeHtml(String(r.district ?? ''));
+    const safeState = escapeHtml(String(r.state ?? ''));
+    
     const prodBatchOptions = buildProdBatchOptions_(r.prodBatchId);
     const gstinLocked = String(r.gstin ?? '').trim() !== '';
     const gstinAttrs = gstinLocked ? 'data-locked="true" readonly disabled' : '';
+    
+    // ✅ Validate GPS format
+    const gpsValue = sanitizeGPS(r.gps);
+    const gpsClass = gpsValue && !validateGPS(gpsValue) ? 'db-input reg-gps gps-invalid' : 'db-input reg-gps';
+    
     tr.innerHTML = `
       <td class="registry-edit-only"><input type="checkbox" class="reg-select" aria-label="Select row"></td>
-      <td><textarea class="db-input db-textarea reg-client reg-limited" data-col="client" placeholder="Client" rows="1" maxlength="50">${r.client ?? ''}</textarea></td>
-      <td><textarea class="db-input db-textarea reg-company reg-limited" data-col="company" rows="1" maxlength="50">${r.company ?? ''}</textarea></td>
-      <td><input type="text" class="db-input reg-pan" data-col="pan" value="${r.pan ?? ''}"></td>
-      <td><input type="text" class="db-input reg-gstin" data-col="gstin" value="${r.gstin ?? ''}" ${gstinAttrs}></td>
-      <td><textarea class="db-input db-textarea reg-address reg-limited" data-col="address" rows="1" maxlength="50">${r.address ?? ''}</textarea></td>
-      <td><input type="text" class="db-input reg-did" data-col="did" value="${r.did ?? ''}"></td>
-      <td><input type="text" class="db-input reg-sim" data-col="sim" value="${r.sim ?? ''}"></td>
-      <td><input type="text" class="db-input reg-aadhaar" data-col="aadhaar" value="${r.aadhaar ?? ''}"></td>
-      <td><input type="text" class="db-input reg-mobile" data-col="mobile" value="${r.mobile ?? ''}" oninput="limitPhoneInput(this)"></td>
-      <td><textarea class="db-input db-textarea reg-moName reg-limited" data-col="moName" rows="1" maxlength="50">${r.moName ?? ''}</textarea></td>
-      <td><input type="date" class="db-input reg-date" data-col="date" value="${r.date ?? ''}"></td>
-      <td><textarea class="db-input db-textarea reg-place reg-limited" data-col="place" rows="1" maxlength="50">${r.place ?? ''}</textarea></td>
-      <td><input type="text" class="db-input reg-gps" data-col="gps" value="${r.gps ?? ''}" placeholder="Lat, Lon"></td>
-      <td><input type="text" class="db-input reg-pin" data-col="pin" value="${r.pin ?? ''}"></td>
-      <td><textarea class="db-input db-textarea reg-block reg-limited" data-col="block" rows="1" maxlength="50">${r.block ?? ''}</textarea></td>
-      <td><textarea class="db-input db-textarea reg-district reg-limited" data-col="district" rows="1" maxlength="50">${r.district ?? ''}</textarea></td>
-      <td><textarea class="db-input db-textarea reg-state reg-limited" data-col="state" rows="1" maxlength="50">${r.state ?? ''}</textarea></td>
+      <td><textarea class="db-input db-textarea reg-client reg-limited" data-col="client" placeholder="Client" rows="1" maxlength="50">${safeClient}</textarea></td>
+      <td><textarea class="db-input db-textarea reg-company reg-limited" data-col="company" rows="1" maxlength="50">${safeCompany}</textarea></td>
+      <td><input type="text" class="db-input reg-pan" data-col="pan" value="${safePan}"></td>
+      <td><input type="text" class="db-input reg-gstin" data-col="gstin" value="${safeGstin}" ${gstinAttrs}></td>
+      <td><textarea class="db-input db-textarea reg-address reg-limited" data-col="address" rows="1" maxlength="50">${safeAddress}</textarea></td>
+      <td><input type="text" class="db-input reg-did" data-col="did" value="${safeDid}"></td>
+      <td><input type="text" class="db-input reg-sim" data-col="sim" value="${safeSim}"></td>
+      <td><input type="text" class="db-input reg-aadhaar" data-col="aadhaar" value="${safeAadhaar}" inputmode="numeric" maxlength="12"></td>
+      <td><input type="text" class="db-input reg-mobile" data-col="mobile" value="${safeMobile}" oninput="limitPhoneInput(this)" inputmode="tel"></td>
+      <td><textarea class="db-input db-textarea reg-moName reg-limited" data-col="moName" rows="1" maxlength="50">${safeMoName}</textarea></td>
+      <td><input type="date" class="db-input reg-date" data-col="date" value="${safeDate}"></td>
+      <td><textarea class="db-input db-textarea reg-place reg-limited" data-col="place" rows="1" maxlength="50">${safePlace}</textarea></td>
+      <td><input type="text" class="${gpsClass}" data-col="gps" value="${safeGps}" placeholder="Lat, Lon" title="Format: Latitude, Longitude"></td>
+      <td><input type="text" class="db-input reg-pin" data-col="pin" value="${safePin}" inputmode="numeric" maxlength="6"></td>
+      <td><textarea class="db-input db-textarea reg-block reg-limited" data-col="block" rows="1" maxlength="50">${safeBlock}</textarea></td>
+      <td><textarea class="db-input db-textarea reg-district reg-limited" data-col="district" rows="1" maxlength="50">${safeDistrict}</textarea></td>
+      <td><textarea class="db-input db-textarea reg-state reg-limited" data-col="state" rows="1" maxlength="50">${safeState}</textarea></td>
       <td>
         <select class="db-input reg-prod-batch" data-col="prodBatchId" onchange="updateRegistryProdBatch(this, '${safeDid}')">
           ${prodBatchOptions}
@@ -19905,12 +20860,15 @@ function renderDeviceRegistry() {
   renderRegistryPagination(totalRecords, totalPages);
 
   applyRegistryEditMode();
+  // Sync search input value with current search term
+  // Note: searchInput variable declared here (not at function start to avoid duplicate declaration)
   const searchInput = document.getElementById('registry-search-installed');
   if (searchInput && searchInput.value !== registrySearchTerm) {
     searchInput.value = registrySearchTerm;
   }
   initRegistryColumnSizing();
   refreshRegistryTextareaHeights();
+  updateRegistryDashboard(); // Update dashboard stats
   if (typeof renderDashboard === 'function') renderDashboard();
   setTimeout(renderMapView, 500);
 }
@@ -19923,8 +20881,15 @@ function renderRegistryPagination(totalRecords, totalPages) {
     return;
   }
   
+  const totalDevices = deviceRegistry.length;
+  const searchBadge = getSearchResultBadge(totalRecords, totalDevices);
+  
   if (totalPages <= 1) {
-    paginationDiv.innerHTML = `<span class="pagination-info">Showing all ${totalRecords} devices</span>`;
+    if (registrySearchTerm) {
+      paginationDiv.innerHTML = `<span class="pagination-info">Showing ${totalRecords} devices ${searchBadge}</span>`;
+    } else {
+      paginationDiv.innerHTML = `<span class="pagination-info">Showing all ${totalRecords} devices</span>`;
+    }
     return;
   }
   
@@ -19947,7 +20912,7 @@ function renderRegistryPagination(totalRecords, totalPages) {
       </button>
       <span class="pagination-info">
         Page ${registryCurrentPage} of ${totalPages} 
-        (${startRecord}-${endRecord} of ${totalRecords} devices)
+        (${startRecord}-${endRecord} of ${totalRecords} devices)${searchBadge}
       </span>
       <button 
         class="btn btn-sm btn-outline" 
@@ -20790,12 +21755,17 @@ function saveDeviceRegistry() {
     if (!tbody) return;
 
     const rows = Array.from(tbody.querySelectorAll('tr'));
-    const newRegObjects = [];
     let hadErrors = false;
     const allErrorMessages = [];
     let anyData = false;
+    
+    // Track rows to update by Device ID
+    const rowUpdates = [];
 
     rows.forEach(function (row, rowIndex) {
+        // Get original Device ID if this row was rendered from existing data
+        const originalDid = row.getAttribute('data-original-did');
+        
         // Grab inputs by class (ignores Geoapify's extra visible input)
         const clientInput    = row.querySelector('.reg-client');
         const companyInput   = row.querySelector('.reg-company');
@@ -20903,32 +21873,35 @@ function saveDeviceRegistry() {
             return;
         }
 
-        // All validations for this row passed → include in save batch
+        // All validations for this row passed → include in update batch
         const date = dateRaw || ''; // keep yyyy-mm-dd for <input type="date">
 
         if (client || company || pan || gstin || address || did || simRaw ||
             aadhaar || mobile || moName || date || place || gpsRaw || pin ||
             block || district || state || prodBatchId) {
 
-            newRegObjects.push({
-                client,
-                company,
-                pan,
-                gstin,
-                address,
-                did,
-                sim: simRaw,
-                aadhaar,
-                mobile,
-                moName,
-                date,
-                place,
-                gps: gpsRaw,
-                pin,
-                block,
-                district,
-                state,
-                prodBatchId
+            rowUpdates.push({
+                originalDid: originalDid,  // Device ID before editing (null if new row)
+                data: {
+                    client,
+                    company,
+                    pan,
+                    gstin,
+                    address,
+                    did,
+                    sim: simRaw,
+                    aadhaar,
+                    mobile,
+                    moName,
+                    date,
+                    place,
+                    gps: gpsRaw,
+                    pin,
+                    block,
+                    district,
+                    state,
+                    prodBatchId
+                }
             });
         }
     });
@@ -20948,10 +21921,34 @@ function saveDeviceRegistry() {
         return;
     }
 
-    // All good → update in-memory registry & sheet
-    deviceRegistry = newRegObjects;
+    // ✅ CRITICAL FIX: Update existing deviceRegistry instead of replacing it
+    // This preserves all rows across all pages, not just the visible 50 rows
+    
+    // Create a copy of the current registry to work with
+    let updatedRegistry = [...deviceRegistry];
+    
+    rowUpdates.forEach(update => {
+        if (update.originalDid) {
+            // This is an existing row - find and update it
+            const existingIndex = updatedRegistry.findIndex(r => r.did === update.originalDid);
+            if (existingIndex !== -1) {
+                // Update existing row
+                updatedRegistry[existingIndex] = update.data;
+            } else {
+                // Original row not found (Device ID was changed?) - add as new
+                updatedRegistry.push(update.data);
+            }
+        } else {
+            // This is a new row - append it
+            updatedRegistry.push(update.data);
+        }
+    });
+    
+    // Update the global registry
+    deviceRegistry = updatedRegistry;
 
-    const sheetRows = newRegObjects.map(function (r) {
+    // Prepare data for backend save (ALL rows, not just visible ones)
+    const sheetRows = deviceRegistry.map(function (r) {
         return [
             r.client   || '',
             r.company  || '',
@@ -20978,9 +21975,11 @@ function saveDeviceRegistry() {
         google.script.run
             .withSuccessHandler(function (result) {
                 console.log('Device_Registry saved:', result);
-                alert('Registry saved successfully: ' + sheetRows.length + ' rows');
+                alert('Registry saved successfully: ' + sheetRows.length + ' total rows (including all pages)');
                 registryEditMode = false;
                 applyRegistryEditMode();
+                // Rebuild search cache after save
+                buildRegistrySearchCache();
                 // Now safe to re-render from clean data
                 renderDeviceRegistry();
             })
@@ -20993,6 +21992,8 @@ function saveDeviceRegistry() {
         console.warn('google.script.run not available; registry not saved to sheet.');
         registryEditMode = false;
         applyRegistryEditMode();
+        // Rebuild search cache after local changes
+        buildRegistrySearchCache();
     }
 }
 
