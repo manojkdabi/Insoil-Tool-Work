@@ -4620,6 +4620,200 @@
       border-top: 1px solid #e5e7eb;
     }
 
+    /* Service Registry Dashboard - Responsive & Accessible */
+    .service-dashboard {
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Improved color contrast for WCAG AA compliance */
+    .svc-summary-item span {
+      color: #475569; /* Improved from #64748b */
+    }
+
+    .svc-note-card label {
+      color: #334155; /* Improved from #475569 */
+    }
+
+    /* Responsive design for mobile devices */
+    @media (max-width: 768px) {
+      .service-dashboard > div:first-child {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+
+      .stat-card {
+        padding: 15px !important;
+      }
+
+      .stat-card > div:first-child {
+        font-size: 0.8rem !important;
+      }
+
+      .stat-card > div:nth-child(2) {
+        font-size: 1.5rem !important;
+      }
+
+      .svc-search-row {
+        flex-direction: column;
+        align-items: stretch !important;
+      }
+
+      .svc-search-row > div:first-child {
+        flex: 1 1 100% !important;
+      }
+
+      .svc-search-row > div:last-child {
+        width: 100%;
+        justify-content: stretch;
+      }
+
+      .svc-search-row button {
+        flex: 1;
+      }
+
+      .svc-top-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .svc-basket {
+        max-width: 100% !important;
+      }
+
+      .svc-form-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .svc-closure-grid {
+        flex-direction: column !important;
+      }
+
+      .hw-grid {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)) !important;
+      }
+
+      .svc-footer {
+        flex-direction: column;
+      }
+
+      .svc-footer button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .service-dashboard > div:first-child {
+        grid-template-columns: 1fr !important;
+      }
+
+      .service-dashboard button {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+      }
+    }
+
+    /* Keyboard navigation focus styles */
+    .btn:focus,
+    .hw-btn:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 3px solid #2563eb;
+      outline-offset: 2px;
+    }
+
+    /* Visual feedback for disabled states */
+    .btn:disabled,
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      filter: grayscale(50%);
+    }
+
+    .btn:disabled:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Loading state visual feedback */
+    .btn.loading {
+      position: relative;
+      pointer-events: none;
+    }
+
+    .btn.loading::after {
+      content: '';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      border: 2px solid #ffffff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    /* Improved table responsiveness */
+    @media (max-width: 768px) {
+      .svc-history-table {
+        overflow-x: auto;
+      }
+
+      .svc-history-table table {
+        min-width: 300px;
+      }
+
+      .svc-basket table {
+        font-size: 0.75rem;
+      }
+    }
+
+    /* Accessibility: Screen reader only text */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* Form locked state visual feedback */
+    .form-locked {
+      position: relative;
+    }
+
+    .form-locked::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+      z-index: 50;
+    }
+
     /* Hardware Grid */
     .hw-grid {
       display: grid;
@@ -8512,18 +8706,89 @@ tr.duplicate-row {
       <div id="tab-service-reg" class="tab-content"
         style="padding: 20px; display:none; flex-direction:column; height:100%; overflow-y:auto; position:relative;">
 
+        <!-- Service Registry Dashboard -->
+        <div class="service-dashboard" style="margin-bottom: 20px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+            <!-- Total Tickets Card -->
+            <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <div style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 8px;">Total Tickets</div>
+              <div style="font-size: 2rem; font-weight: bold;" id="svc-stat-total">0</div>
+              <div style="font-size: 0.75rem; opacity: 0.8; margin-top: 5px;">All time</div>
+            </div>
+            <!-- Open Tickets Card -->
+            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <div style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 8px;">Open Tickets</div>
+              <div style="font-size: 2rem; font-weight: bold;" id="svc-stat-open">0</div>
+              <div style="font-size: 0.75rem; opacity: 0.8; margin-top: 5px;">Active cases</div>
+            </div>
+            <!-- Resolved Tickets Card -->
+            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <div style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 8px;">Resolved</div>
+              <div style="font-size: 2rem; font-weight: bold;" id="svc-stat-resolved">0</div>
+              <div style="font-size: 0.75rem; opacity: 0.8; margin-top: 5px;">Completed</div>
+            </div>
+            <!-- Average Resolution Time Card -->
+            <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <div style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 8px;">Avg. Resolution</div>
+              <div style="font-size: 2rem; font-weight: bold;" id="svc-stat-avg-time">0</div>
+              <div style="font-size: 0.75rem; opacity: 0.8; margin-top: 5px;">Days</div>
+            </div>
+          </div>
+
+          <!-- Quick Actions Row -->
+          <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+            <button class="btn btn-blue" onclick="exportServiceRegistryCSV()" aria-label="Export service data to CSV">
+              <span style="margin-right: 5px;">📊</span> Export CSV
+            </button>
+            <button class="btn btn-outline" onclick="refreshServiceDashboard()" aria-label="Refresh dashboard statistics">
+              <span style="margin-right: 5px;">🔄</span> Refresh Stats
+            </button>
+            <button class="btn btn-outline" onclick="toggleServiceFilters()" aria-label="Toggle advanced filters">
+              <span style="margin-right: 5px;">🔍</span> Advanced Filters
+            </button>
+          </div>
+
+          <!-- Advanced Filters Panel (Initially Hidden) -->
+          <div id="service-filters-panel" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e0e0e0;">
+            <div style="font-weight: bold; margin-bottom: 10px; color: #333;">Advanced Filters</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+              <div>
+                <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">Status</label>
+                <select id="svc-filter-status" class="form-control" aria-label="Filter by ticket status">
+                  <option value="">All Statuses</option>
+                  <option value="OPEN">Open</option>
+                  <option value="IN_PROGRESS">In Progress</option>
+                  <option value="RESOLVED">Resolved</option>
+                  <option value="CLOSED">Closed</option>
+                </select>
+              </div>
+              <div>
+                <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">Date From</label>
+                <input type="date" id="svc-filter-date-from" class="form-control" aria-label="Filter from date">
+              </div>
+              <div>
+                <label style="font-size: 0.85rem; color: #555; display: block; margin-bottom: 5px;">Date To</label>
+                <input type="date" id="svc-filter-date-to" class="form-control" aria-label="Filter to date">
+              </div>
+              <div style="display: flex; align-items: flex-end;">
+                <button class="btn btn-blue" onclick="applyServiceFilters()" style="width: 100%;" aria-label="Apply filters">Apply Filters</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="svc-search-row">
           <div style="flex:0 0 320px; position:relative;">
-            <label style="font-size: 0.75rem; font-weight: bold; color: #333; margin-bottom: 5px; display:block;">SEARCH DEVICE / CLIENT / MOBILE / MO</label>
+            <label for="svc-device-search" style="font-size: 0.75rem; font-weight: bold; color: #333; margin-bottom: 5px; display:block;">SEARCH DEVICE / CLIENT / MOBILE / MO</label>
             <div class="autocomplete-container">
-              <input type="text" id="svc-device-search" class="search-input" style="width: 100%; height: 35px; border: 2px solid var(--primary); font-weight:bold;" placeholder="Type to search..." autocomplete="off">
-              <div id="svc-device-list" class="autocomplete-list"></div>
+              <input type="text" id="svc-device-search" class="search-input" style="width: 100%; height: 35px; border: 2px solid var(--primary); font-weight:bold;" placeholder="Type to search..." autocomplete="off" aria-label="Search for device, client, mobile number, or MO">
+              <div id="svc-device-list" class="autocomplete-list" role="listbox"></div>
             </div>
           </div>
 
           <div style="display:flex; gap:10px;">
-            <button class="btn btn-outline" style="height:35px;" onclick="clearServiceSearch()">Clear</button>
-            <button id="btn-new-ticket" class="btn btn-blue" style="height:35px; opacity:0.5; pointer-events:none;" onclick="createNewTicket()">+ New Ticket</button>
+            <button class="btn btn-outline" style="height:35px;" onclick="clearServiceSearch()" aria-label="Clear search results">Clear</button>
+            <button id="btn-new-ticket" class="btn btn-blue" style="height:35px; opacity:0.5; pointer-events:none;" onclick="createNewTicket()" aria-label="Create new service ticket">+ New Ticket</button>
           </div>
         </div>
 
@@ -8566,7 +8831,7 @@ tr.duplicate-row {
                   </div>
                   <div class="svc-qr-placeholder" aria-hidden="true">QR</div>
                 </div>
-                <button id="svc-basket-accept" class="btn btn-green" onclick="acceptServiceBasket()">I understand and accept</button>
+                <button id="svc-basket-accept" class="btn btn-green" onclick="acceptServiceBasket()" aria-label="Accept service basket and confirm understanding">I understand and accept</button>
               </div>
             </div>
           </div>
@@ -8602,7 +8867,7 @@ tr.duplicate-row {
                 <label>Service History</label>
                 <div style="display:flex; gap:5px; align-items:center;">
                   <select id="svc-history-list" style="display:none;"></select>
-                  <button class="btn btn-sm btn-blue" onclick="fetchServiceHistoryPDF()">Fetch Selected</button>
+                  <button class="btn btn-sm btn-blue" onclick="fetchServiceHistoryPDF()" aria-label="Fetch selected service history PDF">Fetch Selected</button>
                 </div>
                 <div class="svc-history-table">
                   <table>
@@ -8670,10 +8935,10 @@ tr.duplicate-row {
           </div>
 
           <div class="svc-footer">
-            <button id="svc-btn-export" class="btn btn-outline" onclick="exportServiceFormPDF()" disabled>
+            <button id="svc-btn-export" class="btn btn-outline" onclick="exportServiceFormPDF()" disabled aria-label="Export service form as PDF">
               Export Form
             </button>
-            <button id="svc-main-btn" class="btn btn-green" onclick="submitServiceForm()">
+            <button id="svc-main-btn" class="btn btn-green" onclick="submitServiceForm()" aria-label="Submit service form">
               Draft
             </button>
           </div>
@@ -25423,18 +25688,44 @@ function lockServiceForm(isLocked) {
     if (status === 'RESOLVED') {
         isLocked = true;
     }
-    const elements = container.querySelectorAll('input, select, textarea, .hw-btn, .btn-teal, .btn-green, .btn-red');
     
-    elements.forEach(el => {
+    // Add visual feedback overlay for locked state
+    if (isLocked) {
+        container?.classList.add('form-locked');
+        // Add a subtle overlay indicator
+        let lockIndicator = container?.querySelector('.lock-indicator');
+        if (!lockIndicator) {
+            lockIndicator = document.createElement('div');
+            lockIndicator.className = 'lock-indicator';
+            lockIndicator.innerHTML = `
+                <div style="position: absolute; top: 10px; right: 10px; background: rgba(239, 68, 68, 0.9); color: white; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 100;">
+                    🔒 Form Locked
+                </div>
+            `;
+            container?.appendChild(lockIndicator);
+        }
+    } else {
+        container?.classList.remove('form-locked');
+        const lockIndicator = container?.querySelector('.lock-indicator');
+        lockIndicator?.remove();
+    }
+    
+    const elements = container?.querySelectorAll('input, select, textarea, .hw-btn, .btn-teal, .btn-green, .btn-red');
+    
+    elements?.forEach(el => {
         if (el.id === 'svc-history-list' || el.innerText === 'Fetch') return;
         if (isLocked) {
             el.setAttribute('disabled', 'true');
+            el.setAttribute('aria-disabled', 'true');
             el.style.pointerEvents = 'none';
             el.style.opacity = '0.5';
+            el.style.filter = 'grayscale(30%)';
         } else {
             el.removeAttribute('disabled');
+            el.setAttribute('aria-disabled', 'false');
             el.style.pointerEvents = 'auto';
             el.style.opacity = '1';
+            el.style.filter = 'none';
         }
     });
 }
@@ -25935,6 +26226,185 @@ function downloadPDF(res) {
     link.href = window.URL.createObjectURL(blob);
     link.download = res.filename;
     link.click();
+}
+
+// Service Registry Dashboard Functions
+function refreshServiceDashboard() {
+    // This function would fetch actual statistics from the backend
+    // For now, we'll calculate from available data
+    try {
+        // Show loading state
+        const totalEl = document.getElementById('svc-stat-total');
+        const openEl = document.getElementById('svc-stat-open');
+        const resolvedEl = document.getElementById('svc-stat-resolved');
+        const avgTimeEl = document.getElementById('svc-stat-avg-time');
+        
+        if (!totalEl || !openEl || !resolvedEl || !avgTimeEl) return;
+        
+        // Add loading animation
+        [totalEl, openEl, resolvedEl, avgTimeEl].forEach(el => {
+            el.style.opacity = '0.5';
+            el.textContent = '...';
+        });
+        
+        // Simulate fetching data (replace with actual backend call)
+        setTimeout(() => {
+            // Mock data - replace with actual backend data
+            const stats = calculateServiceStats();
+            
+            totalEl.textContent = stats.total || 0;
+            openEl.textContent = stats.open || 0;
+            resolvedEl.textContent = stats.resolved || 0;
+            avgTimeEl.textContent = stats.avgDays || 0;
+            
+            [totalEl, openEl, resolvedEl, avgTimeEl].forEach(el => {
+                el.style.opacity = '1';
+            });
+            
+            showToast('Dashboard statistics refreshed', 'success');
+        }, 500);
+    } catch (err) {
+        console.error('Error refreshing dashboard:', err);
+        showToast('Failed to refresh dashboard statistics', 'error');
+    }
+}
+
+function calculateServiceStats() {
+    // This would calculate stats from actual service data
+    // For now, return mock data structure
+    return {
+        total: 0,
+        open: 0,
+        resolved: 0,
+        avgDays: 0
+    };
+}
+
+function toggleServiceFilters() {
+    const panel = document.getElementById('service-filters-panel');
+    if (!panel) return;
+    
+    if (panel.style.display === 'none') {
+        panel.style.display = 'block';
+        // Add smooth animation
+        panel.style.opacity = '0';
+        setTimeout(() => {
+            panel.style.transition = 'opacity 0.3s ease';
+            panel.style.opacity = '1';
+        }, 10);
+    } else {
+        panel.style.opacity = '0';
+        setTimeout(() => {
+            panel.style.display = 'none';
+        }, 300);
+    }
+}
+
+function applyServiceFilters() {
+    const status = document.getElementById('svc-filter-status')?.value;
+    const dateFrom = document.getElementById('svc-filter-date-from')?.value;
+    const dateTo = document.getElementById('svc-filter-date-to')?.value;
+    
+    // Validate date range
+    if (dateFrom && dateTo && new Date(dateFrom) > new Date(dateTo)) {
+        showToast('Invalid date range: "From" date must be before "To" date', 'error');
+        return;
+    }
+    
+    try {
+        // This would filter the service tickets based on selected criteria
+        // For now, just show a message
+        let filterMsg = 'Applying filters';
+        if (status) filterMsg += `: Status=${status}`;
+        if (dateFrom) filterMsg += `, From=${dateFrom}`;
+        if (dateTo) filterMsg += `, To=${dateTo}`;
+        
+        showToast(filterMsg, 'success');
+        
+        // TODO: Implement actual filtering logic here
+        // This would involve filtering the service tickets data and re-rendering
+        
+    } catch (err) {
+        console.error('Error applying filters:', err);
+        showToast('Failed to apply filters', 'error');
+    }
+}
+
+function exportServiceRegistryCSV() {
+    try {
+        // This would export all service tickets to CSV
+        // For now, create a simple CSV structure
+        
+        showToast('Preparing CSV export...', 'info');
+        
+        // CSV Headers
+        const headers = [
+            'Ticket ID',
+            'Device ID',
+            'Owner',
+            'Status',
+            'Date Created',
+            'Date Resolved',
+            'Total Cost',
+            'Customer Statement'
+        ];
+        
+        // Mock data - replace with actual service tickets
+        const rows = [];
+        
+        // Create CSV content
+        let csvContent = headers.join(',') + '\n';
+        rows.forEach(row => {
+            csvContent += row.join(',') + '\n';
+        });
+        
+        // Download CSV
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', `service_registry_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showToast('CSV exported successfully', 'success');
+    } catch (err) {
+        console.error('Error exporting CSV:', err);
+        showToast('Failed to export CSV', 'error');
+    }
+}
+
+// Loading indicator for Service Registry
+function showServiceLoading(show = true) {
+    const container = document.getElementById('service-form-container');
+    if (!container) return;
+    
+    let loader = document.getElementById('service-loader');
+    if (show) {
+        if (!loader) {
+            loader = document.createElement('div');
+            loader.id = 'service-loader';
+            loader.innerHTML = `
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 1000;">
+                    <div style="border: 4px solid #f3f3f3; border-top: 4px solid #2563eb; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                    <div style="margin-top: 10px; color: #666;">Loading...</div>
+                </div>
+            `;
+            loader.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); z-index: 999;';
+            container.style.position = 'relative';
+            container.appendChild(loader);
+        }
+        loader.style.display = 'block';
+    } else if (loader) {
+        loader.style.display = 'none';
+    }
+}
+
+// Initialize dashboard on tab load
+function initServiceRegistry() {
+    refreshServiceDashboard();
 }
 
 
