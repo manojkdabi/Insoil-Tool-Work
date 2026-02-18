@@ -1654,7 +1654,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 20px;
+      padding: 8px 20px;
       background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
       border-top: 1px solid #cbd5e1;
       border-bottom: 1px solid #e2e8f0;
@@ -27171,27 +27171,37 @@ function recalculateNutrientPlan() {
             '<tr><td colspan="5" style="text-align:center;">No nutrient data found for this Test ID.</td></tr>';
         }
         
+        // Store metadata from response for PDF export
+        window.nmCurrentReportId = res.reportId || res.testId || testId;
+        window.nmCurrentTestDateTime = res.testDateTime || res.timestamp || new Date().toLocaleString();
+        window.nmCurrentFarmerName = res.farmerName || res.name || res.clientName || 'Default';
+        window.nmCurrentFarmId = res.farmId || '';
+        
         // Store soil metrics globally for PDF export
         const soilMetrics = {};
         (res.summary || []).forEach(function(s) {
-          const nutrient = (s.nutrient || '').toUpperCase();
-          const value = s.soilValue;
+          const nutrient = (s.nutrient || '').toUpperCase().trim();
+          // Use soilValue if available, otherwise use other value fields
+          const value = s.soilValue !== undefined && s.soilValue !== null ? s.soilValue : 
+                       (s.value !== undefined && s.value !== null ? s.value : s.rating);
           
           if (nutrient === 'PH' || nutrient === 'pH') soilMetrics.pH = value;
           else if (nutrient === 'EC') soilMetrics.EC = value;
-          else if (nutrient === 'OC' || nutrient === 'ORG CARBON' || nutrient === 'ORGANIC CARBON') soilMetrics.OC = value;
-          else if (nutrient === 'N' || nutrient === 'NITROGEN') soilMetrics.N = value;
-          else if (nutrient === 'P' || nutrient === 'PHOSPHORUS' || nutrient === 'P₂O₅' || nutrient === 'P2O5') soilMetrics.P = value;
-          else if (nutrient === 'K' || nutrient === 'POTASSIUM' || nutrient === 'K₂O' || nutrient === 'K2O') soilMetrics.K = value;
-          else if (nutrient === 'S' || nutrient === 'SULPHUR' || nutrient === 'SULFUR') soilMetrics.S = value;
-          else if (nutrient === 'ZN' || nutrient === 'ZINC') soilMetrics.Zn = value;
-          else if (nutrient === 'CU' || nutrient === 'COPPER') soilMetrics.Cu = value;
-          else if (nutrient === 'FE' || nutrient === 'IRON') soilMetrics.Fe = value;
-          else if (nutrient === 'MN' || nutrient === 'MANGANESE') soilMetrics.Mn = value;
-          else if (nutrient === 'B' || nutrient === 'BORON') soilMetrics.B = value;
+          else if (nutrient === 'OC' || nutrient.includes('ORG') || nutrient.includes('CARBON')) soilMetrics.OC = value;
+          else if (nutrient === 'N' || nutrient.includes('NITROGEN') || nutrient === 'AVAIL_N' || nutrient === 'AVAILABLE NITROGEN') soilMetrics.N = value;
+          else if (nutrient === 'P' || nutrient.includes('PHOSPHORUS') || nutrient.includes('P₂O₅') || nutrient.includes('P2O5') || nutrient === 'AVAIL_P' || nutrient === 'AVAILABLE PHOSPHORUS') soilMetrics.P = value;
+          else if (nutrient === 'K' || nutrient.includes('POTASSIUM') || nutrient.includes('K₂O') || nutrient.includes('K2O') || nutrient === 'AVAIL_K' || nutrient === 'AVAILABLE POTASSIUM') soilMetrics.K = value;
+          else if (nutrient === 'S' || nutrient.includes('SULPHUR') || nutrient.includes('SULFUR') || nutrient === 'AVAIL_S') soilMetrics.S = value;
+          else if (nutrient === 'ZN' || nutrient.includes('ZINC')) soilMetrics.Zn = value;
+          else if (nutrient === 'CU' || nutrient.includes('COPPER')) soilMetrics.Cu = value;
+          else if (nutrient === 'FE' || nutrient.includes('IRON')) soilMetrics.Fe = value;
+          else if (nutrient === 'MN' || nutrient.includes('MANGANESE')) soilMetrics.Mn = value;
+          else if (nutrient === 'B' || nutrient.includes('BORON')) soilMetrics.B = value;
         });
         window.nmCurrentSoilMetrics = soilMetrics;
         window.nmCurrentSummary = res.summary || [];
+        
+        console.log('NM soil metrics stored for PDF (enhanced):', soilMetrics, 'from summary:', res.summary);
         
         console.log('NM soil metrics stored for PDF:', soilMetrics);
       }
@@ -27352,6 +27362,12 @@ async function nmExportPlan() {
   var methodId    = window.nmCurrentMethodId         || '';
   var methodName  = window.nmCurrentMethodName       || '';
   var targetYield = window.nmCurrentTargetYield      || 0;
+  
+  // Get soil test data for report metadata (Report ID, Test Date/Time, Name)
+  var reportId    = window.nmCurrentReportId || testId;
+  var testDateTime = window.nmCurrentTestDateTime || new Date().toLocaleString();
+  var farmerName  = window.nmCurrentFarmerName || 'Default';
+  var farmId      = window.nmCurrentFarmId || '';
 
   var btn = document.querySelector('#mod-fertilizer .btn.btn-slate[onclick="nmExportPlan()"]');
   const allBtns = document.querySelectorAll('#mod-fertilizer .btn[onclick*="nmExportPlan"]');
@@ -27384,13 +27400,13 @@ async function nmExportPlan() {
     
     const reportData = {
       ClientID: clientId,
-      Farmer: 'Default',
-      Name: 'Default',
-      Farm_ID: '',
+      Farmer: farmerName,
+      Name: farmerName,
+      Farm_ID: farmId,
       Crop: cropName,
-      Test_ID: testId,
+      Test_ID: reportId,
       Device_ID: deviceId,
-      'Test Date-time': new Date().toLocaleString(),
+      'Test Date-time': testDateTime,
       'Report Date-time': new Date().toLocaleString(),
       pH: soilMetrics.pH || null,
       EC: soilMetrics.EC || null,
@@ -29178,6 +29194,32 @@ function renderFertStages(stages) {
 
     nutrientBody.appendChild(tr);
   });
+
+  // Sort nutrient schedule rows by stage, then nutrient for better organization
+  // Group by Stage first: Stage1|N, Stage1|P, Stage1|K, Stage2|N, Stage2|P, Stage2|K, etc.
+  const nutrientRows = Array.from(nutrientBody.querySelectorAll('tr'));
+  if (nutrientRows.length > 0) {
+    nutrientRows.sort(function(a, b) {
+      const stageA = a.cells[0].textContent;
+      const stageB = b.cells[0].textContent;
+      const nutrientA = a.cells[1].textContent;
+      const nutrientB = b.cells[1].textContent;
+      
+      // Sort by stage first
+      if (stageA !== stageB) {
+        // Extract numbers from stage names for numeric sorting
+        const numA = parseInt(stageA.match(/\d+/)?.[0] || '999');
+        const numB = parseInt(stageB.match(/\d+/)?.[0] || '999');
+        return numA - numB;
+      }
+      // Then by nutrient
+      return nutrientA.localeCompare(nutrientB);
+    });
+    
+    // Clear and re-append sorted rows
+    nutrientBody.innerHTML = '';
+    nutrientRows.forEach(row => nutrientBody.appendChild(row));
+  }
 
   if (!nutrientBody.children.length) {
     nutrientBody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:10px;">No nutrient schedule generated.</td></tr>';
