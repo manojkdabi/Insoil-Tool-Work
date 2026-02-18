@@ -8111,6 +8111,10 @@ tr.duplicate-row {
       <div class="results-panel">
         <div class="panel-label">
           <span class="results-panel-title" id="results-panel-title">RESULTS TABLE</span>
+          <select id="results-language" style="padding:4px 8px; border:1px solid #d1d5db; border-radius:6px; font-size:0.875rem; background:#fff; cursor:pointer; margin-left:12px;">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+          </select>
           <label class="qaqc-toggle">
             <span class="qaqc-toggle-label">Results</span>
             <input id="results-view-toggle" type="checkbox" onchange="setResultsFocus(this.checked ? 'success' : 'table')">
@@ -19093,9 +19097,15 @@ async function downloadResultsReport(evt, testId, deviceId, crop, testDate) {
 
   const stvRow = buildStvDirectRowFromResults(row, testDate);
   const stamp = stvNowStamp();
+  
+  // Get selected language from Results module
+  const langSelect = document.getElementById('results-language');
+  const language = langSelect ? langSelect.value : 'en';
+  
   try {
     const dosePlan = await fetchStvDirectDosePlan(stvRow);
     const reportData = mapSTVDirectReportRow(stvRow, dosePlan);
+    reportData.language = language; // Add language to report data
     const blob = await generateStvDirectPdfBlob(reportData);
     const fileName = buildSTVReportFileName(stvRow, stamp);
     downloadBlobFile(fileName, blob);
