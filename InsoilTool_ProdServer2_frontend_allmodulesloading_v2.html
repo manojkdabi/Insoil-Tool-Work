@@ -1635,6 +1635,74 @@
       height: 16px;
     }
 
+    /* Collapsible Tabs Wrapper */
+    #mod-fertilizer .nm-tabs-wrapper {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+      overflow: visible;
+      max-height: none;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper.collapsed {
+      max-height: 0;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      border-top: 1px solid #cbd5e1;
+      border-bottom: 1px solid #e2e8f0;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-header:hover {
+      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-title svg {
+      width: 18px;
+      height: 18px;
+      color: #475569;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-title span {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: -0.01em;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-toggle {
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: #475569;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-toggle:hover {
+      background: rgba(148, 163, 184, 0.2);
+      border-color: rgba(148, 163, 184, 0.5);
+    }
+
     /* Content Areas */
     #mod-fertilizer .sub-tab-content {
       display: none;
@@ -2465,7 +2533,7 @@
     }
 
     #mod-fertilizer .nm-dashboard {
-      padding: 20px 24px;
+      padding: 16px 20px;
       background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
       border-bottom: 1px solid #e2e8f0;
       transition: all 0.3s ease;
@@ -2475,7 +2543,7 @@
 
     #mod-fertilizer .nm-dashboard.collapsed {
       max-height: 0;
-      padding: 0 24px;
+      padding: 0 20px;
       border-bottom: none;
       overflow: hidden;
     }
@@ -2483,8 +2551,8 @@
     #mod-fertilizer .nm-metrics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 14px;
     }
 
     #mod-fertilizer .nm-metric-card {
@@ -2599,7 +2667,7 @@
       background: white;
       border: 1px solid #e2e8f0;
       border-radius: 14px;
-      padding: 20px;
+      padding: 16px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
@@ -2607,8 +2675,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
-      padding-bottom: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
       border-bottom: 2px solid #f1f5f9;
     }
 
@@ -11532,7 +11600,24 @@ tr.duplicate-row {
         <div id="nm-method-info" class="nm-method-info"></div>
       </div>
 
-      <div class="nm-content">
+      <!-- Collapsible Tabs Wrapper -->
+      <div class="nm-tabs-wrapper" id="nm-tabs-wrapper">
+        <div class="nm-tabs-wrapper-header" onclick="nmToggleTabsWrapper()">
+          <div class="nm-tabs-wrapper-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Results & Nutrient Plans</span>
+          </div>
+          <button class="nm-tabs-wrapper-toggle" onclick="event.stopPropagation(); nmToggleTabsWrapper();" aria-label="Toggle Results Section" title="Collapse/Expand Section">
+            <span id="nm-tabs-wrapper-toggle-icon">▼</span>
+          </button>
+        </div>
+
+      <div class="nm-content" id="nm-tabs-content">
         <div class="nm-tabs-container">
           <div class="nm-tabs">
             <button class="nm-tab active" onclick="subTab('nm-summary', event)">
@@ -11676,6 +11761,8 @@ tr.duplicate-row {
             </div>
           </div>
         </div>
+      </div>
+      </div><!-- Close nm-tabs-wrapper -->
 
 
 
@@ -27083,6 +27170,30 @@ function recalculateNutrientPlan() {
           sumBody.innerHTML =
             '<tr><td colspan="5" style="text-align:center;">No nutrient data found for this Test ID.</td></tr>';
         }
+        
+        // Store soil metrics globally for PDF export
+        const soilMetrics = {};
+        (res.summary || []).forEach(function(s) {
+          const nutrient = (s.nutrient || '').toUpperCase();
+          const value = s.soilValue;
+          
+          if (nutrient === 'PH' || nutrient === 'pH') soilMetrics.pH = value;
+          else if (nutrient === 'EC') soilMetrics.EC = value;
+          else if (nutrient === 'OC' || nutrient === 'ORG CARBON' || nutrient === 'ORGANIC CARBON') soilMetrics.OC = value;
+          else if (nutrient === 'N' || nutrient === 'NITROGEN') soilMetrics.N = value;
+          else if (nutrient === 'P' || nutrient === 'PHOSPHORUS' || nutrient === 'P₂O₅' || nutrient === 'P2O5') soilMetrics.P = value;
+          else if (nutrient === 'K' || nutrient === 'POTASSIUM' || nutrient === 'K₂O' || nutrient === 'K2O') soilMetrics.K = value;
+          else if (nutrient === 'S' || nutrient === 'SULPHUR' || nutrient === 'SULFUR') soilMetrics.S = value;
+          else if (nutrient === 'ZN' || nutrient === 'ZINC') soilMetrics.Zn = value;
+          else if (nutrient === 'CU' || nutrient === 'COPPER') soilMetrics.Cu = value;
+          else if (nutrient === 'FE' || nutrient === 'IRON') soilMetrics.Fe = value;
+          else if (nutrient === 'MN' || nutrient === 'MANGANESE') soilMetrics.Mn = value;
+          else if (nutrient === 'B' || nutrient === 'BORON') soilMetrics.B = value;
+        });
+        window.nmCurrentSoilMetrics = soilMetrics;
+        window.nmCurrentSummary = res.summary || [];
+        
+        console.log('NM soil metrics stored for PDF:', soilMetrics);
       }
 
       // --- Cache totals + stages for PDF export (from res.stages.dose) ---
@@ -27654,6 +27765,39 @@ function nmRestoreSectionStates() {
       }
     }
   });
+  
+  // Restore tabs wrapper state
+  const tabsWrapperCollapsed = localStorage.getItem('nmTabsWrapperCollapsed') === 'true';
+  if (tabsWrapperCollapsed) {
+    const wrapper = document.getElementById('nm-tabs-wrapper');
+    const toggleIcon = document.getElementById('nm-tabs-wrapper-toggle-icon');
+    if (wrapper) {
+      wrapper.classList.add('collapsed');
+      if (toggleIcon) toggleIcon.textContent = '▶';
+    }
+  }
+}
+
+// Toggle tabs wrapper visibility
+function nmToggleTabsWrapper() {
+  const wrapper = document.getElementById('nm-tabs-wrapper');
+  const toggleIcon = document.getElementById('nm-tabs-wrapper-toggle-icon');
+  
+  if (!wrapper) return;
+  
+  const isCollapsed = wrapper.classList.contains('collapsed');
+  
+  if (isCollapsed) {
+    // Expand section
+    wrapper.classList.remove('collapsed');
+    if (toggleIcon) toggleIcon.textContent = '▼';
+    localStorage.setItem('nmTabsWrapperCollapsed', 'false');
+  } else {
+    // Collapse section
+    wrapper.classList.add('collapsed');
+    if (toggleIcon) toggleIcon.textContent = '▶';
+    localStorage.setItem('nmTabsWrapperCollapsed', 'true');
+  }
 }
 
 function nmShowHelp() {
