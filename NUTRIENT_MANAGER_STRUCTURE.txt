@@ -1,0 +1,156 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║           NUTRIENT MANAGER MODULE - ENHANCED STRUCTURE                 ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ #mod-fertilizer                                                      │
+│ ├─ .nm-dashboard ............................ Dashboard Container    │
+│ │  ├─ .nm-metrics-grid .................... Metrics Grid            │
+│ │  │  ├─ .nm-metric-card.primary .......... Total Plans Card        │
+│ │  │  ├─ .nm-metric-card.success .......... Active Calcs Card       │
+│ │  │  ├─ .nm-metric-card.warning .......... Total Cost Card         │
+│ │  │  └─ .nm-metric-card.info ............. Avg Yield Card          │
+│ │  │                                                                 │
+│ │  └─ .nm-quick-actions ................... Quick Actions           │
+│ │     └─ .nm-actions-grid ................. Actions Grid            │
+│ │        ├─ .nm-action-btn ................ Load Test               │
+│ │        ├─ .nm-action-btn ................ Calculate               │
+│ │        ├─ .nm-action-btn ................ Export PDF              │
+│ │        ├─ .nm-action-btn ................ View Schedule           │
+│ │        ├─ .nm-action-btn ................ Clear All               │
+│ │        └─ .nm-action-btn ................ Help                    │
+│ │                                                                     │
+│ ├─ #nm-loading-overlay ..................... Loading Overlay         │
+│ │  ├─ .nm-spinner ......................... Spinner Animation        │
+│ │  ├─ .nm-loading-text .................... Loading Text            │
+│ │  └─ .nm-progress-bar .................... Progress Bar            │
+│ │     └─ .nm-progress-fill ................ Progress Fill           │
+│ │                                                                     │
+│ ├─ .module-header .......................... Module Header           │
+│ │  ├─ .nm-toolbar ......................... Toolbar                  │
+│ │  │  ├─ #nm-client ....................... Client Selector         │
+│ │  │  ├─ #nm-rating-scheme ................ Rating Scheme           │
+│ │  │  ├─ #nm-device-id .................... Device ID Input         │
+│ │  │  ├─ #nm-test-id ...................... Test ID Input           │
+│ │  │  ├─ #nm-crop ......................... Crop Selector           │
+│ │  │  └─ .nm-advanced ..................... Advanced Settings       │
+│ │  │     ├─ #nm-target-yield .............. Target Yield + Tooltip  │
+│ │  │     ├─ #nm-method-soil ............... Soil Checkbox           │
+│ │  │     ├─ #nm-method-fert ............... Fertigation Checkbox    │
+│ │  │     ├─ #nm-method-foliar ............. Foliar Checkbox         │
+│ │  │     └─ #nm-method .................... Method Selector + Tooltip│
+│ │  └─ Context Strip ...................... Field/Soil/Scheme Info   │
+│ │                                                                     │
+│ └─ .nm-content ............................. Content Area            │
+│    ├─ .tab-nav ............................. Tab Navigation          │
+│    │  ├─ Soil Test Summary Tab                                      │
+│    │  ├─ Nutrient Schedule Tab                                      │
+│    │  └─ Export Report Tab                                          │
+│    │                                                                  │
+│    └─ .sub-tab-content .................... Tab Content             │
+│       ├─ #tab-nm-summary .................. Summary Tab             │
+│       │  └─ #nm-fertility-body ............ Table with .nm-badge    │
+│       │                                                               │
+│       ├─ #tab-nm-schedule ................. Schedule Tab            │
+│       │  ├─ Nutrient Schedule View                                  │
+│       │  └─ Fertilizer Schedule View                                │
+│       │                                                               │
+│       └─ #tab-nm-export ................... Export Tab              │
+│          └─ PDF Report Preview                                       │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ FLOATING COMPONENTS                                                  │
+├─────────────────────────────────────────────────────────────────────┤
+│ .nm-toast (position: fixed) ............... Toast Notifications     │
+│  ├─ .nm-toast.success ..................... Success Toast           │
+│  ├─ .nm-toast.error ....................... Error Toast             │
+│  ├─ .nm-toast.warning ..................... Warning Toast           │
+│  └─ .nm-toast.info ........................ Info Toast              │
+│                                                                       │
+│ .nm-tooltip ............................... Tooltips (hover)         │
+│  ├─ .nm-tooltip-icon ...................... Info Icon (i)           │
+│  └─ .nm-tooltip-text ...................... Tooltip Text            │
+│                                                                       │
+│ .nm-empty-state ........................... Empty State Display      │
+│  ├─ .nm-empty-icon ........................ Icon (🌱)               │
+│  ├─ .nm-empty-title ....................... Title                   │
+│  ├─ .nm-empty-text ........................ Description             │
+│  └─ .nm-empty-action ...................... Action Button           │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ CSS CLASSES BY CATEGORY                                              │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                       │
+│ Dashboard:                                                           │
+│   .nm-dashboard, .nm-metrics-grid, .nm-metric-card                  │
+│   .nm-metric-icon, .nm-metric-content, .nm-metric-label            │
+│   .nm-metric-value, .nm-metric-subtitle                             │
+│                                                                       │
+│ Quick Actions:                                                       │
+│   .nm-quick-actions, .nm-actions-grid, .nm-action-btn              │
+│   .nm-action-icon                                                    │
+│                                                                       │
+│ Loading:                                                             │
+│   .nm-loading-overlay, .nm-spinner, .nm-loading-text               │
+│   .nm-progress-bar, .nm-progress-fill                               │
+│                                                                       │
+│ Badges:                                                              │
+│   .nm-badge, .nm-badge.low, .nm-badge.medium                        │
+│   .nm-badge.high, .nm-badge.adequate                                │
+│                                                                       │
+│ Tooltips:                                                            │
+│   .nm-tooltip, .nm-tooltip-icon, .nm-tooltip-text                  │
+│                                                                       │
+│ Toasts:                                                              │
+│   .nm-toast, .nm-toast-icon, .nm-toast-content                     │
+│   .nm-toast-title, .nm-toast-message, .nm-toast-close              │
+│                                                                       │
+│ Empty State:                                                         │
+│   .nm-empty-state, .nm-empty-icon, .nm-empty-title                 │
+│   .nm-empty-text, .nm-empty-action                                  │
+│                                                                       │
+│ Skeleton:                                                            │
+│   .nm-skeleton, .nm-skeleton-row, .nm-skeleton-cell                │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ JAVASCRIPT FUNCTIONS BY CATEGORY                                     │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                       │
+│ Dashboard:                                                           │
+│   nmUpdateDashboard()  nmInitDashboard()  nmFormatRating()         │
+│                                                                       │
+│ Loading:                                                             │
+│   nmShowLoading()  nmHideLoading()  nmUpdateProgress()             │
+│   nmSetButtonLoading()                                              │
+│                                                                       │
+│ Notifications:                                                       │
+│   nmShowToast()  nmShowEmptyState()  nmShowSkeleton()              │
+│                                                                       │
+│ Quick Actions:                                                       │
+│   nmQuickLoadTest()  nmQuickCalculate()  nmQuickExport()           │
+│   nmViewSchedule()  nmClearAll()  nmShowHelp()                     │
+│                                                                       │
+│ Table Population:                                                    │
+│   nmPopulateFertilityTable()                                        │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ RESPONSIVE BREAKPOINTS                                               │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                       │
+│ Desktop (> 768px):                                                   │
+│   • Multi-column metric cards                                       │
+│   • Horizontal toolbar layout                                       │
+│   • Full-width tables                                               │
+│                                                                       │
+│ Mobile (≤ 768px):                                                    │
+│   • Single-column metric cards                                      │
+│   • Stacked toolbar items                                           │
+│   • Horizontal scroll tables                                        │
+│   • 2-column quick actions                                          │
+│   • Full-width toasts                                               │
+└─────────────────────────────────────────────────────────────────────┘
+
