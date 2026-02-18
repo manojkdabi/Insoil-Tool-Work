@@ -20761,9 +20761,14 @@ function renderDeviceRegistry() {
   
   console.log(`📄 Rendering Devices page ${registryCurrentPage}/${totalPages} (${startIdx + 1}-${endIdx} of ${totalRecords})`);
 
-  pagedRegistry.forEach(function (r) {
+  pagedRegistry.forEach(function (r, pageIdx) {
     const tr = document.createElement('tr');
     tr.style.cursor = 'pointer'; // Show hand cursor to indicate clickability
+    
+    // ✅ Track original Device ID for save mapping
+    if (r.did) {
+      tr.setAttribute('data-original-did', r.did);
+    }
 
     // ✅ FIX XSS: Escape all user-provided values
     const safeDid = escapeHtml(String(r.did ?? ''));
@@ -21750,12 +21755,17 @@ function saveDeviceRegistry() {
     if (!tbody) return;
 
     const rows = Array.from(tbody.querySelectorAll('tr'));
-    const newRegObjects = [];
     let hadErrors = false;
     const allErrorMessages = [];
     let anyData = false;
+    
+    // Track rows to update by Device ID
+    const rowUpdates = [];
 
     rows.forEach(function (row, rowIndex) {
+        // Get original Device ID if this row was rendered from existing data
+        const originalDid = row.getAttribute('data-original-did');
+        
         // Grab inputs by class (ignores Geoapify's extra visible input)
         const clientInput    = row.querySelector('.reg-client');
         const companyInput   = row.querySelector('.reg-company');
@@ -21863,32 +21873,35 @@ function saveDeviceRegistry() {
             return;
         }
 
-        // All validations for this row passed → include in save batch
+        // All validations for this row passed → include in update batch
         const date = dateRaw || ''; // keep yyyy-mm-dd for <input type="date">
 
         if (client || company || pan || gstin || address || did || simRaw ||
             aadhaar || mobile || moName || date || place || gpsRaw || pin ||
             block || district || state || prodBatchId) {
 
-            newRegObjects.push({
-                client,
-                company,
-                pan,
-                gstin,
-                address,
-                did,
-                sim: simRaw,
-                aadhaar,
-                mobile,
-                moName,
-                date,
-                place,
-                gps: gpsRaw,
-                pin,
-                block,
-                district,
-                state,
-                prodBatchId
+            rowUpdates.push({
+                originalDid: originalDid,  // Device ID before editing (null if new row)
+                data: {
+                    client,
+                    company,
+                    pan,
+                    gstin,
+                    address,
+                    did,
+                    sim: simRaw,
+                    aadhaar,
+                    mobile,
+                    moName,
+                    date,
+                    place,
+                    gps: gpsRaw,
+                    pin,
+                    block,
+                    district,
+                    state,
+                    prodBatchId
+                }
             });
         }
     });
@@ -21908,10 +21921,34 @@ function saveDeviceRegistry() {
         return;
     }
 
-    // All good → update in-memory registry & sheet
-    deviceRegistry = newRegObjects;
+    // ✅ CRITICAL FIX: Update existing deviceRegistry instead of replacing it
+    // This preserves all rows across all pages, not just the visible 50 rows
+    
+    // Create a copy of the current registry to work with
+    let updatedRegistry = [...deviceRegistry];
+    
+    rowUpdates.forEach(update => {
+        if (update.originalDid) {
+            // This is an existing row - find and update it
+            const existingIndex = updatedRegistry.findIndex(r => r.did === update.originalDid);
+            if (existingIndex !== -1) {
+                // Update existing row
+                updatedRegistry[existingIndex] = update.data;
+            } else {
+                // Original row not found (Device ID was changed?) - add as new
+                updatedRegistry.push(update.data);
+            }
+        } else {
+            // This is a new row - append it
+            updatedRegistry.push(update.data);
+        }
+    });
+    
+    // Update the global registry
+    deviceRegistry = updatedRegistry;
 
-    const sheetRows = newRegObjects.map(function (r) {
+    // Prepare data for backend save (ALL rows, not just visible ones)
+    const sheetRows = deviceRegistry.map(function (r) {
         return [
             r.client   || '',
             r.company  || '',
@@ -21938,9 +21975,11 @@ function saveDeviceRegistry() {
         google.script.run
             .withSuccessHandler(function (result) {
                 console.log('Device_Registry saved:', result);
-                alert('Registry saved successfully: ' + sheetRows.length + ' rows');
+                alert('Registry saved successfully: ' + sheetRows.length + ' total rows (including all pages)');
                 registryEditMode = false;
                 applyRegistryEditMode();
+                // Rebuild search cache after save
+                buildRegistrySearchCache();
                 // Now safe to re-render from clean data
                 renderDeviceRegistry();
             })
@@ -21953,6 +21992,8 @@ function saveDeviceRegistry() {
         console.warn('google.script.run not available; registry not saved to sheet.');
         registryEditMode = false;
         applyRegistryEditMode();
+        // Rebuild search cache after local changes
+        buildRegistrySearchCache();
     }
 }
 
