@@ -1588,11 +1588,10 @@
 
     #mod-fertilizer .nm-toolbar-row {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       align-items: center;
       gap: 10px;
       width: 100%;
-      overflow-x: auto;
     }
 
     #mod-fertilizer .nm-advanced {
@@ -2394,69 +2393,15 @@
     }
 
     #mod-fertilizer .nm-action-btn:hover {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      color: #2563eb;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    }
-
-    /* Primary Actions - Blue gradient */
-    #mod-fertilizer .nm-action-btn:nth-child(1),
-    #mod-fertilizer .nm-action-btn:nth-child(2),
-    #mod-fertilizer .nm-action-btn:nth-child(3) {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      border-color: #2563eb;
-      color: white;
-    }
-
-    #mod-fertilizer .nm-action-btn:nth-child(1):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(2):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(3):hover {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-      border-color: #1d4ed8;
-    }
-
-    /* Secondary Actions - Light blue/slate */
-    #mod-fertilizer .nm-action-btn:nth-child(4),
-    #mod-fertilizer .nm-action-btn:nth-child(9),
-    #mod-fertilizer .nm-action-btn:nth-child(10) {
-      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-      border-color: #93c5fd;
-      color: #1e40af;
-    }
-
-    #mod-fertilizer .nm-action-btn:nth-child(4):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(9):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(10):hover {
-      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-      border-color: #60a5fa;
-      color: #1e3a8a;
-    }
-
-    /* Utility Actions - Neutral gray */
-    #mod-fertilizer .nm-action-btn:nth-child(5),
-    #mod-fertilizer .nm-action-btn:nth-child(6),
-    #mod-fertilizer .nm-action-btn:nth-child(7),
-    #mod-fertilizer .nm-action-btn:nth-child(8) {
-      background: #f9fafb;
-      border-color: #e5e7eb;
-      color: #374151;
-    }
-
-    #mod-fertilizer .nm-action-btn:nth-child(5):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(6):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(7):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(8):hover {
-      background: #f3f4f6;
-      border-color: #d1d5db;
-      color: #1f2937;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
     }
 
     #mod-fertilizer .nm-action-icon {
-      font-size: 1.25rem;
-      line-height: 1;
-      display: inline-block;
-      width: 1.5em;
-      height: 1.5em;
-      text-align: center;
+      font-size: 1.5rem;
     }
 
     /* Loading States */
@@ -10487,12 +10432,12 @@ tr.duplicate-row {
       <div class="module-header">
         <div class="nm-toolbar">
           <div class="nm-toolbar-row nm-toolbar-primary">
-            <select id="nm-client" class="search-input" style="min-width: 150px; border-radius: 20px; border: 1px solid #d1d5db; padding: 6px 16px; background: white; font-size: 0.875rem;">
+            <select id="nm-client" class="search-input" style="min-width: 150px;">
               <option value="Default">Default Client</option>
             </select>
             <span style="font-size:0.8rem; color:#6b7280;">Client</span>
 
-            <select id="nm-rating-scheme" class="search-input" style="min-width: 180px; border-radius: 20px; border: 1px solid #d1d5db; padding: 6px 16px; background: white; font-size: 0.875rem;">
+            <select id="nm-rating-scheme" class="search-input" style="min-width: 180px;">
               <option value="">Rating scheme...</option>
             </select>
             <span style="font-size:0.8rem; color:#6b7280;">Scheme</span>
@@ -10519,7 +10464,7 @@ tr.duplicate-row {
 
             <span class="divider-v"></span>
 
-            <select id="nm-crop" class="search-input" style="min-width: 180px; border-radius: 20px; border: 1px solid #d1d5db; padding: 6px 16px; background: white; font-size: 0.875rem;">
+            <select id="nm-crop" class="search-input" style="min-width: 180px;">
               <option value="">Select crop...</option>
             </select>
           </div>
@@ -10554,8 +10499,7 @@ tr.duplicate-row {
               <span style="font-size:0.8rem; color:#6b7280;">Calc method</span>
 
               <select id="nm-method" onchange="onMethodChange()" 
-                title="Select calculation methodology: RDF (Recommended Dose of Fertilizer) or STCR (Soil Test Crop Response)"
-                style="border-radius: 20px; border: 1px solid #d1d5db; padding: 6px 16px; background: white; font-size: 0.875rem;">
+                title="Select calculation methodology: RDF (Recommended Dose of Fertilizer) or STCR (Soil Test Crop Response)">
                 <option value="">Select method...</option>
                 <option value="RDF">RDF</option>
                 <option value="STCR">STCR</option>
@@ -10578,7 +10522,7 @@ tr.duplicate-row {
               Export Plan (PDF)
             </button>
 
-            <select id="nutrient-manager-language" style="padding:6px 16px; border:1px solid #d1d5db; border-radius:20px; font-size:0.875rem; background:#fff; cursor:pointer; margin-left:8px;">
+            <select id="nutrient-manager-language" style="padding:6px 10px; border:1px solid #d1d5db; border-radius:6px; font-size:0.875rem; background:#fff; cursor:pointer; margin-left:8px;">
               <option value="en">English</option>
               <option value="hi">हिन्दी (Hindi)</option>
             </select>
@@ -10586,12 +10530,21 @@ tr.duplicate-row {
             <div class="spacer"></div>
           </div>
         </div>
+        <!-- Context strip -->
+        <div style="padding:4px 20px 8px 20px; font-size:0.78rem; color:#6b7280;
+                display:flex; gap:16px; border-top:1px solid var(--border-color);">
+          <span>Field: <span id="nm-field-context" style="font-weight:600;">–</span></span>
+          <span>Soil type: <span id="nm-soil-type" style="font-weight:600;">–</span></span>
+          <span>Scheme: <span id="nm-scheme-label" style="font-weight:600;">–</span></span>
+          <span>Mode: <span id="nm-mode-label" style="font-weight:600;">Standard (no yield)</span></span>
+        </div>
       </div>
 
       <div class="nm-content">
         <div class="tab-nav">
           <button class="tab-btn active" onclick="subTab('nm-summary', event)">Soil Test Summary</button>
           <button class="tab-btn" onclick="subTab('nm-schedule', event)">Nutrient Schedule</button>
+          <button class="tab-btn" onclick="subTab('nm-export', event)">Export Report</button>
           <div class="tab-info">
             <button class="tab-info-btn" onclick="toggleTabInfo(this, 'fertilizer')" title="About Nutrient Manager">i</button>
             <div class="tab-info-panel">
@@ -10692,6 +10645,1186 @@ tr.duplicate-row {
           </div>
         </div>
 
+        <div id="tab-nm-export" class="sub-tab-content">
+          <div class="panel-label">Export report</div>
+          <div style="padding:10px; color:#4b5563;">
+            The preview below updates when you recalculate the nutrient plan. Use “Export Plan (PDF)” to generate the
+            final report.
+          </div>
+          <div class="soil-report">
+            <div class="hero">
+              <div class="hero-inner">
+                <div class="brand">
+                  <div class="brand-mark" aria-hidden="true">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 20c0-4 0-12 0-12" stroke="rgba(255,255,255,.92)" stroke-width="2"
+                        stroke-linecap="round"></path>
+                      <path d="M12 8c-2.8 0-5-2.2-5-5 2.8 0 5 2.2 5 5Z" fill="rgba(255,255,255,.85)"></path>
+                      <path d="M12 10c2.8 0 5-2.2 5-5-2.8 0-5 2.2-5 5Z" fill="rgba(255,255,255,.65)"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h1>Insoil</h1>
+                    <div class="powered">Powered by upaj</div>
+                  </div>
+                </div>
+                <div class="hero-title">Soil Analysis Report</div>
+              </div>
+            </div>
+
+            <div class="meta-wrap">
+              <div class="meta">
+                <div class="cell">
+                  <div class="label">Report ID</div>
+                  <div class="value" id="metaReportId">—</div>
+                </div>
+                <div class="cell">
+                  <div class="label">Report Generation Date &amp; Time</div>
+                  <div class="value" id="metaReportDt">—</div>
+                </div>
+                <div class="cell">
+                  <div class="label">Name</div>
+                  <div class="value" id="metaName">—</div>
+                </div>
+              </div>
+
+              <div class="report-actions">
+                <span class="pill">Preview updates with selected test data.</span>
+                <button class="btn btn-slate" type="button" onclick="nmExportPlan()">Export Plan (PDF)</button>
+              </div>
+            </div>
+
+            <div class="page">
+              <div class="section-title">
+                <h2>Physico-chemical properties</h2>
+                <p class="hint">Result Value (Ideal Range)</p>
+              </div>
+
+              <div class="param-card" data-key="pH" data-type="cuts" data-min="3" data-max="11" data-cut1="6.5"
+                data-cut2="7.5" data-dp="2">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">pH</p>
+                      <p class="psub">Soil Reaction</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg low" style="width:43.75%"></div>
+                        <div class="seg mid" style="width:12.5%"></div>
+                        <div class="seg high" style="width:43.75%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:43.75%">6.5</span>
+                        <span class="tick" style="left:43.75%">7.5</span>
+                      </div>
+                      <div class="zoneWords">
+                        <span class="zL">Acidic</span>
+                        <span class="zM">Neutral</span>
+                        <span class="zR">Alkaline</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">pH affects nutrient absorption and promotes healthy root growth.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="param-card" data-key="EC" data-type="cuts" data-min="0" data-max="1.5" data-cut1="0.5"
+                data-cut2="1.0" data-dp="2">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">EC (dS/m)</p>
+                      <p class="psub">Salinity</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg low" style="width:33.3333%"></div>
+                        <div class="seg mid" style="width:33.3333%"></div>
+                        <div class="seg high" style="width:33.3334%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:33.33%">0.5</span>
+                        <span class="tick" style="left:66.67%">1.0</span>
+                      </div>
+                      <div class="zoneWords">
+                        <span class="zL">Low</span>
+                        <span class="zM">Medium</span>
+                        <span class="zR">High</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">EC influences water and nutrient uptake, affecting growth and quality.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="param-card" data-key="OC" data-type="cuts" data-min="0" data-max="1.2" data-cut1="0.5"
+                data-cut2="0.75" data-dp="2">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">OC (w%)</p>
+                      <p class="psub">Organic Carbon</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg low" style="width:41.6667%"></div>
+                        <div class="seg mid" style="width:20.8333%"></div>
+                        <div class="seg high" style="width:37.5%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:41.67%">0.5</span>
+                        <span class="tick" style="left:62.50%">0.75</span>
+                      </div>
+                      <div class="zoneWords">
+                        <span class="zL">Low</span>
+                        <span class="zM">Medium</span>
+                        <span class="zR">High</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">Organic carbon enriches soil, supports organisms, and improves fruit development.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-title">
+                <h2>Macronutrients</h2>
+                <p class="hint">Result Value (Ideal Range)</p>
+              </div>
+
+              <div class="param-card" data-key="N" data-type="cuts" data-min="0" data-max="800" data-cut1="280"
+                data-cut2="560" data-dp="0">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">N (kg/ha)</p>
+                      <p class="psub">Available Nitrogen</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg low" style="width:35%"></div>
+                        <div class="seg mid" style="width:35%"></div>
+                        <div class="seg high" style="width:30%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:35.00%">280</span>
+                        <span class="tick" style="left:70.00%">560</span>
+                      </div>
+                      <div class="zoneWords">
+                        <span class="zL">Low</span>
+                        <span class="zM">Medium</span>
+                        <span class="zR">High</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">Nitrogen promotes growth, photosynthesis, fruit size and vigor.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="param-card" data-key="P2O5" data-type="cuts" data-min="0" data-max="260" data-cut1="12"
+                data-cut2="24" data-dp="0">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">P (kg/ha)</p>
+                      <p class="psub">Available Phosphorus</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg low" style="width:4.6154%"></div>
+                        <div class="seg mid" style="width:4.6154%"></div>
+                        <div class="seg high" style="width:90.7692%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:4.62%">12</span>
+                        <span class="tick" style="left:9.23%">24</span>
+                      </div>
+                      <div class="zoneWords">
+                        <span class="zL">Low</span>
+                        <span class="zM">Medium</span>
+                        <span class="zR">High</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">Phosphorus supports root and flower development, improving fruit quality.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="param-card" data-key="K2O" data-type="cuts" data-min="0" data-max="400" data-cut1="116"
+                data-cut2="234" data-dp="0">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">K (kg/ha)</p>
+                      <p class="psub">Available Potassium</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg low" style="width:29%"></div>
+                        <div class="seg mid" style="width:29.5%"></div>
+                        <div class="seg high" style="width:41.5%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:29.00%">116</span>
+                        <span class="tick" style="left:58.50%">234</span>
+                      </div>
+                      <div class="zoneWords">
+                        <span class="zL">Low</span>
+                        <span class="zM">Medium</span>
+                        <span class="zR">High</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">Potassium regulates water usage, enhances disease resistance, and improves fruit.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="param-card" data-key="S" data-type="cuts" data-min="0" data-max="40" data-cut1="10"
+                data-cut2="20" data-dp="1">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">S (mg/kg)</p>
+                      <p class="psub">Available Sulphur</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg low" style="width:25%"></div>
+                        <div class="seg mid" style="width:25%"></div>
+                        <div class="seg high" style="width:50%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:25.00%">10</span>
+                        <span class="tick" style="left:50.00%">20</span>
+                      </div>
+                      <div class="zoneWords">
+                        <span class="zL">Low</span>
+                        <span class="zM">Medium</span>
+                        <span class="zR">High</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">Sulphur contributes to amino acid production, photosynthesis, and enhances oil
+                      synthesis.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-title">
+                <h2>Micronutrients</h2>
+                <p class="hint">Result Value (Ideal Range)</p>
+              </div>
+
+              <div class="param-card" data-key="Cu" data-type="bands" data-bands="0,0.2,0.4,0.6,0.8,1.0,1.01"
+                data-dp="1" data-endmark="1">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">Cu (mg/kg)</p>
+                      <p class="psub">Available Copper</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg b1" style="width:16.6667%"></div>
+                        <div class="seg b2" style="width:16.6667%"></div>
+                        <div class="seg b3" style="width:16.6667%"></div>
+                        <div class="seg b4" style="width:16.6667%"></div>
+                        <div class="seg b5" style="width:16.6667%"></div>
+                        <div class="seg b6" style="width:16.6665%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:0%">0</span>
+                        <span class="tick" style="left:16.67%">0.2</span>
+                        <span class="tick" style="left:33.33%">0.4</span>
+                        <span class="tick" style="left:50.00%">0.6</span>
+                        <span class="tick" style="left:66.67%">0.8</span>
+                        <span class="tick" style="left:83.33%">1.0</span>
+                        <span class="tick" style="left:100%">1.2</span>
+                        <span class="tick end">&lt;</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">Copper aids enzyme activity and influences pollen formation &amp; fertilization.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="param-card" data-key="Fe" data-type="bands" data-bands="0,2.5,4.5,6.5,8.5,10.5,10.51"
+                data-dp="1" data-endmark="1">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">Fe (mg/kg)</p>
+                      <p class="psub">Available Iron</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg b1" style="width:20%"></div>
+                        <div class="seg b2" style="width:16%"></div>
+                        <div class="seg b3" style="width:16%"></div>
+                        <div class="seg b4" style="width:16%"></div>
+                        <div class="seg b5" style="width:16%"></div>
+                        <div class="seg b6" style="width:16%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:0%">0</span>
+                        <span class="tick" style="left:20.00%">2.5</span>
+                        <span class="tick" style="left:36.00%">4.5</span>
+                        <span class="tick" style="left:52.00%">6.5</span>
+                        <span class="tick" style="left:68.00%">8.5</span>
+                        <span class="tick" style="left:84.00%">10.5</span>
+                        <span class="tick" style="left:100%">12.5</span>
+                        <span class="tick end">&lt;</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">Iron ensures healthy green leaves and improves photosynthesis and growth.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="param-card" data-key="Zn" data-type="bands" data-bands="0,0.3,0.6,0.9,1.2,1.5,1.51"
+                data-dp="2" data-endmark="1">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">Zn (mg/kg)</p>
+                      <p class="psub">Available Zinc</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg b1" style="width:16.6667%"></div>
+                        <div class="seg b2" style="width:16.6667%"></div>
+                        <div class="seg b3" style="width:16.6667%"></div>
+                        <div class="seg b4" style="width:16.6667%"></div>
+                        <div class="seg b5" style="width:16.6667%"></div>
+                        <div class="seg b6" style="width:16.6665%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:0%">0</span>
+                        <span class="tick" style="left:16.67%">0.3</span>
+                        <span class="tick" style="left:33.33%">0.6</span>
+                        <span class="tick" style="left:50.00%">0.9</span>
+                        <span class="tick" style="left:66.67%">1.2</span>
+                        <span class="tick" style="left:83.33%">1.5</span>
+                        <span class="tick" style="left:100%">1.8</span>
+                        <span class="tick end">&lt;</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">Zinc supports hormone production, growth, fruit development and yield.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="param-card" data-key="Mn" data-type="bands" data-bands="0,1.0,3.0,5.0,7.0,9.0,9.01"
+                data-dp="2" data-endmark="1">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">Mn (mg/kg)</p>
+                      <p class="psub">Available Manganese</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg b1" style="width:9.0909%"></div>
+                        <div class="seg b2" style="width:18.1818%"></div>
+                        <div class="seg b3" style="width:18.1818%"></div>
+                        <div class="seg b4" style="width:18.1818%"></div>
+                        <div class="seg b5" style="width:18.1818%"></div>
+                        <div class="seg b6" style="width:18.1819%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:0%">0</span>
+                        <span class="tick" style="left:9.09%">1.0</span>
+                        <span class="tick" style="left:27.27%">3.0</span>
+                        <span class="tick" style="left:45.45%">5.0</span>
+                        <span class="tick" style="left:63.64%">7.0</span>
+                        <span class="tick" style="left:81.82%">9.0</span>
+                        <span class="tick" style="left:100%">11</span>
+                        <span class="tick end">&lt;</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">Manganese aids photosynthesis, nutrient absorption, and in the movement of iron.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="param-card" data-key="B" data-type="bands" data-bands="0,0.2,0.4,0.6,0.8,1.0,1.01" data-dp="2"
+                data-endmark="1">
+                <div class="param-row">
+                  <div class="param-left">
+                    <div class="badge"></div>
+                    <div>
+                      <p class="pname">B (mg/kg)</p>
+                      <p class="psub">Available Boron</p>
+                    </div>
+                  </div>
+                  <div class="param-mid">
+                    <div class="result-top">
+                      <div class="result-value" data-role="value">—</div>
+                      <div class="result-chip" data-role="rating">—</div>
+                    </div>
+                    <div class="bar-wrap">
+                      <div class="bar">
+                        <div class="seg b1" style="width:15.3846%"></div>
+                        <div class="seg b2" style="width:23.0769%"></div>
+                        <div class="seg b3" style="width:15.3846%"></div>
+                        <div class="seg b4" style="width:15.3846%"></div>
+                        <div class="seg b5" style="width:15.3846%"></div>
+                        <div class="seg b6" style="width:15.3847%"></div>
+                      </div>
+                      <div class="marker" data-role="marker" style="left:50%"></div>
+                      <div class="tickline">
+                        <span class="tick" style="left:0%">0</span>
+                        <span class="tick" style="left:15.38%">0.2</span>
+                        <span class="tick" style="left:38.46%">0.5</span>
+                        <span class="tick" style="left:53.85%">0.7</span>
+                        <span class="tick" style="left:69.23%">0.9</span>
+                        <span class="tick" style="left:84.62%">1.1</span>
+                        <span class="tick" style="left:100%">1.3</span>
+                        <span class="tick end">&lt;</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="param-right">
+                    <div class="rtop">What It Means?</div>
+                    <p class="rtext">Boron enhances pollen formation, pollen tube growth and flowering.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-card">
+                <h3>Testing Methodology</h3>
+                <ol>
+                  <li>Soil Sample Preparation is conducted using Chemical Extraction Methods.</li>
+                  <li>Macro and micro-nutrient parameters testing is conducted using Multiple-Photo spectrometry.</li>
+                </ol>
+              </div>
+
+              <div class="info-card">
+                <h3>Source/References</h3>
+                <p>Fertilizer recommendations and their respective dosages are derived from Govt sources such as ICAR
+                  bodies/State Agriculture Universities/KVK and Agriculture departments.</p>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inventory Manager Module -->
+    <!-- ==================== Inventory Module ==================== -->
+    <div id="mod-inventory" class="module-view">
+      <!-- Enhanced Header with Search and Actions -->
+      <div class="module-header">
+        <div class="inventory-header">
+          <div class="inventory-title">Inventory Manager</div>
+          <div class="inventory-header-note">
+            <span id="inventory-save-status" class="inventory-save-status">All changes saved</span>
+          </div>
+        </div>
+        <div class="inventory-toolbar">
+          <div class="inventory-toolbar-left">
+            <div class="inventory-search-box">
+              <input type="text" id="inventory-search-input" placeholder="Search inventory..." class="inventory-search-input" oninput="filterInventoryGlobal(this.value)">
+              <span class="inventory-search-icon">🔍</span>
+            </div>
+            <div class="inventory-filter-chips" id="inventory-filter-chips"></div>
+          </div>
+          <div class="inventory-toolbar-right">
+            <button class="btn btn-outline btn-sm" onclick="exportInventoryCSV()">📥 Export CSV</button>
+            <button class="btn btn-outline btn-sm" onclick="exportInventoryExcel()">📊 Export Excel</button>
+            <button class="btn btn-blue btn-sm" onclick="refreshInventoryData()">🔄 Refresh</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Tab -->
+      <div class="tab-nav inventory-tabs">
+        <button class="tab-btn active" onclick="inventoryTab('dashboard', event)">📊 Dashboard</button>
+        <button class="tab-btn" onclick="inventoryTab('stock', event)">Stock</button>
+        <button class="tab-btn" onclick="inventoryTab('constitution', event)">Device Constitution</button>
+        <button class="tab-btn" onclick="inventoryTab('approvals', event)">Approvals</button>
+        <button class="tab-btn" onclick="inventoryTab('liquidation', event)">Liquidation</button>
+        <button class="tab-btn" onclick="inventoryTab('prod-batch', event)">Prod Batch</button>
+        <button class="tab-btn" onclick="inventoryTab('refill', event)">Refill Batch</button>
+        <div class="tab-info">
+          <button class="tab-info-btn" onclick="toggleTabInfo(this, 'inventory')" title="About Inventory">i</button>
+          <div class="tab-info-panel">
+            <button class="tab-info-close" onclick="closeTabInfo(this)">×</button>
+            <div class="tab-info-content"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Overview -->
+      <div id="inv-tab-dashboard" class="tab-content active">
+        <div class="inventory-dashboard">
+          <!-- Key Metrics Cards -->
+          <div class="inventory-metrics-grid">
+            <div class="inventory-metric-card">
+              <div class="metric-icon">📦</div>
+              <div class="metric-content">
+                <div class="metric-label">Total Parts</div>
+                <div class="metric-value" id="metric-total-parts">0</div>
+                <div class="metric-change">Across <span id="metric-parts-items">0</span> items</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card">
+              <div class="metric-icon">🏭</div>
+              <div class="metric-content">
+                <div class="metric-label">Built Devices</div>
+                <div class="metric-value" id="metric-built-devices">0</div>
+                <div class="metric-change"><span id="metric-built-pending">0</span> in stock</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card">
+              <div class="metric-icon">💰</div>
+              <div class="metric-content">
+                <div class="metric-label">Total Value</div>
+                <div class="metric-value">₹<span id="metric-total-value">0</span></div>
+                <div class="metric-change">Cost per device: ₹<span id="metric-cost-per-device">0</span></div>
+              </div>
+            </div>
+            <div class="inventory-metric-card warning">
+              <div class="metric-icon">⚠️</div>
+              <div class="metric-content">
+                <div class="metric-label">Low Stock Alerts</div>
+                <div class="metric-value" id="metric-low-stock">0</div>
+                <div class="metric-change">Items below threshold</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card pending">
+              <div class="metric-icon">⏳</div>
+              <div class="metric-content">
+                <div class="metric-label">Pending Approvals</div>
+                <div class="metric-value" id="metric-pending-approvals">0</div>
+                <div class="metric-change">Awaiting action</div>
+              </div>
+            </div>
+            <div class="inventory-metric-card success">
+              <div class="metric-icon">✅</div>
+              <div class="metric-content">
+                <div class="metric-label">Recent Activity</div>
+                <div class="metric-value" id="metric-recent-count">0</div>
+                <div class="metric-change">Last 7 days</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="inventory-quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="quick-actions-grid">
+              <button class="quick-action-btn" onclick="inventoryTab('stock', event); inventorySubtab('stock', 'parts')">
+                <span class="action-icon">➕</span>
+                <span class="action-label">Add Parts</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('stock', event); inventorySubtab('stock', 'built')">
+                <span class="action-icon">🏭</span>
+                <span class="action-label">Register Device</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('approvals', event)">
+                <span class="action-icon">✓</span>
+                <span class="action-label">Review Approvals</span>
+              </button>
+              <button class="quick-action-btn" onclick="inventoryTab('liquidation', event)">
+                <span class="action-icon">📤</span>
+                <span class="action-label">Issue/Sale</span>
+              </button>
+              <button class="quick-action-btn" onclick="exportInventoryCSV()">
+                <span class="action-icon">📥</span>
+                <span class="action-label">Export Data</span>
+              </button>
+              <button class="quick-action-btn" onclick="refreshInventoryData()">
+                <span class="action-icon">🔄</span>
+                <span class="action-label">Refresh All</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent Activity Timeline -->
+          <div class="inventory-recent-activity">
+            <h3>Recent Activity</h3>
+            <div class="activity-timeline" id="activity-timeline">
+              <div class="activity-empty">No recent activity</div>
+            </div>
+          </div>
+
+          <!-- Low Stock Alerts -->
+          <div class="inventory-alerts" id="inventory-alerts-section" style="display:none;">
+            <h3>⚠️ Low Stock Alerts</h3>
+            <div class="alerts-list" id="low-stock-alerts"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Device Constitution -->
+      <div id="inv-tab-constitution" class="tab-content">
+        <div class="inventory-panel">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Device Constitution (BOM)</div>
+              <div class="inventory-panel-subtitle">Defines component usage and device cost model.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('constitution', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('constitution')">+ Row</button>
+              <button class="btn btn-outline" onclick="triggerInventoryCsv('constitution')">Import CSV</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('constitution')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('constitution')">Save</button>
+              <input id="inv-constitution-csv" type="file" accept=".csv,text/csv" style="display:none" onchange="importInventoryCsv('constitution', this)">
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-constitution-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('constitution', this)"></th>
+                  <th>Category</th>
+                  <th>Item Class</th>
+                  <th>Item</th>
+                  <th>Unit</th>
+                  <th>Units/Device</th>
+                  <th>Cost (Rs)/Unit</th>
+                  <th>Version</th>
+                  <th>Effective Date</th>
+                  <th>Cost/Device</th>
+                </tr>
+              </thead>
+              <tbody id="inv-constitution-body"></tbody>
+            </table>
+          </div>
+          <div class="inventory-footer">
+            <div class="inventory-summary">
+              Total estimated cost/device: ₹<span id="inv-constitution-total">0</span>
+            </div>
+            <div class="inventory-note">Tip: update Version/Effective Date when BOM changes.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stock -->
+      <div id="inv-tab-stock" class="tab-content active">
+        <div class="inventory-switch-group inventory-subtabs">
+          <span class="inventory-switch-label active" data-inv-subtab="parts">Parts</span>
+          <label class="inventory-switch">
+            <input type="checkbox" id="inv-stock-toggle" onchange="inventorySubtab('stock', this.checked ? 'built' : 'parts')">
+            <span class="inventory-switch-slider"></span>
+          </label>
+          <span class="inventory-switch-label" data-inv-subtab="built">Built Units</span>
+        </div>
+
+        <div id="inv-stock-parts" class="inventory-panel active">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Parts Stock</div>
+              <div class="inventory-panel-subtitle">Issue/Sale requests are created at row add.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('parts', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('parts')">+ Row</button>
+              <button class="btn btn-outline" onclick="triggerInventoryCsv('parts')">Import CSV</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('parts')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('parts')">Save</button>
+              <input id="inv-parts-csv" type="file" accept=".csv,text/csv" style="display:none" onchange="importInventoryCsv('parts', this)">
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-parts-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('parts', this)"></th>
+                  <th>Category</th>
+                  <th>Item Class</th>
+                  <th>Item</th>
+                  <th>Unit</th>
+                  <th>In-stock Qty</th>
+                  <th>Cost (Rs)/Unit</th>
+                  <th>Movement Type</th>
+                  <th>Date of Movement</th>
+                  <th>Delivery Date</th>
+                  <th>PO number</th>
+                  <th>Confirmed by</th>
+                  <th>Issued to</th>
+                  <th>Request ID</th>
+                </tr>
+              </thead>
+              <tbody id="inv-parts-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="inv-stock-built" class="inventory-panel" style="display:none;">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Built Units</div>
+              <div class="inventory-panel-subtitle">New builds consume BOM items and create a stock entry.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('built', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('built')">+ Row</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('built')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('built')">Save</button>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-built-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('built', this)"></th>
+                  <th>Serial</th>
+                  <th>Device ID</th>
+                  <th>Count</th>
+                  <th>Date of Manufacture</th>
+                  <th>Date of Sale</th>
+                  <th>Sold/Issued To</th>
+                  <th>Movement</th>
+                  <th>Confirmed</th>
+                  <th>Request ID</th>
+                </tr>
+              </thead>
+              <tbody id="inv-built-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liquidation -->
+      <div id="inv-tab-liquidation" class="tab-content">
+        <div class="inventory-switch-group inventory-liquidation-tabs">
+          <span class="inventory-switch-label active" data-inv-subtab="requests">Liquidation</span>
+          <label class="inventory-switch">
+            <input type="checkbox" id="inv-liquidation-toggle" onchange="inventoryLiquidationSubtab(this.checked ? 'clients' : 'requests')">
+            <span class="inventory-switch-slider"></span>
+          </label>
+          <span class="inventory-switch-label" data-inv-subtab="clients">Clients</span>
+        </div>
+
+        <div id="inv-liquidation-requests" class="inventory-panel active">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Liquidation</div>
+              <div class="inventory-panel-subtitle">Stock changes only after approval and acknowledgment.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('liquidation', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('liquidation')">+ Issue/Sale</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('liquidation')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('liquidation')">Save</button>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-liquidation-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('liquidation', this)"></th>
+                  <th>Request ID</th>
+                  <th>Item</th>
+                  <th>Issue/Sale</th>
+                  <th>Issued/Sold To</th>
+                  <th>Units Before</th>
+                  <th>Units After</th>
+                  <th>Units Issued</th>
+                  <th>Date Issued</th>
+                  <th>Acknowledged</th>
+                  <th>Evidence (PDF)</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="inv-liquidation-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="inv-liquidation-clients" class="inventory-panel" style="display:none;">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Clients</div>
+              <div class="inventory-panel-subtitle">Manage client/vendor records for liquidation.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('clients', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('clients')">+ Client</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('clients')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('clients')">Save</button>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-clients-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('clients', this)"></th>
+                  <th>Client type</th>
+                  <th>Client name</th>
+                  <th>Client address</th>
+                  <th>Client contact</th>
+                  <th>Client email</th>
+                  <th>Item</th>
+                  <th>GSTIN</th>
+                </tr>
+              </thead>
+              <tbody id="inv-clients-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prod Batch -->
+      <div id="inv-tab-prod-batch" class="tab-content">
+        <div class="inventory-panel">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Prod Batch (Master)</div>
+              <div class="inventory-panel-subtitle">Maintain production batch definitions for Inventory workflows.</div>
+            </div>
+            <div class="inventory-actions">
+              <button class="btn btn-green" onclick="dbAddRow('prod')">+ Row</button>
+              <button class="btn btn-outline btn-red" onclick="dbRemoveRows('prod')">− Row</button>
+              <button class="btn btn-blue btn-sm" onclick="dbSaveMaster('prod')">Save Prod Batch</button>
+              <label class="db-edit-toggle">
+                <input type="checkbox" data-db-edit-toggle="true" onchange="toggleDbEdit('prod-batch', this.checked)">
+                Edit Table
+              </label>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="tbl-db-prod-batch" class="selectable-table">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Refill Batch -->
+      <div id="inv-tab-refill" class="tab-content">
+        <div class="inventory-panel">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Refill Batch</div>
+              <div class="inventory-panel-subtitle">Track refill lots, sizes, and manufacturer details.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('refill', this.checked)"> Edit
+              </label>
+              <button class="btn btn-green" onclick="addInventoryRow('refill')">+ Row</button>
+              <button class="btn btn-outline btn-red" onclick="deleteInventoryRows('refill')">Delete Selected</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('refill')">Save</button>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-refill-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" onclick="toggleInventorySelectAll('refill', this)"></th>
+                  <th>Refill Box ID</th>
+                  <th>Lot size</th>
+                  <th>Refill lot ID</th>
+                  <th>Manufacturer name</th>
+                  <th>Manufacture date</th>
+                  <th>Expiry Date</th>
+                  <th>Delivery Date</th>
+                  <th>PO number</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody id="inv-refill-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approvals -->
+      <div id="inv-tab-approvals" class="tab-content">
+        <div class="inventory-panel">
+          <div class="inventory-panel-header">
+            <div>
+              <div class="inventory-panel-title">Approvals</div>
+              <div class="inventory-panel-subtitle">Approve requests before liquidation applies to stock.</div>
+            </div>
+            <div class="inventory-actions">
+              <label class="inventory-edit-toggle">
+                <input type="checkbox" onchange="toggleInventoryEdit('approvals', this.checked)"> Edit
+              </label>
+              <button class="btn btn-outline" onclick="refreshInventoryApprovals()">Refresh</button>
+              <button class="btn btn-blue btn-sm" onclick="saveInventoryTable('approvals')">Save</button>
+            </div>
+          </div>
+          <div class="inventory-table-wrap">
+            <table id="inv-approvals-table" class="selectable-table">
+              <thead>
+                <tr>
+                  <th>Request ID</th>
+                  <th>Requested By</th>
+                  <th>TAT (days)</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Approver</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="inv-approvals-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Impact Module -->
+    <!-- ==================== Impact Module ==================== -->
+    <div id="mod-impact" class="module-view">
+      <div class="module-header">
+        <div class="toolbar">
+          <span style="font-weight:bold; font-size:1.1rem; color:var(--primary);">Impact Assessment</span>
+
+          <div class="divider-v"></div>
+
+          <!-- Sticky filters are implemented inside module body to keep layout consistent with your other modules -->
+          <button class="btn btn-blue" id="ia-refresh">Refresh</button>
+          <button class="btn btn-indigo" id="ia-export">Export</button>
+
+          <span style="margin-left:auto; color:#64748b; font-size:12px;">
+        UI-only (no backend wiring yet)
+      </span>
+        </div>
+      </div>
+
+      <div class="ia-wrap">
+
+        <!-- Sticky Filter Bar -->
+        <div class="ia-filterbar">
+          <div class="ia-filter-row">
+            <label class="ia-lbl">Season</label>
+            <select class="ia-inp" id="ia-season">
+          <option value="ALL">All</option>
+          <option value="RABI_2025_26">Rabi 2025–26</option>
+          <option value="KHARIF_2025">Kharif 2025</option>
+        </select>
+
+            <label class="ia-lbl">Crop</label>
+            <select class="ia-inp" id="ia-crop">
+          <option value="ALL">All</option>
+          <option value="WHEAT">Wheat</option>
+          <option value="RICE">Rice</option>
+          <option value="POTATO">Potato</option>
+        </select>
+
+            <label class="ia-lbl">Client</label>
+            <select class="ia-inp" id="ia-client">
+          <option value="Default">Default</option>
+        </select>
+
+            <label class="ia-lbl">State</label>
+            <select class="ia-inp" id="ia-state">
+          <option value="ALL">All</option>
+        </select>
+
+            <label class="ia-lbl">District</label>
+            <select class="ia-inp" id="ia-district">
+          <option value="ALL">All</option>
+        </select>
+
+            <label class="ia-lbl">Block</label>
+            <select class="ia-inp" id="ia-block">
+          <option value="ALL">All</option>
+        </select>
+          </div>
+
+          <div class="ia-filter-row">
+            <label class="ia-lbl">Farm ID</label>
+            <input class="ia-inp" id="ia-farm" placeholder="Type..." />
+
+            <label class="ia-lbl">Device ID</label>
+            <input class="ia-inp" id="ia-device" placeholder="Type..." />
+
+            <label class="ia-lbl">Test ID</label>
+            <input class="ia-inp" id="ia-test" placeholder="Type..." />
+
+            <button class="btn btn-teal" id="ia-apply">Apply</button>
+            <button class="btn btn-outline" id="ia-clear">Clear</button>
+
+            <span class="ia-status" id="ia-status">Filters ready</span>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="ia-tabs" id="impactTabsRow">
+          <button type="button" class="ia-tab active" data-ia-tab="dash">
+    Dashboard <span class="ia-info" data-info="tab-dashboard">ⓘ</span>
+  </button>
+
+          <button type="button" class="ia-tab" data-ia-tab="fert">
+    Fertilizer Usage <span class="ia-info" data-info="tab-fertilizer">ⓘ</span>
+  </button>
+
+          <button type="button" class="ia-tab" data-ia-tab="yield">
+    Yield Records <span class="ia-info" data-info="tab-yield">ⓘ</span>
+  </button>
+
+          <button type="button" class="ia-tab" data-ia-tab="soil">
+    Soil Change <span class="ia-info" data-info="tab-soil">ⓘ</span>
+  </button>
+
+          <button type="button" class="ia-tab" data-ia-tab="cov">
+    Coverage <span class="ia-info" data-info="tab-coverage">ⓘ</span>
+  </button>
+        </div>
+
+
+
+        <!-- TAB: Dashboard -->
+        <div class="ia-tabpage active" id="ia-tab-dash">
+
+          <!-- SUMMARY CARDS -->
+          <div class="ia-kpi-grid">
+            <div class="ia-kpi" data-kpi="farms">
+              <span class="ia-info ia-kpi-info" data-info="kpi-farms">ⓘ</span>
+              <div class="ia-kpi-title">Farms</div>
+              <div class="ia-kpi-val" id="ia-kpi-farms">—</div>
+              <div class="ia-kpi-sub">With any record</div>
+            </div>
+            <div class="ia-kpi" data-kpi="area">
+              <span class="ia-info ia-kpi-info" data-info="kpi-area">ⓘ</span>
+              <div class="ia-kpi-title">Area (acres)</div>
               <div class="ia-kpi-val" id="ia-kpi-area">—</div>
               <div class="ia-kpi-sub">Filtered scope</div>
             </div>
@@ -26903,7 +28036,7 @@ function nmViewConfig() {
   alert('Config summary view will be implemented later.');
 }
 
-async function nmExportPlan() {
+function nmExportPlan() {
   // Make sure a plan exists
   if (!window.nmCurrentStages || !Array.isArray(window.nmCurrentStages) || window.nmCurrentStages.length === 0) {
     alert('Please calculate a nutrient plan before exporting.');
@@ -26940,56 +28073,122 @@ async function nmExportPlan() {
   var methodName  = window.nmCurrentMethodName       || '';
   var targetYield = window.nmCurrentTargetYield      || 0;
 
-  var btn = document.querySelector('#mod-fertilizer .btn.btn-slate[onclick="nmExportPlan()"]');
-  const allBtns = document.querySelectorAll('#mod-fertilizer .btn[onclick*="nmExportPlan"]');
-  
-  allBtns.forEach(b => {
-    b.disabled = true;
-    b.textContent = 'Exporting...';
+  // Stage-wise nutrient plan from UI cache
+  var stagesRaw = window.nmCurrentStages || []; // [{stage, nRate, pRate, kRate, ...}]
+
+  // --- Recompute N, P, K totals from stagesRaw for Page 1 ---
+  var totalN = 0, totalP = 0, totalK = 0;
+  stagesRaw.forEach(function (row) {
+    totalN += Number(row.nRate || 0);
+    totalP += Number(row.pRate || 0);
+    totalK += Number(row.kRate || 0);
   });
 
-  try {
-    // Build reportData structure similar to Soil Test Results
-    const soilMetrics = window.nmCurrentSoilMetrics || {};
-    
-    const reportData = {
-      ClientID: clientId,
-      Farmer: clientName || clientId,
-      Farm_ID: '',
-      Crop: cropName,
-      Test_ID: testId,
-      Device_ID: deviceId,
-      'Test Date-time': new Date().toLocaleString(),
-      'Report Date-time': new Date().toLocaleString(),
-      pH: soilMetrics.pH || null,
-      EC: soilMetrics.EC || null,
-      OC: soilMetrics.OC || null,
-      Avail_N: soilMetrics.N || null,
-      Avail_P: soilMetrics.P || null,
-      Avail_K: soilMetrics.K || null,
-      Avail_S: soilMetrics.S || null,
-      Zn: soilMetrics.Zn || null,
-      Cu: soilMetrics.Cu || null,
-      Fe: soilMetrics.Fe || null,
-      Mn: soilMetrics.Mn || null,
-      B: soilMetrics.B || null,
-      dosePlan: window.nmCurrentStages || [],
-      language: language
-    };
+  var nRate = totalN;
+  var pRate = totalP;
+  var kRate = totalK;
 
-    const blob = await generateStvDirectPdfBlob(reportData);
-    const fileName = `NutrientPlan_${testId}_${deviceId}_${new Date().getTime()}.pdf`;
-    downloadBlobFile(fileName, blob);
+  // --- Map UI stages to PDF-ready stages (nutrient rows) ---
+  var pdfStages = [];
 
-  } catch (err) {
-    console.error('Nutrient Plan PDF export failed:', err);
-    alert('Error generating report: ' + (err && err.message ? err.message : err));
-  } finally {
-    allBtns.forEach(b => {
-      b.disabled = false;
-      b.textContent = 'Export Plan (PDF)';
-    });
+  stagesRaw.forEach(function (row) {
+    if (!row || !row.stage) return;
+
+    if (row.nRate && Number(row.nRate) > 0) {
+      pdfStages.push({
+        stage: row.stage,
+        nutrient: 'N',
+        dose: Number(row.nRate),
+        details: ''
+      });
+    }
+    if (row.pRate && Number(row.pRate) > 0) {
+      pdfStages.push({
+        stage: row.stage,
+        nutrient: 'P₂O₅',
+        dose: Number(row.pRate),
+        details: ''
+      });
+    }
+    if (row.kRate && Number(row.kRate) > 0) {
+      pdfStages.push({
+        stage: row.stage,
+        nutrient: 'K₂O',
+        dose: Number(row.kRate),
+        details: ''
+      });
+    }
+  });
+
+  // --- Build fertilizer materials & costs from raw stages ---
+  nmBuildFertRowsForPdf();
+
+  // Expected shapes after builder:
+  // nmCurrentFertMaterials: [{stage, materialName, qtyPerHa, nutrientContent}, ...]
+  // nmCurrentFertCosts    : [{materialName, qtyPerHa, unitPrice, totalCost}, ...]
+  var fertilizerMaterials = Array.isArray(window.nmCurrentFertMaterials)
+    ? window.nmCurrentFertMaterials
+    : [];
+
+  var fertilizerCosts = Array.isArray(window.nmCurrentFertCosts)
+    ? window.nmCurrentFertCosts
+    : [];
+
+  var cfg = {
+    clientId:           clientId,
+    clientName:         clientName,
+    ratingSchemeId:     schemeId,
+    ratingSchemeName:   schemeName,
+    testId:             testId,
+    deviceId:           deviceId,
+    cropId:             cropId,
+    cropName:           cropName,
+    methodId:           methodId,
+    methodName:         methodName,
+    targetYield:        targetYield,
+    nRate:              nRate,
+    pRate:              pRate,
+    kRate:              kRate,
+    stages:             pdfStages,
+    fertilizerMaterials: fertilizerMaterials,
+    fertilizerCosts:     fertilizerCosts,
+    language:           language
+  };
+
+  console.log('nmExportPlan cfg about to send:', cfg);
+
+  var btn = document.querySelector('#mod-fertilizer .btn.btn-slate[onclick="nmExportPlan()"]');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerText = 'Exporting...';
   }
+
+  google.script.run
+    .withSuccessHandler(function (res) {
+      if (btn) {
+        btn.disabled = false;
+        btn.innerText = 'Export Plan PDF';
+      }
+
+      if (!res || !res.success) {
+        alert(res && res.msg ? res.msg : 'Failed to generate PDF.');
+        return;
+      }
+
+      if (res.pdfBase64) {
+        downloadPDFFromBase64(res.pdfBase64, res.fileName);
+      } else {
+        alert('PDF created but no data returned from server.');
+      }
+    })
+    .withFailureHandler(function (err) {
+      if (btn) {
+        btn.disabled = false;
+        btn.innerText = 'Export Plan PDF';
+      }
+      alert('Error generating PDF: ' + (err && err.message ? err.message : err));
+    })
+    .generateNutrientPlanPDFForUI(cfg);
 }
 
 
