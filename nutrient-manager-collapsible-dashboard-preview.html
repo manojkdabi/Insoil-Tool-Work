@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrient Manager - Collapsible Dashboard Preview</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f3f4f6;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .demo-section {
+      padding: 30px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    
+    .demo-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .demo-description {
+      color: #6b7280;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    
+    /* Collapsible Dashboard Styles */
+    .nm-dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s ease;
+    }
+    
+    .nm-dashboard-header:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    }
+    
+    .nm-dashboard-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+    }
+    
+    .nm-dashboard-toggle {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px;
+      padding: 6px 12px;
+      color: white;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .nm-dashboard-toggle:hover {
+      background: rgba(255,255,255,0.25);
+    }
+    
+    .toggle-icon {
+      transition: transform 0.3s ease;
+      display: inline-block;
+      font-size: 0.75rem;
+    }
+    
+    .nm-dashboard-toggle.collapsed .toggle-icon {
+      transform: rotate(-90deg);
+    }
+    
+    .nm-dashboard {
+      padding: 20px;
+      background: #f9fafb;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      max-height: 1000px;
+    }
+    
+    .nm-dashboard.collapsed {
+      max-height: 0;
+      padding: 0 20px;
+    }
+    
+    .nm-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .nm-metric-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    
+    .nm-metric-card.primary {
+      border-left: 4px solid #3b82f6;
+      background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+    }
+    
+    .nm-metric-card.success {
+      border-left: 4px solid #10b981;
+      background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+    }
+    
+    .nm-metric-icon {
+      font-size: 2.5rem;
+    }
+    
+    .nm-metric-content {
+      flex: 1;
+    }
+    
+    .nm-metric-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .nm-metric-value {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    
+    .nm-metric-subtitle {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    
+    .content-area {
+      padding: 20px;
+      background: white;
+    }
+    
+    .content-placeholder {
+      background: #f3f4f6;
+      border: 2px dashed #d1d5db;
+      border-radius: 8px;
+      padding: 40px;
+      text-align: center;
+      color: #6b7280;
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+    
+    .feature-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+    
+    .checkmark {
+      color: #10b981;
+      font-weight: bold;
+      font-size: 1.25rem;
+    }
+    
+    .controls {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f9fafb;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .btn {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    
+    .btn:hover {
+      background: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>✨ Nutrient Manager - Collapsible Dashboard</h1>
+      <p style="margin-top: 8px; opacity: 0.9;">Click the header or toggle button to expand/collapse</p>
+    </div>
+    
+    <div class="demo-section">
+      <div class="demo-title">
+        🎯 Problem Solved
+      </div>
+      <div class="demo-description">
+        <strong>Before:</strong> Dashboard cards and quick actions took up too much vertical space, hiding the actual data tables below.<br>
+        <strong>After:</strong> Dashboard is now collapsible! Click the header to toggle visibility. The state persists across sessions.
+      </div>
+      
+      <ul class="feature-list">
+        <li><span class="checkmark">✓</span> <strong>Collapsible Dashboard:</strong> Click anywhere on the blue header to collapse/expand</li>
+        <li><span class="checkmark">✓</span> <strong>Smooth Animation:</strong> Dashboard slides up/down with smooth transition</li>
+        <li><span class="checkmark">✓</span> <strong>Persistent State:</strong> Your preference is saved to localStorage</li>
+        <li><span class="checkmark">✓</span> <strong>Visual Indicator:</strong> Arrow changes direction (▼ = expanded, ▶ = collapsed)</li>
+        <li><span class="checkmark">✓</span> <strong>Scrollable Page:</strong> Module content area is now fully scrollable</li>
+        <li><span class="checkmark">✓</span> <strong>Mobile Optimized:</strong> Works perfectly on all screen sizes</li>
+      </ul>
+    </div>
+    
+    <div class="demo-section">
+      <div class="demo-title">
+        📱 Live Demo - Try It!
+      </div>
+      <div class="demo-description">
+        Click the dashboard header below to see it in action:
+      </div>
+      
+      <!-- Dashboard Demo -->
+      <div class="nm-dashboard-header" onclick="toggleDashboard()">
+        <h2 class="nm-dashboard-title">Dashboard Overview</h2>
+        <button class="nm-dashboard-toggle" onclick="event.stopPropagation(); toggleDashboard();">
+          <span class="toggle-icon" id="toggle-icon">▼</span>
+        </button>
+      </div>
+      
+      <div class="nm-dashboard" id="dashboard-content">
+        <div class="nm-metrics-grid">
+          <div class="nm-metric-card primary">
+            <div class="nm-metric-icon">📋</div>
+            <div class="nm-metric-content">
+              <div class="nm-metric-label">Total Plans</div>
+              <div class="nm-metric-value">12</div>
+              <div class="nm-metric-subtitle">Created plans</div>
+            </div>
+          </div>
+          <div class="nm-metric-card success">
+            <div class="nm-metric-icon">🧮</div>
+            <div class="nm-metric-content">
+              <div class="nm-metric-label">Active Calculations</div>
+              <div class="nm-metric-value">3</div>
+              <div class="nm-metric-subtitle">In progress</div>
+            </div>
+          </div>
+          <div class="nm-metric-card primary">
+            <div class="nm-metric-icon">💰</div>
+            <div class="nm-metric-content">
+              <div class="nm-metric-label">Total Cost</div>
+              <div class="nm-metric-value">₹45,250</div>
+              <div class="nm-metric-subtitle">From all plans</div>
+            </div>
+          </div>
+          <div class="nm-metric-card success">
+            <div class="nm-metric-icon">🎯</div>
+            <div class="nm-metric-content">
+              <div class="nm-metric-label">Avg Yield Target</div>
+              <div class="nm-metric-value">4.5</div>
+              <div class="nm-metric-subtitle">t/ha</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content Area -->
+      <div class="content-area">
+        <div class="content-placeholder">
+          <h3 style="margin-bottom: 12px;">📊 Data Tables & Operations</h3>
+          <p>Your nutrient calculations, schedules, and data tables appear here.</p>
+          <p style="margin-top: 12px; color: #10b981; font-weight: 600;">Now fully visible and scrollable! 🎉</p>
+        </div>
+      </div>
+      
+      <div class="controls">
+        <button class="btn" onclick="toggleDashboard()">Toggle Dashboard</button>
+        <p style="margin-top: 12px; color: #6b7280; font-size: 0.875rem;">
+          Try collapsing the dashboard to see more content space!
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function toggleDashboard() {
+      const dashboard = document.getElementById('dashboard-content');
+      const toggleBtn = document.querySelector('.nm-dashboard-toggle');
+      const toggleIcon = document.getElementById('toggle-icon');
+      
+      const isCollapsed = dashboard.classList.contains('collapsed');
+      
+      if (isCollapsed) {
+        dashboard.classList.remove('collapsed');
+        toggleBtn.classList.remove('collapsed');
+        toggleIcon.textContent = '▼';
+      } else {
+        dashboard.classList.add('collapsed');
+        toggleBtn.classList.add('collapsed');
+        toggleIcon.textContent = '▶';
+      }
+    }
+  </script>
+</body>
+</html>
