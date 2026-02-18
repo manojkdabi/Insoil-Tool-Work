@@ -2685,6 +2685,362 @@
       border-left: 4px solid #3b82f6;
     }
 
+    /* Advanced Features Styles */
+    
+    /* Filter Panel */
+    #mod-fertilizer .nm-filter-panel {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 12px 0;
+      display: none;
+    }
+
+    #mod-fertilizer .nm-filter-panel.active {
+      display: block;
+    }
+
+    #mod-fertilizer .nm-filter-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    #mod-fertilizer .nm-filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    #mod-fertilizer .nm-filter-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #mod-fertilizer .nm-filter-input {
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      background: white;
+    }
+
+    #mod-fertilizer .nm-filter-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    /* Recent Plans Panel */
+    #mod-fertilizer .nm-recent-panel {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 12px 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    #mod-fertilizer .nm-recent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #f3f4f6;
+    }
+
+    #mod-fertilizer .nm-recent-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #1f2937;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #mod-fertilizer .nm-recent-clear {
+      font-size: 0.75rem;
+      color: #ef4444;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    #mod-fertilizer .nm-recent-clear:hover {
+      background: #fef2f2;
+    }
+
+    #mod-fertilizer .nm-recent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #mod-fertilizer .nm-recent-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    #mod-fertilizer .nm-recent-item:hover {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      transform: translateX(4px);
+    }
+
+    #mod-fertilizer .nm-recent-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    #mod-fertilizer .nm-recent-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    #mod-fertilizer .nm-recent-details {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    #mod-fertilizer .nm-recent-date {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    #mod-fertilizer .nm-recent-empty {
+      text-align: center;
+      padding: 24px;
+      color: #9ca3af;
+      font-size: 0.875rem;
+    }
+
+    /* Comparison Panel */
+    #mod-fertilizer .nm-comparison-panel {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+
+    #mod-fertilizer .nm-comparison-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f3f4f6;
+    }
+
+    #mod-fertilizer .nm-comparison-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    #mod-fertilizer .nm-comparison-selector {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    #mod-fertilizer .nm-comparison-select {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      background: white;
+    }
+
+    #mod-fertilizer .nm-comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    #mod-fertilizer .nm-comparison-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    #mod-fertilizer .nm-comparison-card-header {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    #mod-fertilizer .nm-comparison-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 0.875rem;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    #mod-fertilizer .nm-comparison-label {
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    #mod-fertilizer .nm-comparison-value {
+      color: #1f2937;
+      font-weight: 600;
+    }
+
+    #mod-fertilizer .nm-comparison-diff {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    #mod-fertilizer .nm-comparison-diff.positive {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    #mod-fertilizer .nm-comparison-diff.negative {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    #mod-fertilizer .nm-comparison-diff.neutral {
+      background: #e5e7eb;
+      color: #6b7280;
+    }
+
+    /* Print Styles */
+    @media print {
+      #mod-fertilizer .nm-toolbar,
+      #mod-fertilizer .nm-dashboard,
+      #mod-fertilizer .nm-quick-actions,
+      #mod-fertilizer .nm-loading-overlay,
+      #mod-fertilizer .tab-nav,
+      #mod-fertilizer .nm-filter-panel,
+      #mod-fertilizer .nm-recent-panel,
+      #mod-fertilizer .nm-comparison-panel,
+      #mod-fertilizer .module-header .nm-toolbar-row,
+      #mod-fertilizer button,
+      #mod-fertilizer select {
+        display: none !important;
+      }
+
+      #mod-fertilizer .nm-content {
+        padding: 0;
+        background: white;
+      }
+
+      #mod-fertilizer .sub-tab-content {
+        display: block !important;
+        page-break-after: always;
+      }
+
+      #mod-fertilizer table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      #mod-fertilizer th,
+      #mod-fertilizer td {
+        border: 1px solid #000;
+        padding: 8px;
+        font-size: 10pt;
+      }
+
+      #mod-fertilizer .panel-label {
+        font-size: 14pt;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+    }
+
+    /* Validation Error Styles */
+    #mod-fertilizer .nm-error-message {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-left: 4px solid #dc2626;
+      border-radius: 6px;
+      margin: 12px 0;
+      font-size: 0.875rem;
+      color: #991b1b;
+    }
+
+    #mod-fertilizer .nm-error-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    #mod-fertilizer .nm-error-content {
+      flex: 1;
+    }
+
+    #mod-fertilizer .nm-error-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    #mod-fertilizer .nm-error-details {
+      font-size: 0.8125rem;
+      color: #7f1d1d;
+    }
+
+    #mod-fertilizer .nm-error-suggestion {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #fecaca;
+      font-size: 0.8125rem;
+      color: #991b1b;
+    }
+
+    #mod-fertilizer .nm-input-error {
+      border-color: #dc2626 !important;
+      background: #fef2f2 !important;
+    }
+
+    #mod-fertilizer .nm-input-success {
+      border-color: #16a34a !important;
+      background: #f0fdf4 !important;
+    }
+
+    #mod-fertilizer .nm-validation-icon {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+    }
+
     /* Enhanced Tables */
     #mod-fertilizer .selectable-table tbody tr:hover {
       background-color: #f9fafb;
@@ -9891,7 +10247,82 @@ tr.duplicate-row {
               <span class="nm-action-icon">❓</span>
               <span>Help</span>
             </button>
+            <button class="nm-action-btn" onclick="nmExportCSV()">
+              <span class="nm-action-icon">📊</span>
+              <span>Export CSV</span>
+            </button>
+            <button class="nm-action-btn" onclick="nmPrintView()">
+              <span class="nm-action-icon">🖨️</span>
+              <span>Print</span>
+            </button>
+            <button class="nm-action-btn" onclick="nmToggleFilters()">
+              <span class="nm-action-icon">🔍</span>
+              <span>Filters</span>
+            </button>
+            <button class="nm-action-btn" onclick="nmToggleComparison()">
+              <span class="nm-action-icon">⚖️</span>
+              <span>Compare</span>
+            </button>
           </div>
+        </div>
+      </div>
+
+      <!-- Filter Panel -->
+      <div id="nm-filter-panel" class="nm-filter-panel">
+        <div class="nm-filter-row">
+          <div class="nm-filter-group">
+            <label class="nm-filter-label">Search by Device/Test ID</label>
+            <input type="text" id="nm-filter-search" class="nm-filter-input" placeholder="Enter Device ID or Test ID">
+          </div>
+          <div class="nm-filter-group">
+            <label class="nm-filter-label">Filter by Crop</label>
+            <select id="nm-filter-crop" class="nm-filter-input">
+              <option value="">All Crops</option>
+            </select>
+          </div>
+          <div class="nm-filter-group">
+            <label class="nm-filter-label">Date From</label>
+            <input type="date" id="nm-filter-date-from" class="nm-filter-input">
+          </div>
+          <div class="nm-filter-group">
+            <label class="nm-filter-label">Date To</label>
+            <input type="date" id="nm-filter-date-to" class="nm-filter-input">
+          </div>
+        </div>
+        <div class="nm-filter-actions">
+          <button class="btn btn-slate" onclick="nmApplyFilters()">Apply Filters</button>
+          <button class="btn btn-slate" onclick="nmClearFilters()">Clear Filters</button>
+        </div>
+      </div>
+
+      <!-- Recent Plans Panel -->
+      <div id="nm-recent-panel" class="nm-recent-panel" style="display:none;">
+        <div class="nm-recent-header">
+          <div class="nm-recent-title">Recent Plans</div>
+          <button class="nm-recent-clear" onclick="nmClearHistory()">Clear All</button>
+        </div>
+        <div id="nm-recent-list" class="nm-recent-list">
+          <div class="nm-recent-empty">No recent plans available</div>
+        </div>
+      </div>
+
+      <!-- Comparison Panel -->
+      <div id="nm-comparison-panel" class="nm-comparison-panel" style="display:none;">
+        <div class="nm-comparison-header">
+          <div class="nm-comparison-title">Plan Comparison</div>
+          <button class="btn btn-slate" onclick="nmToggleComparison()">Close</button>
+        </div>
+        <div class="nm-comparison-selector">
+          <select id="nm-comparison-plan1" class="nm-comparison-select">
+            <option value="">Select first plan...</option>
+          </select>
+          <select id="nm-comparison-plan2" class="nm-comparison-select">
+            <option value="">Select second plan...</option>
+          </select>
+          <button class="btn btn-slate" onclick="nmCompareSelected()">Compare</button>
+        </div>
+        <div id="nm-comparison-result" class="nm-comparison-grid" style="display:none;">
+          <!-- Comparison results will be populated here -->
         </div>
       </div>
 
@@ -27992,12 +28423,760 @@ if (typeof window.nmEnhancedInit === 'undefined') {
       setTimeout(function() {
         nmUpdateDashboard();
         nmShowToast('success', 'Calculation Complete', 'Nutrient plan has been updated', 3000);
+        nmSavePlanToHistory();
       }, 500);
       
       return result;
     };
   }
 }
+
+/********************************************
+ * ADVANCED FEATURES
+ ********************************************/
+
+// Feature 1: CSV Export Functionality
+function nmExportCSV() {
+  try {
+    // Validate plan exists
+    if (!window.nmCurrentStages || !Array.isArray(window.nmCurrentStages) || window.nmCurrentStages.length === 0) {
+      nmShowError('No Plan Available', 'Please calculate a nutrient plan before exporting.', 'Calculate a plan first using the Recalculate button.');
+      return;
+    }
+
+    const deviceId = document.getElementById('nm-device-id').value.trim();
+    const testId = document.getElementById('nm-test-id').value.trim();
+    const cropSel = document.getElementById('nm-crop');
+    const cropName = cropSel.options[cropSel.selectedIndex] ? cropSel.options[cropSel.selectedIndex].text : '';
+    const targetYield = document.getElementById('nm-target-yield').value || '0';
+    const date = new Date().toISOString().slice(0, 10);
+
+    // Metadata Section
+    const csvLines = [];
+    csvLines.push('Nutrient Management Plan - CSV Export');
+    csvLines.push('Generated on,' + new Date().toLocaleString());
+    csvLines.push('');
+    csvLines.push('Plan Metadata');
+    csvLines.push('Device ID,' + deviceId);
+    csvLines.push('Test ID,' + testId);
+    csvLines.push('Crop,' + cropName);
+    csvLines.push('Target Yield (t/ha),' + targetYield);
+    csvLines.push('Client,' + (window.nmCurrentClientName || 'Default'));
+    csvLines.push('Rating Scheme,' + (window.nmCurrentRatingSchemeName || ''));
+    csvLines.push('Method,' + (window.nmCurrentMethodName || ''));
+    csvLines.push('');
+
+    // Fertility Summary Table
+    csvLines.push('Soil Fertility Status');
+    csvLines.push('Parameter,Value,Unit,Rating,Nutrient Requirement (kg/ha)');
+    
+    const fertilityBody = document.getElementById('nm-fertility-body');
+    if (fertilityBody && fertilityBody.rows.length > 0) {
+      Array.from(fertilityBody.rows).forEach(row => {
+        const cells = Array.from(row.cells).map(cell => {
+          const text = cell.textContent.trim().replace(/"/g, '""');
+          return `"${text}"`;
+        });
+        csvLines.push(cells.join(','));
+      });
+    }
+    
+    csvLines.push('');
+
+    // Nutrient Schedule Table
+    csvLines.push('Nutrient Application Schedule');
+    csvLines.push('Stage,Nutrient,Dose (kg/ha)');
+    
+    if (window.nmCurrentStages && Array.isArray(window.nmCurrentStages)) {
+      window.nmCurrentStages.forEach(stage => {
+        if (stage.nRate && Number(stage.nRate) > 0) {
+          csvLines.push(`"${stage.stage}","N",${stage.nRate}`);
+        }
+        if (stage.pRate && Number(stage.pRate) > 0) {
+          csvLines.push(`"${stage.stage}","P₂O₅",${stage.pRate}`);
+        }
+        if (stage.kRate && Number(stage.kRate) > 0) {
+          csvLines.push(`"${stage.stage}","K₂O",${stage.kRate}`);
+        }
+      });
+    }
+
+    csvLines.push('');
+
+    // Fertilizer Schedule Table (if available)
+    if (window.nmCurrentFertilizerSchedule && Array.isArray(window.nmCurrentFertilizerSchedule) && window.nmCurrentFertilizerSchedule.length > 0) {
+      csvLines.push('Fertilizer Application Schedule');
+      csvLines.push('Stage,Nutrient,Dose (kg/ha),Method,Source Mix,Product Qty/ha,Cost/ha,Delivery Details,Flags');
+      
+      window.nmCurrentFertilizerSchedule.forEach(item => {
+        const row = [
+          item.stage || '',
+          item.nutrient || '',
+          item.dose || '',
+          item.method || '',
+          item.sourceMix || '',
+          item.productQty || '',
+          item.cost || '',
+          item.deliveryDetails || '',
+          item.flags || ''
+        ].map(cell => `"${String(cell).replace(/"/g, '""')}"`);
+        csvLines.push(row.join(','));
+      });
+
+      csvLines.push('');
+      const totalCost = window.nmCurrentFertilizerSchedule.reduce((sum, item) => sum + Number(item.totalCost || 0), 0);
+      csvLines.push(`Total Cost per Hectare,₹${totalCost.toFixed(2)}`);
+    }
+
+    // Create and download CSV
+    const csvContent = csvLines.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `nutrient_plan_${deviceId}_${testId}_${date}.csv`;
+    link.click();
+
+    nmShowToast('success', 'Export Successful', 'Nutrient plan exported to CSV', 3000);
+  } catch (error) {
+    console.error('CSV Export Error:', error);
+    nmShowError('Export Failed', 'Failed to export CSV file', error.message);
+  }
+}
+
+// Feature 2: Search and Filter Capabilities
+function nmToggleFilters() {
+  const panel = document.getElementById('nm-filter-panel');
+  if (panel) {
+    panel.classList.toggle('active');
+    
+    // Populate crop filter dropdown
+    const cropFilter = document.getElementById('nm-filter-crop');
+    const cropSelect = document.getElementById('nm-crop');
+    if (cropFilter && cropSelect && cropFilter.options.length <= 1) {
+      Array.from(cropSelect.options).forEach(option => {
+        if (option.value && option.value !== '') {
+          const filterOption = document.createElement('option');
+          filterOption.value = option.value;
+          filterOption.textContent = option.text;
+          cropFilter.appendChild(filterOption);
+        }
+      });
+    }
+  }
+}
+
+function nmApplyFilters() {
+  const searchValue = document.getElementById('nm-filter-search').value.trim().toLowerCase();
+  const cropValue = document.getElementById('nm-filter-crop').value;
+  const dateFrom = document.getElementById('nm-filter-date-from').value;
+  const dateTo = document.getElementById('nm-filter-date-to').value;
+
+  // Filter recent plans
+  if (window.nmPlanHistory && window.nmPlanHistory.length > 0) {
+    const filtered = window.nmPlanHistory.filter(plan => {
+      // Search filter
+      if (searchValue) {
+        const matchDevice = plan.deviceId && plan.deviceId.toLowerCase().includes(searchValue);
+        const matchTest = plan.testId && plan.testId.toLowerCase().includes(searchValue);
+        if (!matchDevice && !matchTest) return false;
+      }
+
+      // Crop filter
+      if (cropValue && plan.cropId !== cropValue) return false;
+
+      // Date range filter
+      if (dateFrom && plan.timestamp) {
+        const planDate = new Date(plan.timestamp).toISOString().slice(0, 10);
+        if (planDate < dateFrom) return false;
+      }
+      if (dateTo && plan.timestamp) {
+        const planDate = new Date(plan.timestamp).toISOString().slice(0, 10);
+        if (planDate > dateTo) return false;
+      }
+
+      return true;
+    });
+
+    nmRenderRecentPlans(filtered);
+    nmShowToast('info', 'Filters Applied', `Found ${filtered.length} matching plans`, 2000);
+  } else {
+    nmShowToast('warning', 'No Plans', 'No plans available to filter', 2000);
+  }
+}
+
+function nmClearFilters() {
+  document.getElementById('nm-filter-search').value = '';
+  document.getElementById('nm-filter-crop').value = '';
+  document.getElementById('nm-filter-date-from').value = '';
+  document.getElementById('nm-filter-date-to').value = '';
+  nmRenderRecentPlans(window.nmPlanHistory);
+  nmShowToast('info', 'Filters Cleared', 'All filters have been reset', 2000);
+}
+
+// Feature 3: Print-Friendly View
+function nmPrintView() {
+  if (!window.nmCurrentStages || window.nmCurrentStages.length === 0) {
+    nmShowError('No Plan Available', 'Please calculate a nutrient plan before printing.', 'Calculate a plan first using the Recalculate button.');
+    return;
+  }
+
+  // Hide non-printable elements temporarily
+  const hideElements = [
+    '.nm-toolbar',
+    '.nm-dashboard',
+    '.nm-quick-actions',
+    '.nm-loading-overlay',
+    '.tab-nav',
+    '.nm-filter-panel',
+    '.nm-recent-panel',
+    '.nm-comparison-panel',
+    'button',
+    'select:not(#mod-fertilizer table select)'
+  ];
+
+  const hiddenElements = [];
+  hideElements.forEach(selector => {
+    document.querySelectorAll('#mod-fertilizer ' + selector).forEach(el => {
+      if (el.style.display !== 'none') {
+        hiddenElements.push({ element: el, display: el.style.display });
+        el.style.display = 'none';
+      }
+    });
+  });
+
+  // Show all tab contents for printing
+  const tabContents = document.querySelectorAll('#mod-fertilizer .sub-tab-content');
+  const originalDisplays = [];
+  tabContents.forEach(tab => {
+    originalDisplays.push({ element: tab, display: tab.style.display });
+    tab.style.display = 'block';
+  });
+
+  // Add print header
+  const printHeader = document.createElement('div');
+  printHeader.id = 'nm-print-header';
+  printHeader.style.cssText = 'padding: 20px; border-bottom: 2px solid #000; margin-bottom: 20px;';
+  printHeader.innerHTML = `
+    <h1 style="margin: 0; font-size: 24pt;">Nutrient Management Plan</h1>
+    <p style="margin: 8px 0 0 0; font-size: 12pt;">Device: ${document.getElementById('nm-device-id').value} | Test: ${document.getElementById('nm-test-id').value}</p>
+    <p style="margin: 4px 0 0 0; font-size: 10pt;">Generated: ${new Date().toLocaleString()}</p>
+  `;
+  
+  const content = document.querySelector('#mod-fertilizer .nm-content');
+  if (content) {
+    content.insertBefore(printHeader, content.firstChild);
+  }
+
+  // Trigger print
+  setTimeout(() => {
+    window.print();
+
+    // Restore hidden elements
+    hiddenElements.forEach(item => {
+      item.element.style.display = item.display;
+    });
+
+    // Restore tab displays
+    originalDisplays.forEach(item => {
+      item.element.style.display = item.display;
+    });
+
+    // Remove print header
+    if (printHeader && printHeader.parentNode) {
+      printHeader.parentNode.removeChild(printHeader);
+    }
+  }, 300);
+}
+
+// Feature 4: Plan Comparison
+function nmToggleComparison() {
+  const panel = document.getElementById('nm-comparison-panel');
+  if (panel) {
+    const isVisible = panel.style.display !== 'none';
+    panel.style.display = isVisible ? 'none' : 'block';
+    
+    if (!isVisible) {
+      nmPopulateComparisonSelectors();
+    }
+  }
+}
+
+function nmPopulateComparisonSelectors() {
+  const select1 = document.getElementById('nm-comparison-plan1');
+  const select2 = document.getElementById('nm-comparison-plan2');
+  
+  if (!select1 || !select2) return;
+  
+  // Clear existing options except the first one
+  select1.innerHTML = '<option value="">Select first plan...</option>';
+  select2.innerHTML = '<option value="">Select second plan...</option>';
+  
+  if (!window.nmPlanHistory || window.nmPlanHistory.length === 0) {
+    nmShowToast('warning', 'No Plans', 'No plans available for comparison', 3000);
+    return;
+  }
+  
+  window.nmPlanHistory.forEach((plan, index) => {
+    const optionText = `${plan.deviceId} - ${plan.testId} - ${plan.cropName} (${new Date(plan.timestamp).toLocaleDateString()})`;
+    
+    const option1 = document.createElement('option');
+    option1.value = index;
+    option1.textContent = optionText;
+    select1.appendChild(option1);
+    
+    const option2 = document.createElement('option');
+    option2.value = index;
+    option2.textContent = optionText;
+    select2.appendChild(option2);
+  });
+}
+
+function nmCompareSelected() {
+  const index1 = document.getElementById('nm-comparison-plan1').value;
+  const index2 = document.getElementById('nm-comparison-plan2').value;
+  
+  if (!index1 || !index2) {
+    nmShowToast('warning', 'Selection Required', 'Please select two plans to compare', 3000);
+    return;
+  }
+  
+  if (index1 === index2) {
+    nmShowToast('warning', 'Different Plans Required', 'Please select two different plans', 3000);
+    return;
+  }
+  
+  const plan1 = window.nmPlanHistory[parseInt(index1)];
+  const plan2 = window.nmPlanHistory[parseInt(index2)];
+  
+  if (!plan1 || !plan2) {
+    nmShowError('Comparison Error', 'Failed to load selected plans', 'The selected plans may no longer be available.');
+    return;
+  }
+  
+  nmRenderComparison(plan1, plan2);
+}
+
+function nmRenderComparison(plan1, plan2) {
+  const resultDiv = document.getElementById('nm-comparison-result');
+  if (!resultDiv) return;
+  
+  const calcDiff = (val1, val2) => {
+    const diff = val2 - val1;
+    const percent = val1 !== 0 ? ((diff / val1) * 100).toFixed(1) : 0;
+    let className = 'neutral';
+    let sign = '';
+    
+    if (diff > 0) {
+      className = 'positive';
+      sign = '+';
+    } else if (diff < 0) {
+      className = 'negative';
+    }
+    
+    return diff !== 0 
+      ? `<span class="nm-comparison-diff ${className}">${sign}${percent}%</span>`
+      : '';
+  };
+  
+  resultDiv.innerHTML = `
+    <div class="nm-comparison-card">
+      <div class="nm-comparison-card-header">Plan 1: ${plan1.deviceId} - ${plan1.testId}</div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Crop</span>
+        <span class="nm-comparison-value">${plan1.cropName}</span>
+      </div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Target Yield</span>
+        <span class="nm-comparison-value">${plan1.targetYield || 0} t/ha</span>
+      </div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Total N</span>
+        <span class="nm-comparison-value">${plan1.totalN || 0} kg/ha</span>
+      </div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Total P₂O₅</span>
+        <span class="nm-comparison-value">${plan1.totalP || 0} kg/ha</span>
+      </div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Total K₂O</span>
+        <span class="nm-comparison-value">${plan1.totalK || 0} kg/ha</span>
+      </div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Date</span>
+        <span class="nm-comparison-value">${new Date(plan1.timestamp).toLocaleDateString()}</span>
+      </div>
+    </div>
+    
+    <div class="nm-comparison-card">
+      <div class="nm-comparison-card-header">Plan 2: ${plan2.deviceId} - ${plan2.testId}</div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Crop</span>
+        <span class="nm-comparison-value">${plan2.cropName}</span>
+      </div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Target Yield</span>
+        <span class="nm-comparison-value">${plan2.targetYield || 0} t/ha ${calcDiff(plan1.targetYield || 0, plan2.targetYield || 0)}</span>
+      </div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Total N</span>
+        <span class="nm-comparison-value">${plan2.totalN || 0} kg/ha ${calcDiff(plan1.totalN || 0, plan2.totalN || 0)}</span>
+      </div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Total P₂O₅</span>
+        <span class="nm-comparison-value">${plan2.totalP || 0} kg/ha ${calcDiff(plan1.totalP || 0, plan2.totalP || 0)}</span>
+      </div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Total K₂O</span>
+        <span class="nm-comparison-value">${plan2.totalK || 0} kg/ha ${calcDiff(plan1.totalK || 0, plan2.totalK || 0)}</span>
+      </div>
+      <div class="nm-comparison-row">
+        <span class="nm-comparison-label">Date</span>
+        <span class="nm-comparison-value">${new Date(plan2.timestamp).toLocaleDateString()}</span>
+      </div>
+    </div>
+  `;
+  
+  resultDiv.style.display = 'grid';
+  nmShowToast('success', 'Comparison Ready', 'Plans compared successfully', 3000);
+}
+
+// Feature 5: History/Recent Plans
+function nmSavePlanToHistory() {
+  if (!window.nmCurrentStages || window.nmCurrentStages.length === 0) return;
+  
+  const deviceId = document.getElementById('nm-device-id').value.trim();
+  const testId = document.getElementById('nm-test-id').value.trim();
+  const cropSel = document.getElementById('nm-crop');
+  const cropName = cropSel.options[cropSel.selectedIndex] ? cropSel.options[cropSel.selectedIndex].text : '';
+  const cropId = cropSel.value;
+  const targetYield = parseFloat(document.getElementById('nm-target-yield').value) || 0;
+  
+  if (!deviceId || !testId || !cropId) return;
+  
+  // Calculate totals
+  let totalN = 0, totalP = 0, totalK = 0;
+  window.nmCurrentStages.forEach(stage => {
+    totalN += Number(stage.nRate || 0);
+    totalP += Number(stage.pRate || 0);
+    totalK += Number(stage.kRate || 0);
+  });
+  
+  const plan = {
+    deviceId,
+    testId,
+    cropId,
+    cropName,
+    targetYield,
+    totalN,
+    totalP,
+    totalK,
+    timestamp: new Date().toISOString(),
+    stages: JSON.parse(JSON.stringify(window.nmCurrentStages))
+  };
+  
+  // Initialize history if needed
+  if (!window.nmPlanHistory) {
+    window.nmPlanHistory = [];
+  }
+  
+  // Add to history (max 10 plans)
+  window.nmPlanHistory.unshift(plan);
+  if (window.nmPlanHistory.length > 10) {
+    window.nmPlanHistory = window.nmPlanHistory.slice(0, 10);
+  }
+  
+  // Save to localStorage
+  try {
+    localStorage.setItem('nmPlanHistory', JSON.stringify(window.nmPlanHistory));
+  } catch (e) {
+    console.warn('Failed to save plan history to localStorage:', e);
+  }
+  
+  // Update UI
+  nmRenderRecentPlans(window.nmPlanHistory);
+  
+  // Show recent panel
+  const recentPanel = document.getElementById('nm-recent-panel');
+  if (recentPanel) {
+    recentPanel.style.display = 'block';
+  }
+}
+
+function nmLoadPlanHistory() {
+  try {
+    const stored = localStorage.getItem('nmPlanHistory');
+    if (stored) {
+      window.nmPlanHistory = JSON.parse(stored);
+      nmRenderRecentPlans(window.nmPlanHistory);
+      
+      // Show panel if there are plans
+      if (window.nmPlanHistory.length > 0) {
+        const recentPanel = document.getElementById('nm-recent-panel');
+        if (recentPanel) {
+          recentPanel.style.display = 'block';
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('Failed to load plan history from localStorage:', e);
+    window.nmPlanHistory = [];
+  }
+}
+
+function nmRenderRecentPlans(plans) {
+  const listDiv = document.getElementById('nm-recent-list');
+  if (!listDiv) return;
+  
+  listDiv.innerHTML = '';
+  
+  if (!plans || plans.length === 0) {
+    listDiv.innerHTML = '<div class="nm-recent-empty">No recent plans available</div>';
+    return;
+  }
+  
+  plans.forEach((plan, index) => {
+    const item = document.createElement('div');
+    item.className = 'nm-recent-item';
+    item.onclick = () => nmLoadPlanFromHistory(index);
+    
+    item.innerHTML = `
+      <div class="nm-recent-info">
+        <div class="nm-recent-name">${plan.deviceId} - ${plan.testId}</div>
+        <div class="nm-recent-details">${plan.cropName} | Yield: ${plan.targetYield} t/ha | N: ${plan.totalN} P: ${plan.totalP} K: ${plan.totalK} kg/ha</div>
+      </div>
+      <div class="nm-recent-date">${new Date(plan.timestamp).toLocaleDateString()}</div>
+    `;
+    
+    listDiv.appendChild(item);
+  });
+}
+
+function nmLoadPlanFromHistory(index) {
+  if (!window.nmPlanHistory || !window.nmPlanHistory[index]) return;
+  
+  const plan = window.nmPlanHistory[index];
+  
+  // Load plan data into form
+  document.getElementById('nm-device-id').value = plan.deviceId;
+  document.getElementById('nm-test-id').value = plan.testId;
+  document.getElementById('nm-crop').value = plan.cropId;
+  document.getElementById('nm-target-yield').value = plan.targetYield;
+  
+  // Restore stages
+  window.nmCurrentStages = JSON.parse(JSON.stringify(plan.stages));
+  
+  nmShowToast('success', 'Plan Loaded', 'Historical plan loaded successfully', 3000);
+  
+  // Trigger recalculation to refresh UI
+  setTimeout(() => {
+    if (typeof recalculateNutrientPlan === 'function') {
+      recalculateNutrientPlan();
+    }
+  }, 100);
+}
+
+function nmClearHistory() {
+  if (!confirm('Are you sure you want to clear all plan history? This cannot be undone.')) return;
+  
+  window.nmPlanHistory = [];
+  
+  try {
+    localStorage.removeItem('nmPlanHistory');
+  } catch (e) {
+    console.warn('Failed to clear plan history from localStorage:', e);
+  }
+  
+  nmRenderRecentPlans([]);
+  nmShowToast('success', 'History Cleared', 'All plan history has been cleared', 3000);
+}
+
+// Feature 6: Enhanced Error Handling
+function nmShowError(title, message, suggestion) {
+  const existingError = document.getElementById('nm-current-error');
+  if (existingError) {
+    existingError.remove();
+  }
+  
+  const errorDiv = document.createElement('div');
+  errorDiv.id = 'nm-current-error';
+  errorDiv.className = 'nm-error-message';
+  errorDiv.innerHTML = `
+    <div class="nm-error-icon">⚠️</div>
+    <div class="nm-error-content">
+      <div class="nm-error-title">${title}</div>
+      <div class="nm-error-details">${message}</div>
+      ${suggestion ? `<div class="nm-error-suggestion"><strong>Suggestion:</strong> ${suggestion}</div>` : ''}
+    </div>
+    <button onclick="this.parentElement.remove()" style="background:none; border:none; cursor:pointer; font-size:1.5rem; color:#991b1b;">×</button>
+  `;
+  
+  const content = document.querySelector('#mod-fertilizer .nm-content');
+  if (content) {
+    content.insertBefore(errorDiv, content.firstChild);
+  }
+  
+  // Auto-dismiss after 8 seconds
+  setTimeout(() => {
+    if (errorDiv && errorDiv.parentNode) {
+      errorDiv.remove();
+    }
+  }, 8000);
+}
+
+// Feature 7: Data Validation Enhancements
+function nmValidateCropInput() {
+  const cropSelect = document.getElementById('nm-crop');
+  if (!cropSelect) return true;
+  
+  const cropValue = cropSelect.value;
+  
+  if (!cropValue || cropValue === '') {
+    cropSelect.classList.add('nm-input-error');
+    cropSelect.classList.remove('nm-input-success');
+    return false;
+  }
+  
+  cropSelect.classList.remove('nm-input-error');
+  cropSelect.classList.add('nm-input-success');
+  return true;
+}
+
+function nmValidateYieldInput() {
+  const yieldInput = document.getElementById('nm-target-yield');
+  if (!yieldInput) return true;
+  
+  const value = yieldInput.value.trim();
+  
+  if (value === '') {
+    yieldInput.classList.remove('nm-input-error');
+    yieldInput.classList.remove('nm-input-success');
+    return true;
+  }
+  
+  const numValue = parseFloat(value);
+  
+  if (isNaN(numValue) || numValue < 0 || numValue > 200) {
+    yieldInput.classList.add('nm-input-error');
+    yieldInput.classList.remove('nm-input-success');
+    nmShowError('Invalid Yield Target', 'Yield target must be between 0 and 200 t/ha', 'Please enter a realistic yield target for your crop.');
+    return false;
+  }
+  
+  yieldInput.classList.remove('nm-input-error');
+  yieldInput.classList.add('nm-input-success');
+  return true;
+}
+
+function nmValidateDateInput(dateString) {
+  if (!dateString) return true;
+  
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateRegex.test(dateString)) {
+    return false;
+  }
+  
+  const date = new Date(dateString);
+  return date instanceof Date && !isNaN(date);
+}
+
+function nmValidateDeviceTestIds() {
+  const deviceInput = document.getElementById('nm-device-id');
+  const testInput = document.getElementById('nm-test-id');
+  
+  let valid = true;
+  
+  // Validate Device ID
+  if (deviceInput) {
+    const deviceId = deviceInput.value.trim();
+    if (!deviceId) {
+      deviceInput.classList.add('nm-input-error');
+      valid = false;
+    } else if (!nmValidateDeviceId(deviceId)) {
+      deviceInput.classList.add('nm-input-error');
+      nmShowError('Invalid Device ID', 'Device ID contains invalid characters', 'Device ID should only contain letters, numbers, hyphens, and underscores.');
+      valid = false;
+    } else {
+      deviceInput.classList.remove('nm-input-error');
+      deviceInput.classList.add('nm-input-success');
+    }
+  }
+  
+  // Validate Test ID
+  if (testInput) {
+    const testId = testInput.value.trim();
+    if (!testId) {
+      testInput.classList.add('nm-input-error');
+      valid = false;
+    } else if (!nmValidateTestId(testId)) {
+      testInput.classList.add('nm-input-error');
+      nmShowError('Invalid Test ID', 'Test ID contains invalid characters', 'Test ID should only contain letters, numbers, hyphens, and underscores.');
+      valid = false;
+    } else {
+      testInput.classList.remove('nm-input-error');
+      testInput.classList.add('nm-input-success');
+    }
+  }
+  
+  return valid;
+}
+
+function nmValidateAllInputs() {
+  const deviceTestValid = nmValidateDeviceTestIds();
+  const cropValid = nmValidateCropInput();
+  const yieldValid = nmValidateYieldInput();
+  
+  if (!deviceTestValid || !cropValid || !yieldValid) {
+    nmShowError('Validation Failed', 'Please correct the highlighted fields before proceeding', 'Check that all required fields are filled correctly.');
+    return false;
+  }
+  
+  return true;
+}
+
+// Enhanced recalculate with validation
+const nmOriginalRecalculate = window.recalculateNutrientPlan;
+if (nmOriginalRecalculate && !window.nmRecalculateEnhanced) {
+  window.nmRecalculateEnhanced = true;
+  window.recalculateNutrientPlan = function() {
+    // Validate inputs before calculation
+    if (!nmValidateAllInputs()) {
+      return;
+    }
+    
+    // Clear any existing errors
+    const existingError = document.getElementById('nm-current-error');
+    if (existingError) {
+      existingError.remove();
+    }
+    
+    // Call original function
+    return nmOriginalRecalculate.apply(this, arguments);
+  };
+}
+
+// Initialize on load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    nmLoadPlanHistory();
+    
+    // Add input listeners for validation
+    const yieldInput = document.getElementById('nm-target-yield');
+    if (yieldInput) {
+      yieldInput.addEventListener('blur', nmValidateYieldInput);
+    }
+    
+    const cropSelect = document.getElementById('nm-crop');
+    if (cropSelect) {
+      cropSelect.addEventListener('change', nmValidateCropInput);
+    }
+  });
+} else {
+  nmLoadPlanHistory();
+}
+
+/********************************************
+ * END ADVANCED FEATURES
+ ********************************************/
 
 
 
