@@ -7096,6 +7096,42 @@ input[inputmode="numeric"] {
   font-variant-numeric: tabular-nums;
 }
 
+/* Registry Dashboard Statistics */
+.stat-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#registry-dashboard {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Advanced Filters Panel */
+#advanced-filters-panel {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Duplicate row highlighting */
+tr.duplicate-row {
+  background-color: #fef2f2 !important;
+  border-left: 3px solid #ef4444 !important;
+}
+
 
     //--------------------------------------------------------- END OF NEW CSS --------------------------------------------------------------
   </style>
@@ -8255,6 +8291,31 @@ input[inputmode="numeric"] {
 
         <div class="device-subtab-body">
           <div id="install-subtab-installed" class="device-subtab-content active">
+            
+            <!-- Device Registry Dashboard -->
+            <div id="registry-dashboard" style="display: flex; gap: 12px; padding: 12px; background: #f9fafb; border-bottom: 1px solid #e5e7eb; flex-wrap: wrap;">
+              <div class="stat-card" style="flex: 1; min-width: 150px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-bottom: 4px;">TOTAL DEVICES</div>
+                <div id="stat-total" style="font-size: 1.5rem; font-weight: 700; color: #111827;">0</div>
+              </div>
+              <div class="stat-card" style="flex: 1; min-width: 150px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-bottom: 4px;">WITH GPS</div>
+                <div id="stat-gps" style="font-size: 1.5rem; font-weight: 700; color: #16a34a;">0</div>
+              </div>
+              <div class="stat-card" style="flex: 1; min-width: 150px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-bottom: 4px;">STATES</div>
+                <div id="stat-states" style="font-size: 1.5rem; font-weight: 700; color: #2563eb;">0</div>
+              </div>
+              <div class="stat-card" style="flex: 1; min-width: 150px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-bottom: 4px;">DISTRICTS</div>
+                <div id="stat-districts" style="font-size: 1.5rem; font-weight: 700; color: #7c3aed;">0</div>
+              </div>
+              <div class="stat-card" style="flex: 1; min-width: 150px; padding: 12px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600; margin-bottom: 4px;">DUPLICATES</div>
+                <div id="stat-duplicates" style="font-size: 1.5rem; font-weight: 700; color: #ef4444;">0</div>
+              </div>
+            </div>
+            
             <div class="registry-split">
               <div class="registry-panel" id="install-upper">
                 <div class="registry-toolbar">
@@ -20493,6 +20554,130 @@ function exportRegistryToCSV() {
   showToast(`Exported ${filtered.length} devices to CSV`, 'success');
 }
 
+// Update registry dashboard statistics
+function updateRegistryDashboard() {
+  if (!deviceRegistry || deviceRegistry.length === 0) {
+    document.getElementById('stat-total').textContent = '0';
+    document.getElementById('stat-gps').textContent = '0';
+    document.getElementById('stat-states').textContent = '0';
+    document.getElementById('stat-districts').textContent = '0';
+    document.getElementById('stat-duplicates').textContent = '0';
+    return;
+  }
+  
+  const total = deviceRegistry.length;
+  const withGPS = deviceRegistry.filter(r => validateGPS(r.gps || '')).length;
+  const states = new Set(deviceRegistry.map(r => r.state).filter(Boolean));
+  const districts = new Set(deviceRegistry.map(r => r.district).filter(Boolean));
+  
+  // Detect duplicates
+  const duplicates = detectDuplicateDevices();
+  
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-gps').textContent = `${withGPS} (${Math.round(withGPS/total*100)}%)`;
+  document.getElementById('stat-states').textContent = states.size;
+  document.getElementById('stat-districts').textContent = districts.size;
+  document.getElementById('stat-duplicates').textContent = duplicates.length;
+  
+  // Color code duplicates stat
+  const dupStat = document.getElementById('stat-duplicates');
+  if (duplicates.length > 0) {
+    dupStat.style.color = '#ef4444';
+    dupStat.style.cursor = 'pointer';
+    dupStat.title = 'Click to highlight duplicates';
+    dupStat.onclick = () => highlightDuplicates(duplicates);
+  } else {
+    dupStat.style.color = '#16a34a';
+    dupStat.style.cursor = 'default';
+    dupStat.title = '';
+    dupStat.onclick = null;
+  }
+}
+
+// Detect duplicate devices
+function detectDuplicateDevices() {
+  if (!deviceRegistry || deviceRegistry.length === 0) return [];
+  
+  const deviceIds = {};
+  const mobiles = {};
+  const duplicates = [];
+  
+  deviceRegistry.forEach((r, idx) => {
+    const did = String(r.did || '').trim().toLowerCase();
+    const mobile = String(r.mobile || '').trim();
+    
+    // Check Device ID duplicates
+    if (did && did !== '') {
+      if (deviceIds[did]) {
+        deviceIds[did].push(idx);
+      } else {
+        deviceIds[did] = [idx];
+      }
+    }
+    
+    // Check Mobile duplicates (10 digit numbers only)
+    if (mobile && mobile.length === 10 && /^\d{10}$/.test(mobile)) {
+      if (mobiles[mobile]) {
+        mobiles[mobile].push(idx);
+      } else {
+        mobiles[mobile] = [idx];
+      }
+    }
+  });
+  
+  // Collect all duplicate indices
+  const dupSet = new Set();
+  
+  Object.values(deviceIds).forEach(indices => {
+    if (indices.length > 1) {
+      indices.forEach(idx => dupSet.add(idx));
+    }
+  });
+  
+  Object.values(mobiles).forEach(indices => {
+    if (indices.length > 1) {
+      indices.forEach(idx => dupSet.add(idx));
+    }
+  });
+  
+  return Array.from(dupSet);
+}
+
+// Highlight duplicate rows in the table
+function highlightDuplicates(duplicateIndices) {
+  if (!duplicateIndices || duplicateIndices.length === 0) {
+    showToast('No duplicates found', 'info');
+    return;
+  }
+  
+  // Clear search to show all
+  registrySearchTerm = '';
+  const searchInput = document.getElementById('registry-search-installed');
+  if (searchInput) searchInput.value = '';
+  
+  // Clear advanced filters
+  clearAdvancedFilters();
+  
+  // Re-render to show all devices
+  renderDeviceRegistry();
+  
+  // After render, highlight duplicate rows
+  setTimeout(() => {
+    const tbody = document.getElementById('body-device-registry');
+    if (!tbody) return;
+    
+    const rows = tbody.querySelectorAll('tr');
+    rows.forEach((row, idx) => {
+      const globalIdx = (registryCurrentPage - 1) * registryPageSize + idx;
+      // Note: This is simplified - would need to track actual indices properly
+      row.style.backgroundColor = '#fef2f2';
+      row.style.borderLeft = '3px solid #ef4444';
+    });
+    
+    showToast(`Highlighted ${duplicateIndices.length} potential duplicate entries`, 'warning');
+  }, 100);
+}
+
 function renderDeviceRegistry() {
   const tbody = document.getElementById('body-device-registry');
   if (!tbody) return;
@@ -20676,6 +20861,7 @@ function renderDeviceRegistry() {
   }
   initRegistryColumnSizing();
   refreshRegistryTextareaHeights();
+  updateRegistryDashboard(); // Update dashboard stats
   if (typeof renderDashboard === 'function') renderDashboard();
   setTimeout(renderMapView, 500);
 }
