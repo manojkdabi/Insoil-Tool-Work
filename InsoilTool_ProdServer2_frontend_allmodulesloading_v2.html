@@ -20682,10 +20682,10 @@ function renderDeviceRegistry() {
   const tbody = document.getElementById('body-device-registry');
   if (!tbody) return;
 
-  // Restore search input opacity
-  const searchInput = document.getElementById('registry-search-installed');
-  if (searchInput) {
-    searchInput.style.opacity = '1';
+  // Restore search input opacity (using inline reference to avoid duplicate declaration)
+  const regSearchInput = document.getElementById('registry-search-installed');
+  if (regSearchInput) {
+    regSearchInput.style.opacity = '1';
   }
 
   // NEW: ensure headers are always present (every re-render) with sorting
@@ -20855,6 +20855,8 @@ function renderDeviceRegistry() {
   renderRegistryPagination(totalRecords, totalPages);
 
   applyRegistryEditMode();
+  // Sync search input value with current search term
+  // Note: searchInput variable declared here (not at function start to avoid duplicate declaration)
   const searchInput = document.getElementById('registry-search-installed');
   if (searchInput && searchInput.value !== registrySearchTerm) {
     searchInput.value = registrySearchTerm;
