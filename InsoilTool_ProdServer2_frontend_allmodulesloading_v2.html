@@ -1579,84 +1579,341 @@
       background: #6b7280;
     }
 
-    #mod-fertilizer .nm-toolbar {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      width: 100%;
-    }
-
-    #mod-fertilizer .nm-toolbar-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      padding: 8px 0;
-    }
-
-    #mod-fertilizer .nm-advanced {
-      border: 1px solid var(--border-color);
-      border-radius: var(--border-radius-md);
-      background: #f8fafc;
-      padding: 8px 12px;
-    }
-
-    #mod-fertilizer .nm-advanced summary {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #475569;
-      cursor: pointer;
-      list-style: none;
-    }
-
-    #mod-fertilizer .nm-advanced summary::-webkit-details-marker {
-      display: none;
-    }
-
-    #mod-fertilizer .nm-advanced-content {
-      margin-top: 8px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    #mod-fertilizer .nm-method-info {
-      width: 100%;
-      font-size: 12px;
-      color: #666;
-    }
-
     #mod-fertilizer .nm-content {
       display: flex;
       flex-direction: column;
       flex: 1;
       min-height: 0;
       overflow: hidden;
+      background: #f8fafc;
     }
 
-    #mod-fertilizer .tab-nav {
-      border-top: 1px solid var(--border-color);
+    /* Modern Tabs */
+    #mod-fertilizer .nm-tabs-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 0 24px;
     }
 
+    #mod-fertilizer .nm-tabs {
+      display: flex;
+      gap: 4px;
+    }
+
+    #mod-fertilizer .nm-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #64748b;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    #mod-fertilizer .nm-tab:hover {
+      color: #3b82f6;
+      background: #f8fafc;
+    }
+
+    #mod-fertilizer .nm-tab.active {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+      background: linear-gradient(180deg, transparent 0%, #eff6ff 100%);
+    }
+
+    #mod-fertilizer .nm-tab svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Collapsible Tabs Wrapper */
+    #mod-fertilizer .nm-tabs-wrapper {
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+      overflow: visible;
+      max-height: none;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper.collapsed {
+      max-height: 0;
+      overflow: hidden;
+      border-bottom: none;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      border-top: 1px solid #cbd5e1;
+      border-bottom: 1px solid #e2e8f0;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-header:hover {
+      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-title svg {
+      width: 18px;
+      height: 18px;
+      color: #475569;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-title span {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: -0.01em;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-toggle {
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: #475569;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-tabs-wrapper-toggle:hover {
+      background: rgba(148, 163, 184, 0.2);
+      border-color: rgba(148, 163, 184, 0.5);
+    }
+
+    /* Content Areas */
     #mod-fertilizer .sub-tab-content {
       display: none;
-      padding: 16px;
+      padding: 24px;
       overflow: auto;
       flex: 1;
-      background: var(--bg-body);
+      background: #f8fafc;
     }
 
+    #mod-fertilizer .nm-content-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+
+    #mod-fertilizer .nm-content-title {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+    }
+
+    #mod-fertilizer .nm-content-subtitle {
+      font-size: 0.8125rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    /* Modern Table Styling */
+    #mod-fertilizer .nm-table-container {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    #mod-fertilizer .nm-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+
+    #mod-fertilizer .nm-table thead {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    }
+
+    #mod-fertilizer .nm-table th {
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      border-bottom: 2px solid #0f172a;
+    }
+
+    #mod-fertilizer .nm-table tbody tr {
+      border-bottom: 1px solid #e2e8f0;
+      transition: all 0.15s ease;
+    }
+
+    #mod-fertilizer .nm-table tbody tr:hover {
+      background: linear-gradient(90deg, #eff6ff 0%, #f8fafc 100%);
+    }
+
+    #mod-fertilizer .nm-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    #mod-fertilizer .nm-table td {
+      padding: 12px 16px;
+      color: #334155;
+      font-weight: 500;
+      vertical-align: middle;
+    }
+
+    #mod-fertilizer .nm-table-empty {
+      text-align: center;
+      padding: 0 !important;
+    }
+
+    #mod-fertilizer .nm-empty-state-mini {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      gap: 12px;
+    }
+
+    #mod-fertilizer .nm-empty-state-mini svg {
+      color: #cbd5e1;
+      opacity: 0.6;
+    }
+
+    #mod-fertilizer .nm-empty-state-mini p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    /* Schedule Toggle */
+    #mod-fertilizer .nm-schedule-toggle {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    #mod-fertilizer .nm-toggle-switch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 50px;
+      padding: 8px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    #mod-fertilizer .nm-toggle-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #475569;
+      transition: color 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-toggle-switch input[type="checkbox"] {
+      position: relative;
+      width: 48px;
+      height: 24px;
+      appearance: none;
+      background: #cbd5e1;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    #mod-fertilizer .nm-toggle-switch input[type="checkbox"]:checked {
+      background: #3b82f6;
+    }
+
+    #mod-fertilizer .nm-toggle-switch input[type="checkbox"]::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    #mod-fertilizer .nm-toggle-switch input[type="checkbox"]:checked::before {
+      transform: translateX(24px);
+    }
+
+    #mod-fertilizer .nm-toggle-switch input[type="checkbox"]:checked ~ .nm-toggle-label:first-of-type {
+      color: #94a3b8;
+    }
+
+    #mod-fertilizer .nm-toggle-switch input[type="checkbox"]:not(:checked) ~ .nm-toggle-label:last-of-type {
+      color: #94a3b8;
+    }
+
+    /* Cost Summary */
     #mod-fertilizer .nm-cost-summary {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 6px;
-      padding: 8px 4px 0;
-      font-size: 0.85rem;
+      gap: 12px;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+      border-top: 2px solid #e2e8f0;
+      margin-top: 20px;
+      border-radius: 0 0 12px 12px;
+    }
+
+    #mod-fertilizer .nm-cost-label {
+      font-size: 0.9375rem;
       font-weight: 600;
-      color: #374151;
+      color: #475569;
+    }
+
+    #mod-fertilizer .nm-cost-value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      padding: 8px 16px;
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+    }
+
+    #mod-fertilizer .tab-nav {
+      /* Legacy - replaced with nm-tabs-container */
+    }
+
+    #mod-fertilizer .sub-tab-content {
+      /* Overridden by new styles above */
+    }
+
+    #mod-fertilizer .nm-cost-summary {
+      /* Overridden by new styles above */
     }
 
     #mod-fertilizer .soil-report {
@@ -2200,7 +2457,7 @@
       }
     }
 
-    /***** NUTRIENT MANAGER - ENHANCED UI/UX *****/
+    /***** NUTRIENT MANAGER - MODERN PROFESSIONAL UI *****/
     
     /* Ensure module is scrollable when active */
     #mod-fertilizer.active {
@@ -2208,38 +2465,47 @@
       overflow-x: hidden;
     }
     
-    /* Dashboard Section */
-    /* Dashboard Header with Toggle */
+    /* Dashboard Header */
     #mod-fertilizer .nm-dashboard-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 20px;
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
       cursor: pointer;
       user-select: none;
+      transition: all 0.2s ease;
     }
 
     #mod-fertilizer .nm-dashboard-header:hover {
-      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    }
+
+    #mod-fertilizer .nm-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #mod-fertilizer .nm-dashboard-icon {
+      color: white;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
     }
 
     #mod-fertilizer .nm-dashboard-title {
       margin: 0;
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 1.125rem;
+      font-weight: 700;
       color: white;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      letter-spacing: -0.01em;
     }
 
     #mod-fertilizer .nm-dashboard-toggle {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.2);
       border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 6px;
-      padding: 6px 12px;
+      border-radius: 8px;
+      padding: 8px 14px;
       color: white;
       font-size: 0.875rem;
       cursor: pointer;
@@ -2247,17 +2513,19 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      font-weight: 600;
     }
 
     #mod-fertilizer .nm-dashboard-toggle:hover {
-      background: rgba(255,255,255,0.25);
-      border-color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.3);
+      border-color: rgba(255,255,255,0.5);
+      transform: translateY(-1px);
     }
 
     #mod-fertilizer #nm-dashboard-toggle-icon {
       transition: transform 0.3s ease;
       display: inline-block;
-      font-size: 0.75rem;
+      font-size: 0.875rem;
     }
 
     #mod-fertilizer .nm-dashboard-toggle.collapsed #nm-dashboard-toggle-icon {
@@ -2265,116 +2533,171 @@
     }
 
     #mod-fertilizer .nm-dashboard {
-      padding: 20px;
-      background: #f9fafb;
-      border-bottom: 1px solid var(--border-color);
+      padding: 16px 20px;
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+      border-bottom: 1px solid #e2e8f0;
       transition: all 0.3s ease;
-      overflow: hidden;
-      max-height: 1000px;
+      overflow: visible;
+      max-height: none;
     }
 
     #mod-fertilizer .nm-dashboard.collapsed {
       max-height: 0;
       padding: 0 20px;
       border-bottom: none;
+      overflow: hidden;
     }
 
     #mod-fertilizer .nm-metrics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 14px;
     }
 
     #mod-fertilizer .nm-metric-card {
       background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
       padding: 20px;
       display: flex;
       gap: 16px;
-      align-items: center;
-      transition: all 0.2s ease;
+      align-items: flex-start;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #mod-fertilizer .nm-metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #e2e8f0, #e2e8f0);
+      transition: background 0.25s ease;
+    }
+
+    #mod-fertilizer .nm-metric-card.primary::before {
+      background: linear-gradient(90deg, #3b82f6, #2563eb);
+    }
+
+    #mod-fertilizer .nm-metric-card.success::before {
+      background: linear-gradient(90deg, #10b981, #059669);
+    }
+
+    #mod-fertilizer .nm-metric-card.warning::before {
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+    }
+
+    #mod-fertilizer .nm-metric-card.info::before {
+      background: linear-gradient(90deg, #8b5cf6, #7c3aed);
     }
 
     #mod-fertilizer .nm-metric-card:hover {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-      transform: translateY(-2px);
-    }
-
-    #mod-fertilizer .nm-metric-card.primary {
-      border-left: 4px solid #3b82f6;
-      background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
-    }
-
-    #mod-fertilizer .nm-metric-card.success {
-      border-left: 4px solid #10b981;
-      background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
-    }
-
-    #mod-fertilizer .nm-metric-card.warning {
-      border-left: 4px solid #f59e0b;
-      background: linear-gradient(135deg, #ffffff 0%, #fffbeb 100%);
-    }
-
-    #mod-fertilizer .nm-metric-card.info {
-      border-left: 4px solid #8b5cf6;
-      background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      transform: translateY(-4px);
+      border-color: #cbd5e1;
     }
 
     #mod-fertilizer .nm-metric-icon {
-      font-size: 2.5rem;
-      line-height: 1;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    #mod-fertilizer .nm-metric-card.primary .nm-metric-icon {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      color: #2563eb;
+    }
+
+    #mod-fertilizer .nm-metric-card.success .nm-metric-icon {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      color: #059669;
+    }
+
+    #mod-fertilizer .nm-metric-card.warning .nm-metric-icon {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      color: #d97706;
+    }
+
+    #mod-fertilizer .nm-metric-card.info .nm-metric-icon {
+      background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+      color: #7c3aed;
     }
 
     #mod-fertilizer .nm-metric-content {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
     #mod-fertilizer .nm-metric-label {
       font-size: 0.75rem;
-      color: #6b7280;
-      font-weight: 600;
+      color: #64748b;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
     }
 
     #mod-fertilizer .nm-metric-value {
-      font-size: 1.875rem;
-      font-weight: 700;
-      color: #111827;
-      line-height: 1.2;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
 
     #mod-fertilizer .nm-metric-subtitle {
-      font-size: 0.75rem;
-      color: #9ca3af;
+      font-size: 0.8125rem;
+      color: #94a3b8;
+      font-weight: 500;
     }
 
     /* Quick Actions */
     #mod-fertilizer .nm-quick-actions {
       background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    #mod-fertilizer .nm-actions-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #f1f5f9;
     }
 
     #mod-fertilizer .nm-quick-actions h3 {
-      margin: 0 0 16px 0;
-      font-size: 1rem;
+      margin: 0;
+      font-size: 0.9375rem;
       font-weight: 700;
-      color: #111827;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+    }
+
+    #mod-fertilizer .nm-actions-subtitle {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 500;
     }
 
     #mod-fertilizer .nm-actions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 10px;
     }
 
     #mod-fertilizer .nm-action-btn {
@@ -2383,87 +2706,360 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 12px;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
+      padding: 14px 10px;
+      background: white;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
       cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.875rem;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 0.75rem;
       font-weight: 600;
-      color: #374151;
-      width: 100px;
-      height: 100px;
-      min-width: 100px;
-      min-height: 100px;
+      color: #334155;
+      min-height: 90px;
     }
 
     #mod-fertilizer .nm-action-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border-color: #cbd5e1;
     }
 
     /* Primary Actions - Blue gradient */
-    #mod-fertilizer .nm-action-btn:nth-child(1),
-    #mod-fertilizer .nm-action-btn:nth-child(2),
-    #mod-fertilizer .nm-action-btn:nth-child(3) {
+    #mod-fertilizer .nm-action-btn.primary {
       background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       border-color: #2563eb;
       color: white;
     }
 
-    #mod-fertilizer .nm-action-btn:nth-child(1):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(2):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(3):hover {
+    #mod-fertilizer .nm-action-btn.primary:hover {
       background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       border-color: #1d4ed8;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
     }
 
-    /* Secondary Actions - Light blue/slate */
-    #mod-fertilizer .nm-action-btn:nth-child(4),
-    #mod-fertilizer .nm-action-btn:nth-child(9),
-    #mod-fertilizer .nm-action-btn:nth-child(10) {
-      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-      border-color: #93c5fd;
-      color: #1e40af;
+    /* Secondary Actions - Teal/Cyan */
+    #mod-fertilizer .nm-action-btn.secondary {
+      background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+      border-color: #0d9488;
+      color: white;
     }
 
-    #mod-fertilizer .nm-action-btn:nth-child(4):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(9):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(10):hover {
-      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-      border-color: #60a5fa;
-      color: #1e3a8a;
+    #mod-fertilizer .nm-action-btn.secondary:hover {
+      background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+      border-color: #0f766e;
+      box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3);
     }
 
-    /* Utility Actions - Neutral gray */
-    #mod-fertilizer .nm-action-btn:nth-child(5),
-    #mod-fertilizer .nm-action-btn:nth-child(6),
-    #mod-fertilizer .nm-action-btn:nth-child(7),
-    #mod-fertilizer .nm-action-btn:nth-child(8) {
-      background: #f9fafb;
-      border-color: #e5e7eb;
-      color: #374151;
+    /* Utility Actions - Light slate */
+    #mod-fertilizer .nm-action-btn.utility {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+      color: #475569;
     }
 
-    #mod-fertilizer .nm-action-btn:nth-child(5):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(6):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(7):hover,
-    #mod-fertilizer .nm-action-btn:nth-child(8):hover {
-      background: #f3f4f6;
-      border-color: #d1d5db;
-      color: #1f2937;
+    #mod-fertilizer .nm-action-btn.utility:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #1e293b;
     }
 
     #mod-fertilizer .nm-action-icon {
-      font-size: 1.5rem;
-      line-height: 1;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 2em;
-      height: 2em;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.2);
+      transition: all 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-action-btn.primary .nm-action-icon,
+    #mod-fertilizer .nm-action-btn.secondary .nm-action-icon {
+      background: rgba(255,255,255,0.25);
+    }
+
+    #mod-fertilizer .nm-action-btn.utility .nm-action-icon {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    #mod-fertilizer .nm-action-btn:hover .nm-action-icon {
+      transform: scale(1.1);
+    }
+
+    #mod-fertilizer .nm-action-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.2;
       text-align: center;
+    }
+
+    /* Section Headers */
+    #mod-fertilizer .nm-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-bottom: 2px solid #e2e8f0;
+      margin-top: 1px;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-section-header:hover {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    }
+
+    #mod-fertilizer .nm-section-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #mod-fertilizer .nm-section-icon {
+      color: #3b82f6;
+      flex-shrink: 0;
+    }
+
+    #mod-fertilizer .nm-section-title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: -0.01em;
+    }
+
+    #mod-fertilizer .nm-section-toggle {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: #2563eb;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    #mod-fertilizer .nm-section-toggle:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.5);
+      transform: translateY(-1px);
+    }
+
+    #mod-fertilizer .nm-section-toggle-icon {
+      transition: transform 0.3s ease;
+      display: inline-block;
+      font-size: 0.875rem;
+    }
+
+    #mod-fertilizer .nm-section-toggle.collapsed .nm-section-toggle-icon {
+      transform: rotate(-90deg);
+    }
+
+    /* Control Panel */
+    #mod-fertilizer .nm-control-panel {
+      background: white;
+      padding: 24px;
+      border-bottom: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+      overflow: visible;
+      max-height: none;
+    }
+
+    #mod-fertilizer .nm-control-panel.collapsed {
+      max-height: 0;
+      padding: 0 24px;
+      border-bottom: none;
+      overflow: hidden;
+    }
+
+    #mod-fertilizer .nm-control-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    #mod-fertilizer .nm-control-row:last-child {
+      margin-bottom: 0;
+    }
+
+    #mod-fertilizer .nm-control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #mod-fertilizer .nm-control-group .autocomplete-container {
+      width: 100%;
+      position: relative;
+    }
+
+    #mod-fertilizer .nm-control-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #475569;
+      letter-spacing: 0.3px;
+    }
+
+    #mod-fertilizer .nm-select,
+    #mod-fertilizer .nm-input {
+      height: 40px;
+      padding: 0 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      background: white;
+      color: #1e293b;
+      transition: all 0.2s ease;
+      font-weight: 500;
+    }
+
+    #mod-fertilizer .nm-select:focus,
+    #mod-fertilizer .nm-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background: #fafbfc;
+    }
+
+    #mod-fertilizer .nm-select:hover,
+    #mod-fertilizer .nm-input:hover {
+      border-color: #cbd5e1;
+    }
+
+    #mod-fertilizer .nm-input-with-unit {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #mod-fertilizer .nm-input-with-unit .nm-input {
+      flex: 1;
+    }
+
+    #mod-fertilizer .nm-unit {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #64748b;
+      flex-shrink: 0;
+    }
+
+    #mod-fertilizer .nm-checkbox-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      padding-top: 4px;
+    }
+
+    #mod-fertilizer .nm-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #334155;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-checkbox-label:hover {
+      color: #0f172a;
+    }
+
+    #mod-fertilizer .nm-checkbox {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-checkbox:checked {
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+
+    #mod-fertilizer .nm-checkbox:hover {
+      border-color: #3b82f6;
+    }
+
+    /* Action Buttons Row */
+    #mod-fertilizer .nm-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 2px solid #f1f5f9;
+    }
+
+    #mod-fertilizer .nm-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 20px;
+      height: 40px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      white-space: nowrap;
+    }
+
+    #mod-fertilizer .nm-btn-primary {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+
+    #mod-fertilizer .nm-btn-primary:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      transform: translateY(-1px);
+    }
+
+    #mod-fertilizer .nm-btn-primary:active {
+      transform: translateY(0);
+    }
+
+    #mod-fertilizer .nm-btn-secondary {
+      background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25);
+    }
+
+    #mod-fertilizer .nm-btn-secondary:hover {
+      background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+      transform: translateY(-1px);
+    }
+
+    #mod-fertilizer .nm-btn-secondary:active {
+      transform: translateY(0);
+    }
+
+    #mod-fertilizer .nm-method-info {
+      width: 100%;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      color: #475569;
+      line-height: 1.5;
     }
 
     /* Loading States */
@@ -2473,13 +3069,13 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(8px);
     }
 
     #mod-fertilizer .nm-loading-overlay.hidden {
@@ -2487,9 +3083,9 @@
     }
 
     #mod-fertilizer .nm-spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid #e5e7eb;
+      width: 56px;
+      height: 56px;
+      border: 4px solid #e2e8f0;
       border-top-color: #3b82f6;
       border-radius: 50%;
       animation: nm-spin 0.8s linear infinite;
@@ -2500,110 +3096,135 @@
     }
 
     #mod-fertilizer .nm-loading-text {
-      margin-top: 16px;
-      font-size: 1rem;
+      margin-top: 20px;
+      font-size: 1.0625rem;
       font-weight: 600;
-      color: #374151;
+      color: #1e293b;
+      letter-spacing: -0.01em;
     }
 
     #mod-fertilizer .nm-progress-bar {
-      width: 300px;
-      height: 6px;
-      background: #e5e7eb;
-      border-radius: 3px;
-      margin-top: 12px;
+      width: 320px;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      margin-top: 16px;
       overflow: hidden;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
     }
 
     #mod-fertilizer .nm-progress-fill {
       height: 100%;
       background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-      border-radius: 3px;
+      border-radius: 4px;
       transition: width 0.3s ease;
       animation: nm-progress-shimmer 1.5s infinite;
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
     }
 
     @keyframes nm-progress-shimmer {
-      0% { opacity: 0.8; }
+      0% { opacity: 0.9; }
       50% { opacity: 1; }
-      100% { opacity: 0.8; }
+      100% { opacity: 0.9; }
     }
 
     /* Button Loading State */
-    #mod-fertilizer .btn.loading {
+    #mod-fertilizer .btn.loading,
+    #mod-fertilizer .nm-btn.loading {
       position: relative;
       color: transparent !important;
       pointer-events: none;
+      opacity: 0.8;
     }
 
-    #mod-fertilizer .btn.loading::after {
+    #mod-fertilizer .btn.loading::after,
+    #mod-fertilizer .nm-btn.loading::after {
       content: "";
       position: absolute;
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       top: 50%;
       left: 50%;
-      margin-left: -8px;
-      margin-top: -8px;
-      border: 2px solid #ffffff;
+      margin-left: -9px;
+      margin-top: -9px;
+      border: 2.5px solid currentColor;
       border-top-color: transparent;
       border-radius: 50%;
-      animation: nm-spin 0.6s linear infinite;
+      animation: nm-spin 0.7s linear infinite;
+    }
+
+    #mod-fertilizer .nm-btn-primary.loading::after {
+      border-color: white;
+      border-top-color: transparent;
+    }
+
+    #mod-fertilizer .nm-btn-secondary.loading::after {
+      border-color: white;
+      border-top-color: transparent;
     }
 
     /* Empty State */
     #mod-fertilizer .nm-empty-state {
       text-align: center;
-      padding: 60px 20px;
+      padding: 72px 24px;
       background: white;
-      border: 2px dashed #e5e7eb;
-      border-radius: 12px;
-      margin: 20px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 16px;
+      margin: 24px;
     }
 
     #mod-fertilizer .nm-empty-icon {
-      font-size: 4rem;
-      opacity: 0.3;
-      margin-bottom: 16px;
+      font-size: 4.5rem;
+      opacity: 0.25;
+      margin-bottom: 20px;
+      filter: grayscale(50%);
     }
 
     #mod-fertilizer .nm-empty-title {
-      font-size: 1.25rem;
+      font-size: 1.375rem;
       font-weight: 700;
-      color: #374151;
-      margin-bottom: 8px;
+      color: #1e293b;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
     }
 
     #mod-fertilizer .nm-empty-text {
-      font-size: 0.875rem;
-      color: #6b7280;
-      margin-bottom: 24px;
+      font-size: 0.9375rem;
+      color: #64748b;
+      margin-bottom: 28px;
       line-height: 1.6;
+      font-weight: 500;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     #mod-fertilizer .nm-empty-action {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #3b82f6;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       color: white;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: 600;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
 
     #mod-fertilizer .nm-empty-action:hover {
-      background: #2563eb;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
     }
 
     /* Skeleton Loader */
     #mod-fertilizer .nm-skeleton {
-      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
       background-size: 200% 100%;
       animation: nm-skeleton-loading 1.5s infinite;
-      border-radius: 4px;
+      border-radius: 6px;
     }
 
     @keyframes nm-skeleton-loading {
@@ -2613,49 +3234,52 @@
 
     #mod-fertilizer .nm-skeleton-row {
       display: flex;
-      gap: 12px;
-      padding: 12px;
-      border-bottom: 1px solid #f3f4f6;
+      gap: 16px;
+      padding: 14px;
+      border-bottom: 1px solid #f1f5f9;
     }
 
     #mod-fertilizer .nm-skeleton-cell {
-      height: 20px;
+      height: 22px;
       flex: 1;
+      border-radius: 4px;
     }
 
     /* Status Badges */
     #mod-fertilizer .nm-badge {
       display: inline-flex;
       align-items: center;
-      padding: 4px 12px;
-      border-radius: 12px;
+      padding: 5px 14px;
+      border-radius: 8px;
       font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      border: 1.5px solid;
     }
 
     #mod-fertilizer .nm-badge.low {
-      background: #fef2f2;
+      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
       color: #dc2626;
-      border: 1px solid #fecaca;
+      border-color: #fecaca;
     }
 
     #mod-fertilizer .nm-badge.medium {
-      background: #fffbeb;
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
       color: #d97706;
-      border: 1px solid #fde68a;
+      border-color: #fde68a;
     }
 
     #mod-fertilizer .nm-badge.high {
-      background: #f0fdf4;
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
       color: #16a34a;
-      border: 1px solid #bbf7d0;
+      border-color: #bbf7d0;
     }
 
     #mod-fertilizer .nm-badge.adequate {
-      background: #eff6ff;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
       color: #2563eb;
-      border: 1px solid #bfdbfe;
+      border-color: #bfdbfe;
     }
 
     /* Tooltips */
@@ -2671,37 +3295,43 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
-      background: #e5e7eb;
-      color: #6b7280;
+      background: #e2e8f0;
+      color: #64748b;
       font-size: 0.75rem;
       font-weight: 700;
-      margin-left: 4px;
+      margin-left: 6px;
+      transition: all 0.2s ease;
+      border: 1px solid #cbd5e1;
     }
 
     #mod-fertilizer .nm-tooltip:hover .nm-tooltip-icon {
-      background: #3b82f6;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       color: white;
+      border-color: #2563eb;
+      transform: scale(1.1);
     }
 
     #mod-fertilizer .nm-tooltip .nm-tooltip-text {
       visibility: hidden;
       position: absolute;
-      bottom: 125%;
+      bottom: 140%;
       left: 50%;
       transform: translateX(-50%);
-      background: #1f2937;
+      background: #0f172a;
       color: white;
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 0.75rem;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.8125rem;
       white-space: nowrap;
       z-index: 1000;
       opacity: 0;
-      transition: opacity 0.2s;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      font-weight: 500;
     }
 
     #mod-fertilizer .nm-tooltip .nm-tooltip-text::after {
@@ -2709,38 +3339,40 @@
       position: absolute;
       top: 100%;
       left: 50%;
-      margin-left: -5px;
-      border-width: 5px;
+      margin-left: -6px;
+      border-width: 6px;
       border-style: solid;
-      border-color: #1f2937 transparent transparent transparent;
+      border-color: #0f172a transparent transparent transparent;
     }
 
     #mod-fertilizer .nm-tooltip:hover .nm-tooltip-text {
       visibility: visible;
       opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
     }
 
     /* Toast Notifications */
     #mod-fertilizer .nm-toast {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      min-width: 300px;
-      max-width: 500px;
+      top: 24px;
+      right: 24px;
+      min-width: 340px;
+      max-width: 480px;
       background: white;
-      border-radius: 8px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+      padding: 18px 20px;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 14px;
       z-index: 10000;
-      animation: nm-toast-slide-in 0.3s ease;
+      animation: nm-toast-slide-in 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid #e2e8f0;
     }
 
     @keyframes nm-toast-slide-in {
       from {
-        transform: translateX(400px);
+        transform: translateX(420px);
         opacity: 0;
       }
       to {
@@ -2759,7 +3391,7 @@
         opacity: 1;
       }
       to {
-        transform: translateX(400px);
+        transform: translateX(420px);
         opacity: 0;
       }
     }
@@ -2767,6 +3399,12 @@
     #mod-fertilizer .nm-toast-icon {
       font-size: 1.5rem;
       flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
     }
 
     #mod-fertilizer .nm-toast-content {
@@ -2775,311 +3413,520 @@
 
     #mod-fertilizer .nm-toast-title {
       font-weight: 700;
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       margin-bottom: 4px;
-      color: #111827;
+      color: #0f172a;
+      letter-spacing: -0.01em;
     }
 
     #mod-fertilizer .nm-toast-message {
       font-size: 0.875rem;
-      color: #6b7280;
-      line-height: 1.4;
+      color: #64748b;
+      line-height: 1.5;
+      font-weight: 500;
     }
 
     #mod-fertilizer .nm-toast-close {
-      background: none;
+      background: #f8fafc;
       border: none;
       font-size: 1.25rem;
-      color: #9ca3af;
+      color: #94a3b8;
       cursor: pointer;
-      padding: 0;
+      padding: 4px 8px;
       line-height: 1;
-      transition: color 0.2s;
+      transition: all 0.2s ease;
+      border-radius: 6px;
+      font-weight: 700;
     }
 
     #mod-fertilizer .nm-toast-close:hover {
-      color: #374151;
+      background: #e2e8f0;
+      color: #475569;
     }
 
     #mod-fertilizer .nm-toast.success {
       border-left: 4px solid #10b981;
     }
 
+    #mod-fertilizer .nm-toast.success .nm-toast-icon {
+      background: #dcfce7;
+      color: #059669;
+    }
+
     #mod-fertilizer .nm-toast.error {
       border-left: 4px solid #ef4444;
+    }
+
+    #mod-fertilizer .nm-toast.error .nm-toast-icon {
+      background: #fee2e2;
+      color: #dc2626;
     }
 
     #mod-fertilizer .nm-toast.warning {
       border-left: 4px solid #f59e0b;
     }
 
+    #mod-fertilizer .nm-toast.warning .nm-toast-icon {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
     #mod-fertilizer .nm-toast.info {
       border-left: 4px solid #3b82f6;
+    }
+
+    #mod-fertilizer .nm-toast.info .nm-toast-icon {
+      background: #dbeafe;
+      color: #2563eb;
     }
 
     /* Advanced Features Styles */
     
     /* Filter Panel */
     #mod-fertilizer .nm-filter-panel {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 16px;
-      margin: 12px 0;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 16px 24px;
       display: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     #mod-fertilizer .nm-filter-panel.active {
       display: block;
+      animation: nm-fade-in 0.3s ease;
+    }
+
+    @keyframes nm-fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     #mod-fertilizer .nm-filter-row {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      align-items: end;
     }
 
     #mod-fertilizer .nm-filter-group {
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      flex: 1;
-      min-width: 200px;
+      gap: 8px;
     }
 
     #mod-fertilizer .nm-filter-label {
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       font-weight: 600;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      color: #475569;
+      letter-spacing: 0.3px;
     }
 
     #mod-fertilizer .nm-filter-input {
-      padding: 8px 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
+      height: 40px;
+      padding: 0 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
       font-size: 0.875rem;
       background: white;
+      color: #1e293b;
+      transition: all 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-filter-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
 
     #mod-fertilizer .nm-filter-actions {
       display: flex;
-      gap: 8px;
-      margin-top: 12px;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    #mod-fertilizer .nm-filter-actions .btn {
+      height: 40px;
+      padding: 0 20px;
+      border-radius: 8px;
+      font-weight: 600;
     }
 
     /* Recent Plans Panel */
     #mod-fertilizer .nm-recent-panel {
       background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 16px;
-      margin: 12px 0;
-      max-height: 300px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 16px 24px;
+      max-height: 400px;
       overflow-y: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     #mod-fertilizer .nm-recent-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #f3f4f6;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
     }
 
     #mod-fertilizer .nm-recent-title {
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       font-weight: 700;
-      color: #1f2937;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      color: #0f172a;
+      letter-spacing: -0.01em;
     }
 
     #mod-fertilizer .nm-recent-clear {
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
       color: #ef4444;
       background: none;
       border: none;
       cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 4px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
     }
 
     #mod-fertilizer .nm-recent-clear:hover {
       background: #fef2f2;
+      color: #dc2626;
     }
 
     #mod-fertilizer .nm-recent-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     #mod-fertilizer .nm-recent-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 12px;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 6px;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     #mod-fertilizer .nm-recent-item:hover {
-      background: #eff6ff;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
       border-color: #3b82f6;
-      transform: translateX(4px);
+      transform: translateX(6px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
     }
 
     #mod-fertilizer .nm-recent-info {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
     }
 
     #mod-fertilizer .nm-recent-name {
       font-size: 0.875rem;
       font-weight: 600;
-      color: #1f2937;
+      color: #0f172a;
     }
 
     #mod-fertilizer .nm-recent-details {
-      font-size: 0.75rem;
-      color: #6b7280;
+      font-size: 0.8125rem;
+      color: #64748b;
+      font-weight: 500;
     }
 
     #mod-fertilizer .nm-recent-date {
-      font-size: 0.75rem;
-      color: #9ca3af;
+      font-size: 0.8125rem;
+      color: #94a3b8;
+      font-weight: 500;
     }
 
     #mod-fertilizer .nm-recent-empty {
       text-align: center;
-      padding: 24px;
-      color: #9ca3af;
+      padding: 32px;
+      color: #94a3b8;
       font-size: 0.875rem;
+      font-weight: 500;
     }
 
     /* Comparison Panel */
     #mod-fertilizer .nm-comparison-panel {
       background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 16px;
-      margin: 12px 0;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 16px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     #mod-fertilizer .nm-comparison-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       padding-bottom: 12px;
-      border-bottom: 2px solid #f3f4f6;
+      border-bottom: 2px solid #f1f5f9;
     }
 
     #mod-fertilizer .nm-comparison-title {
-      font-size: 1rem;
+      font-size: 0.9375rem;
       font-weight: 700;
-      color: #1f2937;
+      color: #0f172a;
+      letter-spacing: -0.01em;
     }
 
     #mod-fertilizer .nm-comparison-selector {
       display: flex;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      align-items: end;
     }
 
     #mod-fertilizer .nm-comparison-select {
       flex: 1;
-      padding: 8px 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
+      height: 40px;
+      padding: 0 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
       font-size: 0.875rem;
       background: white;
+      transition: all 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-comparison-select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
 
     #mod-fertilizer .nm-comparison-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      gap: 20px;
     }
 
     #mod-fertilizer .nm-comparison-card {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 16px;
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
 
     #mod-fertilizer .nm-comparison-card-header {
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       font-weight: 700;
-      color: #1f2937;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #e5e7eb;
+      color: #0f172a;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
     }
 
     #mod-fertilizer .nm-comparison-row {
       display: flex;
       justify-content: space-between;
-      padding: 6px 0;
+      padding: 10px 0;
       font-size: 0.875rem;
-      border-bottom: 1px solid #f3f4f6;
+      border-bottom: 1px solid #f1f5f9;
     }
 
     #mod-fertilizer .nm-comparison-label {
-      color: #6b7280;
-      font-weight: 500;
+      color: #64748b;
+      font-weight: 600;
     }
 
     #mod-fertilizer .nm-comparison-value {
-      color: #1f2937;
-      font-weight: 600;
+      color: #0f172a;
+      font-weight: 700;
     }
 
     #mod-fertilizer .nm-comparison-diff {
-      display: inline-block;
-      padding: 2px 6px;
-      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 6px;
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
       margin-left: 8px;
+      letter-spacing: 0.3px;
     }
 
     #mod-fertilizer .nm-comparison-diff.positive {
       background: #dcfce7;
       color: #16a34a;
+      border: 1px solid #bbf7d0;
     }
 
     #mod-fertilizer .nm-comparison-diff.negative {
       background: #fee2e2;
       color: #dc2626;
+      border: 1px solid #fecaca;
     }
 
     #mod-fertilizer .nm-comparison-diff.neutral {
-      background: #e5e7eb;
-      color: #6b7280;
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      #mod-fertilizer .nm-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #mod-fertilizer .nm-actions-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      }
+
+      #mod-fertilizer .nm-control-row {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      #mod-fertilizer .nm-dashboard-header {
+        padding: 12px 16px;
+      }
+
+      #mod-fertilizer .nm-dashboard {
+        padding: 16px;
+      }
+
+      #mod-fertilizer .nm-metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      #mod-fertilizer .nm-metric-card {
+        padding: 16px;
+      }
+
+      #mod-fertilizer .nm-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      #mod-fertilizer .nm-control-panel {
+        padding: 16px;
+      }
+
+      #mod-fertilizer .nm-control-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      #mod-fertilizer .nm-comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #mod-fertilizer .nm-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      #mod-fertilizer .nm-tab {
+        padding: 12px 16px;
+        font-size: 0.8125rem;
+      }
+
+      #mod-fertilizer .sub-tab-content {
+        padding: 16px;
+      }
+
+      #mod-fertilizer .nm-toast {
+        left: 12px;
+        right: 12px;
+        min-width: auto;
+        max-width: none;
+      }
+
+      #mod-fertilizer .nm-section-header {
+        padding: 12px 16px;
+      }
+
+      #mod-fertilizer .nm-filter-panel,
+      #mod-fertilizer .nm-recent-panel,
+      #mod-fertilizer .nm-comparison-panel {
+        margin: 12px 16px;
+        padding: 16px;
+      }
+
+      #mod-fertilizer .nm-action-btn {
+        min-height: 85px;
+        padding: 12px 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #mod-fertilizer .nm-dashboard-title {
+        font-size: 1rem;
+      }
+
+      #mod-fertilizer .nm-metric-value {
+        font-size: 1.5rem;
+      }
+
+      #mod-fertilizer .nm-actions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #mod-fertilizer .nm-action-btn {
+        min-height: 80px;
+      }
+
+      #mod-fertilizer .nm-tabs-container {
+        padding: 0 12px;
+      }
+
+      #mod-fertilizer .nm-tab {
+        padding: 10px 12px;
+        font-size: 0.75rem;
+      }
+
+      #mod-fertilizer .nm-tab svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      #mod-fertilizer .nm-actions-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #mod-fertilizer .nm-btn,
+      #mod-fertilizer .nm-select {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     /* Print Styles */
     @media print {
-      #mod-fertilizer .nm-toolbar,
-      #mod-fertilizer .nm-dashboard,
       #mod-fertilizer .nm-dashboard-header,
+      #mod-fertilizer .nm-dashboard,
       #mod-fertilizer .nm-quick-actions,
       #mod-fertilizer .nm-loading-overlay,
-      #mod-fertilizer .tab-nav,
+      #mod-fertilizer .nm-section-header,
+      #mod-fertilizer .nm-control-panel,
+      #mod-fertilizer .nm-tabs-container,
       #mod-fertilizer .nm-filter-panel,
       #mod-fertilizer .nm-recent-panel,
       #mod-fertilizer .nm-comparison-panel,
-      #mod-fertilizer .module-header .nm-toolbar-row,
+      #mod-fertilizer .nm-schedule-toggle,
       #mod-fertilizer button,
       #mod-fertilizer select {
         display: none !important;
@@ -3107,10 +3954,13 @@
         font-size: 10pt;
       }
 
-      #mod-fertilizer .panel-label {
-        font-size: 14pt;
-        font-weight: bold;
-        margin-bottom: 12px;
+      #mod-fertilizer .nm-content-header {
+        margin-bottom: 16px;
+      }
+
+      #mod-fertilizer .nm-content-title {
+        font-size: 16pt;
+        margin-bottom: 8px;
       }
     }
 
@@ -3118,60 +3968,142 @@
     #mod-fertilizer .nm-error-message {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      border-left: 4px solid #dc2626;
-      border-radius: 6px;
-      margin: 12px 0;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+      border: 1.5px solid #fecaca;
+      border-left: 4px solid #ef4444;
+      border-radius: 10px;
+      margin: 16px 24px;
       font-size: 0.875rem;
       color: #991b1b;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
     }
 
     #mod-fertilizer .nm-error-icon {
-      font-size: 1.25rem;
+      width: 20px;
+      height: 20px;
       flex-shrink: 0;
+      color: #ef4444;
+    }
+
+    #mod-fertilizer .nm-success-message {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border: 1.5px solid #bbf7d0;
+      border-left: 4px solid #10b981;
+      border-radius: 10px;
+      margin: 16px 24px;
+      font-size: 0.875rem;
+      color: #065f46;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+    }
+
+    #mod-fertilizer .nm-warning-message {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 1.5px solid #fde68a;
+      border-left: 4px solid #f59e0b;
+      border-radius: 10px;
+      margin: 16px 24px;
+      font-size: 0.875rem;
+      color: #92400e;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+    }
+
+    #mod-fertilizer .nm-info-message {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1.5px solid #bfdbfe;
+      border-left: 4px solid #3b82f6;
+      border-radius: 10px;
+      margin: 16px 24px;
+      font-size: 0.875rem;
+      color: #1e40af;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
     }
 
     #mod-fertilizer .nm-error-content {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     #mod-fertilizer .nm-error-title {
       font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    #mod-fertilizer .nm-error-details {
-      font-size: 0.8125rem;
+      font-size: 0.9375rem;
       color: #7f1d1d;
     }
 
+    #mod-fertilizer .nm-error-details {
+      font-size: 0.875rem;
+      color: #991b1b;
+      line-height: 1.5;
+    }
+
     #mod-fertilizer .nm-error-suggestion {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid #fecaca;
+      margin-top: 6px;
       font-size: 0.8125rem;
       color: #991b1b;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 6px;
+    }
+
+    #mod-fertilizer .nm-error-close {
+      background: rgba(220, 38, 38, 0.1);
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #dc2626;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    #mod-fertilizer .nm-error-close:hover {
+      background: rgba(220, 38, 38, 0.2);
+      transform: scale(1.1);
     }
 
     #mod-fertilizer .nm-input-error {
-      border-color: #dc2626 !important;
+      border-color: #ef4444 !important;
       background: #fef2f2 !important;
     }
 
     #mod-fertilizer .nm-input-success {
-      border-color: #16a34a !important;
+      border-color: #10b981 !important;
       background: #f0fdf4 !important;
     }
 
     #mod-fertilizer .nm-validation-icon {
       position: absolute;
-      right: 8px;
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 1rem;
+      font-size: 1.125rem;
+      pointer-events: none;
     }
 
     /* Enhanced Tables */
@@ -3187,70 +4119,6 @@
       letter-spacing: 0.5px;
       font-size: 0.75rem;
       color: #6b7280;
-    }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
-      #mod-fertilizer .nm-dashboard-header {
-        padding: 10px 16px;
-      }
-
-      #mod-fertilizer .nm-dashboard-title {
-        font-size: 0.875rem;
-      }
-
-      #mod-fertilizer .nm-dashboard-toggle {
-        padding: 5px 10px;
-        font-size: 0.75rem;
-      }
-
-      #mod-fertilizer .nm-dashboard {
-        padding: 12px;
-      }
-
-      #mod-fertilizer .nm-dashboard.collapsed {
-        padding: 0 12px;
-      }
-
-      #mod-fertilizer .nm-metrics-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      #mod-fertilizer .nm-metric-card {
-        padding: 16px;
-      }
-
-      #mod-fertilizer .nm-metric-icon {
-        font-size: 2rem;
-      }
-
-      #mod-fertilizer .nm-metric-value {
-        font-size: 1.5rem;
-      }
-
-      #mod-fertilizer .nm-actions-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      #mod-fertilizer .nm-toast {
-        left: 10px;
-        right: 10px;
-        min-width: auto;
-      }
-
-      #mod-fertilizer .nm-toolbar-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      #mod-fertilizer .nm-toolbar-row > * {
-        width: 100% !important;
-      }
-
-      #mod-fertilizer .module-header {
-        padding: 12px;
-      }
     }
 
     /***** DEVICE QA/QC – LAYOUT (single source of truth) *****/
@@ -8186,22 +9054,22 @@
    =========================== */
 
 /* Do NOT force display here. Let your JS/nav control visibility. */
-#mod-stv-direct{
+#mod-stv-direct.active{
   height: 100% !important;
   min-height: 0 !important;
 }
 
 /* Only when STV Direct is actually visible, make it a column layout */
-#mod-stv-direct[style*="display: block"],
-#mod-stv-direct[style*="display:block"],
-#mod-stv-direct[style*="display: flex"],
-#mod-stv-direct[style*="display:flex"]{
+#mod-stv-direct.active[style*="display: block"],
+#mod-stv-direct.active[style*="display:block"],
+#mod-stv-direct.active[style*="display: flex"],
+#mod-stv-direct.active[style*="display:flex"]{
   display: flex !important;
   flex-direction: column !important;
 }
 
 /* Let STV Direct consume full available height below its toolbar */
-#mod-stv-direct .split-container{
+#mod-stv-direct.active .split-container{
   flex: 1 1 auto !important;
   height: auto !important;
   min-height: 0 !important;
@@ -8209,7 +9077,7 @@
 }
 
 /* Kill the global 40% height rule for STV Direct only */
-#mod-stv-direct .panel-upper{
+#mod-stv-direct.active .panel-upper{
   flex: 1 1 auto !important;
   height: auto !important;
   min-height: 0 !important;
@@ -8217,7 +9085,7 @@
 }
 
 /* Ensure horizontal scroll actually happens when columns exceed viewport */
-#mod-stv-direct #tbl-stv-direct{
+#mod-stv-direct.active #tbl-stv-direct{
   width: max-content !important;
   min-width: 100% !important;
 }
@@ -10333,7 +11201,15 @@ tr.duplicate-row {
     <div id="mod-fertilizer" class="module-view">
       <!-- Dashboard Section with Collapse Toggle -->
       <div class="nm-dashboard-header" onclick="nmToggleDashboard()">
-        <h2 class="nm-dashboard-title">Dashboard Overview</h2>
+        <div class="nm-header-left">
+          <svg class="nm-dashboard-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <h2 class="nm-dashboard-title">Dashboard Overview</h2>
+        </div>
         <button class="nm-dashboard-toggle" onclick="event.stopPropagation(); nmToggleDashboard();" aria-label="Toggle Dashboard" title="Collapse/Expand Dashboard">
           <span id="nm-dashboard-toggle-icon">▼</span>
         </button>
@@ -10342,7 +11218,15 @@ tr.duplicate-row {
         <!-- Metrics Cards -->
         <div class="nm-metrics-grid">
           <div class="nm-metric-card primary">
-            <div class="nm-metric-icon">📋</div>
+            <div class="nm-metric-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
             <div class="nm-metric-content">
               <div class="nm-metric-label">Total Plans</div>
               <div class="nm-metric-value" id="nm-stat-total-plans">0</div>
@@ -10350,7 +11234,15 @@ tr.duplicate-row {
             </div>
           </div>
           <div class="nm-metric-card success">
-            <div class="nm-metric-icon">🧮</div>
+            <div class="nm-metric-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="9" y1="9" x2="15" y2="9"></line>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+                <line x1="12" y1="9" x2="12" y2="15"></line>
+                <line x1="9" y1="12" x2="15" y2="12"></line>
+              </svg>
+            </div>
             <div class="nm-metric-content">
               <div class="nm-metric-label">Active Calculations</div>
               <div class="nm-metric-value" id="nm-stat-active-calcs">0</div>
@@ -10358,7 +11250,12 @@ tr.duplicate-row {
             </div>
           </div>
           <div class="nm-metric-card warning">
-            <div class="nm-metric-icon">💰</div>
+            <div class="nm-metric-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
             <div class="nm-metric-content">
               <div class="nm-metric-label">Total Cost</div>
               <div class="nm-metric-value">₹<span id="nm-stat-total-cost">0</span></div>
@@ -10366,7 +11263,13 @@ tr.duplicate-row {
             </div>
           </div>
           <div class="nm-metric-card info">
-            <div class="nm-metric-icon">🎯</div>
+            <div class="nm-metric-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="16 12 12 8 8 12"></polyline>
+                <line x1="12" y1="16" x2="12" y2="8"></line>
+              </svg>
+            </div>
             <div class="nm-metric-content">
               <div class="nm-metric-label">Avg Yield Target</div>
               <div class="nm-metric-value"><span id="nm-stat-avg-yield">0</span></div>
@@ -10377,47 +11280,108 @@ tr.duplicate-row {
 
         <!-- Quick Actions -->
         <div class="nm-quick-actions">
-          <h3>Quick Actions</h3>
+          <div class="nm-actions-header">
+            <h3>Quick Actions</h3>
+            <span class="nm-actions-subtitle">Common operations and tools</span>
+          </div>
           <div class="nm-actions-grid">
-            <button class="nm-action-btn" onclick="nmQuickLoadTest()">
-              <span class="nm-action-icon">🔬</span>
-              <span>Load Test</span>
+            <button class="nm-action-btn primary" onclick="nmQuickLoadTest()" aria-label="Load Test Data">
+              <div class="nm-action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+              </div>
+              <span class="nm-action-label">Load Test</span>
             </button>
-            <button class="nm-action-btn" onclick="nmQuickCalculate()">
-              <span class="nm-action-icon">⚡</span>
-              <span>Calculate</span>
+            <button class="nm-action-btn primary" onclick="nmQuickCalculate()" aria-label="Calculate Plan">
+              <div class="nm-action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                  <line x1="8" y1="6" x2="16" y2="6"></line>
+                  <line x1="8" y1="10" x2="16" y2="10"></line>
+                  <line x1="8" y1="14" x2="12" y2="14"></line>
+                  <line x1="8" y1="18" x2="12" y2="18"></line>
+                </svg>
+              </div>
+              <span class="nm-action-label">Calculate</span>
             </button>
-            <button class="nm-action-btn" onclick="nmQuickExport()">
-              <span class="nm-action-icon">📄</span>
-              <span>Export PDF</span>
+            <button class="nm-action-btn primary" onclick="nmQuickExport()" aria-label="Export PDF">
+              <div class="nm-action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </div>
+              <span class="nm-action-label">Export PDF</span>
             </button>
-            <button class="nm-action-btn" onclick="nmViewSchedule()">
-              <span class="nm-action-icon">📅</span>
-              <span>View Schedule</span>
+            <button class="nm-action-btn secondary" onclick="nmViewSchedule()" aria-label="View Schedule">
+              <div class="nm-action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <span class="nm-action-label">Schedule</span>
             </button>
-            <button class="nm-action-btn" onclick="nmClearAll()">
-              <span class="nm-action-icon">🔄</span>
-              <span>Clear All</span>
+            <button class="nm-action-btn secondary" onclick="nmExportCSV()" aria-label="Export CSV">
+              <div class="nm-action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+              </div>
+              <span class="nm-action-label">Export CSV</span>
             </button>
-            <button class="nm-action-btn" onclick="nmShowHelp()">
-              <span class="nm-action-icon">❓</span>
-              <span>Help</span>
+            <button class="nm-action-btn secondary" onclick="nmPrintView()" aria-label="Print View">
+              <div class="nm-action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+              </div>
+              <span class="nm-action-label">Print</span>
             </button>
-            <button class="nm-action-btn" onclick="nmExportCSV()">
-              <span class="nm-action-icon">📊</span>
-              <span>Export CSV</span>
+            <button class="nm-action-btn utility" onclick="nmToggleFilters()" aria-label="Toggle Filters">
+              <div class="nm-action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+              </div>
+              <span class="nm-action-label">Filters</span>
             </button>
-            <button class="nm-action-btn" onclick="nmPrintView()">
-              <span class="nm-action-icon">🖨️</span>
-              <span>Print</span>
+            <button class="nm-action-btn utility" onclick="nmToggleComparison()" aria-label="Compare Plans">
+              <div class="nm-action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="17 11 12 6 7 11"></polyline>
+                  <polyline points="17 18 12 13 7 18"></polyline>
+                </svg>
+              </div>
+              <span class="nm-action-label">Compare</span>
             </button>
-            <button class="nm-action-btn" onclick="nmToggleFilters()">
-              <span class="nm-action-icon">🔍</span>
-              <span>Filters</span>
+            <button class="nm-action-btn utility" onclick="nmClearAll()" aria-label="Clear All Data">
+              <div class="nm-action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+              </div>
+              <span class="nm-action-label">Clear All</span>
             </button>
-            <button class="nm-action-btn" onclick="nmToggleComparison()">
-              <span class="nm-action-icon">⚖️</span>
-              <span>Compare</span>
+            <button class="nm-action-btn utility" onclick="nmShowHelp()" aria-label="Show Help">
+              <div class="nm-action-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </div>
+              <span class="nm-action-label">Help</span>
             </button>
           </div>
         </div>
@@ -10491,116 +11455,188 @@ tr.duplicate-row {
         </div>
       </div>
 
-      <div class="module-header">
-        <div class="nm-toolbar">
-          <div class="nm-toolbar-row nm-toolbar-primary">
-            <select id="nm-client" class="search-input" style="min-width: 150px; border-radius: 20px; border: 1px solid #d1d5db; padding: 6px 16px; background: white; font-size: 0.875rem;">
+      <!-- Data Selection Toolbar -->
+      <div class="nm-section-header" onclick="nmToggleSection('data-selection')" style="cursor: pointer;">
+        <div class="nm-section-left">
+          <svg class="nm-section-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span class="nm-section-title">Data Selection</span>
+        </div>
+        <button class="nm-section-toggle" onclick="event.stopPropagation(); nmToggleSection('data-selection');" aria-label="Toggle Data Selection" title="Collapse/Expand Section">
+          <span class="nm-section-toggle-icon" id="data-selection-toggle">▼</span>
+        </button>
+      </div>
+      <div class="nm-control-panel" id="data-selection-panel">
+        <div class="nm-control-row">
+          <div class="nm-control-group">
+            <label class="nm-control-label">Client</label>
+            <select id="nm-client" class="nm-select">
               <option value="Default">Default Client</option>
             </select>
+          </div>
 
-            <select id="nm-rating-scheme" class="search-input" style="min-width: 180px; border-radius: 20px; border: 1px solid #d1d5db; padding: 6px 16px; background: white; font-size: 0.875rem;">
-              <option value="">Rating scheme...</option>
+          <div class="nm-control-group">
+            <label class="nm-control-label">Rating Scheme</label>
+            <select id="nm-rating-scheme" class="nm-select">
+              <option value="">Select rating scheme...</option>
             </select>
+          </div>
 
-            <span class="divider-v"></span>
-
-            <div class="autocomplete-container" style="width:140px;">
-              <input type="text" id="nm-device-id" class="search-input"
-                placeholder="Device ID"
+          <div class="nm-control-group">
+            <label class="nm-control-label">Device ID</label>
+            <div class="autocomplete-container">
+              <input type="text" id="nm-device-id" class="nm-input"
+                placeholder="Enter device ID"
                 autocomplete="off"
                 oninput="nmOnDeviceInput()"
                 onclick="nmShowDeviceList()">
               <div id="nm-device-list" class="autocomplete-list" style="display:none;"></div>
             </div>
+          </div>
 
-            <div class="autocomplete-container" style="width:140px;">
-              <input type="text" id="nm-test-id" class="search-input"
-                placeholder="Test ID"
+          <div class="nm-control-group">
+            <label class="nm-control-label">Test ID</label>
+            <div class="autocomplete-container">
+              <input type="text" id="nm-test-id" class="nm-input"
+                placeholder="Enter test ID"
                 autocomplete="off"
                 oninput="nmOnTestInput()"
                 onclick="nmShowTestList()">
               <div id="nm-test-list" class="autocomplete-list" style="display:none;"></div>
             </div>
+          </div>
 
-            <span class="divider-v"></span>
-
-            <select id="nm-crop" class="search-input" style="min-width: 180px; border-radius: 20px; border: 1px solid #d1d5db; padding: 6px 16px; background: white; font-size: 0.875rem;">
+          <div class="nm-control-group">
+            <label class="nm-control-label">Crop</label>
+            <select id="nm-crop" class="nm-select">
               <option value="">Select crop...</option>
             </select>
           </div>
         </div>
       </div>
 
-      <div class="module-header">
-        <div class="nm-toolbar">
-          <details class="nm-advanced">
-            <summary>Calculation settings</summary>
-            <div class="nm-advanced-content">
-              <input type="number" id="nm-target-yield" class="date-input"
-                placeholder="Target yield" style="width:110px;" 
+      <!-- Calculation Settings -->
+      <div class="nm-section-header" onclick="nmToggleSection('calculation-settings')" style="cursor: pointer;">
+        <div class="nm-section-left">
+          <svg class="nm-section-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+            <line x1="8" y1="6" x2="16" y2="6"></line>
+            <line x1="8" y1="10" x2="16" y2="10"></line>
+            <line x1="8" y1="14" x2="12" y2="14"></line>
+          </svg>
+          <span class="nm-section-title">Calculation Settings</span>
+        </div>
+        <button class="nm-section-toggle" onclick="event.stopPropagation(); nmToggleSection('calculation-settings');" aria-label="Toggle Calculation Settings" title="Collapse/Expand Section">
+          <span class="nm-section-toggle-icon" id="calculation-settings-toggle">▼</span>
+        </button>
+      </div>
+      <div class="nm-control-panel" id="calculation-settings-panel">
+        <div class="nm-control-row">
+          <div class="nm-control-group">
+            <label class="nm-control-label">Target Yield</label>
+            <div class="nm-input-with-unit">
+              <input type="number" id="nm-target-yield" class="nm-input"
+                placeholder="Enter target yield" 
                 title="Enter expected crop yield in tonnes per hectare">
-              <span id="nm-yield-unit" style="font-size:0.8rem; color:#6b7280;">t/ha</span>
-              <span class="nm-tooltip">
-                <span class="nm-tooltip-icon">i</span>
-                <span class="nm-tooltip-text">Expected crop yield per hectare</span>
-              </span>
-
-              <span class="divider-v"></span>
-
-              <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;" 
-                title="Calculate fertilizer recommendations for soil application">
-                <input type="checkbox" id="nm-method-soil" checked> Soil
-              </label>
-              <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;"
-                title="Calculate water-soluble fertilizer recommendations">
-                <input type="checkbox" id="nm-method-fert" checked> Fertigation
-              </label>
-              <label style="font-size:0.8rem; display:flex; align-items:center; gap:4px;"
-                title="Calculate foliar spray recommendations">
-                <input type="checkbox" id="nm-method-foliar"> Foliar
-              </label>
-
-              <span style="font-size:0.8rem; color:#6b7280;">Calc method</span>
-
-              <select id="nm-method" onchange="onMethodChange()" 
-                title="Select calculation methodology: RDF (Recommended Dose of Fertilizer) or STCR (Soil Test Crop Response)"
-                style="border-radius: 20px; border: 1px solid #d1d5db; padding: 6px 16px; background: white; font-size: 0.875rem;">
-                <option value="">Select method...</option>
-                <option value="RDF">RDF</option>
-                <option value="STCR">STCR</option>
-              </select>
-              <span class="nm-tooltip">
-                <span class="nm-tooltip-icon">i</span>
-                <span class="nm-tooltip-text">RDF: Standard dosage | STCR: Soil-based dosage</span>
-              </span>
-
-              <div id="nm-method-info" class="nm-method-info"></div>
+              <span class="nm-unit" id="nm-yield-unit">t/ha</span>
             </div>
-          </details>
+          </div>
 
-          <div class="nm-toolbar-row nm-toolbar-actions">
-            <button type="button" onclick="recalculateNutrientPlan()" class="btn btn-slate">
-              Recalculate Plan
-            </button>
-
-            <button type="button" onclick="nmExportPlan()" class="btn btn-slate">
-              Export Plan (PDF)
-            </button>
-
-            <select id="nutrient-manager-language" style="padding:6px 16px; border:1px solid #d1d5db; border-radius:20px; font-size:0.875rem; background:#fff; cursor:pointer; margin-left:8px;">
-              <option value="en">English</option>
-              <option value="hi">हिन्दी (Hindi)</option>
+          <div class="nm-control-group">
+            <label class="nm-control-label">Calculation Method</label>
+            <select id="nm-method" onchange="onMethodChange()" class="nm-select"
+              title="Select calculation methodology">
+              <option value="">Select method...</option>
+              <option value="RDF">RDF (Recommended Dose)</option>
+              <option value="STCR">STCR (Soil Test Based)</option>
             </select>
+          </div>
 
-            <div class="spacer"></div>
+          <div class="nm-control-group">
+            <label class="nm-control-label">Application Methods</label>
+            <div class="nm-checkbox-group">
+              <label class="nm-checkbox-label" title="Calculate fertilizer recommendations for soil application">
+                <input type="checkbox" id="nm-method-soil" class="nm-checkbox" checked>
+                <span>Soil</span>
+              </label>
+              <label class="nm-checkbox-label" title="Calculate water-soluble fertilizer recommendations">
+                <input type="checkbox" id="nm-method-fert" class="nm-checkbox" checked>
+                <span>Fertigation</span>
+              </label>
+              <label class="nm-checkbox-label" title="Calculate foliar spray recommendations">
+                <input type="checkbox" id="nm-method-foliar" class="nm-checkbox">
+                <span>Foliar</span>
+              </label>
+            </div>
           </div>
         </div>
+
+        <div class="nm-actions-row">
+          <button type="button" onclick="recalculateNutrientPlan()" class="nm-btn nm-btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+            </svg>
+            <span>Recalculate Plan</span>
+          </button>
+
+          <button type="button" onclick="nmExportPlan()" class="nm-btn nm-btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Export Plan (PDF)</span>
+          </button>
+
+          <select id="nutrient-manager-language" class="nm-select" style="max-width: 150px;">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+          </select>
+        </div>
+
+        <div id="nm-method-info" class="nm-method-info"></div>
       </div>
 
-      <div class="nm-content">
-        <div class="tab-nav">
-          <button class="tab-btn active" onclick="subTab('nm-summary', event)">Soil Test Summary</button>
-          <button class="tab-btn" onclick="subTab('nm-schedule', event)">Nutrient Schedule</button>
+      <!-- Collapsible Tabs Wrapper -->
+      <div class="nm-tabs-wrapper" id="nm-tabs-wrapper">
+        <div class="nm-tabs-wrapper-header" onclick="nmToggleTabsWrapper()">
+          <div class="nm-tabs-wrapper-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Results & Nutrient Plans</span>
+          </div>
+          <button class="nm-tabs-wrapper-toggle" onclick="event.stopPropagation(); nmToggleTabsWrapper();" aria-label="Toggle Results Section" title="Collapse/Expand Section">
+            <span id="nm-tabs-wrapper-toggle-icon">▼</span>
+          </button>
+        </div>
+
+      <div class="nm-content" id="nm-tabs-content">
+        <div class="nm-tabs-container">
+          <div class="nm-tabs">
+            <button class="nm-tab active" onclick="subTab('nm-summary', event)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 11l3 3L22 4"></path>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              </svg>
+              <span>Soil Test Summary</span>
+            </button>
+            <button class="nm-tab" onclick="subTab('nm-schedule', event)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span>Nutrient Schedule</span>
+            </button>
+          </div>
           <div class="tab-info">
             <button class="tab-info-btn" onclick="toggleTabInfo(this, 'fertilizer')" title="About Nutrient Manager">i</button>
             <div class="tab-info-panel">
@@ -10611,50 +11647,57 @@ tr.duplicate-row {
         </div>
 
         <div id="tab-nm-summary" class="sub-tab-content" style="display:block;">
-          <div class="panel-label">Soil test summary</div>
-          <div style="padding:10px; display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start;">
-            <div style="flex:1; min-width:260px;">
-              <div style="font-size:0.8rem; font-weight:600; color:#4b5563; margin-bottom:4px;">
-                Parameter-wise soil test values
-              </div>
-              <table class="selectable-table" style="width:100%; font-size:0.78rem;">
-                <thead>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Value</th>
-                    <th>Unit</th>
-                    <th>Rating</th>
-                    <th>Nutrient requirement (kg/ha)</th>
-                  </tr>
-                </thead>
-                <tbody id="nm-fertility-body">
-                  <!-- populated when DeviceID + TestID resolved -->
-                </tbody>
-              </table>
-            </div>
+          <div class="nm-content-header">
+            <h3 class="nm-content-title">Soil Test Summary</h3>
+            <span class="nm-content-subtitle">Parameter-wise soil test values and nutrient requirements</span>
+          </div>
+          <div class="nm-table-container">
+            <table class="nm-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                  <th>Rating</th>
+                  <th>Nutrient Requirement (kg/ha)</th>
+                </tr>
+              </thead>
+              <tbody id="nm-fertility-body">
+                <tr>
+                  <td colspan="5" class="nm-table-empty">
+                    <div class="nm-empty-state-mini">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                      </svg>
+                      <p>Select a Device ID and Test ID to view soil test data</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
         <div id="tab-nm-schedule" class="sub-tab-content">
-          <div class="panel-label">
-            Stage-wise nutrient plan
-            <span style="font-weight:normal; font-size:0.78rem; margin-left:auto;">
-              Per stage &amp; method (soil / fertigation / foliar)
-            </span>
+          <div class="nm-content-header">
+            <h3 class="nm-content-title">Stage-wise Nutrient Plan</h3>
+            <span class="nm-content-subtitle">Per stage & method (soil / fertigation / foliar)</span>
           </div>
 
-          <div style="padding:8px 10px; display:flex; align-items:center; gap:10px;">
-            <label class="qaqc-toggle">
-              <span class="qaqc-toggle-label">Nutrient Schedule</span>
+          <div class="nm-schedule-toggle">
+            <label class="nm-toggle-switch">
+              <span class="nm-toggle-label">Nutrient Schedule</span>
               <input id="nm-schedule-toggle" type="checkbox" onchange="nmToggleScheduleView(this.checked)">
-              <span class="qaqc-toggle-slider" aria-hidden="true"></span>
-              <span class="qaqc-toggle-label">Fertilizer Schedule</span>
+              <span class="nm-toggle-slider" aria-hidden="true"></span>
+              <span class="nm-toggle-label">Fertilizer Schedule</span>
             </label>
           </div>
 
           <div id="nm-schedule-nutrient">
-            <div class="table-wrapper">
-              <table id="tbl-nm-nutrient-schedule" class="selectable-table">
+            <div class="nm-table-container">
+              <table id="tbl-nm-nutrient-schedule" class="nm-table">
                 <thead>
                   <tr>
                     <th>Stage</th>
@@ -10664,7 +11707,16 @@ tr.duplicate-row {
                 </thead>
                 <tbody id="body-nm-nutrient-schedule">
                   <tr>
-                    <td colspan="3" style="text-align:center; padding:10px;">No plan calculated.</td>
+                    <td colspan="3" class="nm-table-empty">
+                      <div class="nm-empty-state-mini">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                          <line x1="8" y1="6" x2="16" y2="6"></line>
+                          <line x1="8" y1="10" x2="16" y2="10"></line>
+                        </svg>
+                        <p>Calculate a plan to view nutrient schedule</p>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -10672,34 +11724,45 @@ tr.duplicate-row {
           </div>
 
           <div id="nm-schedule-fertilizer" style="display:none;">
-            <div class="table-wrapper">
-              <table id="tbl-nm-fertilizer-schedule" class="selectable-table">
+            <div class="nm-table-container">
+              <table id="tbl-nm-fertilizer-schedule" class="nm-table">
                 <thead>
                   <tr>
                     <th>Stage</th>
                     <th>Nutrient</th>
                     <th>Dose (kg/ha)</th>
                     <th>Method</th>
-                    <th>Source mix</th>
-                    <th>Product qty / ha</th>
+                    <th>Source Mix</th>
+                    <th>Product Qty / ha</th>
                     <th>Cost / ha</th>
-                    <th>Delivery details</th>
+                    <th>Delivery Details</th>
                     <th>Flags</th>
                   </tr>
                 </thead>
                 <tbody id="body-nm-fertilizer-schedule">
                   <tr>
-                    <td colspan="9" style="text-align:center; padding:10px;">No plan calculated.</td>
+                    <td colspan="9" class="nm-table-empty">
+                      <div class="nm-empty-state-mini">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                          <line x1="8" y1="6" x2="16" y2="6"></line>
+                          <line x1="8" y1="10" x2="16" y2="10"></line>
+                        </svg>
+                        <p>Calculate a plan to view fertilizer schedule</p>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div class="nm-cost-summary">
-              <span>Total cost / ha:</span>
-              <span id="nm-total-cost">—</span>
+              <span class="nm-cost-label">Total cost / ha:</span>
+              <span class="nm-cost-value" id="nm-total-cost">—</span>
             </div>
           </div>
         </div>
+      </div>
+      </div><!-- Close nm-tabs-wrapper -->
 
 
 
@@ -25744,8 +26807,9 @@ function buildNutrientManagerIndices() {
     return a.tid.localeCompare(b.tid);
   });
   
-  // Restore dashboard state after initialization
+  // Restore dashboard and section states after initialization
   nmRestoreDashboardState();
+  nmRestoreSectionStates();
 }
 
 function nmFilterAndRenderDeviceList(filter, allowedDevices) {
@@ -26106,6 +27170,40 @@ function recalculateNutrientPlan() {
           sumBody.innerHTML =
             '<tr><td colspan="5" style="text-align:center;">No nutrient data found for this Test ID.</td></tr>';
         }
+        
+        // Store metadata from response for PDF export
+        window.nmCurrentReportId = res.reportId || res.testId || testId;
+        window.nmCurrentTestDateTime = res.testDateTime || res.timestamp || new Date().toLocaleString();
+        window.nmCurrentFarmerName = res.farmerName || res.name || res.clientName || 'Default';
+        window.nmCurrentFarmId = res.farmId || '';
+        
+        // Store soil metrics globally for PDF export
+        const soilMetrics = {};
+        (res.summary || []).forEach(function(s) {
+          const nutrient = (s.nutrient || '').toUpperCase().trim();
+          // Use soilValue if available, otherwise use other value fields
+          const value = s.soilValue !== undefined && s.soilValue !== null ? s.soilValue : 
+                       (s.value !== undefined && s.value !== null ? s.value : s.rating);
+          
+          if (nutrient === 'PH' || nutrient === 'pH') soilMetrics.pH = value;
+          else if (nutrient === 'EC') soilMetrics.EC = value;
+          else if (nutrient === 'OC' || nutrient.includes('ORG') || nutrient.includes('CARBON')) soilMetrics.OC = value;
+          else if (nutrient === 'N' || nutrient.includes('NITROGEN') || nutrient === 'AVAIL_N' || nutrient === 'AVAILABLE NITROGEN') soilMetrics.N = value;
+          else if (nutrient === 'P' || nutrient.includes('PHOSPHORUS') || nutrient.includes('P₂O₅') || nutrient.includes('P2O5') || nutrient === 'AVAIL_P' || nutrient === 'AVAILABLE PHOSPHORUS') soilMetrics.P = value;
+          else if (nutrient === 'K' || nutrient.includes('POTASSIUM') || nutrient.includes('K₂O') || nutrient.includes('K2O') || nutrient === 'AVAIL_K' || nutrient === 'AVAILABLE POTASSIUM') soilMetrics.K = value;
+          else if (nutrient === 'S' || nutrient.includes('SULPHUR') || nutrient.includes('SULFUR') || nutrient === 'AVAIL_S') soilMetrics.S = value;
+          else if (nutrient === 'ZN' || nutrient.includes('ZINC')) soilMetrics.Zn = value;
+          else if (nutrient === 'CU' || nutrient.includes('COPPER')) soilMetrics.Cu = value;
+          else if (nutrient === 'FE' || nutrient.includes('IRON')) soilMetrics.Fe = value;
+          else if (nutrient === 'MN' || nutrient.includes('MANGANESE')) soilMetrics.Mn = value;
+          else if (nutrient === 'B' || nutrient.includes('BORON')) soilMetrics.B = value;
+        });
+        window.nmCurrentSoilMetrics = soilMetrics;
+        window.nmCurrentSummary = res.summary || [];
+        
+        console.log('NM soil metrics stored for PDF (enhanced):', soilMetrics, 'from summary:', res.summary);
+        
+        console.log('NM soil metrics stored for PDF:', soilMetrics);
       }
 
       // --- Cache totals + stages for PDF export (from res.stages.dose) ---
@@ -26264,6 +27362,12 @@ async function nmExportPlan() {
   var methodId    = window.nmCurrentMethodId         || '';
   var methodName  = window.nmCurrentMethodName       || '';
   var targetYield = window.nmCurrentTargetYield      || 0;
+  
+  // Get soil test data for report metadata (Report ID, Test Date/Time, Name)
+  var reportId    = window.nmCurrentReportId || testId;
+  var testDateTime = window.nmCurrentTestDateTime || new Date().toLocaleString();
+  var farmerName  = window.nmCurrentFarmerName || 'Default';
+  var farmId      = window.nmCurrentFarmId || '';
 
   var btn = document.querySelector('#mod-fertilizer .btn.btn-slate[onclick="nmExportPlan()"]');
   const allBtns = document.querySelectorAll('#mod-fertilizer .btn[onclick*="nmExportPlan"]');
@@ -26296,13 +27400,13 @@ async function nmExportPlan() {
     
     const reportData = {
       ClientID: clientId,
-      Farmer: 'Default',
-      Name: 'Default',
-      Farm_ID: '',
+      Farmer: farmerName,
+      Name: farmerName,
+      Farm_ID: farmId,
       Crop: cropName,
-      Test_ID: testId,
+      Test_ID: reportId,
       Device_ID: deviceId,
-      'Test Date-time': new Date().toLocaleString(),
+      'Test Date-time': testDateTime,
       'Report Date-time': new Date().toLocaleString(),
       pH: soilMetrics.pH || null,
       EC: soilMetrics.EC || null,
@@ -26631,6 +27735,84 @@ function nmRestoreDashboardState() {
       if (toggleBtn) toggleBtn.classList.add('collapsed');
       if (toggleIcon) toggleIcon.textContent = '▶';
     }
+  }
+}
+
+// Toggle collapsible sections (Data Selection, Calculation Settings)
+function nmToggleSection(sectionId) {
+  const panel = document.getElementById(sectionId + '-panel');
+  const toggleIcon = document.getElementById(sectionId + '-toggle');
+  const toggleBtn = document.querySelector(`#mod-fertilizer .nm-section-header button[onclick*="${sectionId}"]`);
+  
+  if (!panel) return;
+  
+  const isCollapsed = panel.classList.contains('collapsed');
+  
+  if (isCollapsed) {
+    // Expand section
+    panel.classList.remove('collapsed');
+    if (toggleBtn) toggleBtn.classList.remove('collapsed');
+    if (toggleIcon) toggleIcon.textContent = '▼';
+    localStorage.setItem('nm' + sectionId + 'Collapsed', 'false');
+  } else {
+    // Collapse section
+    panel.classList.add('collapsed');
+    if (toggleBtn) toggleBtn.classList.add('collapsed');
+    if (toggleIcon) toggleIcon.textContent = '▶';
+    localStorage.setItem('nm' + sectionId + 'Collapsed', 'true');
+  }
+}
+
+// Restore section states on page load
+function nmRestoreSectionStates() {
+  const sections = ['data-selection', 'calculation-settings'];
+  
+  sections.forEach(sectionId => {
+    const isCollapsed = localStorage.getItem('nm' + sectionId + 'Collapsed') === 'true';
+    if (isCollapsed) {
+      const panel = document.getElementById(sectionId + '-panel');
+      const toggleIcon = document.getElementById(sectionId + '-toggle');
+      const toggleBtn = document.querySelector(`#mod-fertilizer .nm-section-header button[onclick*="${sectionId}"]`);
+      
+      if (panel) {
+        panel.classList.add('collapsed');
+        if (toggleBtn) toggleBtn.classList.add('collapsed');
+        if (toggleIcon) toggleIcon.textContent = '▶';
+      }
+    }
+  });
+  
+  // Restore tabs wrapper state
+  const tabsWrapperCollapsed = localStorage.getItem('nmTabsWrapperCollapsed') === 'true';
+  if (tabsWrapperCollapsed) {
+    const wrapper = document.getElementById('nm-tabs-wrapper');
+    const toggleIcon = document.getElementById('nm-tabs-wrapper-toggle-icon');
+    if (wrapper) {
+      wrapper.classList.add('collapsed');
+      if (toggleIcon) toggleIcon.textContent = '▶';
+    }
+  }
+}
+
+// Toggle tabs wrapper visibility
+function nmToggleTabsWrapper() {
+  const wrapper = document.getElementById('nm-tabs-wrapper');
+  const toggleIcon = document.getElementById('nm-tabs-wrapper-toggle-icon');
+  
+  if (!wrapper) return;
+  
+  const isCollapsed = wrapper.classList.contains('collapsed');
+  
+  if (isCollapsed) {
+    // Expand section
+    wrapper.classList.remove('collapsed');
+    if (toggleIcon) toggleIcon.textContent = '▼';
+    localStorage.setItem('nmTabsWrapperCollapsed', 'false');
+  } else {
+    // Collapse section
+    wrapper.classList.add('collapsed');
+    if (toggleIcon) toggleIcon.textContent = '▶';
+    localStorage.setItem('nmTabsWrapperCollapsed', 'true');
   }
 }
 
@@ -27283,13 +28465,17 @@ function nmShowError(title, message, suggestion) {
   errorDiv.id = 'nm-current-error';
   errorDiv.className = 'nm-error-message';
   errorDiv.innerHTML = `
-    <div class="nm-error-icon">⚠️</div>
+    <svg class="nm-error-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
     <div class="nm-error-content">
       <div class="nm-error-title">${title}</div>
       <div class="nm-error-details">${message}</div>
       ${suggestion ? `<div class="nm-error-suggestion"><strong>Suggestion:</strong> ${suggestion}</div>` : ''}
     </div>
-    <button onclick="this.parentElement.remove()" style="background:none; border:none; cursor:pointer; font-size:1.5rem; color:#991b1b;">×</button>
+    <button class="nm-error-close" onclick="this.parentElement.remove()" aria-label="Close error">×</button>
   `;
   
   const content = document.querySelector('#mod-fertilizer .nm-content');
@@ -28008,6 +29194,32 @@ function renderFertStages(stages) {
 
     nutrientBody.appendChild(tr);
   });
+
+  // Sort nutrient schedule rows by stage, then nutrient for better organization
+  // Group by Stage first: Stage1|N, Stage1|P, Stage1|K, Stage2|N, Stage2|P, Stage2|K, etc.
+  const nutrientRows = Array.from(nutrientBody.querySelectorAll('tr'));
+  if (nutrientRows.length > 0) {
+    nutrientRows.sort(function(a, b) {
+      const stageA = a.cells[0].textContent;
+      const stageB = b.cells[0].textContent;
+      const nutrientA = a.cells[1].textContent;
+      const nutrientB = b.cells[1].textContent;
+      
+      // Sort by stage first
+      if (stageA !== stageB) {
+        // Extract numbers from stage names for numeric sorting
+        const numA = parseInt(stageA.match(/\d+/)?.[0] || '999');
+        const numB = parseInt(stageB.match(/\d+/)?.[0] || '999');
+        return numA - numB;
+      }
+      // Then by nutrient
+      return nutrientA.localeCompare(nutrientB);
+    });
+    
+    // Clear and re-append sorted rows
+    nutrientBody.innerHTML = '';
+    nutrientRows.forEach(row => nutrientBody.appendChild(row));
+  }
 
   if (!nutrientBody.children.length) {
     nutrientBody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:10px;">No nutrient schedule generated.</td></tr>';
