@@ -2465,12 +2465,12 @@
     }
 
     #mod-fertilizer .nm-dashboard {
-      padding: 24px;
+      padding: 20px 24px;
       background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
       border-bottom: 1px solid #e2e8f0;
       transition: all 0.3s ease;
       overflow: hidden;
-      max-height: 1000px;
+      max-height: 600px;
     }
 
     #mod-fertilizer .nm-dashboard.collapsed {
@@ -2481,18 +2481,18 @@
 
     #mod-fertilizer .nm-metrics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
     }
 
     #mod-fertilizer .nm-metric-card {
       background: white;
       border: 1px solid #e2e8f0;
       border-radius: 14px;
-      padding: 24px;
+      padding: 20px;
       display: flex;
-      gap: 20px;
+      gap: 16px;
       align-items: flex-start;
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
@@ -2598,7 +2598,7 @@
       background: white;
       border: 1px solid #e2e8f0;
       border-radius: 14px;
-      padding: 24px;
+      padding: 20px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
 
@@ -2606,29 +2606,29 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
       border-bottom: 2px solid #f1f5f9;
     }
 
     #mod-fertilizer .nm-quick-actions h3 {
       margin: 0;
-      font-size: 1rem;
+      font-size: 0.9375rem;
       font-weight: 700;
       color: #0f172a;
       letter-spacing: -0.01em;
     }
 
     #mod-fertilizer .nm-actions-subtitle {
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
       color: #64748b;
       font-weight: 500;
     }
 
     #mod-fertilizer .nm-actions-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 10px;
     }
 
     #mod-fertilizer .nm-action-btn {
@@ -2636,17 +2636,17 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 16px 12px;
+      gap: 8px;
+      padding: 14px 10px;
       background: white;
       border: 1.5px solid #e2e8f0;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
       font-weight: 600;
       color: #334155;
-      min-height: 100px;
+      min-height: 90px;
     }
 
     #mod-fertilizer .nm-action-btn:hover {
@@ -2695,8 +2695,8 @@
     }
 
     #mod-fertilizer .nm-action-icon {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2720,9 +2720,9 @@
     }
 
     #mod-fertilizer .nm-action-label {
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
       font-weight: 600;
-      line-height: 1.3;
+      line-height: 1.2;
       text-align: center;
     }
 
@@ -2730,11 +2730,24 @@
     #mod-fertilizer .nm-section-header {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
       padding: 16px 24px;
       background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
       border-bottom: 2px solid #e2e8f0;
       margin-top: 1px;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    #mod-fertilizer .nm-section-header:hover {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    }
+
+    #mod-fertilizer .nm-section-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     #mod-fertilizer .nm-section-icon {
@@ -2749,11 +2762,51 @@
       letter-spacing: -0.01em;
     }
 
+    #mod-fertilizer .nm-section-toggle {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: #2563eb;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    #mod-fertilizer .nm-section-toggle:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.5);
+      transform: translateY(-1px);
+    }
+
+    #mod-fertilizer .nm-section-toggle-icon {
+      transition: transform 0.3s ease;
+      display: inline-block;
+      font-size: 0.875rem;
+    }
+
+    #mod-fertilizer .nm-section-toggle.collapsed .nm-section-toggle-icon {
+      transform: rotate(-90deg);
+    }
+
     /* Control Panel */
     #mod-fertilizer .nm-control-panel {
       background: white;
       padding: 24px;
       border-bottom: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      max-height: 500px;
+    }
+
+    #mod-fertilizer .nm-control-panel.collapsed {
+      max-height: 0;
+      padding: 0 24px;
+      border-bottom: none;
     }
 
     #mod-fertilizer .nm-control-row {
@@ -3740,6 +3793,11 @@
       #mod-fertilizer .nm-comparison-panel {
         margin: 12px 16px;
         padding: 16px;
+      }
+
+      #mod-fertilizer .nm-action-btn {
+        min-height: 85px;
+        padding: 12px 8px;
       }
     }
 
@@ -11328,14 +11386,19 @@ tr.duplicate-row {
       </div>
 
       <!-- Data Selection Toolbar -->
-      <div class="nm-section-header">
-        <svg class="nm-section-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <span class="nm-section-title">Data Selection</span>
+      <div class="nm-section-header" onclick="nmToggleSection('data-selection')" style="cursor: pointer;">
+        <div class="nm-section-left">
+          <svg class="nm-section-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span class="nm-section-title">Data Selection</span>
+        </div>
+        <button class="nm-section-toggle" onclick="event.stopPropagation(); nmToggleSection('data-selection');" aria-label="Toggle Data Selection" title="Collapse/Expand Section">
+          <span class="nm-section-toggle-icon" id="data-selection-toggle">▼</span>
+        </button>
       </div>
-      <div class="nm-control-panel">
+      <div class="nm-control-panel" id="data-selection-panel">
         <div class="nm-control-row">
           <div class="nm-control-group">
             <label class="nm-control-label">Client</label>
@@ -11385,16 +11448,21 @@ tr.duplicate-row {
       </div>
 
       <!-- Calculation Settings -->
-      <div class="nm-section-header">
-        <svg class="nm-section-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
-          <line x1="8" y1="6" x2="16" y2="6"></line>
-          <line x1="8" y1="10" x2="16" y2="10"></line>
-          <line x1="8" y1="14" x2="12" y2="14"></line>
-        </svg>
-        <span class="nm-section-title">Calculation Settings</span>
+      <div class="nm-section-header" onclick="nmToggleSection('calculation-settings')" style="cursor: pointer;">
+        <div class="nm-section-left">
+          <svg class="nm-section-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+            <line x1="8" y1="6" x2="16" y2="6"></line>
+            <line x1="8" y1="10" x2="16" y2="10"></line>
+            <line x1="8" y1="14" x2="12" y2="14"></line>
+          </svg>
+          <span class="nm-section-title">Calculation Settings</span>
+        </div>
+        <button class="nm-section-toggle" onclick="event.stopPropagation(); nmToggleSection('calculation-settings');" aria-label="Toggle Calculation Settings" title="Collapse/Expand Section">
+          <span class="nm-section-toggle-icon" id="calculation-settings-toggle">▼</span>
+        </button>
       </div>
-      <div class="nm-control-panel">
+      <div class="nm-control-panel" id="calculation-settings-panel">
         <div class="nm-control-row">
           <div class="nm-control-group">
             <label class="nm-control-label">Target Yield</label>
@@ -26650,8 +26718,9 @@ function buildNutrientManagerIndices() {
     return a.tid.localeCompare(b.tid);
   });
   
-  // Restore dashboard state after initialization
+  // Restore dashboard and section states after initialization
   nmRestoreDashboardState();
+  nmRestoreSectionStates();
 }
 
 function nmFilterAndRenderDeviceList(filter, allowedDevices) {
@@ -27538,6 +27607,51 @@ function nmRestoreDashboardState() {
       if (toggleIcon) toggleIcon.textContent = '▶';
     }
   }
+}
+
+// Toggle collapsible sections (Data Selection, Calculation Settings)
+function nmToggleSection(sectionId) {
+  const panel = document.getElementById(sectionId + '-panel');
+  const toggleIcon = document.getElementById(sectionId + '-toggle');
+  const toggleBtn = document.querySelector(`#mod-fertilizer .nm-section-header button[onclick*="${sectionId}"]`);
+  
+  if (!panel) return;
+  
+  const isCollapsed = panel.classList.contains('collapsed');
+  
+  if (isCollapsed) {
+    // Expand section
+    panel.classList.remove('collapsed');
+    if (toggleBtn) toggleBtn.classList.remove('collapsed');
+    if (toggleIcon) toggleIcon.textContent = '▼';
+    localStorage.setItem('nm' + sectionId + 'Collapsed', 'false');
+  } else {
+    // Collapse section
+    panel.classList.add('collapsed');
+    if (toggleBtn) toggleBtn.classList.add('collapsed');
+    if (toggleIcon) toggleIcon.textContent = '▶';
+    localStorage.setItem('nm' + sectionId + 'Collapsed', 'true');
+  }
+}
+
+// Restore section states on page load
+function nmRestoreSectionStates() {
+  const sections = ['data-selection', 'calculation-settings'];
+  
+  sections.forEach(sectionId => {
+    const isCollapsed = localStorage.getItem('nm' + sectionId + 'Collapsed') === 'true';
+    if (isCollapsed) {
+      const panel = document.getElementById(sectionId + '-panel');
+      const toggleIcon = document.getElementById(sectionId + '-toggle');
+      const toggleBtn = document.querySelector(`#mod-fertilizer .nm-section-header button[onclick*="${sectionId}"]`);
+      
+      if (panel) {
+        panel.classList.add('collapsed');
+        if (toggleBtn) toggleBtn.classList.add('collapsed');
+        if (toggleIcon) toggleIcon.textContent = '▶';
+      }
+    }
+  });
 }
 
 function nmShowHelp() {
