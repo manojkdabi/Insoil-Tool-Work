@@ -25006,7 +25006,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 matches.forEach(d => {
                     const i = document.createElement('div');
                     i.className = 'autocomplete-item';
-                    i.innerHTML = `<strong>${d.did}</strong> <span style='font-size:0.8em;color:#666'>(${d.client||''})</span>`;
+                    i.innerHTML = `<strong>${escapeHtml(d.did)}</strong> <span style='font-size:0.8em;color:#666'>(${escapeHtml(d.client||'')})</span>`;
                     i.onclick = () => selectDevice(d);
                     list.appendChild(i);
                 });
@@ -25161,17 +25161,27 @@ function toggleExportButton(enable) {
 
 function submitServiceForm() {
     const btn = document.getElementById('svc-main-btn');
-    const btnText = btn.innerText;
-    const ticketId = document.getElementById('svc-ticket-id').value.trim();
+    const btnText = btn ? btn.innerText : '';
+    const ticketId = document.getElementById('svc-ticket-id')?.value?.trim() || '';
     
-    if (!ticketId) return alert("No active ticket.");
+    // Validation: Ticket ID must exist
+    if (!ticketId) {
+        showToast('No active ticket. Please create a new ticket first.', 'error');
+        return;
+    }
+    
+    // Validation: Ticket ID format (alphanumeric, dashes, underscores)
+    if (!/^[A-Za-z0-9_-]+$/.test(ticketId)) {
+        showToast('Invalid ticket ID format.', 'error');
+        return;
+    }
 
     if (btnText === "Draft") {
         // Drafts don't require file validation
         saveToBackend('OPEN', null);
     } else {
         if (!serviceCostAccepted) {
-            alert("Please accept the service basket before closing the ticket.");
+            showToast('Please accept the service basket before closing the ticket.', 'error');
             return;
         }
         // --- CLOSURE VALIDATION ---
@@ -25182,27 +25192,36 @@ function submitServiceForm() {
         const fileInput = document.getElementById('svc-feedback-file');
         
         // 2. Check if file exists
-        if (fileInput.files.length === 0) {
-            return alert("Please upload the Customer Feedback Form.");
+        if (!fileInput || fileInput.files.length === 0) {
+            showToast('Please upload the Customer Feedback Form.', 'error');
+            return;
         }
         
         const file = fileInput.files[0];
         
-        // 3. VALIDATE FILENAME MATCHES TICKET ID
+        // 3. Validate file size (max 10MB)
+        if (file.size > 10 * 1024 * 1024) {
+            showToast('File size must be less than 10MB.', 'error');
+            return;
+        }
+        
+        // 4. VALIDATE FILENAME MATCHES TICKET ID
         // Removes extension (e.g., ".pdf") to check just the name
         const fileNameNoExt = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
         
         if (fileNameNoExt !== ticketId) {
-            alert(`Form filename must match Ticket ID.\n\nTicket ID: ${ticketId}\nFilename: ${fileNameNoExt}`);
+            showToast(`Form filename must match Ticket ID.\n\nTicket ID: ${ticketId}\nFilename: ${fileNameNoExt}`, 'error');
             return; // Stop processing
         }
         
-        // 4. Proceed if Valid
+        // 5. Proceed if Valid
         const reader = new FileReader();
         
         // Disable button while processing
-        btn.disabled = true;
-        btn.innerText = "Processing...";
+        if (btn) {
+            btn.disabled = true;
+            btn.innerText = "Processing...";
+        }
         
         reader.onload = function(e) {
             const base64 = e.target.result; 
@@ -25214,7 +25233,25 @@ function submitServiceForm() {
             saveToBackend('RESOLVED', filePayload);
         };
         
-        reader.readAsDataURL(file);
+        reader.onerror = function(err) {
+            console.error('File read error:', err);
+            showToast('Failed to read file. Please try again.', 'error');
+            if (btn) {
+                btn.disabled = false;
+                btn.innerText = btnText;
+            }
+        };
+        
+        try {
+            reader.readAsDataURL(file);
+        } catch (err) {
+            console.error('FileReader error:', err);
+            showToast('Failed to process file. Please try again.', 'error');
+            if (btn) {
+                btn.disabled = false;
+                btn.innerText = btnText;
+            }
+        }
     }
 }
 
@@ -25432,6 +25469,20 @@ function clearServiceSearch() {
     const input = document.getElementById('svc-device-search');
     if (input) input.value = '';
     if (list) list.style.display = 'none';
+    
+    // Clear service form state to prevent inconsistency
+    if (typeof clearServiceForm === 'function') {
+        clearServiceForm();
+    }
+    
+    // Reset global state variables
+    if (typeof currentDeviceMeta !== 'undefined') {
+        currentDeviceMeta = null;
+    }
+    if (typeof serviceCostAccepted !== 'undefined') {
+        serviceCostAccepted = false;
+    }
+    
     toggleNewTicketBtn(false);
 }
 
@@ -25516,7 +25567,7 @@ function renderServiceHistoryTable(history) {
     }
     history.forEach(item => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${item.date || '-'}</td><td>${item.ticket || '-'}</td><td>${item.status || '-'}</td>`;
+        tr.innerHTML = `<td>${escapeHtml(item.date || '-')}</td><td>${escapeHtml(item.ticket || '-')}</td><td>${escapeHtml(item.status || '-')}</td>`;
         tr.addEventListener('click', () => loadExistingTicket(item));
         tbody.appendChild(tr);
     });
@@ -25551,64 +25602,82 @@ function refreshServiceHistory(did) {
 
 // 1. Process Config into Tree (Splits BOTH Actions and Sub-Actions)
 function processServiceConfig(flatList) {
+    // Error boundary: Validate input
+    if (!Array.isArray(flatList)) {
+        console.warn('processServiceConfig: Invalid input, expected array but got:', typeof flatList);
+        showToast('Failed to load service configuration. Please refresh the page.', 'error');
+        return;
+    }
+    
     serviceConfigTree = {};
     serviceActionMeta = new Map();
     
-    flatList.forEach(row => {
-        const btnName = row.btn || row.name || row.Button_Name;
-        const subName = row.sub || row.Sub_Component || 'General';
-        const unitVal = row.unit || row.Unit || row.units || row.Units || '';
-        const costVal = row.cost || row.Cost || row['Cost (INR/unit)'] || row['Cost_INR'] || '';
-        const sectionRaw = row.section || row.Section || row.SECTION || row['Section'] || row['SECTION'] || '';
-        const sectionName = String(sectionRaw || '').trim() || 'Hardware';
-        
-        // FIX: Split Actions by comma (handles "Clean, Replace" in one cell)
-        const actStr = row.act || row.Actions || "General";
-        const actionList = actStr.split(',').map(s => s.trim()).filter(s => s);
-
-        // Split Sub-Actions by comma
-        const subActStr = row.subActions || row.Sub_Actions || "";
-        const subActList = subActStr.split(',').map(s => s.trim()).filter(s => s);
-
-        if (!btnName) return;
-
-        // Initialize Tree Levels
-        if (!serviceConfigTree[btnName]) {
-            serviceConfigTree[btnName] = { 
-                section: sectionName, 
-                subs: {} 
-            };
-        } else if (sectionName !== 'Hardware' && serviceConfigTree[btnName].section === 'Hardware') {
-            serviceConfigTree[btnName].section = sectionName;
-        } else if (sectionName !== serviceConfigTree[btnName].section) {
-            console.warn('Service config section mismatch for button', { btnName, existing: serviceConfigTree[btnName].section, incoming: sectionName });
-        }
-        
-        if (!serviceConfigTree[btnName].subs[subName]) {
-            serviceConfigTree[btnName].subs[subName] = {}; 
-        }
-
-        // Assign Sub-Actions to EACH Action in the list
-        actionList.forEach(actName => {
-            const metaKey = `${btnName}|||${subName}|||${actName}|||`;
-            serviceActionMeta.set(metaKey, { unit: unitVal, cost: costVal });
-            // Initialize array for this specific action if missing
-            if (!serviceConfigTree[btnName].subs[subName][actName]) {
-                 serviceConfigTree[btnName].subs[subName][actName] = [];
+    try {
+        flatList.forEach(row => {
+            // Null check for row
+            if (!row || typeof row !== 'object') {
+                console.warn('processServiceConfig: Skipping invalid row:', row);
+                return;
             }
             
-            // If this row has sub-actions, add them to this action's list
-            if (subActList.length > 0) {
-                subActList.forEach(subActName => {
-                    const subKey = `${btnName}|||${subName}|||${actName}|||${subActName}`;
-                    serviceActionMeta.set(subKey, { unit: unitVal, cost: costVal });
-                });
-                serviceConfigTree[btnName].subs[subName][actName].push(...subActList);
+            const btnName = row.btn || row.name || row.Button_Name;
+            const subName = row.sub || row.Sub_Component || 'General';
+            const unitVal = row.unit || row.Unit || row.units || row.Units || '';
+            const costVal = row.cost || row.Cost || row['Cost (INR/unit)'] || row['Cost_INR'] || '';
+            const sectionRaw = row.section || row.Section || row.SECTION || row['Section'] || row['SECTION'] || '';
+            const sectionName = String(sectionRaw || '').trim() || 'Hardware';
+            
+            // FIX: Split Actions by comma (handles "Clean, Replace" in one cell)
+            const actStr = row.act || row.Actions || "General";
+            const actionList = actStr.split(',').map(s => s.trim()).filter(s => s);
+
+            // Split Sub-Actions by comma
+            const subActStr = row.subActions || row.Sub_Actions || "";
+            const subActList = subActStr.split(',').map(s => s.trim()).filter(s => s);
+
+            if (!btnName) return;
+
+            // Initialize Tree Levels
+            if (!serviceConfigTree[btnName]) {
+                serviceConfigTree[btnName] = { 
+                    section: sectionName, 
+                    subs: {} 
+                };
+            } else if (sectionName !== 'Hardware' && serviceConfigTree[btnName].section === 'Hardware') {
+                serviceConfigTree[btnName].section = sectionName;
+            } else if (sectionName !== serviceConfigTree[btnName].section) {
+                console.warn('Service config section mismatch for button', { btnName, existing: serviceConfigTree[btnName].section, incoming: sectionName });
             }
+            
+            if (!serviceConfigTree[btnName].subs[subName]) {
+                serviceConfigTree[btnName].subs[subName] = {}; 
+            }
+
+            // Assign Sub-Actions to EACH Action in the list
+            actionList.forEach(actName => {
+                const metaKey = `${btnName}|||${subName}|||${actName}|||`;
+                serviceActionMeta.set(metaKey, { unit: unitVal, cost: costVal });
+                // Initialize array for this specific action if missing
+                if (!serviceConfigTree[btnName].subs[subName][actName]) {
+                     serviceConfigTree[btnName].subs[subName][actName] = [];
+                }
+                
+                // If this row has sub-actions, add them to this action's list
+                if (subActList.length > 0) {
+                    subActList.forEach(subActName => {
+                        const subKey = `${btnName}|||${subName}|||${actName}|||${subActName}`;
+                        serviceActionMeta.set(subKey, { unit: unitVal, cost: costVal });
+                    });
+                    serviceConfigTree[btnName].subs[subName][actName].push(...subActList);
+                }
+            });
         });
-    });
-    
-    renderServiceButtons();
+        
+        renderServiceButtons();
+    } catch (err) {
+        console.error('processServiceConfig: Error processing service configuration:', err);
+        showToast('Error loading service configuration. Some features may not work correctly.', 'error');
+    }
 }
 
 function renderServiceButtons() {
