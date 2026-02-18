@@ -2201,11 +2201,81 @@
 
     /***** NUTRIENT MANAGER - ENHANCED UI/UX *****/
     
+    /* Ensure module is scrollable */
+    #mod-fertilizer {
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    
     /* Dashboard Section */
+    /* Dashboard Header with Toggle */
+    #mod-fertilizer .nm-dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #mod-fertilizer .nm-dashboard-header:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    }
+
+    #mod-fertilizer .nm-dashboard-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #mod-fertilizer .nm-dashboard-toggle {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px;
+      padding: 6px 12px;
+      color: white;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #mod-fertilizer .nm-dashboard-toggle:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    #mod-fertilizer #nm-dashboard-toggle-icon {
+      transition: transform 0.3s ease;
+      display: inline-block;
+      font-size: 0.75rem;
+    }
+
+    #mod-fertilizer .nm-dashboard-toggle.collapsed #nm-dashboard-toggle-icon {
+      transform: rotate(-90deg);
+    }
+
     #mod-fertilizer .nm-dashboard {
       padding: 20px;
       background: #f9fafb;
       border-bottom: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      max-height: 1000px;
+    }
+
+    #mod-fertilizer .nm-dashboard.collapsed {
+      max-height: 0;
+      padding: 0 20px;
+      border-bottom: none;
     }
 
     #mod-fertilizer .nm-metrics-grid {
@@ -2940,6 +3010,7 @@
     @media print {
       #mod-fertilizer .nm-toolbar,
       #mod-fertilizer .nm-dashboard,
+      #mod-fertilizer .nm-dashboard-header,
       #mod-fertilizer .nm-quick-actions,
       #mod-fertilizer .nm-loading-overlay,
       #mod-fertilizer .tab-nav,
@@ -3058,8 +3129,25 @@
 
     /* Mobile Responsiveness */
     @media (max-width: 768px) {
+      #mod-fertilizer .nm-dashboard-header {
+        padding: 10px 16px;
+      }
+
+      #mod-fertilizer .nm-dashboard-title {
+        font-size: 0.875rem;
+      }
+
+      #mod-fertilizer .nm-dashboard-toggle {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+      }
+
       #mod-fertilizer .nm-dashboard {
         padding: 12px;
+      }
+
+      #mod-fertilizer .nm-dashboard.collapsed {
+        padding: 0 12px;
       }
 
       #mod-fertilizer .nm-metrics-grid {
@@ -10181,8 +10269,14 @@ tr.duplicate-row {
     <!-- Nutrient Manager Module -->
     <!-- ==================== Fertilizer Module ==================== -->
     <div id="mod-fertilizer" class="module-view">
-      <!-- Dashboard Section -->
-      <div class="nm-dashboard">
+      <!-- Dashboard Section with Collapse Toggle -->
+      <div class="nm-dashboard-header" onclick="nmToggleDashboard()">
+        <h2 class="nm-dashboard-title">Dashboard Overview</h2>
+        <button class="nm-dashboard-toggle" onclick="event.stopPropagation(); nmToggleDashboard();" aria-label="Toggle Dashboard" title="Collapse/Expand Dashboard">
+          <span id="nm-dashboard-toggle-icon">▼</span>
+        </button>
+      </div>
+      <div class="nm-dashboard" id="nm-dashboard-content">
         <!-- Metrics Cards -->
         <div class="nm-metrics-grid">
           <div class="nm-metric-card primary">
@@ -27457,6 +27551,9 @@ function buildNutrientManagerIndices() {
   }).sort(function (a, b) {
     return a.tid.localeCompare(b.tid);
   });
+  
+  // Restore dashboard state after initialization
+  nmRestoreDashboardState();
 }
 
 function nmFilterAndRenderDeviceList(filter, allowedDevices) {
@@ -28349,6 +28446,47 @@ function nmClearAll() {
     nmUpdateDashboard();
     
     nmShowToast('success', 'Cleared', 'All data has been cleared', 2000);
+  }
+}
+
+// Toggle dashboard visibility
+function nmToggleDashboard() {
+  const dashboard = document.getElementById('nm-dashboard-content');
+  const toggleBtn = document.querySelector('#mod-fertilizer .nm-dashboard-toggle');
+  const toggleIcon = document.getElementById('nm-dashboard-toggle-icon');
+  
+  if (!dashboard) return;
+  
+  const isCollapsed = dashboard.classList.contains('collapsed');
+  
+  if (isCollapsed) {
+    // Expand dashboard
+    dashboard.classList.remove('collapsed');
+    toggleBtn.classList.remove('collapsed');
+    toggleIcon.textContent = '▼';
+    localStorage.setItem('nmDashboardCollapsed', 'false');
+  } else {
+    // Collapse dashboard
+    dashboard.classList.add('collapsed');
+    toggleBtn.classList.add('collapsed');
+    toggleIcon.textContent = '▶';
+    localStorage.setItem('nmDashboardCollapsed', 'true');
+  }
+}
+
+// Restore dashboard state on page load
+function nmRestoreDashboardState() {
+  const isCollapsed = localStorage.getItem('nmDashboardCollapsed') === 'true';
+  if (isCollapsed) {
+    const dashboard = document.getElementById('nm-dashboard-content');
+    const toggleBtn = document.querySelector('#mod-fertilizer .nm-dashboard-toggle');
+    const toggleIcon = document.getElementById('nm-dashboard-toggle-icon');
+    
+    if (dashboard) {
+      dashboard.classList.add('collapsed');
+      if (toggleBtn) toggleBtn.classList.add('collapsed');
+      if (toggleIcon) toggleIcon.textContent = '▶';
+    }
   }
 }
 
