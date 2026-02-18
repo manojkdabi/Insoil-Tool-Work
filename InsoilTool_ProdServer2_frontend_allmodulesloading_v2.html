@@ -3723,6 +3723,24 @@
       #mod-fertilizer .sub-tab-content {
         padding: 16px;
       }
+
+      #mod-fertilizer .nm-toast {
+        left: 12px;
+        right: 12px;
+        min-width: auto;
+        max-width: none;
+      }
+
+      #mod-fertilizer .nm-section-header {
+        padding: 12px 16px;
+      }
+
+      #mod-fertilizer .nm-filter-panel,
+      #mod-fertilizer .nm-recent-panel,
+      #mod-fertilizer .nm-comparison-panel {
+        margin: 12px 16px;
+        padding: 16px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -3740,6 +3758,31 @@
 
       #mod-fertilizer .nm-action-btn {
         min-height: 80px;
+      }
+
+      #mod-fertilizer .nm-tabs-container {
+        padding: 0 12px;
+      }
+
+      #mod-fertilizer .nm-tab {
+        padding: 10px 12px;
+        font-size: 0.75rem;
+      }
+
+      #mod-fertilizer .nm-tab svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      #mod-fertilizer .nm-actions-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #mod-fertilizer .nm-btn,
+      #mod-fertilizer .nm-select {
+        width: 100%;
+        justify-content: center;
       }
     }
 
@@ -3797,60 +3840,142 @@
     #mod-fertilizer .nm-error-message {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      border-left: 4px solid #dc2626;
-      border-radius: 6px;
-      margin: 12px 0;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+      border: 1.5px solid #fecaca;
+      border-left: 4px solid #ef4444;
+      border-radius: 10px;
+      margin: 16px 24px;
       font-size: 0.875rem;
       color: #991b1b;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15);
     }
 
     #mod-fertilizer .nm-error-icon {
-      font-size: 1.25rem;
+      width: 20px;
+      height: 20px;
       flex-shrink: 0;
+      color: #ef4444;
+    }
+
+    #mod-fertilizer .nm-success-message {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border: 1.5px solid #bbf7d0;
+      border-left: 4px solid #10b981;
+      border-radius: 10px;
+      margin: 16px 24px;
+      font-size: 0.875rem;
+      color: #065f46;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+    }
+
+    #mod-fertilizer .nm-warning-message {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border: 1.5px solid #fde68a;
+      border-left: 4px solid #f59e0b;
+      border-radius: 10px;
+      margin: 16px 24px;
+      font-size: 0.875rem;
+      color: #92400e;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+    }
+
+    #mod-fertilizer .nm-info-message {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1.5px solid #bfdbfe;
+      border-left: 4px solid #3b82f6;
+      border-radius: 10px;
+      margin: 16px 24px;
+      font-size: 0.875rem;
+      color: #1e40af;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
     }
 
     #mod-fertilizer .nm-error-content {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     #mod-fertilizer .nm-error-title {
       font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    #mod-fertilizer .nm-error-details {
-      font-size: 0.8125rem;
+      font-size: 0.9375rem;
       color: #7f1d1d;
     }
 
+    #mod-fertilizer .nm-error-details {
+      font-size: 0.875rem;
+      color: #991b1b;
+      line-height: 1.5;
+    }
+
     #mod-fertilizer .nm-error-suggestion {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px solid #fecaca;
+      margin-top: 6px;
       font-size: 0.8125rem;
       color: #991b1b;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 6px;
+    }
+
+    #mod-fertilizer .nm-error-close {
+      background: rgba(220, 38, 38, 0.1);
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #dc2626;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    #mod-fertilizer .nm-error-close:hover {
+      background: rgba(220, 38, 38, 0.2);
+      transform: scale(1.1);
     }
 
     #mod-fertilizer .nm-input-error {
-      border-color: #dc2626 !important;
+      border-color: #ef4444 !important;
       background: #fef2f2 !important;
     }
 
     #mod-fertilizer .nm-input-success {
-      border-color: #16a34a !important;
+      border-color: #10b981 !important;
       background: #f0fdf4 !important;
     }
 
     #mod-fertilizer .nm-validation-icon {
       position: absolute;
-      right: 8px;
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 1rem;
+      font-size: 1.125rem;
+      pointer-events: none;
     }
 
     /* Enhanced Tables */
@@ -3866,70 +3991,6 @@
       letter-spacing: 0.5px;
       font-size: 0.75rem;
       color: #6b7280;
-    }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
-      #mod-fertilizer .nm-dashboard-header {
-        padding: 10px 16px;
-      }
-
-      #mod-fertilizer .nm-dashboard-title {
-        font-size: 0.875rem;
-      }
-
-      #mod-fertilizer .nm-dashboard-toggle {
-        padding: 5px 10px;
-        font-size: 0.75rem;
-      }
-
-      #mod-fertilizer .nm-dashboard {
-        padding: 12px;
-      }
-
-      #mod-fertilizer .nm-dashboard.collapsed {
-        padding: 0 12px;
-      }
-
-      #mod-fertilizer .nm-metrics-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      #mod-fertilizer .nm-metric-card {
-        padding: 16px;
-      }
-
-      #mod-fertilizer .nm-metric-icon {
-        font-size: 2rem;
-      }
-
-      #mod-fertilizer .nm-metric-value {
-        font-size: 1.5rem;
-      }
-
-      #mod-fertilizer .nm-actions-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      #mod-fertilizer .nm-toast {
-        left: 10px;
-        right: 10px;
-        min-width: auto;
-      }
-
-      #mod-fertilizer .nm-toolbar-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      #mod-fertilizer .nm-toolbar-row > * {
-        width: 100% !important;
-      }
-
-      #mod-fertilizer .module-header {
-        padding: 12px;
-      }
     }
 
     /***** DEVICE QA/QC – LAYOUT (single source of truth) *****/
@@ -28128,13 +28189,17 @@ function nmShowError(title, message, suggestion) {
   errorDiv.id = 'nm-current-error';
   errorDiv.className = 'nm-error-message';
   errorDiv.innerHTML = `
-    <div class="nm-error-icon">⚠️</div>
+    <svg class="nm-error-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
     <div class="nm-error-content">
       <div class="nm-error-title">${title}</div>
       <div class="nm-error-details">${message}</div>
       ${suggestion ? `<div class="nm-error-suggestion"><strong>Suggestion:</strong> ${suggestion}</div>` : ''}
     </div>
-    <button onclick="this.parentElement.remove()" style="background:none; border:none; cursor:pointer; font-size:1.5rem; color:#991b1b;">×</button>
+    <button class="nm-error-close" onclick="this.parentElement.remove()" aria-label="Close error">×</button>
   `;
   
   const content = document.querySelector('#mod-fertilizer .nm-content');
